@@ -574,17 +574,17 @@
     "block.botania.red_mystical_flower": "Mystische Rote Blume",
     "block.botania.black_mystical_flower": "Mystische Schwarze Blume",
     "block.botania.apothecary_default": "Blütenapotheke",
-    "block.botania.apothecary_forest": "Wald Blütenapotheke",
-    "block.botania.apothecary_plains": "Ebenen Blütenapotheke",
-    "block.botania.apothecary_mountain": "Berge Blütenapotheke",
-    "block.botania.apothecary_fungal": "Pilzartiger Blütenapotheke",
-    "block.botania.apothecary_swamp": "Sumpf Blütenapotheke",
-    "block.botania.apothecary_desert": "Wüste Blütenapotheke",
-    "block.botania.apothecary_taiga": "Taiga Blütenapotheke",
-    "block.botania.apothecary_mesa": "Mesa Blütenapotheke",
-    "block.botania.apothecary_mossy": "Moosiger Blütenapotheke",
-    "block.botania.apothecary_livingrock": "Lebestein Blütenapotheke",
-    "block.botania.apothecary_deepslate": "Tiefenschiefer Blütenapotheke",
+    "block.botania.apothecary_forest": "Fuchsit-Blütenapotheke",
+    "block.botania.apothecary_plains": "Talk-Blütenapotheke",
+    "block.botania.apothecary_mountain": "Gneiss-Blütenapotheke",
+    "block.botania.apothecary_fungal": "Mycelit-Blütenapotheke",
+    "block.botania.apothecary_swamp": "Kataklasit-Blütenapotheke",
+    "block.botania.apothecary_desert": "Solit-Blütenapotheke",
+    "block.botania.apothecary_taiga": "Lunit-Blütenapotheke",
+    "block.botania.apothecary_mesa": "Rosentalk-Blütenapotheke",
+    "block.botania.apothecary_mossy": "Moosige Blütenapotheke",
+    "block.botania.apothecary_livingrock": "Lebestein-Blütenapotheke",
+    "block.botania.apothecary_deepslate": "Tiefenschiefer-Blütenapotheke",
     "block.botania.livingrock": "Lebestein",
 
 
@@ -621,7 +621,7 @@
     "block.botania.natura_pylon": "Naturapylon",
     "block.botania.gaia_pylon": "Gaiapylon",
     "block.botania.mana_void": "Manaleere",
-    "block.botania.mana_detector": "Mandetektor",
+    "block.botania.mana_detector": "Manasensor",
     "block.botania.enchanter": "Manaverzauberer",
     "block.botania.turntable": "Verteiler-Drehscheibe",
     "block.botania.tiny_planet_block": "Winziger Planet",
@@ -636,7 +636,7 @@
 
     "block.botania.drum_wild": "Trommel der Wildnis",
     "block.botania.drum_gathering": "Trommel des Sammelns",
-    "block.botania.drum_canopy": "Trommel der Überdachung",
+    "block.botania.drum_canopy": "Trommel der Baumkronen",
     "block.botania.white_shiny_flower": "Schimmernde Weiße Blume",
     "block.botania.orange_shiny_flower": "Schimmernde Orange Blume",
     "block.botania.magenta_shiny_flower": "Schimmernde Magentafarbene Blume",
@@ -657,41 +657,41 @@
     "block.botania.spectral_platform": "Spektralplattform",
     "block.botania.infrangible_platform": "Unzerbrechliche Plattform",
     "block.botania.alfheim_portal": "Elfenportal-Herzstück",
-    "block.botania.dark_quartz": "Rauchiger Quartzblock",
-    "block.botania.chiseled_dark_quartz": "Gemeißelter Rauchiger Quartzblock",
-    "block.botania.dark_quartz_pillar": "Rauchige Quartzsäule",
-    "block.botania.dark_quartz_slab": "Rauchige Quartzstufe",
-    "block.botania.dark_quartz_stairs": "Rauchige Quartztreppe",
-    "block.botania.mana_quartz": "Manaquartzblock",
-    "block.botania.chiseled_mana_quartz": "Gemeißelter Manaquartzblock",
-    "block.botania.mana_quartz_pillar": "Manaquartzsäule",
-    "block.botania.mana_quartz_slab": "Manaquartzstufe",
-    "block.botania.mana_quartz_stairs": "Manaquartzstufe",
-    "block.botania.blaze_quartz": "Lodernder Quartzblock",
-    "block.botania.chiseled_blaze_quartz": "Gemeißelter Lodernder Quartzblock",
-    "block.botania.blaze_quartz_pillar": "Lodernde Quartzsäule",
-    "block.botania.blaze_quartz_slab": "Lodernde Quartzstufe",
-    "block.botania.blaze_quartz_stairs": "Lodernde Quartztreppe",
-    "block.botania.lavender_quartz": "Lavendelquartzblock",
-    "block.botania.chiseled_lavender_quartz": "Gemeißelter Lavendelquartzblock",
-    "block.botania.lavender_quartz_pillar": "Lavendelquartzsäule",
-    "block.botania.lavender_quartz_slab": "Lavendelquartzstufe",
-    "block.botania.lavender_quartz_stairs": "Lavendelquartzstufe",
-    "block.botania.red_quartz": "Rotquartzblock",
-    "block.botania.chiseled_red_quartz": "Gemeißelter Rotquartzblock",
-    "block.botania.red_quartz_pillar": "Rotquartzsäule",
-    "block.botania.red_quartz_slab": "Rotquartzstufe",
-    "block.botania.red_quartz_stairs": "Rotquartzstufe",
-    "block.botania.elf_quartz": "Elfenquartzblock",
-    "block.botania.chiseled_elf_quartz": "Gemeißelter Elfenquartzblock",
-    "block.botania.elf_quartz_pillar": "Elfenquartzsäule",
-    "block.botania.elf_quartz_slab": "Elfenquartzstufe",
-    "block.botania.elf_quartz_stairs": "Elfenquartzstufe",
-    "block.botania.sunny_quartz": "Sonniger Quartzblock",
-    "block.botania.chiseled_sunny_quartz": "Gemeißelter Sonniger Quartzblock",
-    "block.botania.sunny_quartz_pillar": "Sonnige Quartzsäule",
-    "block.botania.sunny_quartz_slab": "Sonnige Quartzstufe",
-    "block.botania.sunny_quartz_stairs": "Sonnige Quartztreppe",
+    "block.botania.dark_quartz": "Rauchquarzblock",
+    "block.botania.chiseled_dark_quartz": "Gemeißelter Rauchquarzblock",
+    "block.botania.dark_quartz_pillar": "Rauchquarzsäule",
+    "block.botania.dark_quartz_slab": "Rauchquarzstufe",
+    "block.botania.dark_quartz_stairs": "Rauchquarztreppe",
+    "block.botania.mana_quartz": "Manaquarzblock",
+    "block.botania.chiseled_mana_quartz": "Gemeißelter Manaquarzblock",
+    "block.botania.mana_quartz_pillar": "Manaquarzsäule",
+    "block.botania.mana_quartz_slab": "Manaquarzstufe",
+    "block.botania.mana_quartz_stairs": "Manaquarzstufe",
+    "block.botania.blaze_quartz": "Lohenquarzblock",
+    "block.botania.chiseled_blaze_quartz": "Gemeißelter Lohenquarzblock",
+    "block.botania.blaze_quartz_pillar": "Lohenquarzsäule",
+    "block.botania.blaze_quartz_slab": "Lohenquarzstufe",
+    "block.botania.blaze_quartz_stairs": "Lohenuartztreppe",
+    "block.botania.lavender_quartz": "Lavendelquarzblock",
+    "block.botania.chiseled_lavender_quartz": "Gemeißelter Lavendelquarzblock",
+    "block.botania.lavender_quartz_pillar": "Lavendelquarzsäule",
+    "block.botania.lavender_quartz_slab": "Lavendelquarzstufe",
+    "block.botania.lavender_quartz_stairs": "Lavendelquarzstufe",
+    "block.botania.red_quartz": "Rotquarzblock",
+    "block.botania.chiseled_red_quartz": "Gemeißelter Rotquarzblock",
+    "block.botania.red_quartz_pillar": "Rotquarzsäule",
+    "block.botania.red_quartz_slab": "Rotquarzstufe",
+    "block.botania.red_quartz_stairs": "Rotquarzstufe",
+    "block.botania.elf_quartz": "Elfenquarzblock",
+    "block.botania.chiseled_elf_quartz": "Gemeißelter Elfenquarzblock",
+    "block.botania.elf_quartz_pillar": "Elfenquarzsäule",
+    "block.botania.elf_quartz_slab": "Elfenquarzstufe",
+    "block.botania.elf_quartz_stairs": "Elfenquarzstufe",
+    "block.botania.sunny_quartz": "Sonnenquarzblock",
+    "block.botania.chiseled_sunny_quartz": "Gemeißelter Sonnenquarzblock",
+    "block.botania.sunny_quartz_pillar": "Sonnenquarzsäule",
+    "block.botania.sunny_quartz_slab": "Sonnenquarzstufe",
+    "block.botania.sunny_quartz_stairs": "Sonnenquarztreppe",
     "block.botania.dreamwood": "Traumholz",
     "block.botania.dreamwood_planks": "Traumholzbretter",
     "block.botania.mossy_dreamwood_planks": "Bemooste Traumholzbretter",
@@ -773,7 +773,7 @@
     "block.botania.red_string_relay": "Rotfaden-Manipulator",
     "block.botania.red_string_interceptor": "Rotfaden-Abfänger",
     "block.botania.mana_flame": "Mana-Flamme",
-    "block.botania.prism": "Mana-Prisma",
+    "block.botania.prism": "Manaprisma",
     "block.botania.enchanted_soil": "Verzauberter Boden",
     "block.botania.metamorphic_forest_stone": "Fuchsit",
     "block.botania.metamorphic_plains_stone": "Talk",
@@ -930,7 +930,7 @@
     "block.botania.green_double_flower": "Große Mystische Grüne Blume",
     "block.botania.red_double_flower": "Große Mystische Rote Blume",
     "block.botania.black_double_flower": "Große Mystische Schwarze Blume",
-    "block.botania.blaze_block": "Lohenstaubgeflecht",
+    "block.botania.blaze_block": "Lohengeflecht",
     "block.botania.corporea_interceptor": "Corporea-Abfänger",
     "block.botania.corporea_crystal_cube": "Corporea-Kristallwürfel",
     "block.botania.incense_plate": "Räucherplatte",
@@ -941,7 +941,7 @@
     "block.botania.fel_pumpkin": "Gallkürbis",
     "block.botania.cocoon": "Kokon der Willkür",
     "block.botania.light_relay": "Beleuchter",
-    "block.botania.detector_light_relay": "Detektor-Beleuchter",
+    "block.botania.detector_light_relay": "Sensorbeleuchter",
     "block.botania.fork_light_relay": "Beleuchtergabelung",
     "block.botania.toggle_light_relay": "Geschalteter Beleuchter",
     "block.botania.light_launcher": "Beleuchterstarter",
@@ -1290,11 +1290,11 @@
     "item.botania.infused_seeds": "Infundierte Weidesamen",
     "item.botania.mutated_seeds": "Mutierte Weidesamen",
     "item.botania.livingwood_twig": "Lebeholzzweig",
-    "item.botania.dirt_rod": "Stab der Lande",
+    "item.botania.dirt_rod": "Stab des Landes",
     "item.botania.terraform_rod": "Terrafirmastab",
     "item.botania.mana_mirror": "Manaspiegel",
     "item.botania.manasteel_helmet": "Manastahlhelm",
-    "item.botania.manasteel_chestplate": "Manastahlbrustpanzer",
+    "item.botania.manasteel_chestplate": "Manastahlharnisch",
     "item.botania.manasteel_leggings": "Manastahlbeinschutz",
     "item.botania.manasteel_boots": "Manastahlstiefel",
     "item.botania.manasteel_pick": "Manastahlspitzhacke",
@@ -1308,7 +1308,7 @@
     "item.botania.horn_snow": "Horn der Abdeckung",
     "item.botania.terrasteel_ingot": "Terrastahlbarren",
     "item.botania.terrasteel_helmet": "Terrastahlhelm",
-    "item.botania.terrasteel_chestplate": "Terrastahlbrustpanzer",
+    "item.botania.terrasteel_chestplate": "Terrastahlharnisch",
     "item.botania.terrasteel_leggings": "Terrastahlbeinschutz",
     "item.botania.terrasteel_boots": "Terrastahlstiefel",
     "item.botania.terra_sword": "Terraklinge",
@@ -1331,13 +1331,13 @@
     "item.botania.diva_charm": "Zauber der Diva",
     "item.botania.flight_tiara": "Flügel-Tiara",
     "item.botania.ender_dagger": "Seelendolch",
-    "item.botania.quartz_dark": "Rauchiges Quarz",
+    "item.botania.quartz_dark": "Rauchquarz",
     "item.botania.quartz_mana": "Manaquarz",
-    "item.botania.quartz_blaze": "Lohendes Quarz",
+    "item.botania.quartz_blaze": "Lohenquarz",
     "item.botania.quartz_lavender": "Lavendelquarz",
     "item.botania.quartz_red": "Rotquarz",
     "item.botania.quartz_elven": "Elfenquarz",
-    "item.botania.quartz_sunny": "Sonniges Quarz",
+    "item.botania.quartz_sunny": "Sonnenquarz",
     "item.botania.elementium_ingot": "Elementiumbarren",
     "item.botania.pixie_dust": "Feenstaub",
     "item.botania.dragonstone": "Drachenstein",
@@ -1359,18 +1359,18 @@
     "item.botania.rainbow_rod": "Stab des Bifrosts",
     "item.botania.tornado_rod": "Stab der Lüfte",
     "item.botania.fire_rod": "Stab der Höllen",
-    "item.botania.vine_ball": "Rebkugel",
+    "item.botania.vine_ball": "Rankenknäuel",
     "item.botania.slingshot": "Lebeholzschleuder",
     "item.botania.mana_bottle": "Mana in einer Flasche",
     "item.botania.laputa_shard": "Scherbe von Laputa",
     "item.botania.virus_necrodermal": "Nekrodermaler Virus",
     "item.botania.virus_nullodermal": "Nullodermaler Virus",
-    "item.botania.skydirt_rod": "Stab der Hochländer",
+    "item.botania.skydirt_rod": "Stab des Hochlandes",
     "item.botania.placeholder": "Herstellungsplatzhalter",
-    "item.botania.itemfinder": "Der Zuschauer",
+    "item.botania.itemfinder": "Der Betrachter",
     "item.botania.super_lava_pendant": "Purpurroter Anhänger",
     "item.botania.ender_hand": "Enderhand",
-    "item.botania.glass_pickaxe": "Glasige Spitzhacke",
+    "item.botania.glass_pickaxe": "Gläserne Spitzhacke",
     "item.botania.spark": "Funke",
     "item.botania.spark_upgrade_dispersive": "Funkenanpassung: Dispersiv",
     "item.botania.spark_upgrade_dominant": "Funkenanpassung: Dominant",
@@ -1483,7 +1483,7 @@
     "item.botania.living_root": "Lebewurzel",
     "item.botania.pebble": "Kieselstein",
     "item.botania.water_bowl": "Wasserschüssel",
-    "item.botania.obedience_stick": "Blumiger Gehorsamkeitsstab",
+    "item.botania.obedience_stick": "Blumengehorsamkeitsstock",
     "item.botania.cacophonium": "Kakofon",
     "item.botania.slime_bottle": "Schleim in einer Flasche",
     "item.botania.star_sword": "Sternenbeschwörer",
@@ -1799,18 +1799,19 @@
     "block.minecraft.banner.botania.sword.orange": "Oranges Schwert",
     "block.minecraft.banner.botania.sword.white": "Weißes Schwert",
 
-    "botania.category.basics": "Basis",
+    "botania.category.basics": "Basis und Mechanismen",
     "botania.category.mana": "Manamanipulation",
     "botania.category.functionalFlowers": "Funktionelle Flora",
     "botania.category.generationFlowers": "Generierende Flora",
-    "botania.category.devices": "Natürlicher Apparat",
+    "botania.category.devices": "Natürliche Apparate",
     "botania.category.tools": "Mystische Instumente",
     "botania.category.baubles": "Krimskrams und Accessoires",
-
+    "botania.category.ender": "Ender-Artifakte",
     "botania.category.alfhomancy": "Alfhomantie",
     "botania.category.misc": "Verschiedenes",
 
 
+    "botania.entry.welcome": "Willkommen zu Botania",
 
 
 
@@ -1819,8 +1820,7 @@
 
 
 
-
-
+    "botania.entry.gardenOfGlass": "Garten aus Glas",
 
 
 
@@ -1862,7 +1862,7 @@
 
 
 
-    "botania.entry.apothecary": "Blütenblatttiegel",
+    "botania.entry.apothecary": "Blütenapotheke",
 
 
 
@@ -1921,11 +1921,11 @@
 
 
 
+    "botania.entry.blackLotus": "Schwarzer Lotos",
 
 
 
-
-
+    "botania.entry.flowerBag": "Blumenbeutel",
 
 
 
@@ -1937,7 +1937,7 @@
 
 
 
-    "botania.entry.spreader": "Manaverbreiter",
+    "botania.entry.spreader": "Manaverteiler",
 
 
 
@@ -1969,6 +1969,14 @@
 
 
 
+    "botania.entry.sparks": "Funken",
+
+
+
+
+
+
+    "botania.entry.sparkUpgrades": "Funkenanpassungen",
 
 
 
@@ -1977,15 +1985,7 @@
 
 
 
-
-
-
-
-
-
-
-
-    "botania.entry.distributor": "Manaverteiler",
+    "botania.entry.distributor": "Manaaufteiler",
 
 
 
@@ -1995,6 +1995,12 @@
 
 
 
+    "botania.entry.rfGenerator": "Mana-Flussfeld",
+
+
+
+
+    "botania.entry.lens": "Manalinsen",
 
 
 
@@ -2003,53 +2009,47 @@
 
 
 
+    "botania.page.lens7": "Geschwindigkeitslinse",
+
+    "botania.page.lens9": "Stärkelinse",
+
+    "botania.page.lens11": "Resistenzlinse",
+
+    "botania.page.lens13": "Effizienzlinse",
+
+    "botania.page.lens15": "Abpralllinse",
+
+    "botania.page.lens39": "Kurierlinse",
+
+    "botania.page.lens17": "Schwerkraftlinse",
+
+    "botania.page.lens19": "Bohrlinse",
+
+    "botania.page.lens21": "Schadenslinse",
+
+    "botania.page.lens23": "Phantomlinse",
+
+    "botania.page.lens25": "Magnetisierungslinse",
+
+    "botania.page.lens27": "Entropische Linse",
+
+    "botania.page.lens29": "Einflusslinse",
+
+    "botania.page.lens31": "Gewichtslinse",
+
+    "botania.page.lens33": "Zündellinse",
+
+    "botania.page.lens35": "Kraftlinse",
+
+    "botania.page.lens37": "Leuchtlinse",
+
+    "botania.entry.manaTablet": "Manatafel",
+    "botania.tagline.manaTablet": "Tragbare Manabehälter",
 
 
 
 
-
-
-    "botania.page.lens7": "Manalinse: Geschwindigkeit",
-
-    "botania.page.lens9": "Manalinse: Macht",
-
-    "botania.page.lens11": "Manalinse: Resistenz",
-
-    "botania.page.lens13": "Manalinse: Effizienz",
-
-    "botania.page.lens15": "Manalinse: Abprall",
-
-
-
-    "botania.page.lens17": "Manalinse: Schwerkraft",
-
-    "botania.page.lens19": "Manalinse: Bohren",
-
-    "botania.page.lens21": "Manalinse: Schädigung",
-
-    "botania.page.lens23": "Manalinse: Phantom",
-
-    "botania.page.lens25": "Manalinse: Magnetisierung",
-
-    "botania.page.lens27": "Manalinse: Chaos",
-
-
-
-
-
-
-
-
-
-
-
-
-    "botania.tagline.manaTablet": "Tragbares Transportieren von Mana",
-
-
-
-
-
+    "botania.entry.manaMirror": "Manaspiegel",
 
 
     "botania.page.manaMirror1": "Spieglein, Spieglein an der Wand...",
@@ -2059,7 +2059,7 @@
 
 
 
-    "botania.entry.redstoneSpreader": "Redstone-Manaverbreiter",
+    "botania.entry.redstoneSpreader": "Impuls-Manaverteiler",
 
 
 
@@ -2069,27 +2069,37 @@
 
 
 
+    "botania.entry.dreamwoodSpreader": "Elfen-Manaverteiler",
 
 
 
 
 
 
+    "botania.entry.elvenLenses": "Elven-Manalinsen",
 
 
 
+    "botania.page.elvenLenses2": "Farbschleuderlinse",
 
+    "botania.page.elvenLenses4": "Verzerrungslinse",
 
+    "botania.page.elvenLenses6": "Umleitungslinse",
 
+    "botania.page.elvenLenses8": "Feierlinse",
 
+    "botania.page.elvenLenses10": "Leuchtsignallinse",
 
+    "botania.page.elvenLenses12": "Auslöserlinse",
 
+    "botania.entry.prism": "Manaprisma",
 
 
 
 
 
 
+    "botania.entry.poolCart": "Mana auf Schienen",
 
 
 
@@ -2097,16 +2107,19 @@
 
 
 
+    "botania.entry.sparkChanger": "Funken-Bastler",
 
 
 
 
 
+    "botania.entry.bellows": "Manastrom-Blasebalg",
 
 
 
 
 
+    "botania.entry.fIntro": "Funktionale Flora",
 
 
 
@@ -2114,31 +2127,18 @@
 
 
 
+    "botania.entry.flowerShrinking": "Schrumpfen von Blumen",
 
 
 
 
 
-    "botania.entry.fIntro": "Eine Einführung in Funktion",
+    "botania.entry.flowerSpeed": "Verzögerungen regulieren",
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    "botania.entry.jadedAmaranthus": "Jaded-Amarant",
+    "botania.entry.jadedAmaranthus": "Matter Amarant",
 
 
 
@@ -2169,7 +2169,7 @@
 
 
 
-
+    "botania.entry.orechidIgnem": "Flammende Erzblüte",
 
 
 
@@ -2206,7 +2206,7 @@
 
 
 
-
+    "botania.entry.labellia": "Labellia",
 
 
 
@@ -2237,6 +2237,29 @@
 
 
 
+    "botania.entry.daffomill": "Pusterglocke",
+
+
+
+
+    "botania.entry.vinculotus": "Vinculotos",
+
+
+
+
+    "botania.entry.spectranthemum": "Spektranthemum",
+
+
+
+
+
+
+    "botania.entry.medumone": "Angstemone",
+
+
+
+
+    "botania.entry.marimorphosis": "Marimorphosis",
 
 
 
@@ -2244,46 +2267,23 @@
 
 
 
+    "botania.entry.bubbell": "Blasenblume",
+
+
+
+
+    "botania.entry.solegnolia": "Solegnolie",
+
+
+
+
+    "botania.entry.bergamute": "Bergamute",
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    "botania.entry.gIntro": "Eine Einführung in Generierung",
+    "botania.entry.gIntro": "Generierende Flora",
 
 
 
@@ -2297,6 +2297,8 @@
 
     "botania.page.endoflame2": "$(o)Nicht Nitor$(0).",
 
+    "botania.entry.hydroangeas": "Hydroangea",
+
 
     "botania.page.hydroangeas1": "$(o)Aquane Macht$(0).",
 
@@ -2308,9 +2310,7 @@
 
 
 
-
-
-
+    "botania.entry.arcanerose": "Rosa Arcana",
 
 
 
@@ -2320,7 +2320,9 @@
 
 
 
+
     "botania.entry.entropinnyum": "Entropinnyum",
+
 
 
 
@@ -2330,6 +2332,31 @@
 
 
 
+    "botania.entry.gourmaryllis": "Gourmaryllis",
+
+
+
+
+
+
+    "botania.entry.narslimmus": "Narglibbe",
+
+
+
+
+    "botania.entry.spectrolus": "Spektrolus",
+
+
+
+
+
+
+    "botania.entry.rafflowsia": "Rafflowsia",
+
+
+
+
+    "botania.entry.dandelifeon": "Lebenzahn",
 
 
 
@@ -2343,34 +2370,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.entry.shulk_me_not": "Shulk Mein Nicht",
 
 
 
@@ -2392,7 +2392,7 @@
 
 
 
-    "botania.entry.turntable": "Verbreiter-Drehscheibe",
+    "botania.entry.turntable": "Verteiler-Drehscheibe",
 
 
 
@@ -2401,34 +2401,34 @@
     "botania.entry.manaAlchemy": "Alchemie mit Mana",
 
 
-    "botania.page.manaAlchemy1": "Kreieren eines $(item)Katalysators$(0)",
+    "botania.page.manaAlchemy1": "Herstellen des $(item)Katalysators$(0)",
     "botania.page.manaAlchemy2": "$(item)Verrottetes Fleisch$(0) zu $(item)Leder$(0)",
 
-    "botania.page.manaAlchemy3": "Verschiedene Arten von $(item)Holz$(0)",
+    "botania.page.manaAlchemy3": "Umwandlung von $(item)Holzen$(0)",
 
-    "botania.page.manaAlchemy4": "Verschiedene Arten von $(item)Setzlingen$(0)",
-    "botania.page.manaAlchemy5": "Zersetzung von $(item)Glowstone-Blöcken$(0)",
+    "botania.page.manaAlchemy4": "Umwandlung von $(item)Setzlingen$(0)",
+    "botania.page.manaAlchemy5": "Zerlegen von $(item)Leuchtstein$(0)-Blöcken",
 
-    "botania.page.manaAlchemy6": "Zersetzung von $(item)Quarzblöcken$(0)",
-    "botania.page.manaAlchemy7": "Kreation von $(item)Gemeißelten Steinziegeln$(0)",
+    "botania.page.manaAlchemy6": "Zerlegen von $(item)Quarzblöcken$(0)",
+    "botania.page.manaAlchemy7": "Herstellen von $(item)Gemeißelten Steinziegeln$(0)",
     "botania.page.manaAlchemy8": "Frieren von $(item)Schnee$(0) zu $(item)Eis$(0)",
 
-    "botania.page.manaAlchemy9": "Verwandlung zwischen $(item)Ranken$(0) und $(item)Seerosenblättern$(0)",
+    "botania.page.manaAlchemy9": "Umwandlung zwischen $(item)Ranken$(0) und $(item)Seerosenblättern$(0)",
 
-    "botania.page.manaAlchemy10": "Verschiedene Arten von $(item)Fisch$(0)",
+    "botania.page.manaAlchemy10": "Umwandlung von $(item)Fisch$(0)",
 
-    "botania.page.manaAlchemy11": "Transmutation von $(item)Samen$(0) und $(item)Getreide$(0)",
+    "botania.page.manaAlchemy11": "Umwandlung von $(item)Samen$(0) und $(item)Feldfrüchten(0)",
     "botania.page.manaAlchemy12": "Reinigung von $(item)Giftigen Kartoffeln$(0)",
     "botania.page.manaAlchemy13": "Beschwörung von $(item)Netherwarzen$(0)",
-    "botania.page.manaAlchemy14": "Verwandlung zwischen $(item)Schwarzpulver$(0) und $(item)Feuerstein$(0)",
+    "botania.page.manaAlchemy14": "Umwandlung zwischen $(item)Schwarzpulver$(0) und $(item)Feuerstein$(0)",
     "botania.page.manaAlchemy15": "Herstellung von $(item)Namensschildern$(0)",
-    "botania.page.manaAlchemy16": "Teilung von $(item)Wolle$(0) in $(item)Fäden$(0)",
+    "botania.page.manaAlchemy16": "Zerlegen von $(item)Wolle$(0) in $(item)Fäden$(0)",
 
-    "botania.page.manaAlchemy17": "Erschaffen von $(item)Schleimbällen$(0)",
-    "botania.page.manaAlchemy18": "Verwandlung zwischen $(item)Glowstone$(0) und $(item)Redstone$(0)",
+    "botania.page.manaAlchemy17": "Umwandlung zwischen $(item)Schleimbällen$(0) und $(item)Kaktus$(0)",
 
-    "botania.page.manaAlchemy19": "Zersetzung von $(item)Pflasterstein$(0) zu $(item)Sand$(0)",
 
+    "botania.page.manaAlchemy19": "Umwandlung zwischen $(item)Leuchtstein$(0) und $(item)Redstone$(0)",
+    "botania.page.manaAlchemy20": "Zersetzung von $(item)Bruchstein(0) zu $(item)Sand$(0)",
 
 
 
@@ -2445,6 +2445,7 @@
 
 
 
+    "botania.entry.brewery": "Botanische Brauerei",
 
 
 
@@ -2478,11 +2479,13 @@
 
 
 
+    "botania.entry.flasks": "Brauflaschen",
 
 
 
 
 
+    "botania.entry.complexBrews": "Komplexe Gebräue",
 
 
 
@@ -2500,10 +2503,7 @@
 
 
 
-
-
-
-
+    "botania.entry.incense": "Räucherkerzen brauen",
 
 
 
@@ -2530,12 +2530,13 @@
 
 
 
-    "botania.entry.platform": "Schimmerplattform",
+    "botania.entry.platform": "Abstruse Plattform",
 
 
 
 
 
+    "botania.entry.manaConjuration": "Heraufbeschwören mit Mana",
 
 
 
@@ -2551,14 +2552,17 @@
 
 
 
+    "botania.entry.spectralPlatform": "Spektralplattform",
 
 
 
 
+    "botania.entry.gatherDrum": "Trommel des Sammelns",
 
 
 
 
+    "botania.entry.craftCrate": "Schlaue Kiste",
 
 
 
@@ -2572,6 +2576,7 @@
 
 
 
+    "botania.entry.hourglass": "Schwebende Sanduhr",
 
 
 
@@ -2581,49 +2586,44 @@
 
 
 
+    "botania.entry.ghostRail": "Spektralschiene",
 
 
 
 
+    "botania.entry.canopyDrum": "Trommel der Baumkronen",
 
 
 
 
+    "botania.entry.cocoon": "Kokon der Willkür",
 
 
 
 
 
+    "botania.entry.manaBomb": "Manasturm-Sprengsatz",
 
 
 
 
+    "botania.entry.teruTeruBozu": "Teru Teru Bozu",
 
 
 
 
+    "botania.entry.avatar": "Lebeholz-Avatar",
 
 
 
 
 
+    "botania.entry.felPumpkin": "Gallkürbis",
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.entry.animatedTorch": "Animierte Fackel",
 
 
 
@@ -2646,7 +2646,7 @@
 
 
 
-    "botania.entry.dirtRod": "Stab der Böden",
+    "botania.entry.dirtRod": "Stab des Landes",
 
 
 
@@ -2659,18 +2659,18 @@
 
 
 
-    "botania.entry.manaGear": "Manastahl-Equipment",
+    "botania.entry.manaGear": "Manastahl-Ausrüstung",
 
 
 
     "botania.page.manaGear1": "Die $(item)Manastahlspitzhacke$(0)",
     "botania.page.manaGear2": "Die $(item)Manastahlschaufel$(0)",
     "botania.page.manaGear3": "Die $(item)Manastahlaxt$(0)",
-
+    "botania.page.manaGear3a": "Die $(item)Manastahlhacke(0)",
     "botania.page.manaGear4": "Die $(item)Manastahlschere$(0)",
     "botania.page.manaGear5": "Das $(item)Manastahlschwert$(0)",
     "botania.page.manaGear6": "Der $(item)Manastahlhelm$(0)",
-    "botania.page.manaGear7": "Der $(item)Manastahlbrustpanzer$(0)",
+    "botania.page.manaGear7": "Der $(item)Manastahlharnisch$(0)",
     "botania.page.manaGear8": "Der $(item)Manastahlbeinschutz$(0)",
     "botania.page.manaGear9": "Die $(item)Manastahlstiefel$(0)",
 
@@ -2685,7 +2685,7 @@
 
 
     "botania.page.terrasteelArmor1": "Der $(item)Terrastahlhelmt$(0)",
-    "botania.page.terrasteelArmor2": "Der $(item)Terrastahlbrustpanzer$(0)",
+    "botania.page.terrasteelArmor2": "Der $(item)Terrastahlharnisch$(0)",
     "botania.page.terrasteelArmor3": "Der $(item)Terrastahlbeinschutz$(0)",
     "botania.page.terrasteelArmor4": "Die $(item)Terrastahlstiefel$(0)",
 
@@ -2703,24 +2703,38 @@
 
 
 
+    "botania.entry.waterRod": "Stab der Meere",
 
 
 
 
+    "botania.entry.elfGear": "Elementium-Ausrüstung",
 
 
 
 
+    "botania.page.elfGear3": "Die $(item)Elementiumspitzhacke(0)",
 
+    "botania.page.elfGear5": "Die $(item)Elementiumschaufel(0)",
 
+    "botania.page.elfGear7": "Die $(item)Elementiumaxt(0)",
 
+    "botania.page.elfGear7b": "Die $(item)Elementiumhacke(0)",
 
+    "botania.page.elfGear9": "Die $(item)Elementiumschere(0)",
 
+    "botania.page.elfGear11": "Das $(item)Elementiumschwert(0)",
+    "botania.page.elfGear12": "Der $(item)Elementiumhelm(0)",
+    "botania.page.elfGear13": "Der $(item)Elementiumharnisch(0)",
+    "botania.page.elfGear14": "Der $(item)Elementiumbeinschutz(0)",
+    "botania.page.elfGear15": "Die $(item)Elementiumstifel(0)",
 
+    "botania.entry.openBucket": "Extrapolierter Eimer",
 
 
 
 
+    "botania.entry.rainbowRod": "Stab des Bifrosts",
 
 
 
@@ -2730,124 +2744,151 @@
 
 
 
+    "botania.entry.tornadoRod": "Stab der Lüfte",
 
 
 
 
 
+    "botania.entry.fireRod": "Stab der Höllen",
 
 
 
 
 
+    "botania.entry.vineBall": "Rankenknäuel",
 
 
 
 
 
 
+    "botania.entry.laputaShard": "Scherbe von Laputa",
 
 
 
 
 
 
+    "botania.entry.virus": "Pferdevirus",
 
 
 
 
 
+    "botania.entry.skyDirtRod": "Stab des Hochlandes",
 
 
 
 
+    "botania.entry.glassPick": "Gläserne Spitzhacke",
 
 
 
 
+    "botania.entry.diviningRod": "Stab des üppigen Erdmantels",
 
 
 
 
 
+    "botania.entry.gravityRod": "Stab der schattigen Mesa",
 
 
 
 
 
+    "botania.entry.missileRod": "Stab des instabilen Reservoirs",
 
 
 
 
 
+    "botania.entry.craftingHalo": "Montage-Halo",
 
 
 
 
 
+    "botania.entry.clip": "Linsenklemme",
 
 
 
 
 
+    "botania.entry.cobbleRod": "Stab der Tiefen",
 
 
 
 
+    "botania.entry.smeltRod": "Stab des geschmolzenen Kernes",
 
 
 
 
+    "botania.entry.worldSeed": "Weltsamen",
 
 
 
 
+    "botania.entry.spellCloth": "Zauberbindendes Tuch",
 
 
 
 
+    "botania.entry.thornChakram": "Dornenchakram",
 
 
 
 
+    "botania.entry.fireChakram": "Loderchakram",
 
 
 
 
+    "botania.entry.overgrowthSeed": "Überwachsender Samen",
 
 
 
 
+    "botania.entry.livingwoodBow": "Lebeholzbogen",
 
 
 
 
+    "botania.entry.crystalBow": "Kristallbogen",
 
 
 
 
+    "botania.entry.temperanceStone": "Stein der Mäßigung",
 
 
 
 
+    "botania.entry.terraAxe": "Terra-Stutzer",
 
 
 
 
+    "botania.entry.obedienceStick": "Blumengehorsamkeitsstock",
 
 
 
 
+    "botania.entry.slimeBottle": "Schleim in einer Flasche",
 
 
 
 
+    "botania.entry.exchangeRod": "Stab der veränderlichen Kruste",
 
 
 
 
 
 
+    "botania.entry.manaweave": "Managewobenes Tuch",
 
 
 
@@ -2857,70 +2898,29 @@
 
 
 
+    "botania.entry.autocraftingHalo": "Manufaktur-Halo",
 
 
 
 
+    "botania.entry.sextant": "Sextant des Weltenformers",
 
 
 
 
 
+    "botania.entry.astrolabe": "Astrolabium des Weltenformers",
 
 
 
 
 
+    "botania.entry.enderAir": "Extrahieren von Enderluft",
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.entry.enderEyeBlock": "Ender-Aufseher",
 
 
 
@@ -2931,26 +2931,26 @@
 
 
 
+    "botania.entry.enderHand": "Enderhand",
 
 
 
 
 
 
+    "botania.entry.enderDagger": "Seelendolch",
 
 
 
 
 
+    "botania.entry.spawnerClaw": "Lebensfüller",
 
 
 
 
 
-
-
-
-
+    "botania.entry.redString": "Rotfaden",
 
 
 
@@ -2979,6 +2979,7 @@
 
 
 
+    "botania.entry.corporea": "Corporea-Grundlagen",
 
 
 
@@ -2990,9 +2991,11 @@
 
 
 
+    "botania.entry.corporeaBlock": "Corporea-Dekoration",
 
 
 
+    "botania.entry.corporeaIndex": "Corporea-Index",
 
 
 
@@ -3004,16 +3007,19 @@
 
 
 
+    "botania.entry.corporeaFunnel": "Corporea-Trichter",
 
 
 
 
 
+    "botania.entry.corporeaInterceptor": "Corporea-Abfänger",
 
 
 
 
 
+    "botania.entry.corporeaCrystalCube": "Corporea-Kristalwürfel",
 
 
 
@@ -3021,6 +3027,7 @@
 
 
 
+    "botania.entry.corporeaRetainer": "Corporea-Halter",
 
 
 
@@ -3028,21 +3035,25 @@
 
 
 
+    "botania.entry.spawnerMover": "Lebensaggregator",
 
 
 
 
+    "botania.entry.keepIvy": "Entschlossener Efeu",
 
 
 
 
 
+    "botania.entry.blackHoleTalisman": "Talisman des Schwarzen Loches",
 
 
 
 
 
 
+    "botania.entry.luminizerTransport": "Beleuchter-Transport",
 
 
 
@@ -3057,23 +3068,12 @@
 
 
 
+    "botania.entry.starSword": "Sternenbeschwörer",
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.entry.thunderSword": "Donnerrufer",
 
 
 
@@ -3084,7 +3084,7 @@
 
 
 
-
+    "botania.entry.cosmeticBaubles": "Kosmetische Accessoires",
 
 
 
@@ -3171,43 +3171,50 @@
 
 
 
-    "botania.entry.magnetRing": "Ring des Magnetismus",
+    "botania.entry.magnetRing": "Ring der Magnetisierung",
 
 
 
 
 
+    "botania.entry.reachRing": "Ring der großen Reichweite",
 
 
 
 
+    "botania.entry.divaCharm": "Zauber der Diva",
 
-    "botania.entry.divaCharm": "Talisman der Diva",
 
 
 
+    "botania.entry.pixieRing": "Großer Feenring",
 
 
 
 
+    "botania.entry.superTravelBelt": "Schärpe des Weltreisenden",
 
 
 
 
+    "botania.entry.itemFinder": "Der Betrachter",
 
 
 
 
 
+    "botania.entry.superLavaPendant": "Purpurroter Anhänger",
 
 
 
 
+    "botania.entry.bloodPendant": "Anhänger des verdorbenen Blutes",
 
 
 
 
 
+    "botania.entry.judgementCloaks": "Umhänge des Urteils",
 
 
 
@@ -3215,60 +3222,53 @@
 
 
 
+    "botania.entry.monocle": "Manaseher-Monokel",
 
 
 
 
 
+    "botania.entry.swapRing": "Ring der Korrektur",
 
 
 
 
+    "botania.entry.speedUpBelt": "Schärpe des Ebenenläufers",
 
 
 
 
+    "botania.entry.baubleBox": "Schmuck-Etui",
 
 
 
 
+    "botania.entry.dodgeRing": "Ring der geschickten Bewegung",
 
 
 
 
+    "botania.entry.invisibilityCloak": "Unsichtbarkeitsmantel",
 
 
 
 
+    "botania.entry.cloudPendant": "Zirrus-Amulett",
 
 
 
 
+    "botania.entry.superCloudPendant": "Nimbus-Amulett",
 
 
 
 
+    "botania.entry.thirdEye": "Drittes Auge",
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.entry.goddessCharm": "Zauber der Wohlwollenden Göttin",
 
 
 
@@ -3284,6 +3284,7 @@
 
 
 
+    "botania.entry.elfMessage": "Eine Nachricht der Elfengarde",
 
 
 
@@ -3293,6 +3294,7 @@
 
 
 
+    "botania.entry.elfResources": "Ressourcen von Alfheim",
 
 
 
@@ -3305,6 +3307,7 @@
 
 
 
+    "botania.entry.gaiaRitual": "Ritual von Gaia",
 
 
 
@@ -3313,53 +3316,50 @@
 
 
 
+    "botania.entry.gaiaRitualHardmode": "Ritual von Gaia II",
 
 
 
 
 
+    "botania.entry.relics": "Die Relikte der Asen",
 
 
 
+    "botania.entry.relicInfo": "Die Relikte der Asen II",
 
 
 
 
+    "botania.entry.infiniteFruit": "Die Frucht von Grisaia",
 
 
 
+    "botania.entry.kingKey": "Schlüssel für des Königs Gesetz",
 
 
 
+    "botania.entry.flugelEye": "Auge der Flügel",
 
 
 
 
+    "botania.entry.thorRing": "Ring von Thor",
 
 
 
+    "botania.entry.lokiRing": "Ring von Loki",
 
 
 
 
 
 
+    "botania.entry.odinRing": "Ring von Odin",
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.entry.elvenLore": "Elfen-Überlieferungen - Die Zerschlagung",
 
 
 
@@ -3384,63 +3384,79 @@
     "botania.page.decorativeBlocks8": "Schnittgerahmte Bretter",
     "botania.page.decorativeBlocks9": "Schimmerndes Lebeholz",
 
+    "botania.page.decorativeBlocks11": "Rauchquarz",
+    "botania.page.decorativeBlocks12": "Manaquarz",
+    "botania.page.decorativeBlocks13": "Lohenquarz",
+    "botania.page.decorativeBlocks14": "Lavendelquarz",
+    "botania.page.decorativeBlocks15": "Rotquarz",
+    "botania.page.decorativeBlocks23": "Sonnenquarz",
 
+    "botania.entry.dispenserTweaks": "Pflanzen mit Spendern",
 
 
 
+    "botania.entry.shinyFlowers": "Blumenvarianten",
 
 
 
-    "botania.entry.dispenserTweaks": "Dispenser-Änderungen",
 
 
 
-    "botania.entry.shinyFlowers": "Schimmernde Blumen"
 
 
+    "botania.entry.tinyPotato": "Winzige Kartoffel",
 
 
 
 
 
+    "botania.entry.headCreating": "Kopfherstellung",
 
 
 
 
 
+    "botania.entry.azulejo": "Azulejos",
 
 
 
 
 
 
+    "botania.entry.starfield": "Sternenfeld-Erschaffer",
 
 
 
 
+    "botania.entry.mushrooms": "Schimmernde Pilze",
 
 
 
 
 
+    "botania.entry.phantomInk": "Geheimtinte",
 
 
 
 
+    "botania.entry.blazeBlock": "Lohengeflecht",
 
 
 
 
+    "botania.entry.challenges": "Herausforderungen",
 
 
 
 
 
+    "botania.entry.cacophonium": "Kakofon",
 
 
 
 
 
+    "botania.entry.pavement": "Portugiesisches Pflaster",
 
 
 
@@ -3449,31 +3465,14 @@
 
 
 
+    "botania.entry.banners": "Banner-Ergänzungen",
 
 
 
 
+    "botania.entry.preventingDecay": "Numerisches Mana",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.page.preventingDecay0": "nein"
 
 
 
