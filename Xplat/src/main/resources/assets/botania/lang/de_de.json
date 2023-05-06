@@ -5,9 +5,16 @@
     "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
     "_comment4": "Untranslated entries will automatically be inherited from en_US",
     "_comment5": "Once again, don't copy from English, and THANK YOU for your hard work!",
-
-
     "itemGroup.botania": "Botania",
+
+
+
+
+
+
+
+
+
     "botaniamisc.color": "%s gefärbt",
     "botaniamisc.manaUsage": "Manaverbrauch",
     "botaniamisc.flareColor": "Ladungen %s",
@@ -19,38 +26,537 @@
     "botaniamisc.filter0": "Nur Items in Rahmen aufsammeln",
     "botaniamisc.filter1": "Nur Items außerhalb von Rahmen aufsammeln",
     "botaniamisc.filter2": "Alle Items aufsammeln",
+
+
+
+
     "botaniamisc.creativePool0": "Kreatives Manabecken, hat unendlich Mana",
     "botaniamisc.creativePool1": "Eines Egoisten würdig",
+
     "botaniamisc.toolRank": "%s&7-Rang",
-    "botaniamisc.sextantMode.circle": "Kreismodus",
-    "botaniamisc.sextantMode.sphere": "Kugelmodus",
+
+
+
+
+
     "botaniamisc.conversionRatio": "Etwa %s von %s",
     "botaniamisc.conversionChanceBiome": "%s in %s-Biom",
 
+
+
+
+
+
+
+
+
+
+    "botaniamisc.sextantMode.circle": "Kreismodus",
+    "botaniamisc.sextantMode.sphere": "Kugelmodus",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.color.rainbow": "Regenbogenfarben",
 
-    "botania.baubletype.amulet": "Ausrüstbar im &aAmulett&7-Slot",
-    "botania.baubletype.ring": "Ausrüstbar im &aRing&7-Slot",
-    "botania.baubletype.belt": "Ausrüstbar im &aGürtel&7-Slot",
-    "botania.baubletooltip": "Drücke &b%s&7, um das Baubles-Menü zu öffnen",
-    "botania.baubleinfo": "Halte &bSHIFT&7 für mehr Info",
 
-    "block.botania.apothecary_default": "Blütenapotheker",
-    "block.botania.apothecary_forest": "Wald Blütenapotheker",
-    "block.botania.apothecary_plains": "Ebenen Blütenapotheker",
-    "block.botania.apothecary_mountain": "Berge Blütenapotheker",
-    "block.botania.apothecary_fungal": "Pilzartiger Blütenapotheker",
-    "block.botania.apothecary_swamp": "Sumpf Blütenapotheker",
-    "block.botania.apothecary_desert": "Wüste Blütenapotheker",
-    "block.botania.apothecary_taiga": "Taiga Blütenapotheker",
-    "block.botania.apothecary_mesa": "Mesa Blütenapotheker",
-    "block.botania.apothecary_mossy": "Moosiger Blütenapotheker",
-    "block.botania.elven_spreader": "Elfen-Manaverteiler",
-    "block.botania.gaia_spreader": "Gaia-Manaverteiler",
-    "block.botania.crafty_crate": "Crafty Crate",
-    "block.botania.elementium_block": "Block of Elementium",
-    "block.botania.mana_diamond_block": "Block of Mana Diamond",
-    "block.botania.dragonstone_block": "Block of Dragonstone",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "botania.baubletooltip": "Drücke &b%s&7, um das Baubles-Menü zu öffnen",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "block.botania.white_mystical_flower": "Mystische Weiße Blume",
     "block.botania.orange_mystical_flower": "Mystische Orange Blume",
     "block.botania.magenta_mystical_flower": "Mystische Magentafarbene Blume",
@@ -67,8 +573,23 @@
     "block.botania.green_mystical_flower": "Mystische Grüne Blume",
     "block.botania.red_mystical_flower": "Mystische Rote Blume",
     "block.botania.black_mystical_flower": "Mystische Schwarze Blume",
-    "block.botania.altar": "Blütenblatttiegel",
+    "block.botania.apothecary_default": "Blütenapotheker",
+    "block.botania.apothecary_forest": "Wald Blütenapotheker",
+    "block.botania.apothecary_plains": "Ebenen Blütenapotheker",
+    "block.botania.apothecary_mountain": "Berge Blütenapotheker",
+    "block.botania.apothecary_fungal": "Pilzartiger Blütenapotheker",
+    "block.botania.apothecary_swamp": "Sumpf Blütenapotheker",
+    "block.botania.apothecary_desert": "Wüste Blütenapotheker",
+    "block.botania.apothecary_taiga": "Taiga Blütenapotheker",
+    "block.botania.apothecary_mesa": "Mesa Blütenapotheker",
+    "block.botania.apothecary_mossy": "Moosiger Blütenapotheker",
+
+
     "block.botania.livingrock": "Lebestein",
+
+
+
+
     "block.botania.livingrock_bricks": "Lebesteinziegel",
     "block.botania.mossy_livingrock_bricks": "Bemooste Lebesteinziegel",
     "block.botania.cracked_livingrock_bricks": "Brüchige Lebesteinziegel",
@@ -79,8 +600,16 @@
     "block.botania.framed_livingwood": "Gerahmtes Lebeholz",
     "block.botania.pattern_framed_livingwood": "Schnittgerahmtes Lebeholz",
     "block.botania.glimmering_livingwood": "Schimmerndes Lebeholz",
+
+
+
+
+
+
     "block.botania.mana_spreader": "Manaverbreiter",
     "block.botania.redstone_spreader": "Redstone-Manaverbreiter",
+    "block.botania.elven_spreader": "Elfen-Manaverteiler",
+    "block.botania.gaia_spreader": "Gaia-Manaverteiler",
     "block.botania.mana_pool": "Manabecken",
     "block.botania.creative_pool": "Das immerwährende Becken der Schuld",
     "block.botania.diluted_pool": "Verdünntes Manabecken",
@@ -98,9 +627,13 @@
     "block.botania.tiny_planet_block": "Winziger Planet",
     "block.botania.alchemy_catalyst": "Alchemiekatalysator",
     "block.botania.open_crate": "Offene Kiste",
+    "block.botania.crafty_crate": "Crafty Crate",
     "block.botania.forest_eye": "Auge der Ältesten",
     "block.botania.manasteel_block": "Manastahlblock",
     "block.botania.terrasteel_block": "Terrastahlblock",
+
+
+
     "block.botania.drum_wild": "Trommel der Wildnis",
     "block.botania.drum_gathering": "Trommel des Sammelns",
     "block.botania.drum_canopy": "Trommel der Überdachung",
@@ -120,7 +653,9 @@
     "block.botania.green_shiny_flower": "Schimmernde Grüne Blume",
     "block.botania.red_shiny_flower": "Schimmernde Rote Blume",
     "block.botania.black_shiny_flower": "Schimmernde Schwarze Blume",
-    "block.botania.platform": "Schimmerplattform",
+    "block.botania.abstruse_platform": "Abstruse Plattform",
+    "block.botania.spectral_platform": "Spektralplattform",
+    "block.botania.infrangible_platform": "Infrangierbare Plattform",
     "block.botania.alfheim_portal": "Weltenbaumextrakt",
     "block.botania.dark_quartz": "Rauchiger Quartzblock",
     "block.botania.chiseled_dark_quartz": "Gerahmter Rauchiger Quartzblock",
@@ -163,18 +698,32 @@
     "block.botania.framed_dreamwood": "Gerahmtes Traumholz",
     "block.botania.pattern_framed_dreamwood": "Schnittgerahmtes Traumholz",
     "block.botania.glimmering_dreamwood": "Glitzerndes Traumholz",
+
+
+
+
+
+
     "block.botania.livingwood_stairs": "Lebeholztreppe",
     "block.botania.livingwood_slab": "Lebeholzstufe",
     "block.botania.livingwood_planks_stairs": "Lebeholzbrettertrppe",
     "block.botania.livingwood_planks_slab": "Lebeholzbretterstufe",
+
+
+
     "block.botania.livingrock_stairs": "Lebesteintreppe",
     "block.botania.livingrock_slab": "Lebesteinstufe",
     "block.botania.livingrock_bricks_stairs": "Lebesteinziegeltreppe",
     "block.botania.livingrock_bricks_slab": "Lebesteinziegelstufe",
+
+
     "block.botania.dreamwood_stairs": "Traumholztreppe",
     "block.botania.dreamwood_slab": "Traumholzstufe",
     "block.botania.dreamwood_planks_stairs": "Traumholzbrettertreppe",
     "block.botania.dreamwood_planks_slab": "Traumholzbretterstufe",
+
+
+
     "block.botania.conjuration_catalyst": "Beschwörungskatalysator",
     "block.botania.white_floating_flower": "Schwebende Weiße Blume",
     "block.botania.orange_floating_flower": "Schwebende Orange Blume",
@@ -194,6 +743,22 @@
     "block.botania.black_floating_flower": "Schwebende Schwarze Blume",
     "block.botania.tiny_potato": "Kleine Kartoffel",
     "block.botania.spawner_claw": "Lebensfreude",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "block.botania.ender_eye_block": "Ender Aufseher",
     "block.botania.starfield": "Sternenfeld Ersteller",
     "block.botania.mana_fluxfield": "Mana Fluxfeld",
@@ -290,6 +855,14 @@
     "block.botania.metamorphic_desert_bricks_slab": "Metamorphotische Wüstensteinziegelstufe",
     "block.botania.metamorphic_taiga_bricks_slab": "Metamorphotische Taigasteinziegelstufe",
     "block.botania.metamorphic_mesa_bricks_slab": "Metamorphotische Mesa-Steinziegelstufe",
+
+
+
+
+
+
+
+
     "block.botania.metamorphic_forest_cobblestone_wall": "Metamorphotische Waldbruchsteinmauer",
     "block.botania.metamorphic_plains_cobblestone_wall": "Metamorphotische Flachbruchsteinmauer",
     "block.botania.metamorphic_mountain_cobblestone_wall": "Metamorphotische Bergbruchsteinmauer",
@@ -298,6 +871,14 @@
     "block.botania.metamorphic_desert_cobblestone_wall": "Metamorphotische Wüstenbruchsteinmauer",
     "block.botania.metamorphic_taiga_cobblestone_wall": "Metamorphotische Taigabruchsteinmauer",
     "block.botania.metamorphic_mesa_cobblestone_wall": "Metamorphotische Mesa-Bruchsteinmauer",
+
+
+
+
+
+
+
+
     "block.botania.white_petal_block": "Weißer Blütenblock",
     "block.botania.orange_petal_block": "Oranger Blütenblock",
     "block.botania.magenta_petal_block": "Magentafarbener Blütenblock",
@@ -365,6 +946,8 @@
     "block.botania.toggle_light_relay": "Umgeschaltene Beleuchtung",
     "block.botania.light_launcher": "Beleuchtungsstarter",
     "block.botania.livingrock_wall": "Lebesteinmauer",
+
+
     "block.botania.livingwood_wall": "Lebeholzmauer",
     "block.botania.dreamwood_wall": "Traumholzmauer",
     "block.botania.livingwood_fence": "Lebeholzzaun",
@@ -412,14 +995,21 @@
     "block.botania.green_pavement_slab": "Grüne Portugiesische Pflasterstufe",
     "block.botania.cell_block": "Zellularblock",
     "block.botania.gaia_head": "Kopf des Gaia Guardians",
+
+
+
+
+
+
+
     "block.botania.corporea_retainer": "Corporea-Halter",
     "block.botania.mana_glass_pane": "Managlasscheibe",
     "block.botania.elf_glass_pane": "Elfenglasscheibe",
     "block.botania.bifrost_pane": "Bifrostscheibe",
+
     "block.botania.shimmerrock": "Glitzerstein",
     "block.botania.shimmerrock_slab": "Glitzersteinstufe",
     "block.botania.shimmerrock_stairs": "Glitzersteintreppe",
-    "block.botania.shimmerwood": "Glitzerholz",
     "block.botania.shimmerwood_planks": "Glitzerholzbretter",
     "block.botania.shimmerwood_planks_slab": "Glitzerholzbretterstufe",
     "block.botania.shimmerwood_planks_stairs": "Glitzerholzbrettertreppe",
@@ -431,9 +1021,6 @@
     "block.botania.infused_grass": "Infundiertes Gras",
     "block.botania.mutated_grass": "Mutiertes Gras",
     "block.botania.animated_torch": "Animaierte Fackel",
-    "block.botania.abstruse_platform": "Abstruse Plattform",
-    "block.botania.spectral_platform": "Spektralplattform",
-    "block.botania.infrangible_platform": "Infrangierbare Plattform",
 
     "block.botania.pure_daisy": "Reines Gänseblümchen",
     "block.botania.pure_daisy.reference": "Welche Farbe möchtest du haben?",
@@ -442,8 +1029,6 @@
     "block.botania.manastar.reference": "Wünsch dir was",
     "block.botania.floating_manastar": "Schwebender Manastern",
 
-    "block.botania.daybloom": "Tagesblüte",
-    "block.botania.daybloom.reference": "Stechendes Licht",
     "block.botania.endoflame": "Endoflamme",
     "block.botania.endoflame.reference": "Eine endotherme Reaktion",
     "block.botania.floating_endoflame": "Schwebende Endoflamme",
@@ -453,8 +1038,6 @@
     "block.botania.thermalily": "Thermalilie",
     "block.botania.thermalily.reference": "Scharlachrot",
     "block.botania.floating_thermalily": "Schwebende Thermalilie",
-    "block.botania.nightshade": "Nachtschatten",
-    "block.botania.nightshade.reference": "Geisterhaft",
     "block.botania.rosa_arcana": "Rosa Arcana",
     "block.botania.rosa_arcana.reference": "Erfahrung ist wichtig",
     "block.botania.floating_rosa_arcana": "Schwebende Rosa Arcana",
@@ -476,8 +1059,10 @@
     "block.botania.spectrolus": "Spektrolus",
     "block.botania.spectrolus.reference": "Vom Hass profitieren",
     "block.botania.floating_spectrolus": "Schwebende Spektrolus",
+
     "block.botania.dandelifeon.reference": "So ist das Leben",
     "block.botania.floating_dandelifeon": "Schwebende Dandelifeon",
+
     "block.botania.rafflowsia.reference": "Falle, Loch, Albtraum",
     "block.botania.floating_rafflowsia": "Schwebende Rafflowsia",
     "block.botania.shulk_me_not": "Shulk Mich Nicht",
@@ -527,11 +1112,17 @@
     "block.botania.hopperhock_chibi.reference": "Es wurde mir eingetrichtert",
     "block.botania.floating_hopperhock_chibi": "Schwebendes Zierliches Trichterkraut",
     "block.botania.tangleberrie": "Wirrbeere",
+
     "block.botania.tangleberrie.reference": "Hübsches Gefängnis",
+
     "block.botania.floating_tangleberrie": "Schwebende Wirrbeere",
+
     "block.botania.jiyuulia": "Bannbeere",
+
     "block.botania.jiyuulia.reference": "Kraftfeldartig",
+
     "block.botania.floating_jiyuulia": "Schwebende Bannbeere",
+    
     "block.botania.rannuncarpus": "Rannawurzel",
     "block.botania.rannuncarpus.reference": "Wie praktisch.",
     "block.botania.floating_rannuncarpus": "Schwebende Rannawurzel",
@@ -563,9 +1154,13 @@
     "block.botania.spectranthemum.reference": "In der Schale",
     "block.botania.floating_spectranthemum": "Schwebende Spektranthemum",
     "block.botania.medumone.reference": "Hart wie ein Stein",
+
     "block.botania.floating_medumone": "Schwebende Medumone",
+
+
     "block.botania.floating_marimorphosis": "Schwebende Marimorphosis",
     "block.botania.marimorphosis_chibi": "Zierliche Marimorphosis",
+
     "block.botania.floating_marimorphosis_chibi": "Schwebende Zierliche Marimorphosis",
     "block.botania.bubbell": "Glockenblume",
     "block.botania.bubbell.reference": "Unterwasserleben, ich komme",
@@ -573,6 +1168,7 @@
     "block.botania.bubbell_chibi": "Zierliche Glockenblume",
     "block.botania.bubbell_chibi.reference": "Unterwasserleben, ich komme",
     "block.botania.floating_bubbell_chibi": "Schwebende Zierliche Glockenblume",
+
     "block.botania.solegnolia.reference": "Alle deine Magnete gehören uns",
     "block.botania.floating_solegnolia": "Schwebende Solegnolia",
     "block.botania.solegnolia_chibi": "Zierliche Solegnolia",
@@ -582,7 +1178,17 @@
     "block.botania.bergamute.reference": "Meine Lippen sind verschlossen",
     "block.botania.floating_bergamute": "Schwebende Bergamute",
 
+
+
+
+
+
+
+
+
     "item.botania.lexicon": "Lexica Botania",
+
+
     "item.botania.white_petal": "Mystisches Weißes Blütenblatt",
     "item.botania.orange_petal": "Mystisches Oranges Blütenblatt",
     "item.botania.magenta_petal": "Mystisches Magentafarbenes Blütenblatt",
@@ -600,6 +1206,7 @@
     "item.botania.red_petal": "Mystisches Red Blütenblatt",
     "item.botania.black_petal": "Mystisches Black Blütenblatt",
     "item.botania.twig_wand": "Stab des Waldes",
+
     "item.botania.manasteel_ingot": "Manastahlbarren",
     "item.botania.mana_pearl": "Manaperle",
     "item.botania.mana_diamond": "Manadiamant",
@@ -626,67 +1233,6 @@
     "item.botania.lens_magnet.short": "MMagnetisierung",
     "item.botania.lens_explosive": "Manalinse: Chaos",
     "item.botania.lens_explosive.short": "Chaos",
-    "item.botania.rune_water": "Rune des Wassers",
-    "item.botania.rune_fire": "Rune des Feuers",
-    "item.botania.rune_earth": "Rune der Erde",
-    "item.botania.rune_air": "Rune der Luft",
-    "item.botania.rune_spring": "Rune des Frühlings",
-    "item.botania.rune_summer": "Rune des Sommers",
-    "item.botania.rune_autumn": "Rune des Herbstes",
-    "item.botania.rune_winter": "Rune des Winters",
-    "item.botania.rune_mana": "Manarune",
-    "item.botania.rune_lust": "Rune der Wollust",
-    "item.botania.rune_gluttony": "Rune der Völlerei",
-    "item.botania.rune_greed": "Rune der Gier",
-    "item.botania.rune_sloth": "Rune der Trägheit",
-    "item.botania.rune_wrath": "Rune des Zorns",
-    "item.botania.rune_envy": "Rune des Neides",
-    "item.botania.rune_pride": "Rune des Hochmutes",
-    "item.botania.mana_tablet": "Manatablett",
-    "item.botania.mana_gun": "Mana-Blaster",
-    "item.botania.composite_lens": "Verbundmanalinse: %s %s",
-    "item.botania.mana_cookie": "Manakeks",
-    "item.botania.fertilizer": "Blumendünger",
-    "item.botania.grass_seeds": "Weidesamen",
-    "item.botania.podzol_seeds": "Boreale Samen",
-    "item.botania.mycelium_seeds": "Seuchensamen",
-    "item.botania.livingwood_twig": "Lebeholzzweig",
-    "item.botania.dirt_rod": "Stab der Böden",
-    "item.botania.terraform_rod": "Terrafirmastab",
-    "item.botania.mana_mirror": "Manaspiegel",
-    "item.botania.manasteel_helmet": "Manastahlhelm",
-    "item.botania.manasteel_chestplate": "Manastahlbrustpanzer",
-    "item.botania.manasteel_leggings": "Manastahlbeinschutz",
-    "item.botania.manasteel_boots": "Manastahlstiefel",
-    "item.botania.manasteel_pick": "Manastahlspitzhacke",
-    "item.botania.manasteel_shovel": "Manastahlschaufel",
-    "item.botania.manasteel_axe": "Manastahlaxt",
-    "item.botania.manasteel_sword": "Manastahlschwert",
-    "item.botania.manasteel_shears": "Manastahlschere",
-    "item.botania.grasshorn": "Horn der Wildnis",
-    "item.botania.terrasteel_ingot": "Terrastahlbarren",
-    "item.botania.terrasteel_helmet": "Terrastahlhelm",
-    "item.botania.terrasteel_chestplate": "Terrastahlbrustpanzer",
-    "item.botania.terrasteel_leggings": "Terrastahlbeinschutz",
-    "item.botania.terrasteel_boots": "Terrastahlstiefel",
-    "item.botania.terra_sword": "Terraklinge",
-    "item.botania.tiny_planet": "Winziger Planet",
-    "item.botania.mana_ring": "Manaband",
-    "item.botania.aura_ring": "Auraband",
-    "item.botania.mana_ring_greater": "Besseres Manaband",
-    "item.botania.aura_ring_greater": "Besseres Auraband",
-    "item.botania.travel_belt": "Schärpe des Reisenden",
-    "item.botania.knockback_belt": "Tektonikgürtel",
-    "item.botania.ice_pendant": "Schneeflockanhänger",
-    "item.botania.lava_pendant": "Pyroklastanhänger",
-    "item.botania.life_essence": "Essenz des Ewigen Lebens",
-    "item.botania.redstone_root": "Redstone-Wurzel",
-    "item.botania.magnet_ring": "Ring des Magnetismus",
-    "item.botania.water_ring": "Ring der Ozeane",
-    "item.botania.mining_ring": "Ring des Erdmantels",
-    "item.botania.terra_pick": "Terra-Brecher",
-    "item.botania.diva_charm": "Talisman der Diva",
-    "item.botania.flight_tiara": "Flügel-Tiara",
     "item.botania.lens_influence": "Manalinse: Einfluss",
     "item.botania.lens_influence.short": "Einfluss",
     "item.botania.lens_weight": "Manalinse: Gewichtung",
@@ -713,16 +1259,77 @@
     "item.botania.lens_tripwire.short": "Auslöser",
     "item.botania.lens_storm": "Manalinse: Sturm",
     "item.botania.lens_storm.short": "Sturm",
+    "item.botania.rune_water": "Rune des Wassers",
+    "item.botania.rune_fire": "Rune des Feuers",
+    "item.botania.rune_earth": "Rune der Erde",
+    "item.botania.rune_air": "Rune der Luft",
+    "item.botania.rune_spring": "Rune des Frühlings",
+    "item.botania.rune_summer": "Rune des Sommers",
+    "item.botania.rune_autumn": "Rune des Herbstes",
+    "item.botania.rune_winter": "Rune des Winters",
+    "item.botania.rune_mana": "Manarune",
+    "item.botania.rune_lust": "Rune der Wollust",
+    "item.botania.rune_gluttony": "Rune der Völlerei",
+    "item.botania.rune_greed": "Rune der Gier",
+    "item.botania.rune_sloth": "Rune der Trägheit",
+    "item.botania.rune_wrath": "Rune des Zorns",
+    "item.botania.rune_envy": "Rune des Neides",
+    "item.botania.rune_pride": "Rune des Hochmutes",
+    "item.botania.mana_tablet": "Manatablett",
+    "item.botania.mana_gun": "Mana-Blaster",
+    "item.botania.composite_lens": "Verbundmanalinse: %s %s",
+    "item.botania.mana_cookie": "Manakeks",
+    "item.botania.fertilizer": "Blumendünger",
+    "item.botania.grass_seeds": "Weidesamen",
+    "item.botania.podzol_seeds": "Boreale Samen",
+    "item.botania.mycelium_seeds": "Seuchensamen",
     "item.botania.dry_seeds": "Trockene Weidesamen",
     "item.botania.golden_seeds": "Goldene Weidesamen",
     "item.botania.vivid_seeds": "Lebendige Weidesamen",
     "item.botania.scorched_seeds": "Verbrannte Weidesamen",
     "item.botania.infused_seeds": "Infundierte Weidesamen",
     "item.botania.mutated_seeds": "Mutierte Weidesamen",
+    "item.botania.livingwood_twig": "Lebeholzzweig",
+    "item.botania.dirt_rod": "Stab der Böden",
+    "item.botania.terraform_rod": "Terrafirmastab",
+    "item.botania.mana_mirror": "Manaspiegel",
+    "item.botania.manasteel_helmet": "Manastahlhelm",
+    "item.botania.manasteel_chestplate": "Manastahlbrustpanzer",
+    "item.botania.manasteel_leggings": "Manastahlbeinschutz",
+    "item.botania.manasteel_boots": "Manastahlstiefel",
+    "item.botania.manasteel_pick": "Manastahlspitzhacke",
+    "item.botania.manasteel_shovel": "Manastahlschaufel",
+    "item.botania.manasteel_axe": "Manastahlaxt",
+
+    "item.botania.manasteel_sword": "Manastahlschwert",
+    "item.botania.manasteel_shears": "Manastahlschere",
     "item.botania.horn_grass": "Horn der Wildnis",
     "item.botania.horn_leaves": "Horn der Überdachung",
     "item.botania.horn_snow": "Horn der Abdeckung",
+    "item.botania.terrasteel_ingot": "Terrastahlbarren",
+    "item.botania.terrasteel_helmet": "Terrastahlhelm",
+    "item.botania.terrasteel_chestplate": "Terrastahlbrustpanzer",
+    "item.botania.terrasteel_leggings": "Terrastahlbeinschutz",
+    "item.botania.terrasteel_boots": "Terrastahlstiefel",
+    "item.botania.terra_sword": "Terraklinge",
+    "item.botania.tiny_planet": "Winziger Planet",
+    "item.botania.mana_ring": "Manaband",
+    "item.botania.aura_ring": "Auraband",
+    "item.botania.mana_ring_greater": "Besseres Manaband",
+    "item.botania.aura_ring_greater": "Besseres Auraband",
+    "item.botania.travel_belt": "Schärpe des Reisenden",
+    "item.botania.knockback_belt": "Tektonikgürtel",
+    "item.botania.ice_pendant": "Schneeflockanhänger",
+    "item.botania.lava_pendant": "Pyroklastanhänger",
+    "item.botania.life_essence": "Essenz des Ewigen Lebens",
+    "item.botania.redstone_root": "Redstone-Wurzel",
+    "item.botania.magnet_ring": "Ring des Magnetismus",
+    "item.botania.water_ring": "Ring der Ozeane",
+    "item.botania.mining_ring": "Ring des Erdmantels",
     "item.botania.reach_ring": "Ring mit großer Reichweite",
+    "item.botania.terra_pick": "Terra-Brecher",
+    "item.botania.diva_charm": "Talisman der Diva",
+    "item.botania.flight_tiara": "Flügel-Tiara",
     "item.botania.ender_dagger": "Seelendolch",
     "item.botania.quartz_dark": "Rauchiges Quartz",
     "item.botania.quartz_mana": "Manaquartz",
@@ -742,6 +1349,7 @@
     "item.botania.elementium_pickaxe": "Elementiumspitzhacke",
     "item.botania.elementium_shovel": "Elementiumschaufel",
     "item.botania.elementium_axe": "Elementiumaxt",
+
     "item.botania.elementium_sword": "Elementiumschwer",
     "item.botania.elementium_shears": "Elementiumschere",
     "item.botania.open_bucket": "Extrapolierter Eimer",
@@ -763,6 +1371,7 @@
     "item.botania.super_lava_pendant": "Purpurroter Anhänger",
     "item.botania.ender_hand": "Enderhand",
     "item.botania.glass_pickaxe": "Glasige Spitzhacke",
+
     "item.botania.spark_upgrade_dispersive": "Spark Erweiterung: Dispersiv",
     "item.botania.spark_upgrade_dominant": "Spark Erweiterung: Dominant",
     "item.botania.spark_upgrade_recessive": "Spark Erweiterung: Rezessiv",
@@ -809,7 +1418,9 @@
     "item.botania.ancient_will_torag": "Der Wille Torags",
     "item.botania.ancient_will_verac": "Der Wille Veracs",
     "item.botania.ancient_will_karil": "Der Wille Karils",
+
     "item.botania.corporea_spark_master": "Meister Corporea Spark",
+
     "item.botania.ender_air_bottle": "Enderluft-Flasche",
     "item.botania.livingwood_bow": "Lebeholzbogen",
     "item.botania.crystal_bow": "Kristallbogen",
@@ -833,6 +1444,7 @@
     "item.botania.cosmetic_clock_eye": "Uhrenblatt",
     "item.botania.cosmetic_unicorn_horn": "Einhorn Horn",
     "item.botania.cosmetic_devil_horns": "Teufelshörner",
+
     "item.botania.cosmetic_botanist_emblem": "Botaniker-Emblem",
     "item.botania.cosmetic_ancient_mask": "Antike Maske",
     "item.botania.cosmetic_eerie_mask": "Unheimliche Maske",
@@ -872,6 +1484,7 @@
     "item.botania.pebble": "Kieselstein",
     "item.botania.water_bowl": "Wasserschüssel",
     "item.botania.obedience_stick": "Blumiger Gehorsamkeitsstab",
+    
     "item.botania.slime_bottle": "Schleim in einer Flasche",
     "item.botania.star_sword": "Sternenbeschwörer",
     "item.botania.exchange_rod": "Stab der Verschiebekruste",
@@ -899,6 +1512,38 @@
     "item.botania.astrolabe": "Astrolabium des Weltformers",
     "item.botania.goddess_charm": "Wohltätiger Charme der Göttin",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "block.minecraft.banner.botania.flower.black": "Schwarze Mystische Blume",
     "block.minecraft.banner.botania.flower.red": "Rote Mystische Blume",
     "block.minecraft.banner.botania.flower.green": "Grüne Mystische Blume",
@@ -906,12 +1551,12 @@
     "block.minecraft.banner.botania.flower.blue": "Blaue Mystische Blume",
     "block.minecraft.banner.botania.flower.purple": "Violette Mystische Blume",
     "block.minecraft.banner.botania.flower.cyan": "Türkise Mystische Blume",
-    "block.minecraft.banner.botania.flower.light_gray": "Hellgraue Mystische Blume",
+    "block.minecraft.banner.botania.flower.silver": "Hellgraue Mystische Blume",
     "block.minecraft.banner.botania.flower.gray": "Graue Mystische Blume",
     "block.minecraft.banner.botania.flower.pink": "Pinke Mystische Blume",
     "block.minecraft.banner.botania.flower.lime": "Hellgrüne Mystische Blume",
     "block.minecraft.banner.botania.flower.yellow": "Gelbe Mystische Blume",
-    "block.minecraft.banner.botania.flower.light_blue": "Hellblaue Mystische Blume",
+    "block.minecraft.banner.botania.flower.lightBlue": "Hellblaue Mystische Blume",
     "block.minecraft.banner.botania.flower.magenta": "Magentafarbene Mystische Blume",
     "block.minecraft.banner.botania.flower.orange": "Orange Mystische Blume",
     "block.minecraft.banner.botania.flower.white": "Weiße Mystische Blume",
@@ -923,12 +1568,12 @@
     "block.minecraft.banner.botania.lexicon.blue": "Blaues Lexicon",
     "block.minecraft.banner.botania.lexicon.purple": "Violettes Lexicon",
     "block.minecraft.banner.botania.lexicon.cyan": "Türkises Lexicon",
-    "block.minecraft.banner.botania.lexicon.light_gray": "Hellgraues Lexicon",
+    "block.minecraft.banner.botania.lexicon.silver": "Hellgraues Lexicon",
     "block.minecraft.banner.botania.lexicon.gray": "Graues Lexicon",
     "block.minecraft.banner.botania.lexicon.pink": "Pinkes Lexicon",
     "block.minecraft.banner.botania.lexicon.lime": "Hellgrünes Lexicon",
     "block.minecraft.banner.botania.lexicon.yellow": "Gelbes Lexicon",
-    "block.minecraft.banner.botania.lexicon.light_blue": "Hellblaues Lexicon",
+    "block.minecraft.banner.botania.lexicon.lightBlue": "Hellblaues Lexicon",
     "block.minecraft.banner.botania.lexicon.magenta": "Magentafarbenes Lexicon",
     "block.minecraft.banner.botania.lexicon.orange": "Oranges Lexicon",
     "block.minecraft.banner.botania.lexicon.white": "Weißes Lexicon",
@@ -940,12 +1585,12 @@
     "block.minecraft.banner.botania.logo.blue": "Blaues Botania",
     "block.minecraft.banner.botania.logo.purple": "Violettes Botania",
     "block.minecraft.banner.botania.logo.cyan": "Türkises Botania",
-    "block.minecraft.banner.botania.logo.light_gray": "Hellgraues Botania",
+    "block.minecraft.banner.botania.logo.silver": "Hellgraues Botania",
     "block.minecraft.banner.botania.logo.gray": "Graues Botania",
     "block.minecraft.banner.botania.logo.pink": "Pinkes Botania",
     "block.minecraft.banner.botania.logo.lime": "Hellgrünes Botania",
     "block.minecraft.banner.botania.logo.yellow": "Gelbes Botania",
-    "block.minecraft.banner.botania.logo.light_blue": "Hellblaues Botania",
+    "block.minecraft.banner.botania.logo.lightBlue": "Hellblaues Botania",
     "block.minecraft.banner.botania.logo.magenta": "Magentafarbenes Botania",
     "block.minecraft.banner.botania.logo.orange": "Oranges Botania",
     "block.minecraft.banner.botania.logo.white": "Weißes Botania",
@@ -957,12 +1602,12 @@
     "block.minecraft.banner.botania.sapling.blue": "Blauer Baum",
     "block.minecraft.banner.botania.sapling.purple": "Violetter Baum",
     "block.minecraft.banner.botania.sapling.cyan": "Türkiser Baum",
-    "block.minecraft.banner.botania.sapling.light_gray": "Hellgrauer Baum",
+    "block.minecraft.banner.botania.sapling.silver": "Hellgrauer Baum",
     "block.minecraft.banner.botania.sapling.gray": "Grauer Baum",
     "block.minecraft.banner.botania.sapling.pink": "Pinker Baum",
     "block.minecraft.banner.botania.sapling.lime": "Hellgrüner Baum",
     "block.minecraft.banner.botania.sapling.yellow": "Gelber Baum",
-    "block.minecraft.banner.botania.sapling.light_blue": "Hellblauer Baum",
+    "block.minecraft.banner.botania.sapling.lightBlue": "Hellblauer Baum",
     "block.minecraft.banner.botania.sapling.magenta": "Magentafarbener Baum",
     "block.minecraft.banner.botania.sapling.orange": "Oranger Baum",
     "block.minecraft.banner.botania.sapling.white": "Weißer Baum",
@@ -974,12 +1619,12 @@
     "block.minecraft.banner.botania.tiny_potato.blue": "Blaues Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.purple": "Violettes Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.cyan": "Türkises Kartoffelgesicht",
-    "block.minecraft.banner.botania.tiny_potato.light_gray": "Hellgraues Kartoffelgesicht",
+    "block.minecraft.banner.botania.tiny_potato.silver": "Hellgraues Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.gray": "Graues Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.pink": "Pinkes Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.lime": "Hellgrünes Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.yellow": "Gelbes Kartoffelgesicht",
-    "block.minecraft.banner.botania.tiny_potato.light_blue": "Hellblaues Kartoffelgesicht",
+    "block.minecraft.banner.botania.tiny_potato.lightBlue": "Hellblaues Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.magenta": "Magentafarbenes Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.orange": "Oranges Kartoffelgesicht",
     "block.minecraft.banner.botania.tiny_potato.white": "Weißes Kartoffelgesicht",
@@ -991,12 +1636,12 @@
     "block.minecraft.banner.botania.spark_dispersive.blue": "Blaues Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.purple": "Violettes Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.cyan": "Türkises Dispersives Symbol",
-    "block.minecraft.banner.botania.spark_dispersive.light_gray": "Hellgraues Dispersives Symbol",
+    "block.minecraft.banner.botania.spark_dispersive.silver": "Hellgraues Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.gray": "Graues Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.pink": "Pinkes Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.lime": "Hellgrünes Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.yellow": "Gelbes Dispersives Symbol",
-    "block.minecraft.banner.botania.spark_dispersive.light_blue": "Hellblaues Dispersives Symbol",
+    "block.minecraft.banner.botania.spark_dispersive.lightBlue": "Hellblaues Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.magenta": "Magentafarbenes Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.orange": "Oranges Dispersives Symbol",
     "block.minecraft.banner.botania.spark_dispersive.white": "Weißes Dispersives Symbol",
@@ -1008,12 +1653,12 @@
     "block.minecraft.banner.botania.spark_dominant.blue": "Blaues Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.purple": "Violettes Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.cyan": "Türkises Dominantes Symbol",
-    "block.minecraft.banner.botania.spark_dominant.light_gray": "Hellgraues Dominantes Symbol",
+    "block.minecraft.banner.botania.spark_dominant.silver": "Hellgraues Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.gray": "Graues Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.pink": "Pinkes Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.lime": "Hellgrünes Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.yellow": "Gelbes Dominantes Symbol",
-    "block.minecraft.banner.botania.spark_dominant.light_blue": "Hellblaues Dominantes Symbol",
+    "block.minecraft.banner.botania.spark_dominant.lightBlue": "Hellblaues Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.magenta": "Magentafarbenes Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.orange": "Oranges Dominantes Symbol",
     "block.minecraft.banner.botania.spark_dominant.white": "Weißes Dominantes Symbol",
@@ -1025,12 +1670,12 @@
     "block.minecraft.banner.botania.spark_isolated.blue": "Blaues Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.purple": "Violettes Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.cyan": "Türkises Isoliertes Symbol",
-    "block.minecraft.banner.botania.spark_isolated.light_gray": "Hellgraues Isoliertes Symbol",
+    "block.minecraft.banner.botania.spark_isolated.silver": "Hellgraues Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.gray": "Graues Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.pink": "Pinkes Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.lime": "Hellgrünes Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.yellow": "Gelbes Isoliertes Symbol",
-    "block.minecraft.banner.botania.spark_isolated.light_blue": "Hellblaues Isoliertes Symbol",
+    "block.minecraft.banner.botania.spark_isolated.lightBlue": "Hellblaues Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.magenta": "Magentafarbenes Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.orange": "Oranges Isoliertes Symbol",
     "block.minecraft.banner.botania.spark_isolated.white": "Weißes Isoliertes Symbol",
@@ -1042,12 +1687,12 @@
     "block.minecraft.banner.botania.spark_recessive.blue": "Blaues Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.purple": "Violettes Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.cyan": "Türkises Rezessives Symbol",
-    "block.minecraft.banner.botania.spark_recessive.light_gray": "Hellgraues Rezessives Symbol",
+    "block.minecraft.banner.botania.spark_recessive.silver": "Hellgraues Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.gray": "Graues Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.pink": "Pinkes Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.lime": "Hellgrünes Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.yellow": "Gelbes Rezessives Symbol",
-    "block.minecraft.banner.botania.spark_recessive.light_blue": "Hellblaues Rezessives Symbol",
+    "block.minecraft.banner.botania.spark_recessive.lightBlue": "Hellblaues Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.magenta": "Magentafarbenes Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.orange": "Oranges Rezessives Symbol",
     "block.minecraft.banner.botania.spark_recessive.white": "Weißes Rezessives Symbol",
@@ -1059,12 +1704,12 @@
     "block.minecraft.banner.botania.fish.blue": "Blauer Fisch",
     "block.minecraft.banner.botania.fish.purple": "Violetter Fisch",
     "block.minecraft.banner.botania.fish.cyan": "Türkiser Fisch",
-    "block.minecraft.banner.botania.fish.light_gray": "Hellgrauer Fisch",
+    "block.minecraft.banner.botania.fish.silver": "Hellgrauer Fisch",
     "block.minecraft.banner.botania.fish.gray": "Grauer Fisch",
     "block.minecraft.banner.botania.fish.pink": "Pinker Fisch",
     "block.minecraft.banner.botania.fish.lime": "Hellgrüner Fisch",
     "block.minecraft.banner.botania.fish.yellow": "Gelber Fisch",
-    "block.minecraft.banner.botania.fish.light_blue": "Hellblauer Fisch",
+    "block.minecraft.banner.botania.fish.lightBlue": "Hellblauer Fisch",
     "block.minecraft.banner.botania.fish.magenta": "Magentafarbener Fisch",
     "block.minecraft.banner.botania.fish.orange": "Oranger Fisch",
     "block.minecraft.banner.botania.fish.white": "Weißer Fisch",
@@ -1076,12 +1721,12 @@
     "block.minecraft.banner.botania.axe.blue": "Blaue Axt",
     "block.minecraft.banner.botania.axe.purple": "Violette Axt",
     "block.minecraft.banner.botania.axe.cyan": "Türkise Axt",
-    "block.minecraft.banner.botania.axe.light_gray": "Hellgraue Axt",
+    "block.minecraft.banner.botania.axe.silver": "Hellgraue Axt",
     "block.minecraft.banner.botania.axe.gray": "Graue Axt",
     "block.minecraft.banner.botania.axe.pink": "Pinke Axt",
     "block.minecraft.banner.botania.axe.lime": "Hellgrüne Axt",
     "block.minecraft.banner.botania.axe.yellow": "Gelbe Axt",
-    "block.minecraft.banner.botania.axe.light_blue": "Hellblaue Axt",
+    "block.minecraft.banner.botania.axe.lightBlue": "Hellblaue Axt",
     "block.minecraft.banner.botania.axe.magenta": "Magentafarbene Axt",
     "block.minecraft.banner.botania.axe.orange": "Orange Axt",
     "block.minecraft.banner.botania.axe.white": "Weiße Axt",
@@ -1093,12 +1738,12 @@
     "block.minecraft.banner.botania.hoe.blue": "Blaue Hacke",
     "block.minecraft.banner.botania.hoe.purple": "Violette Hacke",
     "block.minecraft.banner.botania.hoe.cyan": "Türkise Hacke",
-    "block.minecraft.banner.botania.hoe.light_gray": "Hellgraue Hacke",
+    "block.minecraft.banner.botania.hoe.silver": "Hellgraue Hacke",
     "block.minecraft.banner.botania.hoe.gray": "Graue Hacke",
     "block.minecraft.banner.botania.hoe.pink": "Pinke Hacke",
     "block.minecraft.banner.botania.hoe.lime": "Hellgrüne Hacke",
     "block.minecraft.banner.botania.hoe.yellow": "Gelbe Hacke",
-    "block.minecraft.banner.botania.hoe.light_blue": "Hellblaue Hacke",
+    "block.minecraft.banner.botania.hoe.lightBlue": "Hellblaue Hacke",
     "block.minecraft.banner.botania.hoe.magenta": "Magentafarbene Hacke",
     "block.minecraft.banner.botania.hoe.orange": "Orange Hacke",
     "block.minecraft.banner.botania.hoe.white": "Weiße Hacke",
@@ -1110,12 +1755,12 @@
     "block.minecraft.banner.botania.pickaxe.blue": "Blaue Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.purple": "Violette Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.cyan": "Türkise Spitzhacke",
-    "block.minecraft.banner.botania.pickaxe.light_gray": "Hellgraue Spitzhacke",
+    "block.minecraft.banner.botania.pickaxe.silver": "Hellgraue Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.gray": "Graue Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.pink": "Pinke Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.lime": "Hellgrüne Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.yellow": "Gelbe Spitzhacke",
-    "block.minecraft.banner.botania.pickaxe.light_blue": "Hellblaue Spitzhacke",
+    "block.minecraft.banner.botania.pickaxe.lightBlue": "Hellblaue Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.magenta": "Magentafarbene Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.orange": "Orange Spitzhacke",
     "block.minecraft.banner.botania.pickaxe.white": "Weiße Spitzhacke",
@@ -1127,12 +1772,12 @@
     "block.minecraft.banner.botania.shovel.blue": "Blaue Schaufel",
     "block.minecraft.banner.botania.shovel.purple": "Violette Schaufel",
     "block.minecraft.banner.botania.shovel.cyan": "Türkise Schaufel",
-    "block.minecraft.banner.botania.shovel.light_gray": "Hellgraue Schaufel",
+    "block.minecraft.banner.botania.shovel.silver": "Hellgraue Schaufel",
     "block.minecraft.banner.botania.shovel.gray": "Graue Schaufel",
     "block.minecraft.banner.botania.shovel.pink": "Pinke Schaufel",
     "block.minecraft.banner.botania.shovel.lime": "Hellgrüne Schaufel",
     "block.minecraft.banner.botania.shovel.yellow": "Gelbe Schaufel",
-    "block.minecraft.banner.botania.shovel.light_blue": "Hellblaue Schaufel",
+    "block.minecraft.banner.botania.shovel.lightBlue": "Hellblaue Schaufel",
     "block.minecraft.banner.botania.shovel.magenta": "Magentafarbene Schaufel",
     "block.minecraft.banner.botania.shovel.orange": "Orange Schaufel",
     "block.minecraft.banner.botania.shovel.white": "Weiße Schaufel",
@@ -1144,12 +1789,12 @@
     "block.minecraft.banner.botania.sword.blue": "Blaues Schwert",
     "block.minecraft.banner.botania.sword.purple": "Violettes Schwert",
     "block.minecraft.banner.botania.sword.cyan": "Türkises Schwert",
-    "block.minecraft.banner.botania.sword.light_gray": "Hellgraues Schwert",
+    "block.minecraft.banner.botania.sword.silver": "Hellgraues Schwert",
     "block.minecraft.banner.botania.sword.gray": "Graues Schwert",
     "block.minecraft.banner.botania.sword.pink": "Pinkes Schwert",
     "block.minecraft.banner.botania.sword.lime": "Hellgrünes Schwert",
     "block.minecraft.banner.botania.sword.yellow": "Gelbes Schwert",
-    "block.minecraft.banner.botania.sword.light_blue": "Hellblaues Schwert",
+    "block.minecraft.banner.botania.sword.lightBlue": "Hellblaues Schwert",
     "block.minecraft.banner.botania.sword.magenta": "Magentafarbenes Schwert",
     "block.minecraft.banner.botania.sword.orange": "Oranges Schwert",
     "block.minecraft.banner.botania.sword.white": "Weißes Schwert",
@@ -1161,25 +1806,96 @@
     "botania.category.devices": "Natürlicher Apparat",
     "botania.category.tools": "Mystische Instumente",
     "botania.category.baubles": "Krimskrams und Accessoires",
+
     "botania.category.alfhomancy": "Alfhomantie",
     "botania.category.misc": "Verschiedenes",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.lexicon": "Lexica Botania",
+
+
+
+
+
 
     "botania.entry.flowers": "Mystische Blumen",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.apothecary": "Blütenblatttiegel",
 
+
+
+
+
+
+
+
+
     "botania.entry.pureDaisy": "Reines Gänseblümchen",
+
+
     "botania.page.pureDaisy1": "Gib ihr einfach $(thing)eine Munute$(0) oder so...",
     "botania.page.pureDaisy2": "$(item)Lebeholz$(0) kann zu Zweigen gemacht werden",
+
     "botania.page.pureDaisy3": "Weiß ist hell und rein",
 
     "botania.entry.wand": "Stab des Waldes",
 
+
+
+
+
+
     "botania.entry.runeAltar": "Runenaltar",
+
+
+
+
     "botania.page.runeAltar2": "Herstellung des $(item)Runenaltars$(0).",
     "botania.page.runeAltar3": "Es gibt insgesamt 16 $(item)Runen$(0).$(p)Die grundlegenden und elementaren Runen sind nach den $(thing)Vier Elementen$(0) benannt. Die mittleren Runen sind nach den $(thing)Vier Jahreszeiten$(0) benannt und die am forgeschrittendsten Runen nach den $(thing)Sieben Todsünden$(0). Auch gibt es eine seperate $(item)Manarune$(0).",
+
+
     "botania.page.runeAltar4": "Die $(item)Rune des Wassers$(0).",
     "botania.page.runeAltar5": "Die $(item)Rune der Erde$(0).",
     "botania.page.runeAltar6": "Die $(item)Rune der Luft$(0).",
@@ -1199,160 +1915,758 @@
 
     "botania.entry.terrasteel": "Terrastahl",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.mIntro": "Eine Einführung in Mana",
+
+
+
+
 
     "botania.entry.spreader": "Manaverbreiter",
 
+
+
+
+
+
+
+
+
+
+
     "botania.entry.pool": "Manabecken",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "botania.entry.distributor": "Manaverteiler",
 
+
+
+
     "botania.entry.manaVoid": "Manaleere",
 
-    "botania.entry.lensVelocity": "Manalinse: Geschwindigkeit",
 
-    "botania.entry.lensPotency": "Manalinse: Macht",
 
-    "botania.entry.lensResistance": "Manalinse: Resistenz",
 
-    "botania.entry.lensEfficiency": "Manalinse: Effizienz",
 
-    "botania.entry.lensBounce": "Manalinse: Abprall",
 
-    "botania.entry.lensGravity": "Manalinse: Schwerkraft",
 
-    "botania.entry.lensBore": "Manalinse: Bohren",
 
-    "botania.entry.lensDamaging": "Manalinse: Schädigung",
 
-    "botania.entry.lensPhantom": "Manalinse: Phantom",
 
-    "botania.entry.lensMagnet": "Manalinse: Magnetisierung",
 
-    "botania.entry.lensExplosive": "Manalinse: Chaos",
 
-    "botania.entry.manaTransport": "Tragbares Transportieren von Mana",
-    "botania.page.manaTransport4": "Spieglein, Spieglein an der Wand...",
+
+
+
+
+
+
+    "botania.page.lens7": "Manalinse: Geschwindigkeit",
+
+    "botania.page.lens9": "Manalinse: Macht",
+
+    "botania.page.lens11": "Manalinse: Resistenz",
+
+    "botania.page.lens13": "Manalinse: Effizienz",
+
+    "botania.page.lens15": "Manalinse: Abprall",
+
+
+
+    "botania.page.lens17": "Manalinse: Schwerkraft",
+
+    "botania.page.lens19": "Manalinse: Bohren",
+
+    "botania.page.lens21": "Manalinse: Schädigung",
+
+    "botania.page.lens23": "Manalinse: Phantom",
+
+    "botania.page.lens25": "Manalinse: Magnetisierung",
+
+    "botania.page.lens27": "Manalinse: Chaos",
+
+
+
+
+
+
+
+
+
+
+
+
+    "botania.tagline.manaTablet": "Tragbares Transportieren von Mana",
+
+
+
+
+
+
+
+    "botania.page.manaMirror1": "Spieglein, Spieglein an der Wand...",
 
     "botania.entry.manaDetector": "Manadetektor",
 
-    "botania.entry.composite_lens": "Verbundmanalinse",
+
+
 
     "botania.entry.redstoneSpreader": "Redstone-Manaverbreiter",
 
+
+
+
     "botania.entry.manastar": "Manastern",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "botania.entry.fIntro": "Eine Einführung in Funktion",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.jadedAmaranthus": "Jaded-Amarant",
+
+
+
+
 
     "botania.entry.bellethorne": "Belldorn",
 
+
+
+
     "botania.entry.dreadthorne": "Schreckdorn",
+
+
     "botania.page.dreadthorne1": "$(o)Nein, Mr. Bond - ich erwarte von Ihnen, dass Sie sterben$(0).",
 
     "botania.entry.heiseiDream": "Kehrnelke",
 
+
+
+
     "botania.entry.tigerseye": "Tigerauge",
+
+
+
 
     "botania.entry.orechid": "Erzblüte",
 
+
+
+
+
+
+
+
+
     "botania.entry.fallenKanade": "Engelsblüte",
+
+
+
+
 
     "botania.entry.exoflame": "Exoflamme",
 
+
+
+
     "botania.entry.agricarnation": "Agraryophylle",
+
+
+
 
     "botania.entry.hopperhock": "Trichterkraut",
 
+
+
+
+
     "botania.entry.tangleberrie": "Wirrbeere",
+
+
+
 
     "botania.entry.jiyuulia": "Bannbeere",
 
+
+
+
+
+
+
+
+
     "botania.entry.rannuncarpus": "Rannawurzel",
 
+
+
+
+
     "botania.entry.hyacidus": "Cyazinthe",
+
+
     "botania.page.hyacidus1": "$(o)Stahl ist immun$(0).",
 
     "botania.entry.pollidisiac": "Pollidisie",
 
+
+
+
     "botania.entry.clayconia": "Helehmie",
+
+
+
 
     "botania.entry.loonium": "Beutner",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.gIntro": "Eine Einführung in Generierung",
 
-    "botania.entry.daybloom": "Tagesblüte",
 
-    "botania.entry.nightshade": "Nachtschatten",
+
+
+
 
     "botania.entry.endoflame": "Endoflamme",
+
+
+
+
     "botania.page.endoflame2": "$(o)Nicht Nitor$(0).",
+
 
     "botania.page.hydroangeas1": "$(o)Aquane Macht$(0).",
 
     "botania.entry.thermalily": "Thermalilie",
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.munchdew": "Mampftau",
+
+
+
 
     "botania.entry.entropinnyum": "Entropinnyum",
 
+
+
+
     "botania.entry.kekimurus": "Kekimurus",
 
-    "botania.entry.pistonRelay": "Kraftrelais",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "botania.entry.pylon": "Manapylon",
 
+
+
+
     "botania.entry.manaEnchanting": "Verzaubern mit Mana",
+
+
+
+
+
+
+
+
+
 
     "botania.entry.turntable": "Verbreiter-Drehscheibe",
 
+
+
+
+
     "botania.entry.manaAlchemy": "Alchemie mit Mana",
+
+
     "botania.page.manaAlchemy1": "Kreieren eines $(item)Katalysators$(0)",
     "botania.page.manaAlchemy2": "$(item)Verrottetes Fleisch$(0) zu $(item)Leder$(0)",
+
     "botania.page.manaAlchemy3": "Verschiedene Arten von $(item)Holz$(0)",
+
     "botania.page.manaAlchemy4": "Verschiedene Arten von $(item)Setzlingen$(0)",
     "botania.page.manaAlchemy5": "Zersetzung von $(item)Glowstone-Blöcken$(0)",
+
     "botania.page.manaAlchemy6": "Zersetzung von $(item)Quarzblöcken$(0)",
     "botania.page.manaAlchemy7": "Kreation von $(item)Gemeißelten Steinziegeln$(0)",
     "botania.page.manaAlchemy8": "Frieren von $(item)Schnee$(0) zu $(item)Eis$(0)",
+
     "botania.page.manaAlchemy9": "Verwandlung zwischen $(item)Ranken$(0) und $(item)Seerosenblättern$(0)",
+
     "botania.page.manaAlchemy10": "Verschiedene Arten von $(item)Fisch$(0)",
+
     "botania.page.manaAlchemy11": "Transmutation von $(item)Samen$(0) und $(item)Getreide$(0)",
     "botania.page.manaAlchemy12": "Reinigung von $(item)Giftigen Kartoffeln$(0)",
     "botania.page.manaAlchemy13": "Beschwörung von $(item)Netherwarzen$(0)",
     "botania.page.manaAlchemy14": "Verwandlung zwischen $(item)Schwarzpulver$(0) und $(item)Feuerstein$(0)",
     "botania.page.manaAlchemy15": "Herstellung von $(item)Namensschildern$(0)",
     "botania.page.manaAlchemy16": "Teilung von $(item)Wolle$(0) in $(item)Fäden$(0)",
+
     "botania.page.manaAlchemy17": "Erschaffen von $(item)Schleimbällen$(0)",
     "botania.page.manaAlchemy18": "Verwandlung zwischen $(item)Glowstone$(0) und $(item)Redstone$(0)",
+
     "botania.page.manaAlchemy19": "Zersetzung von $(item)Pflasterstein$(0) zu $(item)Sand$(0)",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "botania.entry.forestEye": "Auge der Ältesten",
 
+
+
+
+
     "botania.entry.openCrate": "Offene Kiste",
+
+
+
+
 
     "botania.entry.forestDrum": "Trommel der Wildnis",
 
+
+
+
+
     "botania.entry.platform": "Schimmerplattform",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "botania.entry.manaBlaster": "Mana-Blaster",
 
+
+
+
+
+
     "botania.entry.grassSeeds": "Weidesamen",
+
+
     "botania.page.grassSeeds1": "$(item)Weidesamen$(0) für Gras",
     "botania.page.grassSeeds2": "$(item)Boreale Samen$(0) für Podsol",
     "botania.page.grassSeeds3": "$(item)Seuchensamen$(0) für Myzel",
 
+
+
     "botania.entry.dirtRod": "Stab der Böden",
+
+
+
     "botania.page.dirtRod1": "Ziemlich dreckig",
 
     "botania.entry.terraformRod": "Terrafirmastab",
 
+
+
+
+
+
     "botania.entry.manaGear": "Manastahl-Equipment",
+
+
+
     "botania.page.manaGear1": "Die $(item)Manastahlspitzhacke$(0)",
     "botania.page.manaGear2": "Die $(item)Manastahlschaufel$(0)",
     "botania.page.manaGear3": "Die $(item)Manastahlaxt$(0)",
+
     "botania.page.manaGear4": "Die $(item)Manastahlschere$(0)",
     "botania.page.manaGear5": "Das $(item)Manastahlschwert$(0)",
     "botania.page.manaGear6": "Der $(item)Manastahlhelm$(0)",
@@ -1362,7 +2676,14 @@
 
     "botania.entry.grassHorn": "Horn der Wildnis",
 
+
+
+
+
+
     "botania.entry.terrasteelArmor": "Terrastahlrüstung",
+
+
     "botania.page.terrasteelArmor1": "Der $(item)Terrastahlhelmt$(0)",
     "botania.page.terrasteelArmor2": "Der $(item)Terrastahlbrustpanzer$(0)",
     "botania.page.terrasteelArmor3": "Der $(item)Terrastahlbeinschutz$(0)",
@@ -1370,40 +2691,689 @@
 
     "botania.entry.terraSword": "Terraklinge",
 
+
+
+
     "botania.entry.terraPick": "Terra-Brecher",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "botania.entry.pistonRelay": "Kraftrelais",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "botania.entry.flightTiara": "Flügel-Tiara",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "botania.entry.bIntro": "Eine Einführung in Accessoires",
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.tinyPlanet": "Winziger Planet",
+
+
+
     "botania.page.tinyPlanet2": "Planetarischer als Pluto",
 
     "botania.entry.manaRing": "Manaband",
 
+
+
+
+
     "botania.entry.auraRing": "Auraband",
+
+
+
+
 
     "botania.entry.travelBelt": "Schärpe des Reisenden",
 
+
+
+
     "botania.entry.knockbackBelt": "Tektonikgürtel",
+
+
+
 
     "botania.entry.icePendant": "Schneeflockanhänger",
 
+
+
+
+
     "botania.entry.lavaPendant": "Pyroklastanhänger",
 
+
+
+
     "botania.entry.waterRing": "Ring der Ozeane",
+
+
     "botania.page.waterRing1": "Butter bei die Fische",
 
     "botania.entry.miningRing": "Ring des Erdmantels",
 
+
+
+
     "botania.entry.magnetRing": "Ring des Magnetismus",
+
+
+
+
+
+
+
+
+
 
     "botania.entry.divaCharm": "Talisman der Diva",
 
-    "botania.entry.flightTiara": "Flügel-Tiara",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     "botania.entry.aIntro": "Das Portal nach Alfheim",
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "botania.entry.decorativeBlocks": "Dekorative Blöcke",
+
+
     "botania.page.decorativeBlocks1": "Lebesteinziegel",
     "botania.page.decorativeBlocks2": "Die Ziegel bemoosen",
     "botania.page.decorativeBlocks3": "Die Ziegel brüchig machen",
@@ -1416,5 +3386,178 @@
 
     "botania.entry.dispenserTweaks": "Dispenser-Änderungen",
 
+
+
     "botania.entry.shinyFlowers": "Schimmernde Blumen"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
