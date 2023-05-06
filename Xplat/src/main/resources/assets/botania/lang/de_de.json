@@ -6,219 +6,219 @@
     "_comment4": "Untranslated entries will automatically be inherited from en_US",
     "_comment5": "Once again, don't copy from English, and THANK YOU for your hard work!",
     "itemGroup.botania": "Botania",
+    "botania.landing": "Magie, Technik. Natürlich.$(br2)Botania ist eine technische Modifikation, die thematisch an Naturmagie ausgerichtet ist. Die Grundidee ist, magische Blumen und Vorrichtungen herzustellen, welche die Macht der Erde, in Form von $(thing)Mana$(), nutzen.",
+    "botania.desc": "Magie, Technik. Natürlich",
 
+    "attribute.name.botania.pixieSpawnChance": "Chance auf Hervorbringen einer Fee",
 
-
-
-
-
-
-
+    "stat.botania.corporea_items_requested": "Gegenstände mit Corporea-Index angefordert",
+    "stat.botania.tiny_potatoes_petted": "Winzige Kartoffeln gestreichelt",
+    "stat.botania.luminizer_one_cm": "Strecke per Beleuchter geschwebt",
 
     "botaniamisc.color": "%s gefärbt",
     "botaniamisc.manaUsage": "Manaverbrauch",
     "botaniamisc.flareColor": "Ladungen %s",
-    "botaniamisc.outputtingPower": "Gibt Mana an Items ab",
-    "botaniamisc.inputtingPower": "Nimmt Mana von Items auf",
+    "botaniamisc.outputtingPower": "Gibt Mana an Gegenstände ab",
+    "botaniamisc.inputtingPower": "Nimmt Mana von Gegenständen auf",
     "botaniamisc.creative": "Kreativ",
     "botaniamisc.invFull": "Dein Inventar ist voll.",
     "botaniamisc.composite_lens": "Zusammengesetzt mit %s",
-    "botaniamisc.filter0": "Nur Items in Rahmen aufsammeln",
-    "botaniamisc.filter1": "Nur Items außerhalb von Rahmen aufsammeln",
-    "botaniamisc.filter2": "Alle Items aufsammeln",
-
-
-
+    "botaniamisc.filter0": "Nur Gegenstände in Rahmen aufsammeln",
+    "botaniamisc.filter1": "Nur Gegenstände außerhalb von Rahmen aufsammeln",
+    "botaniamisc.filter2": "Alle Gegenstände aufsammeln",
+    "botaniamisc.retainer.retain_all": "Halte ursprünglich angeforderte Anzahl von Gegenständen",
+    "botaniamisc.retainer.retain_missing": "Halte Anzahl fehlender Gegenstände",
+    "botaniamisc.optifine_warning": "§4[WARNUNG]§r <Botania>: Optifine erkannt. Bitte sei dir bewusst, dass Optifine eine Menge Probleme mit Botania verursacht, z.B. könnte Mana sich nicht zwischen Blumen und Verteilern bewegen, oder es werden keine Informationen angezeigt, wenn du den Stab des Waldes hältst. Wir empfehlen Sodium als eine Alternative für die Leistungsverbesserungen von Optifine.",
 
     "botaniamisc.creativePool0": "Kreatives Manabecken, hat unendlich Mana",
     "botaniamisc.creativePool1": "Eines Egoisten würdig",
-
+    "botaniamisc.creativeSpark": "Dupliziert Gegenstände in zugehörigem Block bei Anfragen",
     "botaniamisc.toolRank": "%s§7-Rang",
-
-
-
-
-
+    "botaniamisc.lexiconcover0": "Offizielles Hanbdbuch für",
+    "botaniamisc.lexiconcover1": "alle Botania-Bedürfnisse!",
+    "botaniamisc.lexiconcover2": "Ein Buch von Vazkii",
+    "botaniamisc.shiftinfo": "Halte %s für mehr Informationen",
+    "botaniamisc.ratio": "%sx Zoom (zeigen um herauszuzoomen)",
     "botaniamisc.conversionRatio": "Etwa %s von %s",
     "botaniamisc.conversionChanceBiome": "%s in %s-Biom",
-
-
-
-
-
-
-
-
-
-
+    "botaniamisc.bottleTooltip": "Es hat einen gewöhnungsbedürftigen Geschmack",
+    "botaniamisc.shardLevel": "Scherbenstärke %s",
+    "botaniamisc.shardRange": "Radius: %s",
+    "botaniamisc.lexiconIndex": "Lexikon-Index",
+    "botaniamisc.drop": "Fallen lassen",
+    "botaniamisc.dropTip2": "Tipp: Drücke %s um Gegenstände",
+    "botaniamisc.dropTip3": "aus deinem Inventar fallenzulassen",
+    "botaniamisc.dropTip1": "Strg+%s lässt einen ganzen Stapel fallen",
+    "botaniamisc.wandMode.bind": "Bindemodus",
+    "botaniamisc.wandMode.function": "Funktionsmodus",
     "botaniamisc.sextantMode.circle": "Kreismodus",
     "botaniamisc.sextantMode.sphere": "Kugelmodus",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botaniamisc.brewOf": "Bräu: %s",
+    "botaniamisc.needsCatalysts": "Egal wie sehr du versuchst, den Barren in das Leuchtfeuer zu drücken, es scheint nichts zu passieren. Eventuell stimmt deine Konfiguration der Katalysator-Pylonen nicht.",
+    "botaniamisc.peacefulNoob": "Du versuchst, den Barren dem Leuchtfeuer zu offerieren, aber die friedliche Stimmung deiner Welt hält dich davon ab. Eventuell solltest du etwas dagegen unternehmen.",
+    "botaniamisc.notInfused": "Nicht getränkt",
+    "botaniamisc.getALife": "Hast du nichts Besseres zu tun?",
+    "botaniamisc.floatingPrefix": "Schwebende %s",
+    "botaniamisc.unsetRecipe": "[Kein Rezept] Rechtsklick zum Setzen:",
+    "botaniamisc.cantCraft": "Nicht genug Material!",
+    "botaniamisc.lotusDesc": "Er strahlt starke Magie aus",
+    "botaniamisc.hasClip": "§6Hat Linsenklemme",
+    "botaniamisc.clipEmpty": "(leer)",
+    "botaniamisc.armorset": "§bRüstungssatz§r:",
+    "botaniamisc.craftToAddWill": "Terrasteelhelm-Verbesserung:",
+    "botaniamisc.requestMsg": "%d mal \"%s\" von %d angefordert. %d genommen.",
+    "botaniamisc.nearIndex0": "Nahe Corporea-Index!",
+    "botaniamisc.nearIndex1": "Alles was du sagst wird",
+    "botaniamisc.nearIndex2": "als Anfrage abgefangen",
+    "botaniamisc.cosmeticBauble": "Kosmetisch",
+    "botaniamisc.cosmeticThinking": "Gibt wirklich zu denken",
+    "botaniamisc.hasCosmetic": "Kosmetik: %s",
+    "botaniamisc.hasPhantomInk": "Mit Phantomtinte gefärbt",
+    "botaniamisc.pinkinatorDesc": "Unmittelbar auf Wither anwenden",
+    "botaniamisc.relicUnbound": "§6Relikt§7, Ungebunden",
+    "botaniamisc.relicSoulbound": "§6Relikt§7, Gebunden an die Seele von §f%s",
+    "botaniamisc.notYourSagittarius": "§4Dieses Relikt gehört dir nicht",
+    "botaniamisc.diceRoll": "Der Würfel landet auf einer %s und verwandeln sich in etwas Anderes!",
+    "botaniamisc.dudDiceRoll": "Der Würfel landet auf einer %s und löst sich in Luft auf.",
+    "botaniamisc.flugelBound": "Gebunden an %s in %s",
+    "botaniamisc.flugelUnbound": "Ungebunden in %s",
+    "botaniamisc.blockAway": "1 Block entfernt",
+    "botaniamisc.blocksAway": "%s Blöcke entfernt",
+    "botaniamisc.clickToTeleport": "Rechtsklick für teleport",
+    "botaniamisc.clickToRemoveWarp": "Schleich-Angreifen zum Entfernen",
+    "botaniamisc.unboundWarp": "Unbound Warp Point",
+    "botaniamisc.clickToAddWarp": "Rechtsklick zum Binden an diese Position",
+    "botaniamisc.hasKeepIvy": "Hat Entschlossenen Efeu",
+    "botaniamisc.active": "§aAktiv",
+    "botaniamisc.inactive": "§cInaktiv",
+    "botaniamisc.advancements": "Botania-Fortschritte",
+    "botaniamisc.dropIkea": "§bWenn du diesen Gegenstand fallen lässt, zerbricht er in seine Bestandteile",
+    "botaniamisc.hourglassLock": "Diese Sanduhr ist gesperrt. Zum Entsperren mit einem Stab des Waldes Rechtsklicken.",
+    "botaniamisc.crystalCubeLocked": "Dieser Kristallwürfel ist gesperrt. Um den angezeigten Gegenstand zu wechseln, entsperre ihn mit einem Stab des Waldes.",
+    "botaniamisc.locked": "Gesperrt",
+    "botaniamisc.stopped": "Gestoppt",
+    "botaniamisc.lockedStopped": "Gesperrt, Gestoppt",
+    "botaniamisc.challenges": "Herausforderungen",
+    "botaniamisc.challengeInfo": "Lerne die Herausforderungen kennen",
+    "botaniamisc.command.skyblock.island.success": "Insel für Spieler %s erfolgreich erzeugt",
+    "botaniamisc.command.skyblock.island.teleported": "Spieler %s teleportiert, da insel bereits existiert",
+    "botaniamisc.command.skyblock.regenisland.success": "Insel für Spieler %s erfolgreich neu erzeugt",
+    "botaniamisc.command.skyblock.teleport.success": "Spieler %s zu Insel %s teleportiert",
+    "botaniamisc.command.skyblock.spawn.success": "Spieler %s zur Spawn-Insel teleportiert",
+    "botaniamisc.command.skyblock.world": "Der Befehl kann nicht in einer Nicht-Skyblock-Dimension benutzt werden",
+    "botaniamisc.command.skyblock.noisland": "Es existiert keine Insel für diesen Spieler",
+    "botaniamisc.command.skyblock.help.0": "/gardenofglass help - Zeigt diese Meldung",
+    "botaniamisc.command.skyblock.help.1": "/gardenofglass island <player> - Erzeugt eine neue Insel oder teleportiert den Spieler zu seiner Insel",
+    "botaniamisc.command.skyblock.help.2": "/gardenofglass spawn - Teleportiert den Benutzer zur Spawn-Insel",
+    "botaniamisc.command.skyblock.help.3": "/gardenofglass visit <player|playerUuid> - Teleportiert den Benutzer zur Insel des angegebenen Spielers",
+    "botaniamisc.command.skyblock.help.4": "/gardenofglass regen-island <player|playerUuid> - Erzeugt die Insel des angegebenen Spielers neu",
+    "botaniamisc.command.full_book_function": "Alle fehlenden Lexikon-Fortschritte gewährt.",
+    "botaniamisc.pay2win": "Rüste dein Manabecken auf, um diesen Gegenstand zu infundieren",
+    "botaniamisc.justDoIt": "TU ES",
+    "botaniamisc.changes0": "§aBotania§7 hat sich geändert, seit du es das letzte Mal in dieser Instanz verwendet hast!",
+    "botaniamisc.changes1": "Deine zuletzt verwendete §aBotania§7-Version war §b%s§7.",
+    "botaniamisc.changes2": "Dinge ändern sich, kein Grund zur Panik. Falls sich irgendwas falsch anfühlt, lies seinen Eintrag noch einmal.",
+    "botaniamisc.changes3": "§oJeder fürchtet sich vor Veränderungen, doch Veränderungen sind die Kraft, die uns vorwärts treibt.",
+    "botaniamisc.changes4": "§fSUmschalt-Linksklick§7 zum Lesen der Änderungen",
+    "botaniamisc.changes5": "§fLinksklick§7 um das hier zu schließen",
+    "botaniamisc.badArena": "So sehr du es auch versuchst, das Leuchtfeuer akzeptiert dein Opfer nicht. Du glaubst, dass die Ritualanlage unvollständig sein könnte. Es wäre wohl ein gute Idee, auf Hindernisse in der näheren Umgebung oder größere Lücken im Boden zu prüfen.",
+    "botaniamisc.shiftToStopSpin": "(UMSCHALT stoppt die Animation)",
+    "botaniamisc.altarRefill0": "Rechtsklick mit leerer Hand um das",
+    "botaniamisc.altarRefill1": "letzte Rezept erneut einzufüllen",
+    "botaniamisc.santaweaveInfo": "Managewobenes, umgerüstet für die §cF§fe§cs§ft§cz§fe§ci§ft",
+    "botaniamisc.scaleChange": "Skalierung ändern",
+    "botaniamisc.invalidDodge": "Ungültiges Täuschungsmaneuver-Paket",
+    "botaniamisc.rannuncarpus.state_sensitive": "Exakten Blockzustand vergleichen",
+    "botaniamisc.rannuncarpus.state_insensitive": "Nur Block vergleichen",
+    "botania.tater_birthday.0": "Wow, ist das für mich?",
+    "botania.tater_birthday.1": "Heute ist mein Geburtstag, ich bin jetzt %d Jahre alt!",
+    "botania.tater_birthday.2": "Vielen Dank! Ich hoffe das war auch für dich ein gutes Jahr.",
+    "botania.tater_birthday.3": "Denk immer daran: Ich glaube an dich, und du kannst es schaffen! \u2764",
+    "botania.tater_birthday.4": "Juhu!!!",
+
+    "botania.nei.brewery": "Botanische Brauerei",
+    "botania.nei.elvenTrade": "Elfenhandel",
+    "botania.nei.floatingFlowers": "Schwebende Blumen",
+    "botania.nei.manaPool": "Mana-Infusion",
+    "botania.nei.petalApothecary": "Blütenapotheke",
+    "botania.nei.runicAltar": "Runenaltar",
+    "botania.nei.pureDaisy": "Reines Gänseblümchen",
+    "botania.nei.lexica": "Lexica Botania",
+    "botania.nei.orechid": "Erzblüte",
+    "botania.nei.orechidIgnem": "Flammende Erzblüte",
+    "botania.nei.marimorphosis": "Tagemorphes",
+    "botania.nei.terraPlate": "Terrestrische Agglomeration",
+
+    "emi.category.botania.petal_apothecary": "Blütenapotheke",
+    "emi.category.botania.mana_infusion": "Mana-Infusion",
+    "emi.category.botania.runic_altar": "Runenaltar",
+    "emi.category.botania.terrestrial_agglomeration": "Terrestrische Agglomeration",
+    "emi.category.botania.elven_trade": "Elfenhandel",
+    "emi.category.botania.botanical_brewery": "Botanische Brauerei",
+    "emi.category.botania.pure_daisy": "Reines Gänseblümchen",
+    "emi.category.botania.orechid": "Erzblüte",
+    "emi.category.botania.orechid_ignem": "Flammende Erzblüte",
+    "emi.category.botania.marimorphosis": "Tagemorphes",
+
+    "tag.botania.petals.white": "Weiße Blütenblätter",
+    "tag.botania.petals.orange": "Orange Blütenblätter",
+    "tag.botania.petals.magenta": "Magentafarbene Blütenblätter",
+    "tag.botania.petals.light_blue": "Hellblaue Blütenblätter",
+    "tag.botania.petals.yellow": "Gelbe Blütenblätter",
+    "tag.botania.petals.lime": "Hellgrüne Blütenblätter",
+    "tag.botania.petals.pink": "Pinke Blütenblätter",
+    "tag.botania.petals.gray": "Graue Blütenblätter",
+    "tag.botania.petals.light_gray": "Hellgraue Blütenblätter",
+    "tag.botania.petals.cyan": "Türkise Blütenblätter",
+    "tag.botania.petals.purple": "Violette Blütenblätter",
+    "tag.botania.petals.blue": "Blaue Blütenblätter",
+    "tag.botania.petals.brown": "Braune Blütenblätter",
+    "tag.botania.petals.green": "Grüne Blütenblätter",
+    "tag.botania.petals.red": "Rote Blütenblätter",
+    "tag.botania.petals.black": "Schwarze Blütenblätter",
+    "tag.botania.petals": "Blütenblätter",
+    "tag.botania.mystical_flowers": "Mystische Blumen",
+    "tag.botania.double_mystical_flowers": "Große Mystische Blumen",
+    "tag.botania.floating_flowers": "Schwebende Blumen",
+    "tag.botania.special_flowers": "Spezielle Blumen",
+    "tag.botania.mundane_floating_flowers": "Gewöhnliche schwebende Blumen",
+    "tag.botania.special_floating_flowers": "Spezielle schwebende Blumen",
+    "tag.botania.generating_special_flowers": "Generierende schwebende Blumen",
+    "tag.botania.functional_special_flowers": "Funktionale schwebende Blumen",
+    "tag.botania.misc_special_flowers": "Sonstige spezielle Blumen",
+    "tag.botania.dreamwood_logs": "Traumholzstämme",
+    "tag.botania.livingwood_logs": "Lebeholzstämme",
+    "tag.botania.glimmering_dreamwood_logs": "Schimmernde Traumholzstämme",
+    "tag.botania.glimmering_livingwood_logs": "Schimmernde Lebeholzstämme",
+    "tag.botania.mini_flowers": "Zierliche Blumen",
+    "tag.botania.mana_using_items": "Mananutzende Gegenstände",
+    "tag.botania.lens": "Manalinsen",
+    "tag.botania.lens_glue": "Linsenkleber",
+    "tag.botania.runes": "Runen",
+    "tag.botania.rods": "Stäbe",
+    "tag.botania.manasteel_ingots": "Manastahlbarren",
+    "tag.botania.manasteel_nuggets": "Manastahlklumpen",
+    "tag.botania.manasteel_blocks": "Manastahlblöcke",
+    "tag.botania.terrasteel_ingots": "Terrastahlbarren",
+    "tag.botania.terrasteel_nuggets": "Terastahlklumpen",
+    "tag.botania.terrasteel_blocks": "Terrastahlblöcke",
+    "tag.botania.elementium_ingots": "Elementium-Barren",
+    "tag.botania.elementium_nuggets": "Elementium-Klumpen",
+    "tag.botania.elementium_blocks": "Elementium-Blöcke",
+    "tag.botania.mana_diamond_gems": "Manadiamand-Edelsteine",
+    "tag.botania.dragonstone_gems": "Drachenstein-Edelsteine",
+    "tag.botania.mana_dusts": "Manastäube",
+    "tag.botania.burst_viewers": "Burst Viewers",
+    "tag.botania.seed_apothecary_reagent": "Samenreagenzen",
+
+    "key.botania_corporea_request": "Corporea-Anfrage",
+
+    "botania.triggers.manaDetector": "Mana Burst",
+    "botania.triggers.manaEmpty": "Mana leer",
+    "botania.triggers.manaSpace": "Platz für Mana",
+    "botania.triggers.manaContains": "Enthält Mana",
+    "botania.triggers.manaFull": "Mana voll",
+    "botania.triggers.runeAltarCanCraft": "Altar kann herstellen",
 
     "botania.color.rainbow": "Regenbogenfarben",
 
@@ -229,11 +229,59 @@
 
 
 
+    "botania.sign0": "Widder",
+    "botania.sign1": "Stier",
+    "botania.sign2": "Zwillinge",
+    "botania.sign3": "Krebs",
+    "botania.sign4": "Löwe",
+    "botania.sign5": "Jungfrau",
+    "botania.sign6": "Waage",
+    "botania.sign7": "Skorpion",
+    "botania.sign8": "Schütze",
+    "botania.sign9": "Steinbock",
+    "botania.sign10": "Wassermann",
+    "botania.sign11": "Fische",
 
+    "botania.wings0": "Keine Flügel",
+    "botania.wings1": "Flügel: Flügel",
+    "botania.wings2": "Flügel: Einflügliger Engel",
+    "botania.wings3": "Flügel: Eisfee",
+    "botania.wings4": "Flügel: Phönix",
+    "botania.wings5": "Flügel: Schwarze Schneeprinzessin",
+    "botania.wings6": "Flügel: Fürst der Unterwelt",
+    "botania.wings7": "Flügel: Sylphe",
+    "botania.wings8": "Flügel: Mega Ultra Chicken",
+    "botania.wings9": "Flügel: Der Auserwählte",
 
+    "botania.animatedTorch.toggle": "Umschalten",
+    "botania.animatedTorch.rotate": "Drehen",
+    "botania.animatedTorch.random": "Zufall",
 
+    "botania.armorset.manasteel.name": "Mana-Affinität",
+    "botania.armorset.manasteel.desc": "10%% geringere Manakosten für Mana-Werkzeuge and Stäbe",
+    "botania.armorset.elementium.name": "Segen der Großen Fee",
+    "botania.armorset.elementium.desc": "Chance für Feen, Trankeffekte anzuwenden",
+    "botania.armorset.terrasteel.name": "Wille der Vorfahren",
+    "botania.armorset.terrasteel.desc0": "20%% geringere Manakosten für Mana-Werkzeuge and Stäbe",
+    "botania.armorset.terrasteel.desc1": "Regeneration selbst wenn Hunger nicht voll ist",
+    "botania.armorset.terrasteel.desc2": "Passive Manageneration auf Manatafeln",
+    "botania.armorset.manaweave.name": "Manastrom-Talent",
+    "botania.armorset.manaweave.desc0": "35%% geringere Manakosten für Mana-Werkzeuge and Stäbe",
+    "botania.armorset.manaweave.desc1": "Erhöht Leistung von magischen Stäben",
 
+    "botania.armorset.will_ahrim.desc": "Ahrim: Kritische Treffer erzeugen einen starten Schwächeeffekt",
+    "botania.armorset.will_dharok.desc": "Dharok: Schaden kritischer Treffer erhöht sich bei niedriger Gesundheit",
+    "botania.armorset.will_guthan.desc": "Guthan: Kritische Treffer heilen für einen Teil des Schadens",
+    "botania.armorset.will_torag.desc": "Torag: Kritische Treffer erzeugen einen starken Verlangsamungseffekt",
+    "botania.armorset.will_verac.desc": "Verac: Kritische Treffer schlagen durch Rüstung",
+    "botania.armorset.will_karil.desc": "Karil: Kritische Treffer erzeugen einen Wither-Effekt",
 
+    "botania.armorset.will_ahrim.shortDesc": "Kritische Treffer bewirken Schwäche",
+    "botania.armorset.will_dharok.shortDesc": "Stärkere kritische Treffer bei niedriger Gesundheit",
+    "botania.armorset.will_guthan.shortDesc": "Kritische Treffer heilen teilweise",
+    "botania.armorset.will_torag.shortDesc": "Kritische Treffer bewirken Verlangsamung",
+    "botania.armorset.will_verac.shortDesc": "Kritische Treffer schlagen durch Rüstung",
+    "botania.armorset.will_karil.shortDesc": "Kritische Treffer bewirken Wither",
 
 
 
@@ -267,295 +315,247 @@
 
 
 
+    "botania.flowerType.generating": "Generierende Blume",
+    "botania.flowerType.functional": "Funktionale Blume",
+    "botania.flowerType.misc": "Sonstige Blume",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "blockBreakingParticles.enabled": "Blockabbaupartikel",
+    "blockBreakingParticlesTool.enabled": "Werkzeug-Blockabbaupartikel",
+    "boundBlock.wireframe.enabled": "Drahtmodell für gebundenen Block",
+    "darkQuartz.enabled": "Rauchquarz aktivieren",
+    "fallenKanade.enabled": "Engelsblüte aktivieren",
+    "manaEnchanter.enabled": "Mana-Verzauberer aktivieren",
+    "manaFluxfield.enabled": "Mana-Flussfeld aktivieren",
+    "relics.enabled": "Relikte aktivieren",
+    "18stones.enabled": "1.8 Steinarten aktivieren",
+    "ringOfOdin.fireResist": "Feuerresistenz für Ring des Odin aktivieren",
+    "flower.forceCheck": "Erzwinge Prüfung von Blumen",
+    "enderPickpocket.enabled": "Ender-Taschendiebstahl aktivieren",
+    "thermalily.obsidian": "Thermalilie benötigt Obsidian",
+    "passiveWither.time": "Passiver-Wither-Zeit",
+    "flowerParticles.frequency": "Blumenpartikelfrequenz",
+    "lexicon.enable.rotatingItems": "Rotierende Gegenstände in Lexikon",
+    "lexicon.enable.justifiedText": "Ausgerichteter Text in Lexikon",
+    "lexicon.render.3D": "3D-Rendern in Lexicon",
+    "manaBar.height": "Manabalkenhöhe",
+    "powerSystem.subtle": "Benutze subtiles Power-System",
+    "pylonModel.old": "Benutze altes Pylon-Modell",
+    "elfPortal.particles.enabled": "Portalpartikel aktivieren",
+    "chargeAnimation.enabled": "Ladungsanimation aktivieren",
+    "vanillaParticleConfig.enabled": "Benutze Minecraft-Partikelkonfiguration",
+    "manaSpreaders.silent": "Stumme Manaverteiler",
+    "flowerTextures.alt": "Alternative Blumentexturen",
+    "matrixMode.enabled": "Matrixmodus aktivieren",
+    "references.enabled": "Kurzinfo-Referenzen aktivieren",
+    "shaders.enabled": "Shader-Benutzung aktivieren",
+    "baubleRender.enabled": "Enable Trinket Rendering",
+    "spreader.posShift": "Verteilerpositionsverschiebung",
+    "spreader.traceTime": "Verteilerspurzeit",
+    "staticFloaters.enabled": "Statische schwebende Blumen aktivieren",
+    "debugInfo.enabled": "Botanias F3-Debuginformationen aktivieren",
+    "versionChecking.enabled": "Versionsprüfung aktivieren",
+    "wandBeam.static": "Statischen Stab-Strahl aktivieren",
+    "worldgen.flower.density": "Blumendichte (Weltgenerierung)",
+    "worldgen.flower.quantity": "Blumenqualität (Weltgenerierung)",
+    "worldgen.flower.patchChance": "Blumenfleckchance (Weltgenerierung)",
+    "worldgen.flower.patchSize": "Blumenfleckgröße (Weltgenerierung)",
+    "worldgen.flower.tallChance": "Chance auf große Blumen (Weltgeneriering)",
+    "worldgen.mushroom.quantity": "Pilzqualität (Weltgenerierung)",
+    "armorModels.enable": "Angepasste Rüstungsmodelle",
+    "fancySkybox.enable": "Hübsche Skybox",
+    "fancySkybox.normalWorlds": "Hübsche Skybox in Nicht-GoG-Welten",
+    "flightBar.height": "Flügel-Tiara Flugleistenhöhe",
+    "flightBarBreath.height": "Flügel-Tiara Flugleistenhöhe mit Atemanzeige",
+    "harvestLevel.boreLens": "Bohrlinsen-Abbaustufe",
+    "harvestLevel.weightLens": "Gewichtlinsen-Abbaustufe",
+    "magnetRing.invert": "Magnetringkontrolle invertieren",
+    "seasonalFeatures.enabled": "Saisonale Features",
 
     "botania.baubletooltip": "Drücke §b%s§7, um das Schmuck-Menü zu öffnen",
 
+    "item.botania.dice.poem0": "Er teilt die Karten aus zum Finden der Antwort,",
+    "item.botania.dice.poem1": "Die ehrwürdige Geometrie der Chance,",
+    "item.botania.dice.poem2": "Das verborgene Gesetz möglicher Ergebnisse,",
+    "item.botania.dice.poem3": "Die Zahlen eröffnen einen Tanz.",
 
+    "death.attack.botania-relic": "%s wurde für die Benutzung eines Relikts von jemand Anderem bestraft",
 
+    "entity.botania.mana_burst": "Mana Burst",
+    "entity.botania.pixie": "Fee",
+    "entity.botania.flame_ring": "Flammenring",
+    "entity.botania.vine_ball": "Rankenknäuel",
+    "entity.botania.doppleganger": "Wächter von Gaia",
+    "entity.botania.magic_landmine": "Gaia-Falle",
+    "entity.botania.spark": "Funke",
+    "entity.botania.thrown_item": "Geworfener Gegenstand",
+    "entity.botania.magic_missile": "Magisches Geschoss",
+    "entity.botania.thorn_chakram": "Dornenchakram",
+    "entity.botania.corporea_spark": "Corporea-Funke",
+    "entity.botania.ender_air_bottle": "Enderluft-Flasche",
+    "entity.botania.ender_air": "Enderluft-Wolke",
+    "entity.botania.pool_minecart": "Manabeckenlore",
+    "entity.botania.pink_wither": "Pinker Wither",
+    "entity.botania.player_mover": "Beleuchterstrahl",
+    "entity.botania.mana_storm": "Manasturm-Epizentrum",
+    "entity.botania.babylon_weapon": "Schatzwaffe",
+    "entity.botania.falling_star": "Fallender Stern",
 
+    "advancement.botania_challenge": "Botania-Herausforderungen",
+    "advancement.botania_challenge.desc": "Herausforderungen für fortgeschrittene Botaniker",
 
+    "advancement.botania:flowerPickup.desc": "Pflücke eine mystische Blume",
 
+    "advancement.botania:lexiconUse.desc": "Öffne die Lexica Botania und schau dir den Inhalt an",
 
+    "advancement.botania:generatingFlower.desc": "Stelle eine generierende Blume in der Blütenapotheke her",
 
+    "advancement.botania:manaPoolPickup.desc": "Stelle ein Manabecken her, um Mana zu speichern",
 
+    "advancement.botania:functionalFlower.desc": "Stelle eine funktionale Blume in der Blütenapotheke her",
 
+    "advancement.botania:tinyPotatoPet.desc": "Stelle eine winzige Kartoffel her und streichele sie",
 
+    "advancement.botania:sparkCraft.desc": "Stelle einen Funken her, um beim Manatransport zu helfen",
 
+    "advancement.botania:baubleWear.desc": "Stelle irgendein Accessoire her und trage es",
 
+    "advancement.botania:manaCookieEat.desc": "Infundiere und iß einen leckeren Keks der Totalität",
 
+    "advancement.botania:runePickup.desc": "Benutze einen Runenaltar um eine Rune herzustellen",
 
+    "advancement.botania:manaBlasterShoot.desc": "Stelle einen Mana-Blaster her und schieß damit",
 
+    "advancement.botania:tiaraWings.desc": "Stelle eine Flügel-Tiara her und schmücke sie mit Flügeln",
 
+    "advancement.botania:terrasteelPickup.desc": "Beschwöre einen Terrastahlbarren mit Hilfe einer Terrestrischen Agglomerationsplatte",
 
+    "advancement.botania:elfPortalOpen.desc": "Öffne ein Portal zum Reich von Alfheim",
 
+    "advancement.botania:gaiaGuardianKill.desc": "Rufe einen Gaia-Wächter herbei und bezwinge ihn für ein Ritual von Gaia",
 
+    "advancement.botania:terrasteelWeaponCraft.desc": "Bewaffne dich mit einer Waffe aus Terrastahl",
 
+    "advancement.botania:kekimurusPickup.desc": "Stelle eine Kekimurus her, um große Mengen an Mana zu produzieren",
 
+    "advancement.botania:heiseiDreamPickup.desc": "Stelle eine Kehrnelke her, um Chaos unter Kreaturen zu stiften",
 
+    "advancement.botania:dirtRodCraft.desc": "Stelle einen Drecksto- äh... Stab des Landes her",
 
+    "advancement.botania:spawnerMoverUse.desc": "Benutze einen Lebensaggregator zum Transport eines Monsterspawners",
 
+    "advancement.botania:enderAirMake.desc": "Befülle eine Flasche mit Enderluft",
 
+    "advancement.botania:corporeaCraft.desc": "Stelle einen Block her, der das Corporea-Netzwerk benutzt",
 
+    "advancement.botania:cacophoniumCraft.desc": "Stelle ein Kakofon her, um deine Widersacher ein bisschen zu verärgern",
 
+    "advancement.botania:manaCartCraft.desc": "Stelle eine Manabeckenlore für Langsteckentransport von Mana her",
 
+    "advancement.botania:craftingHaloCraft.desc": "Stelle einen Montage-Halo her, um die Herstellung zu erleichtern",
 
+    "advancement.botania:manaweaveArmorCraft.desc": "Stelle Managewobene Rüstung her, um deine Stäbe zu verstärken",
 
+    "advancement.botania:enchanterMake.desc": "Stelle eien Mana-Verzauberer her, um bessere Kontrolle über Verzauberungen zu haben",
 
+    "advancement.botania:pollidisiacPickup.desc": "Stelle eine Pollidisiac her, bringe Liebe in die Luft",
 
+    "advancement.botania:brewPickup.desc": "Stelle eine Botanische Brauerei her und erzeuge damit ein Gebräu jeglicher Art ",
 
+    "advancement.botania:terraformRodCraft.desc": "Stelle einen Terrafirma-Stab her und verändere die Welt",
 
+    "advancement.botania:bubbellPickup.desc": "Stelle eine Blasenblume her, um die Konstruktion einer Unterwasserbasis zu ermöglichen",
 
+    "advancement.botania:luminizerRide.desc": "Stelle einige Beleuchter her und benutze sie zum Transport",
 
+    "advancement.botania:manaBombIgnite.desc": "Stelle einen Manasturm-Sprengsatz her, zünde ihn an einem fernen Ort",
 
+    "advancement.botania:dandelifeonPickup.desc": "Stelle einen Lebenzahn her und fordere damit deinen Geist heraus",
 
 
+    "advancement.botania:l20ShardUse.desc": "Hebe den Boden in den Himmel mit einer Stärke XX Scherbe von Laputa",
 
+    "advancement.botania:gaiaGuardianNoArmor.desc": "Bezwinge einen Gaia-Wächter, ohne zu irgend einem Zeitpunkt während des Kampfes eine Rüstung zu tragen",
 
+    "advancement.botania:rankSSPick.desc": "Grabe mit einem SS-Rang Terra-Brecher durch die Welt",
 
+    "advancement.botania:superCorporeaRequest.desc": "Mache eine erfolgreiche Anfrage für 65536 Stück eines einzigen Gegenstands mit einem Corporea-Index",
 
+    "advancement.botania:pinkinator.desc": "Verwende den Pinkinator",
 
 
+    "advancement.botania:gaiaGuardianHardmode.desc": "Rufe einen mächtigeren Gaia-Wächter herbei und bezwinge ihn für ein Ritual von Gaia II",
 
+    "advancement.botania:infiniteFruit.desc": "Werde mit der Frucht von Grisaia für eine Heldentat belohnt",
 
+    "advancement.botania:kingKey.desc": "Werde mit dem Schlüssel für des Königs Gesetz für eine Heldentat belohnt",
 
+    "advancement.botania:flugelEye.desc": "Werde mit dem Auge der Flügel für eine Heldentat belohnt",
 
+    "advancement.botania:thorRing.desc": "Werde mit dem Ring des Thor für eine Heldentat belohnt",
 
+    "advancement.botania:odinRing.desc": "Werde mit dem Ring des Odin für eine Heldentat belohnt",
 
+    "advancement.botania:lokiRing.desc": "Werde mit dem Ring des Loki für eine Heldentat belohnt",
 
+    "advancement.botania:lokiRingMany.desc": "Platziere mehr als 255 zusätzliche Blöcke gleichzeitig mit dem Ring des Loki",
 
+    "advancement.botania:alfPortalBread.desc": "Sende den Elfen Brot",
 
+    "advancement.botania:old_flower_pickup.desc": "Entdecke das Tagesblüten- oder Nachtschatten-Motiv",
 
 
 
 
+    "advancement.botania:tinyPotatoBirthday.desc": "Feiere den Geburtstag der Winzigen Kartoffel am 19. Juli",
 
+    "botania.challengelevel.easy": "Leicht",
+    "botania.challengelevel.normal": "Mittel",
+    "botania.challengelevel.hard": "Schwer",
+    "botania.challengelevel.lunatic": "Wahnsinnig",
 
+    "botania.challenge.flowerFarm": "Blumenfarm",
+    "botania.challenge.flowerFarm.desc": "Baue eine automatische Farm für alle 16 Farben der Botaniablumen. Bonuspunkte für das Sortieren der Blumen.",
+    "botania.challenge.recordFarm": "Schallplattenfarm",
+    "botania.challenge.recordFarm.desc": "Baue ein System, das Schallplatten durch den Tod von Creepern durch die Hand von Skeletten produziert. Bonuspunkte, wenn es keine Spielerpräsenz benötigt.",
+    "botania.challenge.reedFarm": "Zuckerrohrfarm",
+    "botania.challenge.reedFarm.desc": "Baue eine automatische Zuckerrohrfarm. Bonuspunkte fürs Vermeiden von Kolben",
+    "botania.challenge.cobbleGen": "Bruchsteingenerator",
+    "botania.challenge.cobbleGen.desc": "Baue einen automatischen Bruchsteingenerator. Bonuspunkte falls er auch ohne einen Ofen normalen Stein generieren kann.",
+    "botania.challenge.pureDaisy": "Automatisches Reines Gänseblümchen",
+    "botania.challenge.pureDaisy.desc": "Automatisiere das $(l:basics/pure_daisy)Reine Gänseblümchen$(/l) komplett. Bonuspunkte für die Verwendung nur eines Manaverteilers und/oder die Automatisierung der Holz- oder Steinzufuhr.",
+    "botania.challenge.battery": "Manabatterie",
+    "botania.challenge.battery.desc": "Baue eine Manabatterie, ein System, bei dem Mana in ein Becken gefüllt wird und aus einem anderen entnommen werden kann, mit einigen Becken dazwischen als Puffer. Bonuspunkte, falls Ein- oder Ausgabe änderbar sind.",
 
+    "botania.challenge.apothecaryRefill": "Apothekennachfüller",
+    "botania.challenge.apothecaryRefill.desc": "Baue ein System, welches die $(l:basics/apothecary)Blütenapotheke$(/l) automatisch nachfüllt, wenn sie leer ist. Bonuspunkte, falls das System auch automatisch Blumen produzieren kann wenn die notwendigen Komponenten bereitgestellt werden.",
+    "botania.challenge.treeFarm": "Baumfarm",
+    "botania.challenge.treeFarm.desc": "Baue eine automatische Baumfarm. Bonuspunkte, falls sie mit mehreren Baumarten umgehen kann.",
+    "botania.challenge.fullCropFarm": "Vollständige Feldfruchtfarm",
+    "botania.challenge.fullCropFarm.desc": "Baue eine Farm für alle Feldfrüchte (Weizen, Karotten, Kartoffeln, Rote Bete, Melone, Kürbis, Kakao und Nether-Warze) die mit voller Effizienz läuft. Bonuspunkte für das Sortieren der Ernte.",
+    "botania.challenge.animalFarm": "Viehfarm",
+    "botania.challenge.animalFarm.desc": "Baue eine automatische Viehfarm für alle farmbaren Tierarten. Bonuspunkte, falls das Futter nicht von Hand gebracht werden muss.",
+    "botania.challenge.boneMealFarm": "Farm mit Knochenmehl",
+    "botania.challenge.boneMealFarm.desc": "Baue eine automatisierte Farm, die Knochenmehl benutzt, um Feldfrüchte schnell bei Bedarf wachsen zu lassen. Bonuspunkte, falls die $(l:devices/forest_drum)Trommel der Wildnis$(/l) nicht benutzt wird.",
+    "botania.challenge.orechid": "Automatisierte Erzblüte",
+    "botania.challenge.orechid.desc": "Baue ein System, welches die $(l:functional_flowers/orechid)Erzblütee$(/l) vollständig automatisiert. Bonuspunkte für automatisches Erhitzen und Sortieren der Produkte.",
 
+    "botania.challenge.mobTower": "Spawn-Turm",
+    "botania.challenge.mobTower.desc": "Baue eine turmartige Kreaturen-Farm. Kreaturen müssen sortiert und in verschiedene Kammern gebracht werden. Spawners können benutzt werden. Bonuspunkte, falls die Farm ohne Spielerinteraktion mit 100%% Effizienz läuft.",
+    "botania.challenge.entropinnyumSetup": "Entropinnyum-Aufbau",
+    "botania.challenge.entropinnyumSetup.desc": "Baue ein System, welches automatisch TNT herstellt und auf sichere Weise einer $(l:generating_flowers/entropinnyum)Entropinnyum$(/l)-Blume zuführt, um Mana zu produzieren. Bonuspunkte, falls der Sand und das Schwarzpulver nicht manuell bereitgestellt werden müssen.",
+    "botania.challenge.spectrolusSetup": "Spektrolus-Aufbau",
+    "botania.challenge.spectrolusSetup.desc": "Baue ein System, welches eine $(l:generating_flowers/spectrolus)Spektrolus$(/l) füttert, um Mana zu generieren. Abgesehen von reinem Mana dürfen dem System keine Gegenstände von außen zugeführt werden. Bonuspunkte wenn es 100%% effizient arbeitet und keine Wolle verschwendet.",
+    "botania.challenge.shulkMeNotSetup": "Shulk-Mich-Nicht-Aufbau",
+    "botania.challenge.shulkMeNotSetup.desc": "Baue ein System für eine $(l:generating_flowers/shulk_me_not)Shulk Mich Nicht$(/l), um automatisch Mana zu produzieren, ohne Mana, Gegenstände oder Objekte von außerhalb zu benötigen. Bonuspunkte für das Vermeiden unnötiger Kämpfe zwischen den Kreaturen.",
+    "botania.challenge.potionBrewer": "Automatisches Brauen",
+    "botania.challenge.potionBrewer.desc": "Baue ein System, welches alle Arten von Gebräuen automatisch auf Anfrage herstellen kann. Bonuspunktte, falls es eine Menge von Räucherstäbchen in der Basis des Spielers ständig angesteckt halten kann.",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.challenge.kekimurusSetup": "Kekimurus-Aufbau",
+    "botania.challenge.kekimurusSetup.desc": "Automatisiere eine $(l:generating_flowers/kekimurus)Kekimurus$(/l) vollständig, d.h. jeder Teil des Systems muss automatisiert und selbstversorgend sein. Bonuspunkte für die Verwendung von nur einer Schlauen Kiste.",
+    "botania.challenge.autoQuarry": "Automatischer Steinbruch",
+    "botania.challenge.autoQuarry.desc": "Baue einen Bergbaumaschine, die unterirdisch nach Erzen und Stein gräbt. sie sollte ein Stück Land ausgraben und alle abgebauten Ressourcen ausgeben und sortieren. Bonuspunkte, falls sie automatisch verlegt werden kann, sobald sie mit einem Abschnitt fertig ist.",
+    "botania.challenge.runeCrafter": "Runenhersteller",
+    "botania.challenge.runeCrafter.desc": "Baue ein System, welches alle Runen herstellen und vorrätig halten kann. Jeder Teil des Systems muss atuomatisiert und selbstversorgend sein, inklusive der Zufuhr von Gegenständen. Bonuspunkte für die Verwendung nur eines Runenaltars. (Du musst ziemlich verrückt sein, das hier zu versuchen.)",
 
     "block.botania.white_mystical_flower": "Mystische Weiße Blume",
     "block.botania.orange_mystical_flower": "Mystische Orange Blume",
@@ -586,13 +586,13 @@
     "block.botania.apothecary_livingrock": "Lebestein-Blütenapotheke",
     "block.botania.apothecary_deepslate": "Tiefenschiefer-Blütenapotheke",
     "block.botania.livingrock": "Lebestein",
-
-
-
-
+    "block.botania.polished_livingrock": "Polierter Lebestein",
+    "block.botania.polished_livingrock_slab": "Polierte Lebesteinstufe",
+    "block.botania.polished_livingrock_stairs": "Polierte Lebesteintreppe",
+    "block.botania.polished_livingrock_wall": "Polierte Lebesteinmauer",
     "block.botania.livingrock_bricks": "Lebesteinziegel",
     "block.botania.mossy_livingrock_bricks": "Bemooste Lebesteinziegel",
-    "block.botania.cracked_livingrock_bricks": "Brüchige Lebesteinziegel",
+    "block.botania.cracked_livingrock_bricks": "Rissige Lebesteinziegel",
     "block.botania.chiseled_livingrock_bricks": "Gerahmte Lebesteinziegel",
     "block.botania.livingwood": "Lebeholz",
     "block.botania.livingwood_planks": "Lebeholzbretter",
@@ -600,12 +600,12 @@
     "block.botania.framed_livingwood": "Gerahmtes Lebeholz",
     "block.botania.pattern_framed_livingwood": "Schnittgerahmtes Lebeholz",
     "block.botania.glimmering_livingwood": "Schimmerndes Lebeholz",
-
-
-
-
-
-
+    "block.botania.livingwood_log": "Lebeholzstamm",
+    "block.botania.stripped_livingwood_log": "Entrindeter Lebeholzstamm",
+    "block.botania.glimmering_livingwood_log": "Schimmernder Lebeholzstamm",
+    "block.botania.glimmering_stripped_livingwood_log": "Schimmernder entrindeter Lebeholzstamm",
+    "block.botania.stripped_livingwood": "Entrindetes Lebeholz",
+    "block.botania.glimmering_stripped_livingwood": "Schimmerndes entrindetes Lebeholz",
     "block.botania.mana_spreader": "Manaverteiler",
     "block.botania.redstone_spreader": "Impuls-Manaverteiler",
     "block.botania.elven_spreader": "Elfen-Manaverteiler",
@@ -631,9 +631,9 @@
     "block.botania.forest_eye": "Auge der Ältesten",
     "block.botania.manasteel_block": "Manastahlblock",
     "block.botania.terrasteel_block": "Terrastahlblock",
-
-
-
+    "block.botania.elementium_block": "Elementiumblock",
+    "block.botania.mana_diamond_block": "Manadiamantblock",
+    "block.botania.dragonstone_block": "Drachensteinblock",
     "block.botania.drum_wild": "Trommel der Wildnis",
     "block.botania.drum_gathering": "Trommel des Sammelns",
     "block.botania.drum_canopy": "Trommel der Baumkronen",
@@ -697,33 +697,33 @@
     "block.botania.mossy_dreamwood_planks": "Bemooste Traumholzbretter",
     "block.botania.framed_dreamwood": "Gerahmtes Traumholz",
     "block.botania.pattern_framed_dreamwood": "Schnittgerahmtes Traumholz",
-    "block.botania.glimmering_dreamwood": "Glitzerndes Traumholz",
-
-
-
-
-
-
+    "block.botania.glimmering_dreamwood": "Schimmerndes Traumholz",
+    "block.botania.dreamwood_log": "Traumholzstamm",
+    "block.botania.glimmering_dreamwood_log": "Schimmernder Traumholzstamm",
+    "block.botania.stripped_dreamwood_log": "Entrindeter Traumholzstamm",
+    "block.botania.glimmering_stripped_dreamwood_log": "Schimmernder entrindeter Traumholzstamm",
+    "block.botania.stripped_dreamwood": "Entrindetes Traumholz",
+    "block.botania.glimmering_stripped_dreamwood": "Schimmerndes entrindetes Traumholz",
     "block.botania.livingwood_stairs": "Lebeholztreppe",
     "block.botania.livingwood_slab": "Lebeholzstufe",
     "block.botania.livingwood_planks_stairs": "Lebeholzbrettertrppe",
     "block.botania.livingwood_planks_slab": "Lebeholzbretterstufe",
-
-
-
+    "block.botania.stripped_livingwood_stairs": "Entrindete Lebeholztreppe",
+    "block.botania.stripped_livingwood_slab": "Entrindete Lebeholzstufe",
+    "block.botania.stripped_livingwood_wall": "Entrindete Lebeholzmauer",
     "block.botania.livingrock_stairs": "Lebesteintreppe",
     "block.botania.livingrock_slab": "Lebesteinstufe",
     "block.botania.livingrock_bricks_stairs": "Lebesteinziegeltreppe",
     "block.botania.livingrock_bricks_slab": "Lebesteinziegelstufe",
-
-
+    "block.botania.mossy_livingrock_bricks_stairs": "Bemooste Lebesteinziegeltreppe",
+    "block.botania.mossy_livingrock_bricks_slab": "Bemooste Lebesteinziegelstufe",
     "block.botania.dreamwood_stairs": "Traumholztreppe",
     "block.botania.dreamwood_slab": "Traumholzstufe",
     "block.botania.dreamwood_planks_stairs": "Traumholzbrettertreppe",
     "block.botania.dreamwood_planks_slab": "Traumholzbretterstufe",
-
-
-
+    "block.botania.stripped_dreamwood_stairs": "Entrindete Traumholztreppe",
+    "block.botania.stripped_dreamwood_slab": "Entrindete Traumholzstufe",
+    "block.botania.stripped_dreamwood_wall": "Entrindete Traumholzmauer",
     "block.botania.conjuration_catalyst": "Beschwörungskatalysator",
     "block.botania.white_floating_flower": "Schwebende Weiße Blume",
     "block.botania.orange_floating_flower": "Schwebende Orange Blume",
@@ -741,7 +741,7 @@
     "block.botania.green_floating_flower": "Schwebende Grüne Blume",
     "block.botania.red_floating_flower": "Schwebende Rote Blume",
     "block.botania.black_floating_flower": "Schwebende Schwarze Blume",
-    "block.botania.tiny_potato": "Kleine Kartoffel",
+    "block.botania.tiny_potato": "Winzige Kartoffel",
     "block.botania.spawner_claw": "Lebensfüller",
 
 
@@ -855,14 +855,14 @@
     "block.botania.metamorphic_desert_bricks_slab": "Solitziegelstufe",
     "block.botania.metamorphic_taiga_bricks_slab": "Lunitziegelstufe",
     "block.botania.metamorphic_mesa_bricks_slab": "Rosentalkziegelstufe",
-
-
-
-
-
-
-
-
+    "block.botania.metamorphic_forest_stone_wall": "Fuchsitmauer",
+    "block.botania.metamorphic_plains_stone_wall": "Talkmauer",
+    "block.botania.metamorphic_mountain_stone_wall": "Gneissmauer",
+    "block.botania.metamorphic_fungal_stone_wall": "Mycelitmauer",
+    "block.botania.metamorphic_swamp_stone_wall": "Kataklasitmauer",
+    "block.botania.metamorphic_desert_stone_wall": "Solitwandl",
+    "block.botania.metamorphic_taiga_stone_wall": "Lunitmauer",
+    "block.botania.metamorphic_mesa_stone_wall": "Rosentalkmauer",
     "block.botania.metamorphic_forest_cobblestone_wall": "Bruchfuchsitmauer",
     "block.botania.metamorphic_plains_cobblestone_wall": "Bruchtalkmauer",
     "block.botania.metamorphic_mountain_cobblestone_wall": "Bruchgneissmauer",
@@ -871,14 +871,14 @@
     "block.botania.metamorphic_desert_cobblestone_wall": "Bruchsolitmauer",
     "block.botania.metamorphic_taiga_cobblestone_wall": "Bruchlunitmauer",
     "block.botania.metamorphic_mesa_cobblestone_wall": "Bruchrosentalkmauer",
-
-
-
-
-
-
-
-
+    "block.botania.metamorphic_forest_bricks_wall": "Fuchsitziegelmauer",
+    "block.botania.metamorphic_plains_bricks_wall": "Talkziegelmauer",
+    "block.botania.metamorphic_mountain_bricks_wall": "Gneissziegelmauer",
+    "block.botania.metamorphic_fungal_bricks_wall": "Mycelitziegelmauer",
+    "block.botania.metamorphic_swamp_bricks_wall": "Kataklasitziegelmauer",
+    "block.botania.metamorphic_desert_bricks_wall": "Solitziegelmauer",
+    "block.botania.metamorphic_taiga_bricks_wall": "Lunitziegelmauer",
+    "block.botania.metamorphic_mesa_bricks_wall": "Rosentalkziegelmauer",
     "block.botania.white_petal_block": "Weißer Blütenblock",
     "block.botania.orange_petal_block": "Oranger Blütenblock",
     "block.botania.magenta_petal_block": "Magentafarbener Blütenblock",
@@ -946,8 +946,8 @@
     "block.botania.toggle_light_relay": "Geschalteter Beleuchter",
     "block.botania.light_launcher": "Beleuchterstarter",
     "block.botania.livingrock_wall": "Lebesteinmauer",
-
-
+    "block.botania.livingrock_bricks_wall": "Lebesteinziegelmauer",
+    "block.botania.mossy_livingrock_bricks_wall": "Bemooste Lebesteinziegelmauer",
     "block.botania.livingwood_wall": "Lebeholzmauer",
     "block.botania.dreamwood_wall": "Traumholzmauer",
     "block.botania.livingwood_fence": "Lebeholzzaun",
@@ -995,24 +995,24 @@
     "block.botania.green_pavement_slab": "Grüne Portugiesische Pflasterstufe",
     "block.botania.cell_block": "Zellularblock",
     "block.botania.gaia_head": "Kopf des Gaia-Wächters",
-
-
-
-
-
-
-
+    "block.botania.corporea_block": "Corporea-Block",
+    "block.botania.corporea_slab": "Corporea-Stufe",
+    "block.botania.corporea_stairs": "Corporea-Treppe",
+    "block.botania.corporea_brick": "Corporea-Ziegel",
+    "block.botania.corporea_brick_slab": "Corporea-Ziegelstufe",
+    "block.botania.corporea_brick_stairs": "Corporea-Ziegeltreppe",
+    "block.botania.corporea_brick_wall": "Corporea-Ziegelmauer",
     "block.botania.corporea_retainer": "Corporea-Halter",
     "block.botania.mana_glass_pane": "Managlasscheibe",
     "block.botania.elf_glass_pane": "Elfenglasscheibe",
     "block.botania.bifrost_pane": "Bifrostscheibe",
 
-    "block.botania.shimmerrock": "Schimmerstein",
-    "block.botania.shimmerrock_slab": "Schimmersteinstufe",
-    "block.botania.shimmerrock_stairs": "Schimmersteintreppe",
-    "block.botania.shimmerwood_planks": "Schimmerholzbretter",
-    "block.botania.shimmerwood_planks_slab": "Schimmerholzbretterstufe",
-    "block.botania.shimmerwood_planks_stairs": "Schimmerholzbrettertreppe",
+    "block.botania.shimmerrock": "Schillerstein",
+    "block.botania.shimmerrock_slab": "Schillersteinstufe",
+    "block.botania.shimmerrock_stairs": "Schillersteintreppe",
+    "block.botania.shimmerwood_planks": "Schillerholzbretter",
+    "block.botania.shimmerwood_planks_slab": "Schillerholzbretterstufe",
+    "block.botania.shimmerwood_planks_stairs": "Schillerholzbrettertreppe",
     "block.botania.avatar": "Lebeholz-Avatar",
     "block.botania.dry_grass": "Trockenes Gras",
     "block.botania.golden_grass": "Goldenes Gras",
@@ -1144,24 +1144,24 @@
     "block.botania.loonium": "Beutner",
     "block.botania.loonium.reference": "Ich bin reich!",
     "block.botania.floating_loonium": "Schwebender Beutner",
-    "block.botania.daffomill": "Pusterglocke",
+    "block.botania.daffomill": "Ostermühle",
     "block.botania.daffomill.reference": "Assistent des Kochs",
-    "block.botania.floating_daffomill": "Schwebende Pusterglocke",
+    "block.botania.floating_daffomill": "Schwebende Ostermühle",
     "block.botania.vinculotus": "Vinculotos",
     "block.botania.vinculotus.reference": "Auf jeden Fall ein Extra Utils Rip-Off",
     "block.botania.floating_vinculotus": "Schwebender Vinculotos",
-    "block.botania.spectranthemum": "Spektranthemum",
+    "block.botania.spectranthemum": "Spektrantheme",
     "block.botania.spectranthemum.reference": "In der Schale",
-    "block.botania.floating_spectranthemum": "Schwebende Spektranthemum",
+    "block.botania.floating_spectranthemum": "Schwebende Spektrantheme",
     "block.botania.medumone": "Angstemone",
     "block.botania.medumone.reference": "Starr wie eine Salzsäule",
     "block.botania.floating_medumone": "Schwebende Angstemone",
-
-
-    "block.botania.floating_marimorphosis": "Schwebende Marimorphosis",
-    "block.botania.marimorphosis_chibi": "Zierliche Marimorphosis",
-
-    "block.botania.floating_marimorphosis_chibi": "Schwebende Zierliche Marimorphosis",
+    "block.botania.marimorphosis": "Tagemorphes",
+    "block.botania.marimorphosis.reference": "Guten Morgen, Welt!",
+    "block.botania.floating_marimorphosis": "Schwebende Tagemorphes",
+    "block.botania.marimorphosis_chibi": "Zierliche Tagemorphes",
+    "block.botania.marimorphosis_chibi.reference": "Guten Morgen, Welt!",
+    "block.botania.floating_marimorphosis_chibi": "Schwebende Zierliche Tagemorphes",
     "block.botania.bubbell": "Blasenblume",
     "block.botania.bubbell.reference": "Unterwasserleben, ich komme",
     "block.botania.floating_bubbell": "Schwebende Blasenblume",
@@ -1179,7 +1179,7 @@
     "block.botania.floating_bergamute": "Schwebende Bergamute",
 
     "block.botania.labellia.reference": "Des Ingenieurs zweitschwerstes Problem",
-
+    "block.botania.floating_labellia": "Schwebende Labellia",
     "block.botania.daybloom_motif": "Tagesblütenmotiv",
     "block.botania.nightshade_motif": "Nachtschattenmotiv",
     "block.botania.hydroangeas_motif": "Hydroangea-Motiv",
@@ -1460,12 +1460,12 @@
     "item.botania.mana_string": "Mana infundierter Faden",
     "item.botania.swap_ring": "Ring der Korrektur",
     "item.botania.flower_bag": "Blumenbeutel",
-    "item.botania.phantom_ink": "Geheimtinte",
+    "item.botania.phantom_ink": "Phantomtinte",
     "item.botania.pool_minecart": "Manabeckenlore",
     "item.botania.pinkinator": "Der Pinkinator",
     "item.botania.infinite_fruit": "Die Frucht von Grisaia",
     "item.botania.king_key": "Schlüssel für des Königs Gesetz",
-    "item.botania.flugel_eye": "Auge des Flügels",
+    "item.botania.flugel_eye": "Auge der Flügel",
     "item.botania.thor_ring": "Ring des Thor",
     "item.botania.odin_ring": "Ring des Odin",
     "item.botania.loki_ring": "Ring des Loki",
@@ -1512,34 +1512,34 @@
     "item.botania.astrolabe": "Astrolabium des Weltformers",
     "item.botania.goddess_charm": "Zauber der Wohlwollenden Göttin",
 
+    "botania.brew.fallback": "Rückfall",
+    "botania.brew.speed": "Leichtfuß",
+    "botania.brew.strength": "Kraft",
+    "botania.brew.haste": "Adrenalin",
+    "botania.brew.healing": "Heilung",
+    "botania.brew.jump_boost": "Aufstieg",
+    "botania.brew.regen": "Auffrischung",
+    "botania.brew.regen_weak": "Wiederherstellung",
+    "botania.brew.resistance": "Standhaftigkeit",
+    "botania.brew.fire_resistance": "Magmahaut",
+    "botania.brew.water_breathing": "Kiemen",
+    "botania.brew.invisibility": "Verhüllung",
+    "botania.brew.night_vision": "Eulensicht",
+    "botania.brew.absorption": "Abschirmung",
+    "botania.brew.soul_cross": "Gekreuzte Seelen",
+    "botania.brew.feather_feet": "Federfuß",
+    "botania.brew.emptiness": "Bedeutungslosigkeit der Eitelkeit",
+    "botania.brew.bloodthirst": "Karmesinschatten",
+    "botania.brew.overload": "Überladung",
+    "botania.brew.allure": "Meerescharme",
+    "botania.brew.clear": "Absolution",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "effect.botania.soul_cross": "Seelenkreuzung",
+    "effect.botania.feather_feet": "Federfuß",
+    "effect.botania.emptiness": "Bedeutungslosigkeit",
+    "effect.botania.bloodthirst": "Blutdurst",
+    "effect.botania.allure": "Meerescharme",
+    "effect.botania.clear": "Absolution",
 
 
 
@@ -2237,7 +2237,7 @@
 
 
 
-    "botania.entry.daffomill": "Pusterglocke",
+    "botania.entry.daffomill": "Ostermühle",
 
 
 
@@ -2247,7 +2247,7 @@
 
 
 
-    "botania.entry.spectranthemum": "Spektranthemum",
+    "botania.entry.spectranthemum": "Spektrantheme",
 
 
 
@@ -2259,7 +2259,7 @@
 
 
 
-    "botania.entry.marimorphosis": "Marimorphosis",
+    "botania.entry.marimorphosis": "Tagemorphes",
 
 
 
@@ -3344,18 +3344,18 @@
 
 
 
-    "botania.entry.thorRing": "Ring von Thor",
+    "botania.entry.thorRing": "Ring des Thor",
 
 
 
-    "botania.entry.lokiRing": "Ring von Loki",
+    "botania.entry.lokiRing": "Ring des Loki",
 
 
 
 
 
 
-    "botania.entry.odinRing": "Ring von Odin",
+    "botania.entry.odinRing": "Ring des Odin",
 
 
 
@@ -3434,7 +3434,7 @@
 
 
 
-    "botania.entry.phantomInk": "Geheimtinte",
+    "botania.entry.phantomInk": "Phantomtinte",
 
 
 
@@ -3472,92 +3472,93 @@
 
     "botania.entry.preventingDecay": "Numerisches Mana",
 
-    "botania.page.preventingDecay0": "nein"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.page.preventingDecay0": "nein",
+
+    "botania.subtitle.agricarnation": "Agraryophylle schimmert",
+    "botania.subtitle.airRod": "Stab der Lüfte rauscht",
+    "botania.subtitle.altarCraft": "Blütenapotheke funkelt",
+    "botania.subtitle.arcane_rose_disenchant": "Rosa Arcana entzaubert",
+    "botania.subtitle.astrolabeConfigure": "Astrolabium des Weltenformers klimpert",
+    "botania.subtitle.babylonAttack": "Schlüssel für des Königs Gesetz entfesselt",
+    "botania.subtitle.babylonSpawn": "Schlüssel für des Königs Gesetz aktiviert",
+    "botania.subtitle.bellows": "Manastrom-Blasebalg zischt",
+    "botania.subtitle.bifrostRod": "Stab des Bifrosts summt",
+    "botania.subtitle.blackHoleTalismanConfigure": "Talisman des Schwarzen Loches klingelt",
+    "botania.subtitle.blackLotus": "Schwarzer Lotos löst sich auf",
+    "botania.subtitle.dash": "Spieler spurtet",
+    "botania.subtitle.diceOfFate": "Würfel des Schicksals klappern",
+    "botania.subtitle.ding": "Stab des Waldes klingelt",
+    "botania.subtitle.divaCharm": "Zauber der Diva hallt",
+    "botania.subtitle.divinationRod": "Stab des üppigen Erdmantels summt",
+    "botania.subtitle.doit": "TU ES!!",
+    "botania.subtitle.drum": "Trommelschlag",
+    "botania.subtitle.enchanterEnchant": "Mana-Verzauberer rauscht",
+    "botania.subtitle.enchanterFade": "Mana-Verzauberer verschwindet",
+    "botania.subtitle.enchanterForm": "Mana-Verzauberer erscheint",
+    "botania.subtitle.enderAirThrow": "Enderluftflasche geworfen",
+    "botania.subtitle.endoflame": "Endoflamme entzündet Gegenstand",
+    "botania.subtitle.entropinnyumAngry": "Entropinnyum ist unzufrieden",
+    "botania.subtitle.entropinnyumHappy": "Entropinnyum zischt",
+    "botania.subtitle.equipBauble": "Accessoire angelegt",
+    "botania.subtitle.equipElementium": "Elementiumrüstung scheppert",
+    "botania.subtitle.equipManasteel": "Manastahlrüstung scheppert",
+    "botania.subtitle.equipManaweave": "Managewobene Rüstung raschelt",
+    "botania.subtitle.equipTerrasteel": "Terrastahlrüstung scheppert",
+    "botania.subtitle.fireRod": "Stab der Höllen kocht",
+    "botania.subtitle.flareChakramThrow": "Loderchakram geworfen",
+    "botania.subtitle.flugelEyeBind": "Auge der Flügel woopt",
+    "botania.subtitle.flugelEyeTeleport": "Auge der Flügel teleportiert",
+    "botania.subtitle.gaiaDeath": "Gaia-Wächter stirbt",
+    "botania.subtitle.gaiaSummon": "Gaia-Wächter erwacht",
+    "botania.subtitle.gaiaTeleport": "Gaia-Wächter teleportiert",
+    "botania.subtitle.gaiaTrap": "Gaia-Wächter-Zauber rauscht",
+    "botania.subtitle.holyCloak": "Umhang der Tugend scheint",
+    "botania.subtitle.hornDoot": "Horn trötet",
+    "botania.subtitle.incensePlateIgnite": "Räucherplatte angezündet",
+    "botania.subtitle.labellia": "Labellia schmückt",
+    "botania.subtitle.laputaStart": "Laputa-Scherbe ausgelöst",
+    "botania.subtitle.lexiconOpen": "Lexica Botania öffnen",
+    "botania.subtitle.lexiconPage": "Lexica Botania umblättern",
+    "botania.subtitle.lightRelay": "Beleuchter rauscht",
+    "botania.subtitle.manaBlaster": "Mana-Blaster schießt",
+    "botania.subtitle.manaBlasterCycle": "Linsenklemme schwirrt",
+    "botania.subtitle.manaBlasterMisfire": "Mana-Blaster setzt aus",
+    "botania.subtitle.manaPoolCraft": "Manabecken infundiert",
+    "botania.subtitle.missile": "Magisches Geschoss startet",
+    "botania.subtitle.missileFunny": "Peng Peng",
+    "botania.subtitle.narslimmusEat": "Narglibbe schwabbelt",
+    "botania.subtitle.orechid": "Erzblüte knallt",
+    "botania.subtitle.pinkinator": "Pinkinator pinkiniert",
+    "botania.subtitle.potionCreate": "Brauerei knistert",
+    "botania.subtitle.redStringInterceptorClick": "Rotfaden-Abfänger klickt",
+    "botania.subtitle.runeAltarCraft": "Runenaltar knistert",
+    "botania.subtitle.runeAltarStart": "Runenaltar beginnt",
+    "botania.subtitle.shulkMeNot": "Shulk Mich Nicht knallt",
+    "botania.subtitle.smeltRod": "Stab des geschmolzenen Kerns kocht",
+    "botania.subtitle.smeltRodSimmer": "Stab des geschmolzenen Kerns köchelt",
+    "botania.subtitle.prismAddLens": "Manalinse an Prisma befestigt",
+    "botania.subtitle.prismRemoveLens": "Manalinse von Prisma entfernt",
+    "botania.subtitle.spreaderAddLens": "Manalinse an Verteiler befestigt",
+    "botania.subtitle.spreaderRemoveLens": "Manalinse von Verteiler entfernt",
+    "botania.subtitle.spreaderCover": "Manaverteiler umhüllt",
+    "botania.subtitle.spreaderUncover": "Manaverteiler freigelegt",
+    "botania.subtitle.spreaderScaffold": "Gerüst an Manaverteiler befestigt",
+    "botania.subtitle.spreaderUnScaffold": "Gerüst von Manaverteiler entfernt",
+    "botania.subtitle.spreaderFire": "Manaverteiler rauscht",
+    "botania.subtitle.starcaller": "Sterne fallen vom Himmel",
+    "botania.subtitle.temperanceStoneConfigure": "Stein der Mäßigung klingelt",
+    "botania.subtitle.manufactoryHaloConfigure": "Manufaktur-Halo klingelt",
+    "botania.subtitle.terraBlade": "Terraklinge rauscht",
+    "botania.subtitle.terraPickMode": "Terra-Brecher aktiviert",
+    "botania.subtitle.terraformRod": "Land terraforms",
+    "botania.subtitle.terrasteelCraft": "Terrastahl glänzt",
+    "botania.subtitle.thermalily": "Thermalilie schlürft",
+    "botania.subtitle.thornChakramThrow": "Dornenchakram geworfen",
+    "botania.subtitle.tigerseyePacify": "Tigerauge versteinert",
+    "botania.subtitle.unholyCloak": "Umhang der Sünde löst aus",
+    "botania.subtitle.vineBallThrow": "Rankenknäuel fliegt",
+    "botania.subtitle.virusInfect": "Virus infiziert",
+    "botania.subtitle.worldSeedTeleport": "Weltsamen teleportiert"
 
 
 }
