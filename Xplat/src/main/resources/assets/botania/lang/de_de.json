@@ -600,7 +600,7 @@
     "block.botania.livingrock_bricks": "Lebesteinziegel",
     "block.botania.mossy_livingrock_bricks": "Bemooste Lebesteinziegel",
     "block.botania.cracked_livingrock_bricks": "Rissige Lebesteinziegel",
-    "block.botania.chiseled_livingrock_bricks": "Gerahmte Lebesteinziegel",
+    "block.botania.chiseled_livingrock_bricks": "Gemeißelte Lebesteinziegel",
     "block.botania.livingwood": "Lebeholz",
     "block.botania.livingwood_planks": "Lebeholzbretter",
     "block.botania.mossy_livingwood_planks": "Bemooste Lebeholzbretter",
@@ -773,12 +773,12 @@
     "block.botania.brewery": "Botanische Brauerei",
     "block.botania.mana_glass": "Managlas",
     "block.botania.terra_plate": "Terrestrische Agglomerationsplatte",
-    "block.botania.red_string_container": "Rotfaden-Behälter",
-    "block.botania.red_string_dispenser": "Rotfaden-Werfer",
-    "block.botania.red_string_fertilizer": "Rotfaden-Nährer",
-    "block.botania.red_string_comparator": "Rotfaden-Komparator",
-    "block.botania.red_string_relay": "Rotfaden-Manipulator",
-    "block.botania.red_string_interceptor": "Rotfaden-Abfänger",
+    "block.botania.red_string_container": "Rotfadenbehälter",
+    "block.botania.red_string_dispenser": "Rotfadenwerfer",
+    "block.botania.red_string_fertilizer": "Rotfadennährer",
+    "block.botania.red_string_comparator": "Rotfadenkomparator",
+    "block.botania.red_string_relay": "Rotfadentäuscher",
+    "block.botania.red_string_interceptor": "Rotfadenabfänger",
     "block.botania.mana_flame": "Mana-Flamme",
     "block.botania.prism": "Manaprisma",
     "block.botania.enchanted_soil": "Verzauberter Boden",
@@ -2927,85 +2927,85 @@
     "botania.page.astrolabe1": "Sobald ein Block ausgewählt ist, zeigt das Astrolab eine Vorschau, was es an der gegebenen Stelle konstruieren würde.$(p)Um die gezeigten Blöcke (unter Verwendung von $(thing)Mana$(0) und Blöcken aus dem Inventar) zu konstruieren, genügt ein Rechtsklick mit dem Astrolab. Blöcke können auch von Gegenständen wie einem $(l:tools/exchange_rod)$(item)Stab der veränderlichen Kruste$(0)$(/l), einem $(l:tools/cobble_rod)$(item)Stab der Tiefen$(0)$(/l) oder einer $(l:ender/ender_hand)$(item)Enderhand$(0)$(/l) bereitgestellt werden.",
     "botania.page.astrolabe2": "Baut Wände, erschafft Welten",
 
-    "botania.entry.enderAir": "Extrahieren von Enderluft",
-
-
-
+    "botania.entry.enderAir": "Extraktion von Enderluft",
+    "botania.tagline.enderAir": "Werfbare Flaschen, die Endstein erzeugen",
+    "botania.page.enderAir0": "Die Luft in der Leere des $(thing)Endes$(0) scheint Veränderungen hervorrufen zu können. Wird eine leere $(item)Glasflasche$(0) im $(thing)Ende$(0) benutzt, fängt sie etwas dieser Luft ein, die dann wie ein Wurftrank benutzt werden kann, um $(item)Stein$(0) am Aufschlagsort zu $(item)Endstein$(0) umzuwandeln. $(br)$(item)Werfer$(0) können ebenfalls benutzt werden, um die Luft einzufangen, sofern der Bereich über der Sammelstelle frei ist.",
+    "botania.page.enderAir1": "Es wurde \"experimentell\" ermittelt, dass die Gase der $(thing)End$(0)leere, gemischt mit normaler $(thing)Overworld$(0)-Luft, recht toxisch auf $(thing)Nether$(0)-Kreaturen wie z.B. dem $(thing)Ghast$(0) wirken.$(p)Auch wenn die Menge in einer $(item)Enderluftflasche$(0) viel zu gering ist, um echten Schaden zu verursachen, ist sie trotzdem ein effektiver Reizstoff.$(p)Insbesondere wenn sie in die Augen gelangt.",
 
     "botania.entry.enderEyeBlock": "Ender-Aufseher",
-
-
-
+    "botania.tagline.enderEyeBlock": "Sicht-aktivierter Redstone-Sensor",
+    "botania.page.enderEyeBlock0": "Die Augen der $(thing)Ender$(0)-Kreaturen haben eine merkwürdige Sensitivität für die Blicke mancher Wesen. Ein Block, der aus diesen Augen hergestellt wurde, gibt ein Redstone-Signal aus, wenn ein Spieler in einem Radius von 64 Blöcken direkt auf ihn schaut.$(p)Wenn besagter Spieler einen $(item)Kürbis$(0) aufsetzt, verhindert dieser ein Auslösen.",
+    "botania.page.enderEyeBlock1": "MEINE MARKE",
 
     "botania.entry.pistonRelay": "Kraftrelais",
-
-
-
-
+    "botania.tagline.pistonRelay": "Entfernte Kolbenwirkung",
+    "botania.page.pistonRelay0": "$(item)Kolben$(0) und $(thing)Mana$(0) scheinen auf seltsame Weise zu interagieren. Durch Infundierung entsteht ein $(item)Kraftrelais$(0), ein Block, der die Faser des Raumes zerreist. Wenn es durch einen $(item)Kolben$(0) bewegt wird, bewegt sich der an es gebundene Block auf die gleiche Weise.$(br)Durch Rechtsklick mit einem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) auf ein Relais und dann auf einen anderen Block wird es an den Block gebunden.",
+    "botania.page.pistonRelay1": "Da das Relais höchst instabil ist und verblüffende Effekte verursachen kann, sollte man vorsichtig im Umgang mit ihm sein. Es kann nicht durch $(item)Klebrige Kolben$(0) gezogen werden, und bewegt den angebundenen Block nicht, wenn es durch einen solchen geschoben wird. Damit kann man einen \"Rahmen\" aus einer Kombination von klebrigen und nicht-klebrigen Kolben bauen.",
+    "botania.page.pistonRelay2": "Infundieren eines $(item)Kolbens$(0) mit $(thing)Mana$(0).",
 
     "botania.entry.enderHand": "Enderhand",
-
-
-
-
-
+    "botania.tagline.enderHand": "Endertruhen-Zugriff von überall",
+    "botania.page.enderHand0": "Die $(item)Enderhand$(0) gibt ihrem Nutzer Zugang zu dessen interdimensionaler Ender-Subraumtasche (den Inhalt der $(item)Endertruhe$(0)). Sie kann mit etwas $(thing)Mana$(0) durch Rechtsklick mit der Hand von überall aus geöffnet werden.$(p)Die Hand kann auch mit deutlich mehr $(thing)Mana$(0) auf einen anderen Spieler angewendet werden, um $(o)dessen$() Inventar zu öffnen.",
+    "botania.page.enderHand0a": "Die $(item)Enderhand$(0) gibt ihrem Nutzer Zugang zu dessen interdimensionaler Ender-Subraumtasche (den Inhalt der $(item)Endertruhe$(0)). Sie kann mit etwas $(thing)Mana$(0) durch Rechtsklick mit der Hand von überall aus geöffnet werden.",
+    "botania.page.enderHand2": "Außerdem gibt die $(item)Enderhand$(0) automatisch Gegenständen wie dem $(l:tools/exchange_rod)$(item)Stab der veränderlichen Kruste$(0)$(/l) Zugang zu Gegenständen aus dem Inhalt der $(item)Endertruhe$(0) ihres Nutzers, gegen eine geringe $(thing)Mana$(0)gebühr pro Block.",
+    "botania.page.enderHand1": "Wie 5G für Endertruhen",
 
     "botania.entry.enderDagger": "Seelendolch",
-
-
-
-
+    "botania.tagline.enderDagger": "Ein Dolch, der durch Endermen wie Butter schneidet",
+    "botania.page.enderDagger0": "Diese $(thing)Endermen$(0). Sie sind das Lästigste seit $(thing)Creepern$(0). (Ich schwöre, wer auch immer die Idee für diese Dinger hatte, muss mal einen Gang herunterschalten.)$(p)Allerdings geht ein Dolch, der aus Material mit ihren Energien gefertigt wurde, durch sie hindurch wie ein Tausend-Grad-Messer durch Butter.",
+    "botania.page.enderDagger1": "Durch die Energiekonzentration ist der Dolch leider nur für ein paar Anwendungen brauchbar, und seine Kompaktheit hindert den $(item)Manastahl$(0) im Rezept an der Reparatur mit $(thing)Mana$(0), wie es sonst für Werkzeuge üblich wäre. Trotzdem ist das Töten dieser länglichen Diebe den Ärger wert.",
+    "botania.page.enderDagger2": "Triff meine Seele",
 
     "botania.entry.spawnerClaw": "Lebensfüller",
-
-
-
-
+    "botania.tagline.spawnerClaw": "Betreibt Spawner mit Mana, ohne jemanden in der Nähe",
+    "botania.page.spawnerClaw0": "$(item)Monsterspawner$(0) sind seltsame Geräte. Sie vermögen Leben aus dem Nichts zu schaffen, aber nut wen jemand in der Nähe ist, um dies zu erleben.$(p)Daher bindet man sich aus Notwendigkeit an ihre Umgebung wenn man eine dieser Kuriositäten ausnutzen möchte.",
+    "botania.page.spawnerClaw1": "Ein $(item)Lebensfüller$(0) stellt eine Alternative dar: Wenn er auf einem $(item)Monsterspawner$(0) platziert wird, benutzt er $(thing)Mana$(0) (per $(l:mana/spreader)$(item)Verteiler$(0)$(/l) zur Verfügung gestellt) um Spawns in Abwesenheit eines Spielers herbeizuführen.",
+    "botania.page.spawnerClaw2": "Nur eine kleiner Schubs",
 
     "botania.entry.redString": "Rotfaden",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "botania.tagline.redString": "Fern-Inventare und andere entfernte Dinge",
+    "botania.page.redString0": "Alte Überlieferungen besagen, dass die Götter Personen mit rotem Faden am Knöchel verbinden, die einander im Leben beeinflussen werden.$(p)Blöcke sind keine Personen und brauchen keine Götter, um verbunden zu sein. Stattdessen können sie mit einem Material verbunden werden, das ($(o)natürlich$()) $(item)Rotfaden$(0) heißt.",
+    "botania.page.redString15": "Blöcke aus diesem exquisiten Material können in alle 6 Richtungen zeigen und binden sich an den nächsten kompatiblen Block entsprechend ihrer Ausrichtung.",
+    "botania.page.redString1": "Jeder $(thing)Rotfaden$(0)block hat eigene Kriterien nach denen er sich verbindet, aber alle haben eine Reichweite von etwa acht Blöcken. Wenn ein Block verbunden ist, wird sein Faden durch Halten eines $(l:basics/wand)$(item)Stabes des Waldes$(0)$(/l) sichtbar.$(p)Der $(thing)Rotfaden$(0) wird nicht von dazwischenliegenden Blöcken beeinflusst, $(item)Rotfaden$(0)blöcke können jedoch nicht verkettet werden.",
+    "botania.page.redString2": "Hast du es wirklich nötig?",
+    "botania.page.redString3": "Der $(item)Rotfadenbehälter$(0) bindet sich an Inventare (z.B. $(item)Truhen$(0), $(item)Öfen$(0), $(item)Trichter$(0)). Gegenstände, die in einen solchen $(item)Behälter$(0) eingefügt werden (durch $(item)Trichter$(0), o.Ä.) landen im verbundenen Inventar. Seitenspezifische Zugriffe bleiben erhalten: Zum Beispiel von oben in den $(item)Rotfaden-Behälter$(0) eingefügte Gegenstände werden in den gebundenen Block von oben eingefüllt.",
+    "botania.page.redString4": "Der $(item)Rotfadenbehälter$(0).",
+    "botania.page.redString5": "Der $(item)Rotfadenwerfer$(0) bindet sich an $(item)Werfer$(0) oder $(item)Spender$(0) und sendet Gegenstände auf die gleiche Weise wie der $(item)Rotfadenbehälter$(0). Zusätzlich aktiviert er den verbundenen $(item)Werfer$(0) oder $(item)Spender$(0), wenn er ein Redstone-Signal erhält.",
+    "botania.page.redString6": "Der $(item)Rotfadenwerfer$(0).",
+    "botania.page.redString7": "Der $(item)Rotfadennährer$(0) kann an jeden Block gebunden werden, der $(item)Knochenmehl$(0) akzeptiert. Wird $(item)Knochenmehl$(0) auf den Nährer angewendet, düngt es stattdessen den verbundenen Block.",
+    "botania.page.redString8": "Der $(item)Rotfadennährer$(0).",
+    "botania.page.redString9": "Der $(item)Rotfadenkomparator$(0) kann mit jedem Block verbunden werden, der mit einem $(item)Komparator$(0) gelesen werden kann (z.B. $(item)Truhen$(0), $(l:mana/pool)$(item)Manabecken$(0)$(/l), $(l:basics/rune_altar)$(item)Runenaltar$(0)$(/l)). Ein an diesem Block anliegender $(item)Komparator$(0) liefert die Signalstärke, die er von dem verbundenen Block lesen würde.",
+    "botania.page.redString10": "Der $(item)Rotfadenkomparator$(0).",
+    "botania.page.redString11": "Der $(item)Rotfadentäuscher$(0) bindet sich an Blumen oder Pilze. Auf ihm wird eine $(item)Generierende$(0) oder $(item)Funktionale Blume$(0) platziert. Diese wird dadurch inaktiv und die verbundene Pflanze übernimmt alle Eigenschaften der Blume, als ob sie die Blume selbst wäre.$(br)Beachte, dass $(item)Funktionale Blumen$(0), die Gegenstände aufnehmen, dies oft weiterhin an ihrer echten Position tun.",
+    "botania.page.redString12": "Der $(item)Rotfadentäuscher$(0).",
+    "botania.page.redString13": "Der $(item)Rotfadenabfänger$(0) bindet sich an hinreichend $(o)komplexe$() Blöcke (Daumenregel: Jeder Block, der Gegenstände bewegt oder akzeptiert/manipuliert sollte komplex genug sein). Immer wenn der verbundene Block von einem Spieler (per Rechtsklick) benutzt wird, emittiert der Abfänger einen Redstone-Impuls.",
+    "botania.page.redString14": "Der $(item)Rotfadenabfänger$(0).",
 
     "botania.entry.flightTiara": "Flügel-Tiara",
-
-
-
-
-
-
-
-
+    "botania.tagline.flightTiara": "Dreidimensionaler Flug... bis zu einem gewissen Grad",
+    "botania.page.flightTiara0": "Die $(thing)Flügel$(0) waren eine Rasse Götter-totender Wesen, die einst diese Lande dominierten und den dreidimensionalen Flug beherrschten.$(p)Neben anderen Dingen.$(p)Während die $(thing)Flügel$(0) heutzutage $(o)ziemlich$() ausgestorben sind, kann die $(item)Flügel-Tiara$(0), hergestellt aus $(l:alfhomancy/gaia_ritual)$(item)Gaia-Seelen$(0)$(/l), $(thing)Mana$(0) zum Replizieren dieser Flugfähigkeit nutzen.",
+    "botania.page.flightTiara4": "Diese Reproduktion antiker Handwerkskunst ist jedoch nicht perfekt: Die Tiara kann die Flugfähigkeit nicht unbegrenzt bieten. Nach etwa 30 Sekunden durchgängiger Nutzen \"überlädt\" sie und kann die Flugfähigkeit nicht mehr aufrechterhalten.$(p)Ein \"Flugbalken\" wird im HUD angezeigt, um dies zu überwachen.",
+    "botania.page.flightTiara5": "Zusätzlich zum einfachen Flug gewährt die Tiara ihrem Träger die Fähigkeit zu $(thing)spurten$(0) und zu $(thing)gleiten$(0). Spurten, durch Drücken von [$(k:sprint)] ohne bereits zu Sprinten, treibt den Träger vorwärts. Sehr schnell.$(p)Spurts können nur alle 2 Sekunden ausgeführt werden.",
+    "botania.page.flightTiara6": "Gleiten erlaubt einen sanfteren Abstieg zum Boden, der auch horizontal gut Distanz überbrückt, wobei Fallschaden vermieden wird.$(p)Gleiten kann auch bei leerem Flugbalken genutzt werden, verlangsamt aber dessen Regeneration.",
+    "botania.page.flightTiara1": "Vierzigtausend Bücher aus einer anderen Welt",
+    "botania.page.flightTiara2": "Indem die $(item)Flügel-Tiara$(0) mit verschiedenen Arten von $(item)Quarz$(0) kombiniert wird, ändert sich das Aussehen ihrer Flügel, wobei es pro Quarztyp einen Stil gibt.$(p)Die Rezepte der verschiedenen Quarztypen sind unter $(l:misc/decorative_blocks)$(thing)Dekorative Blöcke$(0)$(/l) zu finden, und die $(thing)Elfen$(0) tauschen $(l:alfhomancy/elf_resources)$(item)Elfen-Quarz$(0)$(/l) gegen $(item)Nether-Quarz$(0).",
+    "botania.page.flightTiara3": "Flügel hinzufügen (sie können jederzeit gewechselt werden)",
 
     "botania.entry.corporea": "Corporea-Grundlagen",
-
-
-
-
-
-
-
-
-
-
+    "botania.tagline.corporea": "Ein System zum Verwalten von Inventaren",
+    "botania.page.corporea0": "Das $(thing)Corporea$(0)-System benutzt die Energie des $(thing)Endes$(0) und der Leere zwischen den Welten, um Gegenstände direkt von Punkt A nach Punkt B zu transportieren.$(p)Im Wesentlichen benutzt das System eine Variante von $(l:mana/sparks)$(item)Funken$(0)$(/l) (genannt $(item)Corporea-Funken$(0)), die Gegenstände statt $(thing)Mana$(0) transportieren.",
+    "botania.page.corporea1": "Wissenswertes: $(item)Corporea-Funken$(0) werden auf $(thing)Inventaren$(0) (beispielsweise eine $(item)Truhe$(0) oder ein $(item)Werfer$(0)) platziert, statt auf $(thing)Mana-Behältern$(0). Es gibt $(o)zwei$() Arten von $(item)Corporea-Funken$(0): Der normale $(item)Corporea-Funke$(0) und der $(item)Corporea-Hauptfunke$(0). Die Funken arbeiten als Netzwerk: Jedes $(thing)Corporea-Netzwerk$(0) benötigt einen $(item)Corporea-Hauptfunken$(0), aber $(o)jeder$() Funke kann mit jedem anderen im Netzwerk kommunizieren.",
+    "botania.page.corporea2": "Wenn ein $(item)Corporea-Funke$(0) platziert oder recht-geklickt wird, verbindet sich jeder Funke im Netzwerk (wieder) mit benachbarten Funken, und fügt diese dem Netzwerk hinzu (sofern es einen $(item)Corporea-Hauptfunken$(0) irgendwo im Netzwerk gibt). Auch wenn jeder Funke nur eine Verbindungsreichweite von etwa acht Blöcken hat, kann das gesamte Funkennetzwerk praktisch unbegrenzte Distanzen überbrücken.",
+    "botania.page.corporea3": "Ein $(item)Corporea-Funke$(0) kann das Inventar direkt unter ihm sehen, greift aber auf Gegenstände ausschließlich von der Oberseite aus zu. Jeder $(item)Corporea-Funke$(0) kann die Gegenstände jedes anderen Funkens im Netzwerk sehen, und manche Blöcke nutzen ihre Funken, um Gegenstände aus dem Netzwerk anzufordern.",
+    "botania.page.corporea4": "Der $(item)Corporea-Hauptfunke$(0) ist leider zu beschäftigt mit dem Verwalten des Netzwerks, um sein eigenes Inventar zu sehen.$(p)Weiterhin können $(item)Corporea-Funken$(0) keine Gegenstände in ihre jeweiligen Inventare $(o)hinein$() schieben. Diese sollten auf andere Weise hinzugefügt werden, beispielsweise mit $(item)Trichtern$(0).",
+    "botania.page.corporea5": "Wie normale $(l:mana/sparks)$(item)Funken$(0)$(/l), können $(item)Corporea-Funken$(0) mit $(item)Farbstoff$(0) eingefärbt werden. Das kleine, um den Funken schwebende Sternsymbol zeigt dessen aktuelle Farbe. $(item)Corporea-Funken$(0) mit verschiedenen Farben interagieren nicht miteinander. Somit können mehrere unabhängige Netzwerke in der gleichen Gegend betrieben werden.",
+    "botania.page.corporea6": "Das Visualisieren eines Netzwerks und das Entfernen eines Funken funktioniert auf die gleiche Art wie bei regulären $(l:mana/sparks)$(item)Funken$(0)$(/l).$(p)Beachte auch, dass zwei $(item)Corporea-Hauptfunken$(0) im gleichen Netzwerk zu haben eine schlechte Idee ist, und $(o)undefiniertes Verhalten$() verursachen kann.",
+    "botania.page.corporea7": "Eine zündende Idee",
+    "botania.page.corporea8": "Liebesfarben",
 
     "botania.entry.corporeaBlock": "Corporea-Dekoration",
-
-
+    "botania.page.corporeaBlock0": "Normaler $(thing)Lebestein$(0) kann mit einem $(thing)Corporea-Funken$(0) kombiniert werden, um dekorative Blöcke zu produzieren. Diese haben neben ihrem üblichen dekorativen Zweck auch die besondere Eigenschaft, dass sie $(thing)Corporea-Funken$(0) tragen können, ohne ein Inventar zu haben. Entsprechend sind sie eine günstige und Lag-freie Option, ein $(thing)Corporea$(0)-Netzwerk über große Distanzen zu erweitern.",
+    "botania.page.corporeaBlock1": "Incorporeal",
 
     "botania.entry.corporeaIndex": "Corporea-Index",
 
@@ -3389,7 +3389,7 @@
     "botania.page.decorativeBlocks1": "Lebesteinziegel",
     "botania.page.decorativeBlocks2": "Die Ziegel bemoosen",
     "botania.page.decorativeBlocks3": "Die Ziegel brüchig machen",
-    "botania.page.decorativeBlocks4": "Die Ziegel einrahmen",
+    "botania.page.decorativeBlocks4": "Die Ziegel meißeln",
     "botania.page.decorativeBlocks5": "Holz zu Brettern verarbeiten",
     "botania.page.decorativeBlocks6": "Die Bretter bemoosen",
     "botania.page.decorativeBlocks7": "Die Bretter einrahmen",
@@ -3542,7 +3542,7 @@
     "botania.subtitle.orechid": "Erchidee knallt",
     "botania.subtitle.pinkinator": "Pinkinator pinkiniert",
     "botania.subtitle.potionCreate": "Brauerei knistert",
-    "botania.subtitle.redStringInterceptorClick": "Rotfaden-Abfänger klickt",
+    "botania.subtitle.redStringInterceptorClick": "Rotfadenabfänger klickt",
     "botania.subtitle.runeAltarCraft": "Runenaltar knistert",
     "botania.subtitle.runeAltarStart": "Runenaltar beginnt",
     "botania.subtitle.shulkMeNot": "Shulk Mich Nicht knallt",
