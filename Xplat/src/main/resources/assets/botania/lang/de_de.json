@@ -1605,7 +1605,7 @@
     "item.botania.loki_ring": "Ring des Loki",
     "item.botania.dice": "Schicksalswürfel",
     "item.botania.keep_ivy": "Entschlossener Efeu",
-    "item.botania.black_hole_talisman": "Talisman des Schwarzen Loches",
+    "item.botania.black_hole_talisman": "Schwarzloch-Talisman",
     "item.botania.record_gaia_1": "Beschädigte Schallplatte",
     "item.botania.record_gaia_2": "Beschädigte Schallplatte",
     "item.botania.temperance_stone": "Stein der Mäßigung",
@@ -1620,7 +1620,7 @@
     "item.botania.obedience_stick": "Blumengehorsamkeitsstock",
     "item.botania.cacophonium": "Kakofon",
     "item.botania.slime_bottle": "Schleim in einer Flasche",
-    "item.botania.star_sword": "Sternenbeschwörer",
+    "item.botania.star_sword": "Sternrufer",
     "item.botania.exchange_rod": "Stab der Veränderlichen Kruste",
     "item.botania.magnet_ring_greater": "Größerer Ring der Magnetisierung",
     "item.botania.thunder_sword": "Donnerrufer",
@@ -1938,7 +1938,7 @@
     "botania.category.functionalFlowers": "Funktionelle Flora",
     "botania.category.generationFlowers": "Generierende Flora",
     "botania.category.devices": "Natürliche Apparate",
-    "botania.category.tools": "Mystische Instumente",
+    "botania.category.tools": "Mystische Instrumente",
     "botania.category.baubles": "Krimskrams und Accessoires",
     "botania.category.ender": "Ender-Artefakte",
     "botania.category.alfhomancy": "Alfhomantie",
@@ -3136,87 +3136,87 @@
     "botania.page.corporeaBlock1": "Incorporeal",
 
     "botania.entry.corporeaIndex": "Corporea-Index",
-
-
-
-
-
-
-
-
-
-
+    "botania.tagline.corporeaIndex": "Gegenstände per Chat aus einem Corporea-Netzwerk anfordern",
+    "botania.page.corporeaIndex0": "Eine der bequemsten Anwendungen eines $(thing)Corporea-Netzwerks$(0) ist die verbale Anfrage von Gegenständen. Der $(item)Corporea-Index$(0) ist ein Block, der einem $(item)Enderkristall$(0) ähnelt und sich mit dem $(thing)Corporea-Netzwerk$(0) seines $(l:ender/corporea)$(item)Corporea-Funkens$(0)$(/l) verbindet.$(p)Bei Annäherung wird er aktiv und zeigt seinen Effektradius.",
+    "botania.page.corporeaIndex1": "Wenn er aktiv ist, fängt der Index $(thing)Chat-Nachrichten$(0) von Spielern in seiner Nähe ab, verarbeitet diese zu $(thing)Anfragen$(0) und verhindert, dass sie im Chat angezeigt werden. Jede Anfrage versucht, Gegenstände mit passendem Namen aus dem Netzwerk zu holen. Zum Beispiel lässt \"Eisenbarren\" den Index das Netzwerk nach einem einzelnen $(item)Eisenbarren$(0) durchsuchen und manifestiert diesen als fallengelassenen Gegenstand.",
+    "botania.page.corporeaIndex2": "Anfragen können quantifiziert sein: Zum Beispiel liefert die Anfrage \"10 Apfel\" bis zu 10 $(item)Äpfel$(0) auf einmal. Das Wort \"this\" wird als der Gegenstand interpretiert, den der Spieler gerade hält. Vorangestelltes oder angehängtes \"...\", \"~\", \"+\" oder \"?\" an einer Anfrage sucht stattdessen Namen, welche die Zeichenfolge $(o)enthalten$(): Beispielsweise kann \"eisen...\" jeden Gegenstand mit \"eisen\" im Namen liefern.",
+    "botania.page.corporeaIndex3": "Ein \"*\" irgendwo in der Zeichenfolge repräsentiert eine beliebige Anzahl von Zeichen. Eine Anfrage nach \"Nethe*ck\" könnte etwas $(item)Netherrack$(0), einen $(item)Netheritblock$(0), oder sogar einen in \"Netheck\" umbenannten Gegenstand liefern.$(p)Beachte, dass nach \"*eisen*\" zu fragen äquivalent zu \"eisen...\" ist, und dass Anfragen nach \"*\" alles liefern könnten.",
+    "botania.page.corporeaIndex4": "Der Index versteht nur einfache $(o)englische$() Pluralformen mit den Suffixen \"-s\", \"-es\" oder \"-ies\"), aber akzeptiert auch Singularformen bei Anfragen für mehrere Gegenstände (er versteht \"10 Apfel\").$(p)\"10 of this\" liefert 10 Gegenstände, deren Name dem gehaltenen Gegenstand entspricht.",
+    "botania.page.corporeaIndex5": "Englische Zahlworte sind möglich: \"a stack of Apfel\", \"2 stacks of Apfel\", \"2 stacks and 20 Apfel\", \"half a stack of Apfel\", oder \"a dozen Apfel\" werden verstanden.$(p)Der Index kann Anfragen mit gemischter Ausführlichkeit verarbeiten: \"2x stacks and 20x of Apfel\", \"2 stack 2 Afpel\" und \"2 stacks + 2 Apfel\" werden auf die gleiche Weise beantwortet.",
+    "botania.page.corporeaIndex6": "Die Wörter \"all\" oder \"every\" fordern alle verfügbaren Gegenstände im Netzwerk an. Zum Beispiel liefert \"all Apfel\" jeden einzelnen verfügbaren Apfel (sowie alle Gegenstände, die in \"Apfel\" umbenannt wurden) aus dem Netzwerk.$(p)Die Wörter \"count\", \"show\", \"display\" und \"tell\" liefern keine Gegenstände, sondern zählen sie nur.",
+    "botania.page.corporeaIndex7": "Wenn man in der Nähe eines $(item)Corporea-Index$(0) ein Inventar (oder Rezept) betrachtet, fragt ein Drücken von [$(k:botania_corporea_request)], während auf einen Gegenstand gezeigt wird, eine Kopie von diesem an.$(p)Hält man zusätzlich Umschalt, wird ein ganzer Stapel angefragt, mit Strg ein halber Stapel, und mit beiden Tasten ein viertel Stapel.",
+    "botania.page.corporeaIndex8": "Ein gewisser Magischer noch dazu",
 
     "botania.entry.corporeaFunnel": "Corporea-Trichter",
-
-
-
-
+    "botania.tagline.corporeaFunnel": "Fragt automatisiert Gegenstände aus einem Corporea-Netzwerk ab",
+    "botania.page.corporeaFunnel0": "Der $(item)Corporea-Trichter$(0) ist eine einfachere Nutzung des $(thing)Corporea-Netzwerk$(0) als der Index. Bei anliegendem Redstone-Signal fordert er einen Gegenstand aus dem Netzwerk seines angebrachten $(l:ender/corporea)$(item)Corporea-Funken$(0)$(/l) an.$(br)Dieser Gegenstand wird in ein Inventar ein oder zwei Blöcke unter dem Trichter eingefügt, oder fällt oben aus dem Trichter, wenn kein Inventar verfügbar ist.",
+    "botania.page.corporeaFunnel1": "Um die Anfrage für den $(item)Corporea-Trichter$(0) zu definieren, kann ein Gegenstand in einem $(item)Rahmen$(0) am Block platziert werden. Bei mehreren $(item)Rahmen$(0) am Block wählt der $(item)Corporea-Trichter$(0) einen davon per Zufall aus.$(br)Die Rotation des Gegenstands im Rahmen gibt die angeforderte Anzahl an. In der Standardposition fordert der Trichter einen Gegenstand an, während nachfolgende Rotationen 2, 4, 8, 16, 32, 48 und 64 Gegenständen entsprechen.",
+    "botania.page.corporeaFunnel2": "Energetisch appliziert",
 
     "botania.entry.corporeaInterceptor": "Corporea-Abfänger",
-
-
-
-
+    "botania.tagline.corporeaInterceptor": "Fängt unerfüllbare Anfragen",
+    "botania.page.corporeaInterceptor0": "Der $(item)Corporea-Abfänger$(0) macht genau was der Name suggeriert: Er fängt nicht erfüllbare Corporea-Anfragen ab. Gegenstände in $(item)Rahmen$(0) an diesem Block filtern, welche Anfragen er abfangen soll. Wenn es keine gibt, oder alle Rahmen leer sind, fängt er jede unerfüllbare Anfrage ab.",
+    "botania.page.corporeaInterceptor1": "Wenn eine Anfrage für einen Gegenstand gemacht wird, die das Netzwerk nicht liefern kann, aber einem Filter ses Abfängers entspricht, löst dieser aus und emittiert einen kurzen Redstone-Impuls. Dieser kann für alle möglichen Dinge benutzt werden, beispielsweise um den notwendigen Gegenstand mit einer $(l:devices/craft_crate)$(item)Schlauen Kiste$(0)$(/l) herzustellen, oder eine Lampe anzuschelten, die das Fehlen einer Resource anzeigt.",
+    "botania.page.corporeaInterceptor2": "So viele Möglichkeiten zur Automatisierung",
 
     "botania.entry.corporeaCrystalCube": "Corporea-Kristalwürfel",
-
-
-
-
-
-
+    "botania.tagline.corporeaCrystalCube": "Gegenstände eines Corporea-Netzwerks anzeigen und anfordern",
+    "botania.page.corporeaCrystalCube0": "Ein Hellseher schaut üblicherseise durch eine Kristallkugel in die Zukunft. Nun, ein Corporea-Nutzer kann durch einen Kristall$(o)würfel$() auf die $(o)Gegenwart$() schauen. Der $(item)Corporea-Kristalwürfel$(0) ist ein visuelles Medium zur Interaktion mit dem $(thing)Corporea-Netzwerk$(0).",
+    "botania.page.corporeaCrystalCube1": "Wenn der Block einen Funken hat, kann er durch Rechtsklick darauf mit einem Gegenstand dessen Menge im Netzwerk anzeigen. Diese Anzeige aktualisiert sich etwa einmal pro Sekunde.$(p)Ein Linksklick auf den Würfel fordert einen der angezeigten Gegenstände an, Schleich-Linksklick fordert einen ganzen Stapel an.",
+    "botania.page.corporeaCrystalCube3": "Ein $(item)Redstone-Komparator$(0) liest die Größenordnung der Anzahl der Gegenstände logarithmisch aus, d.h. eine Verdoppelung der Anzahl erhöht das ausgegebene Signal um 1. Wenn der Würfel keine Gegenstände finden kann, liefert der Komparator 0; ein Gegenstand erzeugt Stärke 1; zwei Gegenstände Stärke 2; vier Stärke 3; acht Stärke 4; 16 Stärke 5, und so weiter, bis hin zu den 16384 benötigten Gegenständen für Stärke 15.",
+    "botania.page.corporeaCrystalCube4": "Schleich-Rechtsklick auf einen $(item)Corporea-Kristallwürfel$(0) mit einem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) sperrt oder entsperrt ihn. Wenn er gesperrt ist, kann der anzegeigte Gegenstand nicht geändert werden (für den Fall, dass jemand aus Versehen darauf rechtsklickt).",
+    "botania.page.corporeaCrystalCube2": "Ich kann die Unendlichkeit sehen",
 
     "botania.entry.corporeaRetainer": "Corporea-Halter",
-
-
-
-
-
-
+    "botania.tagline.corporeaRetainer": "Speicher zum Wiederholen von Corporea-Anfragen",
+    "botania.page.corporeaRetainer0": "Der $(item)Corporea-Halter$(0) ist eine Erweiterung für den $(l:ender/corporea_interceptor)$(item)Corporea-Abfängerr$(0)$(/l). Wenn er neben einem Abfänger platziert wird, merkt er sich den Ursprung und Inhalt einer Anfrage, die den Abfänger ausgelöst hat.",
+    "botania.page.corporeaRetainer1": "Wenn der $(item)Corporea-Abfänger$(0) sich eine Anfrage merkt und ein Redstone-Signal erhält, wiederholt er diese von ihrem Ursprungsort aus. Beispiel: Ein $(l:ender/corporea_funnel)$(item)Corporea-Trichter$(0)$(/l) fordert $(item)Holzplanken$(0) an, und es sind keine mehr verfügbar. Ein Abfänger im Netzwerk fängt diese Anfrage und löst einen Mechanismus zum Herstellen der Planken aus. Wenn ein angrenzender Halter danach ausgelöst wird, wiederholen der ursprüngliche Trichter seine Anfrage und bekommt seine Planken.",
+    "botania.page.corporeaRetainer2": "Da der $(item)Corporea-Halter$(0) eine Erweiterung des Abfängers ist, kann er Requests über den Abfänger bekommen und benötigt keinen eigenen Funken.$(p)Der Halter kann immer nur eine Anfrage speichern. Jede zusätzliche hereinkommende Anfrage überschreibt die aktuell gespeicherte. Ein $(item)Redstone-Komparator$(0) kann lesen, ob eine Anfrage gespeichert ist, und viele Gegenstände angefragt wurden.",
+    "botania.page.corporeaRetainer3": "Der Erzfeind eines Goldfischs",
+    "botania.page.corporeaRetainer4": "Durch Nutzen eines $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) auf dem $(item)Halter$(0) wird zwischen Speichern der Gesamtzahl angeforderter Gegenstände und Speichern der fehlenden Anzahl umgeschaltet.",
 
     "botania.entry.spawnerMover": "Lebensaggregator",
-
-
-
+    "botania.tagline.spawnerMover": "Die Möglichkeit zum Bewegen von Spawnern",
+    "botania.page.spawnerMover0": "Wenn ein $(l:alfhomancy/elf_resources)$(item)Drachenstein$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Enderluft$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l) auf bestimmte Weise zusammengesetzt werden, ergeben sie ein Gerät, das die eigentümlichen Energien eines $(item)Spawner$(0) bändigen und diesen an einen anderen Ort transportieren kann.$(p)Leider zerbricht dieses Gerät bereits nach der ersten Nutzung.",
+    "botania.page.spawnerMover1": "Ein Spawner-Paket",
 
     "botania.entry.keepIvy": "Entschlossener Efeu",
+    "botania.tagline.keepIvy": "Behält Gegenstände nach dem Tod",
+    "botania.page.keepIvy0": "Das Inventar einer sterbenden Person verteilt sich auf dem Boden, was für alle Beteiligten ziemlich lästig ist. Dieses Problem kann relativ einfach umgangen werden: Wenn ein Stück $(item)Entschlossener Efeu$(0) an einem Gegenstand angebracht wird, opfert sich dieses nach dem Tod, um den Gegenstand im Inventar zu halten. Danach wird ein neues Stück benötigt, für den Fall eines zweiten Ablebens.",
+    "botania.page.keepIvy2": "Es gibt allerdings eine Einschränkung für die Gegenstände, die der Efeu schützen kann.$(p)Aus $(o)technischen Gründen$() kann der Efeu nicht an Gegenständen angebracht werden, die etwas im Herstellungsquadrat hinterlassen, wie zum Beispiel ein $(item)Wassereimer$(0).",
+    "botania.page.keepIvy1": "Weil Leute sterben wenn man sie tötet",
 
-
-
-
-
-    "botania.entry.blackHoleTalisman": "Talisman des Schwarzen Loches",
-
-
-
-
-
+    "botania.entry.blackHoleTalisman": "Schwarzloch-Talisman",
+    "botania.tagline.blackHoleTalisman": "Unbegrenzte Block-Kapazität in einem Inventarplatz",
+    "botania.page.blackHoleTalisman0": "Die Leere ist ein gigantischer Raum voller... nichts. Wirklich. Mit etwas Erfingergeist kann dieses Nichts genutzt werden, um nach Herzenslust Blöcke für dich abzulegen.$(p)Der $(item)Schwarzloch-Talisman$(0) verwendet mächtige Gaia- und Ender-Magien, um praktisch unbegrenzte Mengen eines einzelnen Blocktyps abzulegen.",
+    "botania.page.blackHoleTalisman1": "Ein Rechtsklick mit dem leeren Talisman auf einen Block stellt ihn auf die Ablage dieses Blocktyps ein, und ein Schleich-Rechtsklick mit dem Talisman in die Luft aktiviert oder deaktiviert ihn. Wenn der Talisman aktiv ist, absorbiert er alle Blöcke des eingestellten Typs aus dem Inventar des Nutzers.$(p)In ein Herstellungsquadrat platziert, liefert der Talisman die enthaltenen Blöcke jeweils als Stapel.",
+    "botania.page.blackHoleTalisman2": "Jegliche im Talisman abgelegten Blöcke können durch einfaches Rechtsklicken platziert werden.$(p)Schleich-Rechtsklick mit dem Talisman auf ein Inventar fügt bis zu einen Stapel der Blöcke dem Inventar hinzu. Ein Talisman kann außerdem einen $(l:tools/exchange_rod)$(item)Stab der Veränderlichen Kruste$(0)$(/l) mit den enthaltenen Blöcken versorgen.",
+    "botania.page.blackHoleTalisman3": "Technisch inkorrekt, die schlechteste Art von inkorrekt",
 
     "botania.entry.luminizerTransport": "Beleuchter-Transport",
+    "botania.tagline.luminizerTransport": "Fliege durch den Himmel",
+    "botania.page.luminizerTransport0": "$(item)Beleuchter$(0) transportieren Spieler (und andere Objekte), indem sie diese auf Lichtpfaden durch die Luft fliegen.$(p)$(item)Beleuchter$(0) werden als Blöcke in der Welt platziert und mit einem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) mit anderen $(item)Beleuchtern$(0) verbunden. Rechtsklick auf den $(item)Beleuchter$(0) transportiert den Benutzer zum verbundenen $(item)Beleuchter$(0).",
+    "botania.page.luminizerTransport1": "$(item)Beleuchter$(0) haben eine Reichweite von 20 Blöcken, können aber verkettet werden, um ziemlich lange und komplexe Pfade zu bilden.$(p)$(item)Beleuchter$(0)verbindungen verlaufen nur in eine Richtung, es sei den es wurden explizit beide Richtungen verbunden. Beachte allerdings, dass so eine Verbindung eine Endlosschleife bilden würde.$(p)Mehrere $(item)Beleuchter$(0) können mit dem selben Endpunkt verbunden werden.",
+    "botania.page.luminizerTransport2": "Beleuchte in die Zukunft",
+    "botania.page.luminizerTransport3": "Indem etwas $(item)Redstone$(0) zu einem $(item)Beleuchter$(0) hinzugefügt wird, erhält man einen $(item)Sensorbeleuchter$(0), welcher wir ein normaler $(item)Beleuchter$(0) funktioniert, aber auch einen $(thing)Redstone-Impuls$(0) ausgibt, wenn ihn etwas erreicht (oder passiert).",
+    "botania.page.luminizerTransport4": "Signalausgang",
+    "botania.page.luminizerTransport7": "Indem ein $(item)Hebel$(0) zu einem $(item)Beleuchter$(0) hinzugefügt wird, erhält man einen $(item)Geschalteten Beleuchter$(0), der ein $(thing)Redstone-Signal$(0) akzeptiert. Wenn er ein Signal erhält, lässt der $(item)Geschaltete Beleuchter$(0) alles fallen, was ihn passiert. Er funktioniert normal, wenn er kein Signal erhält.",
+    "botania.page.luminizerTransport8": "Signaleingang",
+    "botania.page.luminizerTransport9": "Ein $(item)Beleuchter$(0) und eine $(item)Redstone-Fackel$(0) ergeben eine $(item)Beleuchtergabelung$(0).$(p)Diese reagiert auf eine $(l:devices/animated_torch)$(item)Animierte Fackel$(0)$(/l), die bis zu zwei Blöcke ober- oder unterhalb platziert wurde. Jedes ankommende Objekt wird zu einem $(item)Beleuchter$(0) in der Richtung geschickt, in welche die Fackel zeigt.",
+    "botania.page.luminizerTransport10": "Die $(item)Beleuchtergabelung$(0) kann immer noch wie jede andere Beleuchtervariante benutzt werden, benutzt aber ihre Verbindungen nur wenn keine $(l:devices/animated_torch)$(item)Animierte Fackel$(0)$(/l) verfügbar ist, die eine Richtung vorgeben kann (oder wenn in der Richtung der Fackel keine $(item)Beleuchter$(0) liegen).",
+    "botania.page.luminizerTransport11": "Auf die eine oder andere Art",
+    "botania.page.luminizerTransport5": "Spieler können $(item)Beleuchter$(0) zum Einsteigen einfach rechtsklicken, aber für Tiere oder Gegenstände benötigt man einen $(item)Beleuchterstarter$(0). Dieser wird direkt neben einem oder mehreren $(item)Beleuchtern$(0) platziert. Wenn ein Starter einen $(thing)Redstone-Impuls$(0) erhält, sendet er alle Lebewesen und Gegenstände zum anliegenden $(item)Beleuchter$(0) (oder zu einem zufälligen $(item)Beleuchter$(0) pro Objekt, falls mehr als einer in der Nähe ist), und schickt sie so auf die Reise.",
+    "botania.page.luminizerTransport6": "Pflichtevakuierungsgerät",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    "botania.entry.starSword": "Sternenbeschwörer",
-
-
-
+    "botania.entry.starSword": "Sternrufer",
+    "botania.tagline.starSword": "Schwert, das fallende Stene herbeiruft",
+    "botania.page.starSword0": "Der $(item)Sternrufer$(0) ist eine Klinge mit der Kraft, den Zorn der Sterne herbeizurufen. Wenn sie geschwungen wird, beschwört die Klinge einen fallenden Stern vom Himmel auf den anvisierten Punkt zu. Dieses Schwert is nicht trivial zu beschaffen, da $(l:ender/ender_air)$(item)Enderluft$(0)$(/l) und eine $(l:tools/terra_sword)$(item)Terraklinge$(0)$(/l) zu seinen Komponenten gehören. Hinweis: Jegliche Verzauberungen des letzteren gehen verloren.",
+    "botania.page.starSword1": "Rufer, Wut, was auch immer...",
 
     "botania.entry.thunderSword": "Donnerrufer",
-
-
-
+    "botania.tagline.thunderSword": "Schwert, das Donner herbeiruft",
+    "botania.page.thunderSword0": "Der $(item)Donnerrufer$(0) ist ein zweigespaltenes Schwert, das Blitze beschwören kann. Hergestellt aus Materialien wie einer $(l:tools/terra_sword)$(item)Terraklinge$(0)$(/l) und $(l:ender/ender_air)$(item)Enderluft$(0)$(/l), opfert es Distanzangriffe für die Fähigkeit, mehrere Ziele auf einen (Blitz-)Schlag zu treffen.$(br)Ein Angriff mit dem $(item)Donnerrufer$(0) auf eine Gruppe erzeugt eine Kette von Blitzen, die Monster in der Umgebung treffen.",
+    "botania.page.thunderSword1": "Gesegnete Klinge des Handels-Chat",
 
     "botania.entry.bIntro": "Eine Einführung in Accessoires",
 
@@ -3623,7 +3623,7 @@
     "botania.subtitle.babylonSpawn": "Schlüssel für des Königs Gesetz aktiviert",
     "botania.subtitle.bellows": "Manastrom-Blasebalg zischt",
     "botania.subtitle.bifrostRod": "Stab des Bifrosts summt",
-    "botania.subtitle.blackHoleTalismanConfigure": "Talisman des Schwarzen Loches klingelt",
+    "botania.subtitle.blackHoleTalismanConfigure": "Schwarzloch-Talisman klingelt",
     "botania.subtitle.blackLotus": "Schwarzer Lotos löst sich auf",
     "botania.subtitle.dash": "Spieler spurtet",
     "botania.subtitle.diceOfFate": "Würfel des Schicksals klappern",
