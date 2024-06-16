@@ -3417,102 +3417,102 @@
     "botania.page.goddessCharm1": "Keine EXPLOSION!",
 
     "botania.entry.aIntro": "Das Portal nach Alfheim",
-
-
-
-
-
-
-
-
-
+    "botania.tagline.aIntro": "Der nächste Schritt der Reise...",
+    "botania.page.aIntro0": "Vor langer Zeit teilten sich $(thing)Elfen$(0) die Welt mit uns $(thing)Minecraftern$(0). Aufgrund von uns unbekannten Ereignissen wurden sie zurück in ihre eigene Welt, $(thing)Alfheim$(0), getrieben und kamen nie zurück.$(br)Es wurden Experimente zum Wiederherstellen der Verbindung der beiden Welten durchgeführt, und es wurde eine theoretisch Prozedur zur Erschaffung eines Portals erdacht.",
+    "botania.page.aIntro1": "Die tatsächliche Herstellung des Portals könnte sich als mühsam erweisen, da recht ungewöhnliche Ressourcen notwendig sind. In Summe sind 8 $(l:basics/pure_daisy)$(item)Lebeholz$(0)$(/l)blöcke, 3 $(l:misc/decorative_blocks)$(item)Schimmernde Lebeholz$(0)$(/l)blöcke, ein $(item)Elfenportal-Herzstück$(0), und mindestens 2 $(l:mana/pool)$(item)Manabecken$(0)$(/l) mit $(item)Natura-Pylonen$(0) notwendig.$(p)Die $(l:basics/pure_daisy)$(item)Lebeholz$(0)$(/l)blöcke können von jeglicher Variante sein (Stamm oder Holz, entrindet oder nicht, usw.), mischen ist auf jeden Fall möglich.",
+    "botania.page.aIntro2": "Herstellen des $(item)Elfenportal-Herzstücks$(0)",
+    "botania.page.aIntro3": "Herstellen eines $(item)Natura-Pylons$(0)",
+    "botania.page.aIntro4": "Alfheim-Portal",
+    "botania.page.aIntro5": "Mindestens zwei $(l:mana/pool)$(item)Manabecken$(0)$(/l) mit $(item)Natura-Pylonen$(0) darüber würden innerhalb von 11x11x11 Blöcken um das Herzstück benötigt. Bei der erstmaligen Aktivierung, die durch einen Rechtsklick mit einem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) ausgelöst wird, werden vermutlich große Mengen $(thing)Mana$(0) aus diesen Becken verbraucht.$(br)Das Portal ist so gebaut, dass es $(thing)Mana$(0) gleichmäßig aus allen Becken mit Pylonen bezieht. Falls ein Becken leer läuft, dürfte jegliche aktive Verbindung des Portals abbrechen.",
+    "botania.page.aIntro6": "Selbst mit all diesen Vorbereitungen dürfte jegliche Verbindung, die ein Portal aufbaut, zu schwach sein, um Lebewesen zu transportieren (ein $(thing)Alfheim$(0)-Urlaub ist also vom Tisch), aber Gegenstände sollten es gerade so hindurch schaffen — allerdings würde $(thing)Mana$(0) aus den umliegenden $(l:mana/pool)$(thing)Manabecken$(0)$(/l) notwendig sein, damit die Gegenstände den Trip überstehen.",
+    "botania.page.aIntro7": "Das Wissen über $(thing)Alfheim$(0) in diesem Lexikon ist, zu diesem Zeitpunkt, auf diesen Eintrag begrenzt — es scheint, das Elfenwissen ist fast vollständig verloren gegangen.$(p)Wenn $(thing)die Elfen einen Blick auf dieses Buch werfen$(0), können sie vielleicht weitere Erkenntnisse liefern.",
 
     "botania.entry.elfMessage": "Eine Nachricht der Elfengarde",
-
-
-
-
-
-
-
-
+    "botania.tagline.elfMessage": "Sei gegrüßt, Abenteuergefährte",
+    "botania.page.elfMessage0": "",
+    "botania.page.elfMessage1": "$(o)Seid gegrüßt.$(br)Wir fanden dieses Buch als einer unserer alten Portalrahmen spontan eine Verbindung zu einer anderen Welt öffnete – ein ziemlicher Schock für uns. Im Namen der Elfengarde danken wir Euch aufrichtig, uns eine Wissensquelle über Eure Welt zur Verfügung zu stellen. Es ist einige Zeit vergangen, seit wir sie verlassen mussten, daher ist es gut, sie wohlauf zu sehen.",
+    "botania.page.elfMessage2": "$(o)Nach ausgiebigen Diskussionen innerhalb des Hohen Rates der Elfengarde haben wir entschieden, mit Euch zusammenzuarbeiten. Eure \"Lexica Botania\" bezieht sich auf bestimmte Ressourcen, an denen wir potenziell sehr interessiert sind, da sie in unseren Ländern einfach nicht existieren.",
+    "botania.page.elfMessage3": "$(o)Die Verbindung, die Ihr hergestellt habt ist leider zu schwach für den Transfer von Lebewesen — offenbar eine Konsequenz der schieren Distanz zwischen unsere Welten. Schade, wir hätten gern unseren Handelspartner persönlich getroffen. Das Gute ist jedoch, dass die Verbindung uns erlaubt ihre Synchronisation zu variieren, weswegen Ihr Euer Buch so schnell zurückerhaltet, zumindest aus Eurer Perspektive.",
+    "botania.page.elfMessage4": "$(o)Wir sind gut mit Mana und anderen magischen Energien eingedeckt, sorgt Euch daher nicht, dass das Portal sich auf unserer Seite schließen könnte. Um es direkt zu sagen, unser Angebot ist wie folgt: Für den Fortschritt unserer beider Zivilisationen schwören wir, im Tausch gegen gewisse Eurer Ressourcen, an denen es in unserer Welt mangelt, bestimmte Ressourcen zu liefern die in Eurer Welt fehlen.",
+    "botania.page.elfMessage5": "$(o)Wir haben uns erlaubt, unsere besten Schreiber mit dem Übertragen eines Großteils des Wissens unserer Welt in Euer Lexikon zu beauftragen. Wir hoffen Ihr findet es erleuchtend, und dass dieses Wissen Euch ermutigt, in unsere Materialien zu investieren.",
+    "botania.page.elfMessage6": "$(o)Bitte seid vorgewarnt: Falls Ihr Euch entscheidet uns einen Gegenstand zu senden, der nicht Teil unseres geschworenen Handels ist, werden wir annehmen es handele sich um ein Geschenk und behalten diesen. Wir danken Euch nochmals und sehen dem Austausch von Ressourcen mit Euch freudig entgegen.$(p)Beste Grüße, der Hohe Rat der Elfengarde.",
 
     "botania.entry.elfResources": "Ressourcen von Alfheim",
-
-
-
-
-
-
-
-
-
-
-
+    "botania.tagline.elfResources": "Drei Tage lang habe ich nichts weiter getan, als Brot zu teleportieren",
+    "botania.page.elfResources0": "$(thing)Alfheim$(0) enthält eine Vielzahl wertvoller Ressourcen. Leider sind viele von ihnen wegen der Konkurrenz zwischen verschiedenen $(thing)Elfen$(0)stämmen recht selten. Die kontaktierten Elfen sind daran interessiert mit einheimischen Ressourcen aus ihren Ländern zu handeln, beispielsweise $(item)Traumholz$(0), $(item)Elementium$(0), $(item)Feenstaub$(0) und $(item)Drachenstein$(0).",
+    "botania.page.elfResources1": "$(item)Traumholz$(0) kann zu dekorativen Blöcken verarbeitet werden, wie $(l:misc/decorative_blocks)$(item)Lebeholz$(0)$(/l).",
+    "botania.page.elfResources2.title": "Traumholzzweige",
+    "botania.page.elfResources3": "Handel mit $(item)Elementium$(0)",
+    "botania.page.elfResources4": "Handel mit $(item)Feenstaub$(0)",
+    "botania.page.elfResources5": "Handel mit $(item)Drachenstein$(0)",
+    "botania.page.elfResources6": "Die $(thing)Elfen$(0) haben auch das weiße, nobel aussehende Material aus dem $(thing)Nether$(0), $(item)Netherquarz$(0), im Blick, da ihr eigenes grün gefärbt ist. Dieser Quarz hat keinen funktionalen Unterschied zu anderen Quarzarten, inklusive normalem $(item)Netherquarz$(0) und allen seinen dekorativen Varianten.",
+    "botania.page.elfResources7": "Handel mit $(item)Elfenquarz$(0)",
+    "botania.page.elfResources8": "$(thing)Alfheim$(0) hat auch seine eigene Variante von $(item)Glas$(0), $(item)Elfenglas$(0) genannt. Es ist sehr durchsichtig und sein Muster sieht unterschiedlich aus, je nach dem wo es platziert wird.$(p)Die $(thing)Elfen$(0) tauschen es gegen $(l:mana/pool)$(item)Managlas$(0)$(/l).",
+    "botania.page.elfResources9": "Handel mit $(item)Elfenglas$(0)",
 
     "botania.entry.gaiaRitual": "Ritual von Gaia",
-
-
-
-
-
-
-
+    "botania.tagline.gaiaRitual": "Beschwöre den Wächter von Gaia für GROSSE GERECHTIGKEIT!",
+    "botania.page.gaiaRitual0": "Das $(thing)Ritual von Gaia$(0) ist eine Prüfung, zu der sich Elfen oft verpflichten. Es liefert $(item)Gaiaseelen$(0), die begehrt sind als Fragmente der Macht der Götting von Gaia selbst.$(p)Dieses Ritual erfordert ein $(thing)Leuchtfeuer$(0) umgeben von $(item)Gaia-Pylonen$(0) (als Altar), sowie einen einzelnen $(l:basics/terrasteel)$(item)Terrastahlbarren$(0)$(/l) (als Opfergabe).",
+    "botania.page.gaiaRitual1": "Herstellen von $(item)Gaia-Pylonen$(0)",
+    "botania.page.gaiaRitual2": "Ritual von Gaia",
+    "botania.page.gaiaRitual3": "Um das Ritual zu beginnen genügt ein Schleich-Rechtsklick auf das $(item)Leuchtfeuer$(0) mit dem $(l:basics/terrasteel)$(item)Terrastahlbarren$(0)$(/l). Trete einen Schritt zurück und sei bereit um dein Leben zu kämpfen. Vorbereitung ist absolut notwendig — der Kampf mit dem $(thing)Wächter von Gaia$(0) kann noch schwerer sein als der mit dem $(thing)Wither$(0). Nachdem der $(thing)Wächter$(0) bezwungen wurde, droppen einige $(item)Gaiaseelen$(0) als Preis.",
+    "botania.page.gaiaRitual4": "Übliche Ausrüstung für dieses Ritual ist eine $(item)Elementium-Rüstung$(0), eine $(l:tools/terra_sword)$(item)Terraklinge$(0)$(/l) und eine Auswahl an $(thing)Bräuen$(0) und $(thing)Schmuck$(0).$(p)Der $(item)Wächter$(0) hat eine massive Menge Gesundheit, daher ist die Vorbereitung mit $(thing)Verzauberungen$(0) und $(thing)Bräuen$(0) ein Muss!",
+    "botania.page.gaiaRitual5": "Die Schwierigkeit (und die Belohnung) des Rituals hängt von der Anzahl der Teilnehmer ab. Wenn das Ritual mit über fünf Personen in der Nähe durchgeführt wird, kann die Katastrophe durch das entstehende Chaos vorprogrammiert sein. Rituale dieser Größenordnung sollten daher nicht versucht werden.$(p)Zum Schluss noch: Es dürfte eine gute Idee sein, sich vom Violetten fernzuhalten.",
 
     "botania.entry.gaiaRitualHardmode": "Ritual von Gaia II",
-
-
-
-
+    "botania.tagline.gaiaRitualHardmode": "Feen-Boogaloo",
+    "botania.page.gaiaRitualHardmode0": "Man sollte $(o)meinen$() die Kombination von zwei der mächtigsten botanischen Ressourcen (d.h. $(l:basics/terrasteel)$(item)Terrastahl$(0)$(/l) und $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l)) ein Material ergibt, das wahrlich unaufhaltsam sein muss. Leider ist besagtes Material sogar sehr aufhaltsam. Tatsächlich scheinen sich die beiden Energien fast perfekt auszulöschen, wenn man sie zu einem Barren vereint, und ergeben eine komplett nutzlose Legierung.",
+    "botania.page.gaiaRitualHardmode1": "Dieser Barren kann jedoch an einem $(item)Leuchtfeuer$(0) geopfert werden, um einen noch stärkeren $(l:alfhomancy/gaia_ritual)$(thing)Gaiawächter$(0)$(/l) zu beschwören, mit mehr Kraft, Tempo und Beständigkeit.$(p)Andererseits liefert ein Sieg über diesen besseren Wächter viel mehr $(l:alfhomancy/gaia_ritual)$(item)Gaiaseelen$(0)$(/l), sowie einige nützliche Dinge und seltene Schätze. Er ist ein lohnender Gegner.",
+    "botania.page.gaiaRitualHardmode2": "Herstellen des $(item)Gaiaseelenbarrens$(0).",
 
     "botania.entry.relics": "Die Relikte der Asen",
-
-
+    "botania.tagline.relics": "Ein Mythos? Oder Realität?",
+    "botania.page.relics0": "Die hohen Stämme von Alfheim gaben eine alte Legende weiter, die übersetzt ungefähr so lautet: \"Wer einen Würfel des Schicksals rollt, soll durch eine Gabe der Götter belohnt werden.\" Besagte Gaben, $(item)Relikte der Asen$(0) genannt, gelten als seelengebunden und einzigartig.$(p)Aber all das ist Hörensagen — die Relikte sind vermutlich nur Legenden.",
 
     "botania.entry.relicInfo": "Die Relikte der Asen II",
-
-
-
+    "botania.tagline.relicInfo": "Sie sind also doch real",
+    "botania.page.relicInfo0": "Die viel spekulierten Relikte gibt es offenbar tatsächlich. Diese Gegenstände werden durch Rollen der $(item)Würfel des Schicksals$(0) materialisiert und besitzen unglaubliche Kräfte. (Die sechs Seiten des Würfels dürften die Existenz von sechs Relikten implizieren.)$(br)Relikte scheinen zu wissen, wem sie gehören. Sie jemand anderem zu geben ist keine gute Idee.",
+    "botania.page.relicInfo1": "Die Legende besagt, dass ein Relikt nicht mehrfach der gleichen Person zuerkannt wird — ein einmal erarbeitetes Relikt sicher aufzubewahren hat also hohe Priorität. Vielleicht wäre $(l:ender/keep_ivy)$(item)Entschlossener Efeu$(0)$(/l) eine gute Investition.$(p)Interessanterweise überträgt ein verdientes Relikt das Wissen über seine Verwendung in dieses Lexikon. Wie praktisch.",
 
     "botania.entry.infiniteFruit": "Die Frucht von Grisaia",
-
-
+    "botania.tagline.infiniteFruit": "Endlose Nahrungsquelle",
+    "botania.page.infiniteFruit0": "Das Relikt bekannt als $(item)Die Frucht von Grisaia$(0) gewährt der mutigen Seele, die es verdient hat, einen endlosen Nahrungsvorrat. Sie kann wie normale Nahrung gegessen werden, nutzt aber $(thing)Mana$(0) zum Stillen des Hungers.$(p)Es wäre jedoch eine gute Idee, sich an den Geschmack von Apfel zu gewöhnen.",
 
     "botania.entry.kingKey": "Schlüssel für des Königs Gesetz",
-
-
+    "botania.tagline.kingKey": "Öffne die Schatzkammer",
+    "botania.page.kingKey0": "Der $(item)Schlüssel für des Königs Gesetz$(0) ist ein mächtiges Relikt, das Waffen aus dem Nichts materialisiert. Durch Halten von Rechtsklick werden glühende Geschosse von... irgendwo herbeigezaubert. Bis zu 20 Geschosse können gleichzeitig erzeugt, und durch Loslassen des Schlüssels einzeln in Blickrichtung geschleudert werden. Sie bewegen sich mit hohem Tempo und explodieren bei Aufprall.",
 
     "botania.entry.flugelEye": "Auge der Flügel",
-
-
-
+    "botania.tagline.flugelEye": "Die wahre Macht der Flügel",
+    "botania.page.flugelEye0": "Anders als die hergestellte $(l:ender/flight_tiara)$(item)Flügel-Tiara$(0)$(/l) enthält das $(item)Auge der Flügel$(0) ursprüngliche $(thing)Flügel$(0)-Magie. Magie, die stark genug ist, um die Fähigkeit der $(thing)Flügel$(0) zu nutzen, sich an einer zuvor besuchten Ort zu versetzen.$(br)Schleich-Rechtsklick mit dem Auge bindet es an die aktuelle Position. Halten von Rechtsklick nutzt dann $(thing)Mana$(0), um den Nutzer dorthin zu teleportieren.",
+    "botania.page.flugelEye1": "Leider ist das Auge nur ein Fragment des vollen Potenzials der $(thing)Flügel$(0), es kann beispielsweise nicht über Dimensionen hinweg teleportieren.$(p)Wenn man jedoch ein $(item)Auge der Flügel$(0) dabei hat, erlaubt es Nutzern der $(l:ender/flight_tiara)$(item)Flügel-Tiara$(0)$(/l) mit leerer Flugleiste zu fliegen (zu höheren $(thing)Mana$(0)kostem).",
 
     "botania.entry.thorRing": "Ring des Thor",
-
-
+    "botania.tagline.thorRing": "Weil dein Terra-Trümmerer nicht stark genug war",
+    "botania.page.thorRing0": "Als einer der drei legendären Ringe der $(thing)Asen$(0) gewährt der $(item)Ring des Thor$(0) seinem Träger die Macht des Donnergottes. Wenn angelegt, erhöht er dramatisch die Reichweite des Effekts eines $(l:tools/terra_pick)$(item)Terra-Trümmerers$(0)$(/l).",
 
     "botania.entry.lokiRing": "Ring des Loki",
-
-
-
-
-
+    "botania.tagline.lokiRing": "Die Macht hier zu sein. Und dort. Und auch da drüben.",
+    "botania.page.lokiRing0": "Als einer der legendären Ringe der $(thing)Asen$(0) erlaubt der $(item)Ring des Loki$(0) seinem Nutzer, die Fähigkeit des Trickster-Gottes zu nutzen, effektiv an mehreren Orten gleichzeitig zu sein.$(p)Um einen angelegten $(item)Ring des Loki$(0) zu nutzen, beginne mit einem Schleich-Rechtsklick mit leerer Hand.",
+    "botania.page.lokiRing1": "Sobald ein Block als Ursprung ausgewählt wurde, speichert Schleich-Rechtsklick auf weitere Blöcke deren Versatz vom Ursprung. Die Prozedur wird per Schleich-Rechtsklick auf den Ursprung abgeschlossen.$(p)Schleich-Rechtsklick auf einen Block entfernt diesen aus dem Speicher. Um die fertige Auswahl zu löschen kann ein Block zweimal per Schleich-Rechtsklick gewählt werden.",
+    "botania.page.lokiRing2": "Nach Abschluss der Auswahl erscheinen mehrere Blockumrisse, die sich relativ zum anvisierten Block bewegen. Wenn ein Block schleichend platziert wird, wird auch an allen dargestellten Positionen ein Block platziert. Der $(l:tools/terra_pick)$(item)Terra-Trümmerer$(0)$(/l) oder $(l:tools/terra_axe)$(item)Terra-Stutzer$(0)$(/l) baut ebenfalls Blöcke an all diesen Positionen ab, für absolut unerhörte Größenordnungen der Zerstörung.",
+    "botania.page.lokiRing3": "Solche Macht ist natürlich nicht kostenlos. Der Ring konsumiert $(thing)Mana$(0) aus dem Inventar des Nutzers für jeden platzierten Block. Je größer die Auswahl, desto teurer wird jeder platzierte Block.$(p)Bedenke auch, dass der $(item)Ring des Loki$(0) nur den Gegenstand in der Hand nutzt. Beim direkten Platzieren wird die gehaltene Stapelgröße der begrenzende Faktor sein.",
 
     "botania.entry.odinRing": "Ring des Odin",
+    "botania.tagline.odinRing": "Gottgleiche Resistenzen",
+    "botania.page.odinRing0": "Als einer der legendären Ringe der $(thing)Asen$(0) verleiht der $(item)Ring des Odin$(0) seinem Träger die Vitalität und Resistenz des Göttervaters. Er gibt seinem Träger zehn zusätzliche Herzen an Gesundheit und unbegrenzten Schutz vor Umgebungsschäden, inklusive Ertrinken, Ersticken, Feuer, oder Verhungern.",
 
-
-
-    "botania.entry.elvenLore": "Elfen-Überlieferungen - Die Zerschlagung",
-
-
-
-
-
-
-
-
-
-
+    "botania.entry.elvenLore": "Elfen-Kunde - Die Zerschlagung",
+    "botania.tagline.elvenLore": "Wieso wir da sind wo wir sind",
+    "botania.page.elvenLore0": "$(o)Dieser Eintrag scheint eine Sammlung von Seiten zu sein, die aus einem Elfen-Buch gerissen wurden. Auch wenn sie sich als nützlich zum Lernen der Geschichte erweisen könnten, ist zu bezweifeln, dass sie jegliche Einsichten in die Studien der Botanik liefern werden.",
+    "botania.page.elvenLore1": "Jahrtausende sind seit dem Ereignis vergangen das, bekannt als Die Zerschlagung, die Welten auseinander riss. Sehr wenig ist darüber bekannt, was damals tatsächlich geschah, und diese Darstellung sucht dem abzuhelfen.",
+    "botania.page.elvenLore2": "Es begann, als Nidawellir von einem Erdbeben getroffen wurde, das den Großteil des Gebiets kollabieren ließ. Auch wenn ihre unglaubliche Stärke und Ausdauer den Zwergen das Überleben ermöglichte und ihnen erlaubte, bestimmte Dinge zu bewahren, ging das meiste ihrer Technologie und Kultur in der Leere zwischen den Welten verloren.",
+    "botania.page.elvenLore3": "Dieser Tumult bewirkte, dass sich Muspelheim von seiner Verbindung zum Weltenbaum selbst löste. Es prallte auf die ferne Welt von Midgard und verschmolz mit ihr in einem Feuersturm, der dort kein Leben hinterließ. Viele von uns glauben, dass die Göttin Hel ihre Hand bei Muspelheims Fall im Spiel hatte, aber es wurden nie konkrete Beweise gefunden.",
+    "botania.page.elvenLore4": "Die Beben schafften es, Jötunheim zu erreichen, wo sie die Erde zersplitterten und die Riesen massakrierten. Wir wissen nicht, ob sie tatsächlich ausgestorben sind, aber die Riesen sind nicht wieder aufgetaucht. Niflheim blieb komplett still, trotz Muspelheims Fall — ein bedeutender Faktor der Theorien über Hel. Da es kein bekanntes Leben enthält, abgesehen von der Göttin selbst, sind wir unbesorgt über eventuelle Schäden dort.",
+    "botania.page.elvenLore5": "Uns aus Alfheim wurde ein schwerer Schlag versetzt, aber einige traf es schlimmer als andere. Da die Salamander- und Undine-Stämme stark von ihren vulkanischen bzw. aquatischen Umgebungen abhängig sind, hat die Störung dieser Umgebungen die Bevölkerung stark dezimiert. Umgekehrt blieben die Sylph als nomadischer Stamm, der den Himmel dem Land vorzieht, weitgehend unversehrt. Ihre Vettern, die Spriggan, ebenfalls Nomaden, überlebten ebenfalls relativ unbeschadet.",
+    "botania.page.elvenLore5a": "Damals hatten wir kaum echte Struktur in unserer Zivilisation und lebten hautsächlich in Hütten aus Dreamwood. Dies reduzierte den Wiederaufbau weitgehend auf die Materialsammlung, zumal wir vorgewarnt waren.",
+    "botania.page.elvenLore6": "Unsere Sylph-Botschafterin in Asgard, Allewyn, war Zeugin des Anfangs von alledem: Thor richtete Mjölnir gegen den Bifrost und zerbrach ihn. Ihre Anweisung zur Evakuierung unserer gesamten Midgardischen Bevölkerung rettete tausende Leben. Obwohl sie äußerlich unversehrt schien, als sie auf dem Scheitelpunkt der Welle berstenden Bifrosts ankam, um uns zu warnen, verstarb sie kurze Zeit später an den Strapazen der Reise.",
+    "botania.page.elvenLore7": "Uns sorgt jetzt der Zustand Midgards. Da der Bifrost uns keinen Zugang zu dieser Welt mehr gibt, können wir sie nicht direkt beobachten. Das von uns bei der Flucht hinterlassene Mana hat jedoch sicherlich neues Leben hervorgebracht, wie es dies immer tut. Seien es Tiere, Pflanzen oder Pilze, und sei es magischer oder natürlicher Art, wir hoffen dieses Leben wird intelligent genug sein, das zu nutzen, was wir hinterließen.",
 
     "botania.entry.decorativeBlocks": "Dekorative Blöcke",
 
