@@ -5,7 +5,7 @@
     "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
     "_comment4": "Untranslated entries will automatically be inherited from en_US",
     "_comment5": "Once again, don't copy from English, and THANK YOU for your hard work!",
-    "itemGroup.botania.botania": "Botania",
+    "itemGroup.botania": "Botania",
     "botania.landing": "Magie, Technik. Natürlich.$(br)Botania ist eine thematisch an Naturmagie ausgerichtete Tech-Mod. Die Grundidee ist, magische Blumen und Vorrichtungen herzustellen, welche die Macht der Erde, in Form von $(thing)Mana$(), nutzen.",
     "botania.desc": "Magie, Technik. Natürlich",
 
@@ -132,6 +132,9 @@
     "botaniamisc.rannuncarpus.state_sensitive": "Exakten Blockzustand vergleichen",
     "botaniamisc.rannuncarpus.state_insensitive": "Nur Block vergleichen",
     "botaniamisc.lokiRingLimitReached": "Auswahlbegrenzung erreicht",
+    "botaniamisc.pollidisiac.feed_adults": "Füttere erwachsene Tiere",
+    "botaniamisc.pollidisiac.feed_babies": "Füttere Tierkinder",
+    "botaniamisc.pollidisiac.feed_all": "Füttere alle Tiere",
 
     "botania.tater_birthday.0": "Wow, ist das für mich?",
     "botania.tater_birthday.1": "Heute ist mein Geburtstag, ich bin jetzt %d Jahre alt!",
@@ -230,7 +233,7 @@
     "tag.botania.elementium_ingots": "Elementium-Barren",
     "tag.botania.elementium_nuggets": "Elementium-Klumpen",
     "tag.botania.elementium_blocks": "Elementium-Blöcke",
-    "tag.botania.mana_diamond_gems": "Manadiamand-Edelsteine",
+    "tag.botania.mana_diamond_gems": "Manadiamant-Edelsteine",
     "tag.botania.dragonstone_gems": "Drachenstein-Edelsteine",
     "tag.botania.mana_dusts": "Manastäube",
     "tag.botania.burst_viewers": "Burst Viewers",
@@ -488,11 +491,11 @@
 
     "advancement.botania:manaweaveArmorCraft.desc": "Stelle Managewebe-Roben her, um deine Stäbe zu verstärken",
 
-    "advancement.botania:enchanterMake.desc": "Stelle eien Mana-Verzauberer her, um bessere Kontrolle über Verzauberungen zu haben",
+    "advancement.botania:enchanterMake.desc": "Stelle einen Mana-Verzauberer her, um bessere Kontrolle über Verzauberungen zu haben",
 
     "advancement.botania:pollidisiacPickup.desc": "Stelle eine Pollidisiac her, bringe Liebe in die Luft",
 
-    "advancement.botania:brewPickup.desc": "Stelle eine Botanische Brauerei her und erzeuge damit ein Gebräu jeglicher Art ",
+    "advancement.botania:brewPickup.desc": "Stelle eine Botanische Brauerei her und erzeuge damit ein Gebräu jeglicher Art",
 
     "advancement.botania:terraformRodCraft.desc": "Stelle eine Terrafirmarute her und verändere die Welt",
 
@@ -2052,7 +2055,7 @@
     "botania.tagline.terrasteel": "Mächtiges Metall aus Mana und Natur",
     "botania.page.terrasteel0": "$(item)Terrastahl$(0) ist eine komplexe magische Legierung, durchsetzt mit einer unglaublichen Menge $(thing)Mana$(0). Die Synthese ist keine leichte Aufgabe und erfolgt mit einer $(item)Terrestrischen Agglomerationsplatte$(0) auf einem Schachbrettmuster aus $(item)Lapislazuliblöcken$(0) und $(l:basics/pure_daisy)$(item)Lebe-$(0)$(/l) oder $(l:tools/rainbow_rod)$(item)Schillerstein$(0)$(/l). Der Platte muss dann $(thing)Mana$(0) zugeführt werden, wobei $(l:mana/sparks)$(item)Funken$(0)$(/l) den effizienteste Transfermodus darstellen.",
     "botania.page.terrasteel1": "Herstellung der Platte",
-    "botania.page.terrasteel2": "Wenn die Platte aufgebaut ist und $(thing)Mana$(0) empfangen kann, beginnt die Infusion sobald je ein $(l:mana/pool)$(item)Manastahlbarren, Manadiamand und Manaperle$(0)$(/l) darauf liegen.$(br)Falls einer der Gegenstände aufgehoben wird, stoppt die Infusion und verursacht massiven $(thing)Manaverlust$(0) (alles transferierte Mana geht verloren). Die Infusion verbraucht etwa ein halbes $(l:mana/pool)$(item)Manabecken$(0)$(/l) an Mana pro $(thing)Terrastahlbarren$(0). Mehrere $(l:mana/sparks)$(item)Funken$(0)$(/l) für den $(thing)Mana$(0)-Transfer beschleunigen den Prozess.",
+    "botania.page.terrasteel2": "Wenn die Platte aufgebaut ist und $(thing)Mana$(0) empfangen kann, beginnt die Infusion sobald je ein $(l:mana/pool)$(item)Manastahlbarren, Manadiamant und Manaperle$(0)$(/l) darauf liegen.$(br)Falls einer der Gegenstände aufgehoben wird, stoppt die Infusion und verursacht massiven $(thing)Manaverlust$(0) (alles transferierte Mana geht verloren). Die Infusion verbraucht etwa ein halbes $(l:mana/pool)$(item)Manabecken$(0)$(/l) an Mana pro $(thing)Terrastahlbarren$(0). Mehrere $(l:mana/sparks)$(item)Funken$(0)$(/l) für den $(thing)Mana$(0)-Transfer beschleunigen den Prozess.",
     "botania.page.terrasteel3": "Herstellung von $(item)Terrastahl$(0) (Unter der Platte muss $(l:basics/pure_daisy)$(item)Lebestein$(0)$(/l) sein)",
     "botania.page.terrasteel4": "T.A. Platte",
 
@@ -2361,6 +2364,7 @@
     "botania.tagline.pollidisiac": "Vermehrt Tiere",
     "botania.page.pollidisiac0": "Tiere lieben es zu essen. Das ist so ziemlich alles was sie tun. Komischerweise essen sie jedoch nur womit man sie füttert.$(p)Die $(item)Pollidisie$(0) macht genau das: Sie nutzt $(thing)Mana$(0) um Futtergegenstände in der Nähe ($(item)Weizen$(0), $(item)Karotten$(0), usw.) an Tiere zu verfüttern, die diese in $(o)bessere Stimmung$() versetzen.",
     "botania.page.pollidisiac1": "$(o)Teufels Küche$().",
+    "botania.page.pollidisiac2": "Per Schleich-Rechtsklick (oder mittels eines $(item)Werfers$(0)) auf die Blume mit einem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) im $(thing)Funktionsmodus$(0) kann der Fütterungsmodus gewechselt werden. Entweder werden nur erwachsene Tieren gefüttert oder nur Tierkinder oder alle Tiere.",
 
     "botania.entry.clayconia": "Helitonie",
     "botania.tagline.clayconia": "Erzeugt Ton aus Sand",
@@ -2577,6 +2581,7 @@
     "botania.page.manaAlchemy24": "Umwandlung $(item)Kurzer Gräser$(0)",
     "botania.page.manaAlchemy40": "Blume",
     "botania.page.manaAlchemy25": "Umwandlung mundäner Blumen",
+    "botania.page.manaAlchemyDripleafShrinking": "Schrumpfen $(item)Großer Tropfblätter$(0)",
     "botania.page.manaAlchemy37": "Stein",
     "botania.page.manaAlchemy26": "Umwandlung von Steinarten",
     "botania.page.manaAlchemy27": "Umwandlung von $(item)Chorusfrucht$(0) zu $(item)Chorusblüte$(0)",
@@ -2710,7 +2715,7 @@
     "botania.page.craftCrate3": "Ein Rezept kann auf zwei Arten abgeschlossen werden:$(p)Sobald alle 9 Felder mit Herstellungskomponenten oder Platzhaltern gefüllt sind, wird sofort versucht, das Ergebnis herzustellen und auszugeben, inklusive aller Platzhalter und übrig gebliebenen Reste (z.B. Eimer beim Herstellen von Kuchen).$(p)Beachte, dass die Kiste $(o)nicht$() ihren Inhalt auswirft, wenn damit nichts hergestellt werden konnte.",
     "botania.page.craftCrate4": "Ein Rechtsklick mit einem $(l:basics/wand)$(item)Stab des Waldes$(0)$(/l) (bedenke: $(item)Werfer$(0) können das ebenfalls übernehmen) versucht eine Herstellung und wirft danach den Inhalt der Kiste aus.$(p)Falls die Herstellung auf diese Weise fehlschlägt, werden einfach alle enthaltenen Gegenstände ausgeworfen.",
     "botania.page.craftCrate7": "Wenn ein $(item)Komparator$(0) an der Kiste angebracht wird, gibt dieser ein Signal entsprechend der Anzahl der Gegenstände in der Kiste aus.",
-    "botania.page.craftCrate5": "Ein Beispiel zum Herstellen einer $(item)Diamand-Spitzhacke$(0)",
+    "botania.page.craftCrate5": "Ein Beispiel zum Herstellen einer $(item)Diamant-Spitzhacke$(0)",
     "botania.page.craftCrate6": "Fließband in einer Kiste",
     "botania.page.craftCrate8": "Die $(item)Schlaue Kiste$(0) kann auch mit Mustern erweitert werden. Ein Muster sperrt bestimmte Felder im Rezept, so dass in diesen keine Ggenstände abgelegt werden können.$(p)Es gibt mehrere Muster, die jeweils per Rechtsklick auf die Kiste angewendet werden können. (Das Muster wird dabei nicht verbraucht.)",
     "botania.page.craftCrate10": "Herstellungsmuster",
@@ -2831,7 +2836,7 @@
 
     "botania.entry.terraSword": "Terraklinge",
     "botania.tagline.terraSword": "Ein Schwert das einen Strahl feuert, der Kreaturen schadet",
-    "botania.page.terraSword0": "Die $(item)Terraklinge$(0), hergestellt aus $(l:basics/terrasteel)$(item)Terrastahlbarren$(0)$(/l), ist ein Schwert mit der Stärke der Natur. Ihre Kraft ist der eines $(item)Diamandschwerts$(0) ebenbürtig, und wenn es geschwungen wird, feuert es einen Strahl, der so viel austeilt, wie ein Treffer mit der Klinge. Außerdem kann sie $(thing)Mana$(0) für die Haltbarkeit nutzen, wie $(l:tools/mana_gear)$(item)Manastahlwerkzeuge$(0)$(/l).",
+    "botania.page.terraSword0": "Die $(item)Terraklinge$(0), hergestellt aus $(l:basics/terrasteel)$(item)Terrastahlbarren$(0)$(/l), ist ein Schwert mit der Stärke der Natur. Ihre Kraft ist der eines $(item)Netheritschwerts$(0) ebenbürtig, und wenn es geschwungen wird, feuert es einen Strahl, der so viel austeilt, wie ein Treffer mit der Klinge. Außerdem kann sie $(thing)Mana$(0) für die Haltbarkeit nutzen, wie $(l:tools/mana_gear)$(item)Manastahlwerkzeuge$(0)$(/l).",
     "botania.page.terraSword1": "Kein zerbrochenes Heldenschwert",
 
     "botania.entry.terraPick": "Terra-Trümmerer",
