@@ -1,0 +1,142 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'net.neoforged.gradle.userdev'
+    id 'eclipse'
+}
+
+version = "${minecraft_version}-${build_number}-NEOFORGE"
+if (System.getenv().RELEASE_MODE != "1") {
+    version += '-SNAPSHOT'
+}
+
+repositories {
+    maven {
+        name = "Jared"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "C4"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/" // for emi
+    }
+    maven {
+        name = "Unascribed"
+        url "https://repo.unascribed.com" // for ears
+        content {
+            includeGroup "com.unascribed"
+        }
+    }
+}
+
+subsystems {
+    parchment {
+        minecraftVersion = "${minecraft_version}"
+        mappingsVersion = "${parchment_version}"
+    }
+}
+
+runs {
+    configureEach {
+        workingDirectory project.file('../run')
+        systemProperty 'forge.logging.console.level', 'debug'
+        systemProperty 'fml.earlyprogresswindow', 'false'
+
+        modSource project.sourceSets.main
+    }
+
+    client {
+    }
+    server {
+        programArgument '--nogui'
+    }
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:20.4.173"
+    implementation project(":Xplat")
+
+    implementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-NEOFORGE"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
+    //runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
+
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+
+    // compileOnly 'com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123'
+
+    compileOnly "com.unascribed:ears-api:${ears_version}"
+}
+
+TaskCollection.metaClass.excludingNeoTasks = { ->
+    delegate.matching { !it.name.startsWith("neo") }
+}
+
+tasks.withType(JavaCompile).excludingNeoTasks().configureEach {
+    source(project(":Xplat").sourceSets.main.allSource)
+}
+
+tasks.withType(Javadoc).excludingNeoTasks().configureEach {
+    source(project(":Xplat").sourceSets.main.allJava)
+}
+
+tasks.named("sourcesJar", Jar) {
+    from(project(":Xplat").sourceSets.main.allSource)
+}
+
+tasks.withType(ProcessResources).excludingNeoTasks().configureEach {
+    from project(":Xplat").sourceSets.main.resources
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "${mod_name}",
+                "Specification-Vendor": "vazkii",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": "${mod_name}",
+                "Implementation-Version": "${archiveVersion.get()}",
+                "Implementation-Vendor" :"vazkii"
+        ])
+    }
+}
+
+task apiJar(type: Jar, dependsOn: classes) {
+    // Sources included because of MinecraftForge/ForgeGradle#369
+    from project(":Xplat").sourceSets.main.allJava
+    from(sourceSets.main.allJava)
+    from(sourceSets.main.output)
+
+    include 'vazkii/botania/api/**'
+
+    archiveClassifier = 'api'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            artifact jar
+            artifact sourcesJar
+            artifact apiJar
+            pom.withXml {
+                def node = asNode()
+                if(node.dependencies.size() > 0)
+                    node.remove(node.dependencies) // Remove deps, as they are all mappings-dependent and/or forge
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "file://" + System.getenv("local_maven")
+        }
+    }
+}

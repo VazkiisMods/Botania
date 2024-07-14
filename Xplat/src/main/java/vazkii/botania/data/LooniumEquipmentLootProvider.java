@@ -24,7 +24,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.armortrim.*;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -138,8 +137,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			LootTable.Builder builder = e.getValue();
 			// TODO 1.21: use LootContextParamSets.EQUIPMENT instead
 			LootTable lootTable = builder.setParamSet(LootContextParamSets.SELECTOR).build();
-			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
-			output.add(DataProvider.saveStable(cache, jsonTree, path));
+			output.add(DataProvider.saveStable(cache, LootTable.CODEC, lootTable, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}
@@ -275,7 +273,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 						// Note: Slowness from Strays stacks with tipped arrow effects, so just checking for bow here
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 								EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment()
-										.mainhand(ItemPredicate.Builder.item().of(Items.BOW).build()).build())))
+										.mainhand(ItemPredicate.Builder.item().of(Items.BOW)).build())))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetNbtFunction.setTag(darknessEffectTag)))
 				)
@@ -825,7 +823,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 										LootItemRandomChanceCondition.randomChance(0.005f),
 										LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 												EntityPredicate.Builder.entity()
-														.flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true).build()))
+														.flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)))
 								)))
 				).withPool(LootPool.lootPool()
 						.when(LootItemRandomChanceCondition.randomChance(0.05f))
