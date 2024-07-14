@@ -76,13 +76,13 @@ public class BotaniaFlowerBlock extends FlowerBlock implements BonemealableBlock
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return world.getBlockState(pos.above()).isAir();
 	}
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return isValidBonemealTarget(world, pos, state, false);
+		return isValidBonemealTarget(world, pos, state);
 	}
 
 	@Override

@@ -129,7 +129,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	}
 
 	private List<ItemStack> getItems() {
-		List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)), EntitySelector.ENTITY_STILL_ALIVE);
+		List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition), EntitySelector.ENTITY_STILL_ALIVE);
 		List<ItemStack> stacks = new ArrayList<>();
 		for (ItemEntity entity : itemEntities) {
 			if (!entity.getItem().isEmpty()) {
@@ -241,7 +241,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 
 	@Override
 	public ManaSpark getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(ManaSpark.class));
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above()), Predicates.instanceOf(ManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
 			return (ManaSpark) e;

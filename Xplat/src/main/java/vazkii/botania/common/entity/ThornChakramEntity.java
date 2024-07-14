@@ -26,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -64,7 +65,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	public boolean ignoreExplosion() {
+	public boolean ignoreExplosion(Explosion explosion) {
 		return true;
 	}
 

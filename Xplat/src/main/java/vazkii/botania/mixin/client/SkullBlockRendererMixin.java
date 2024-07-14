@@ -49,7 +49,7 @@ public abstract class SkullBlockRendererMixin {
 		builder.put(GaiaHeadBlock.GAIA_TYPE, new GaiaHeadModel());
 
 		// placeholder to avoid crash
-		SKIN_BY_TYPE.put(GaiaHeadBlock.GAIA_TYPE, DefaultPlayerSkin.getDefaultSkin());
+		SKIN_BY_TYPE.put(GaiaHeadBlock.GAIA_TYPE, DefaultPlayerSkin.getDefaultTexture());
 	}
 
 	@Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)

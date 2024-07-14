@@ -9,8 +9,8 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -33,12 +33,12 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
-		Direction enumfacing = source.getBlockState().getValue(DispenserBlock.FACING);
-		Level world = source.getLevel();
-		double d0 = source.x() + (double) enumfacing.getStepX() * 1.125D;
-		double d1 = Math.floor(source.y()) + (double) enumfacing.getStepY();
-		double d2 = source.z() + (double) enumfacing.getStepZ() * 1.125D;
-		BlockPos blockpos = source.getPos().relative(enumfacing);
+		Direction enumfacing = source.state().getValue(DispenserBlock.FACING);
+		Level world = source.level();
+		double d0 = source.center().x() + (double) enumfacing.getStepX() * 1.125D;
+		double d1 = Math.floor(source.center().y()) + (double) enumfacing.getStepY();
+		double d2 = source.center().z() + (double) enumfacing.getStepZ() * 1.125D;
+		BlockPos blockpos = source.pos().relative(enumfacing);
 		BlockState iblockstate = world.getBlockState(blockpos);
 		RailShape railshape = iblockstate.getBlock() instanceof BaseRailBlock ? iblockstate.getValue(((BaseRailBlock) iblockstate.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
 		double d3;
@@ -74,7 +74,7 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 
 	@Override
 	protected void playSound(BlockSource source) {
-		source.getLevel().levelEvent(LevelEvent.SOUND_DISPENSER_DISPENSE, source.getPos(), 0);
+		source.level().levelEvent(LevelEvent.SOUND_DISPENSER_DISPENSE, source.pos(), 0);
 	}
 
 }

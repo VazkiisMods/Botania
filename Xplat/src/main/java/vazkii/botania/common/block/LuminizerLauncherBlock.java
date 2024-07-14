@@ -79,7 +79,7 @@ public class LuminizerLauncherBlock extends BotaniaWaterloggedBlock {
 		}
 
 		if (!relays.isEmpty()) {
-			AABB aabb = new AABB(pos, pos.offset(1, 1, 1));
+			AABB aabb = new AABB(pos);
 			var living = world.getEntitiesOfClass(LivingEntity.class, aabb);
 			var items = world.getEntitiesOfClass(ItemEntity.class, aabb);
 

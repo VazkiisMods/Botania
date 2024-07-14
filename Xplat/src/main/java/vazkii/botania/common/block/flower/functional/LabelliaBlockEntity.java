@@ -63,7 +63,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 			int z = effPos.getZ();
 
 			for (ItemEntity nameTagEnt : level.getEntitiesOfClass(ItemEntity.class,
-					new AABB(realPos.offset(-PICKUP_RANGE, 0, -PICKUP_RANGE),
+					AABB.encapsulatingFullBlocks(realPos.offset(-PICKUP_RANGE, 0, -PICKUP_RANGE),
 							realPos.offset(PICKUP_RANGE + 1, 1, PICKUP_RANGE + 1)),
 					EntitySelector.ENTITY_STILL_ALIVE)) {
 				if (!DelayHelper.canInteractWith(this, nameTagEnt)) {

@@ -38,7 +38,7 @@ public class RedStringSpooferBlockEntity extends RedStringBlockEntity {
 
 	private static boolean isValidPlant(Block block) {
 		if (block instanceof FlowerPotBlock flowerPot) {
-			block = flowerPot.getContent();
+			block = flowerPot.getPotted();
 		}
 		return block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof FungusBlock || block instanceof DoublePlantBlock;
 	}
