@@ -8,15 +8,18 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -26,60 +29,32 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 
 	private CorporeaRequestTrigger() {}
 
-	@NotNull
-	@Override
-	public ResourceLocation getId() {
-		return ID;
-	}
-
-	@NotNull
-	@Override
-	protected Instance createInstance(JsonObject json, ContextAwarePredicate playerPredicate, DeserializationContext conditions) {
-		return new Instance(playerPredicate, MinMaxBounds.Ints.fromJson(json.get("extracted")), LocationPredicate.fromJson(json.get("location")));
-	}
-
 	public void trigger(ServerPlayer player, ServerLevel world, BlockPos pos, int count) {
 		this.trigger(player, instance -> instance.test(world, pos, count));
 	}
 
-	public static class Instance extends AbstractCriterionTriggerInstance {
-		private final MinMaxBounds.Ints count;
-		private final LocationPredicate indexPos;
+	@Override
+	public Codec<Instance> codec() {
+		return Instance.CODEC;
+	}
 
-		public Instance(ContextAwarePredicate playerPredicate, MinMaxBounds.Ints count, LocationPredicate indexPos) {
-			super(ID, playerPredicate);
-			this.count = count;
-			this.indexPos = indexPos;
-		}
+	public record Instance(Optional<ContextAwarePredicate> player, MinMaxBounds.Ints extracted, Optional<LocationPredicate> location)
+			implements
+				SimpleInstance {
 
-		@NotNull
-		@Override
-		public ResourceLocation getCriterion() {
-			return ID;
+		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(Instance::player),
+				MinMaxBounds.Ints.CODEC.optionalFieldOf("extracted", MinMaxBounds.Ints.ANY).forGetter(Instance::extracted),
+				ExtraCodecs.strictOptionalField(LocationPredicate.CODEC, "location").forGetter(Instance::location)
+		).apply(instance, Instance::new));
+
+		public static Criterion<Instance> numExtracted(MinMaxBounds.Ints extracted) {
+			return INSTANCE.createCriterion(new Instance(Optional.empty(), extracted, Optional.empty()));
 		}
 
 		boolean test(ServerLevel world, BlockPos pos, int count) {
-			return this.count.matches(count) && this.indexPos.matches(world, pos.getX(), pos.getY(), pos.getZ());
-		}
-
-		@Override
-		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject json = super.serializeToJson(context);
-			if (count != MinMaxBounds.Ints.ANY) {
-				json.add("extracted", count.serializeToJson());
-			}
-			if (indexPos != LocationPredicate.ANY) {
-				json.add("location", indexPos.serializeToJson());
-			}
-			return json;
-		}
-
-		public MinMaxBounds.Ints getCount() {
-			return this.count;
-		}
-
-		public LocationPredicate getIndexPos() {
-			return this.indexPos;
+			return this.extracted.matches(count) && (this.location.isEmpty()
+					|| this.location.get().matches(world, pos.getX(), pos.getY(), pos.getZ()));
 		}
 	}
 

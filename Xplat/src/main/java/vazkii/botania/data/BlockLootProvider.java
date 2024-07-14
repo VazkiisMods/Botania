@@ -22,7 +22,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
@@ -88,7 +87,7 @@ public class BlockLootProvider implements DataProvider {
 			} else if (b instanceof BotaniaGrassBlock) {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
 			} else if (b instanceof FlowerPotBlock flowerPot) {
-				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getContent()));
+				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getPotted()));
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, BlockLootProvider::genMetamorphicStone);
 			}
@@ -144,7 +143,8 @@ public class BlockLootProvider implements DataProvider {
 		List<CompletableFuture<?>> output = new ArrayList<>();
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
-			output.add(DataProvider.saveStable(cache, Deserializers.createLootTableSerializer().create().toJsonTree(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
+			LootTable lootTable = e.getValue().setParamSet(LootContextParamSets.BLOCK).build();
+			output.add(DataProvider.saveStable(cache, LootTable.CODEC, lootTable, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}

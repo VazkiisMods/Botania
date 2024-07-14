@@ -1,7 +1,5 @@
 package vazkii.botania.data;
 
-import com.google.gson.JsonElement;
-
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
