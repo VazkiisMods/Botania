@@ -61,8 +61,7 @@ public class LandsRodItem extends Item {
 		BlockPos pos = ctx.getClickedPos();
 
 		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, false)) {
-			int entities = world.getEntitiesOfClass(LivingEntity.class,
-					new AABB(pos.relative(side), pos.relative(side).offset(1, 1, 1))).size();
+			int entities = world.getEntitiesOfClass(LivingEntity.class, new AABB(pos.relative(side))).size();
 
 			if (entities == 0) {
 				InteractionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));

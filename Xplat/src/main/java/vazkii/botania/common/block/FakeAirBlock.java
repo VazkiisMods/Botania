@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -55,7 +56,7 @@ public class FakeAirBlock extends AirBlock implements EntityBlock, LiquidBlockCo
 	}
 
 	@Override
-	public boolean canPlaceLiquid(BlockGetter blockGetter, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canPlaceLiquid(Player player, BlockGetter blockGetter, BlockPos pos, BlockState state, Fluid fluid) {
 		return false;
 	}
 

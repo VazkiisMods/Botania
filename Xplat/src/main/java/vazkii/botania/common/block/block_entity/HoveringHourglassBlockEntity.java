@@ -226,8 +226,9 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 					first = Integer.toString(hourglass.time);
 					second = Integer.toString(hourglass.getTotalTime());
 				} else {
-					first = StringUtil.formatTickDuration(hourglass.time);
-					second = StringUtil.formatTickDuration(hourglass.getTotalTime());
+					float tickrate = mc.level == null ? 20 : mc.level.tickRateManager().tickrate();
+					first = StringUtil.formatTickDuration(hourglass.time, tickrate);
+					second = StringUtil.formatTickDuration(hourglass.getTotalTime(), tickrate);
 				}
 				String timer = String.format("%s / %s", first, second);
 

@@ -32,7 +32,7 @@ public class EnderOverseerBlockEntity extends BotaniaBlockEntity {
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, EnderOverseerBlockEntity self) {
 		boolean wasLooking = state.getValue(BlockStateProperties.POWERED);
 		int range = 80;
-		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(worldPosition.offset(-range, -range, -range), worldPosition.offset(range, range, range)));
+		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(range));
 
 		boolean looking = false;
 		for (Player player : players) {

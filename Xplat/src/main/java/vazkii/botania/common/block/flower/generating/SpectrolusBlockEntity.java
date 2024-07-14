@@ -62,7 +62,7 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 		// sheep need to enter the actual block space
 		var sheeps = getLevel().getEntitiesOfClass(Sheep.class, new AABB(getEffectivePos()), Entity::isAlive);
 
-		AABB itemAABB = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
+		AABB itemAABB = new AABB(getEffectivePos()).inflate(RANGE);
 		Predicate<ItemEntity> selector = e -> DelayHelper.canInteractWithImmediate(this, e);
 		var items = getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector);
 

@@ -64,7 +64,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		if (burnTime == 0) {
 			if (getMana() < getMaxMana()) {
 
-				for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+				for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE))) {
 					if (DelayHelper.canInteractWith(this, item)) {
 						ItemStack stack = item.getItem();
 						if (stack.getItem().hasCraftingRemainingItem()) {

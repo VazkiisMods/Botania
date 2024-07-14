@@ -8,5 +8,5 @@ accessible method net/minecraft/world/item/crafting/Ingredient$ItemValue <init> 
 accessible method net/minecraft/world/item/crafting/Ingredient$TagValue <init> (Lnet/minecraft/tags/TagKey;)V
 accessible class net/minecraft/client/renderer/RenderType$CompositeRenderType
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
-extendable method net/minecraft/world/entity/vehicle/AbstractMinecart getDropItem ()Lnet/minecraft/world/item/Item;
+extendable method net/minecraft/world/entity/vehicle/VehicleEntity getDropItem ()Lnet/minecraft/world/item/Item;
 extendable class net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator

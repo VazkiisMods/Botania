@@ -75,7 +75,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 					addMana(-MANA_COST);
 					if (state.is(BotaniaTags.Blocks.AGRICARNATION_APPLY_BONEMEAL)
 							&& block instanceof BonemealableBlock bonemealableBlock
-							&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state, false)) {
+							&& bonemealableBlock.isValidBonemealTarget(serverLevel, pos, state)) {
 						if (serverLevel.random.nextFloat() < BONEMEAL_SUCCESS_CHANCE
 								&& bonemealableBlock.isBonemealSuccess(serverLevel, serverLevel.random, pos, state)) {
 							bonemealableBlock.performBonemeal(serverLevel, serverLevel.random, pos, state);
@@ -116,7 +116,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		boolean couldApplyBonemeal = block instanceof BonemealableBlock bonemealableBlock
-				&& bonemealableBlock.isValidBonemealTarget(level, pos, state, level.isClientSide);
+				&& bonemealableBlock.isValidBonemealTarget(level, pos, state);
 
 		boolean isTargetCandidate = couldApplyBonemeal
 				|| block instanceof BushBlock

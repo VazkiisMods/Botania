@@ -58,7 +58,7 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 		};
 
 		for (Direction dir : Direction.values()) {
-			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(worldPosition.relative(dir), worldPosition.relative(dir).offset(1, 1, 1)));
+			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(worldPosition.relative(dir)));
 			for (ItemFrame frame : frames) {
 				Direction orientation = frame.getDirection();
 				if (orientation == dir) {

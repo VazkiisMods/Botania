@@ -1,7 +1,7 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -19,8 +19,8 @@ public class GrassSeedsBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
-		ServerLevel world = source.getLevel();
-		BlockPos pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+		ServerLevel world = source.level();
+		BlockPos pos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		IslandType islandType = ((GrassSeedsItem) stack.getItem()).getIslandType(stack);
 
 		setSuccess(((GrassSeedsItem) stack.getItem()).applySeeds(world, pos, stack).consumesAction());
