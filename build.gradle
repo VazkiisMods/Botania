@@ -1,5 +1,6 @@
 plugins {
     id 'com.diffplug.spotless' version '5.12.5' apply false
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
 }
 
 subprojects {
@@ -15,8 +16,13 @@ subprojects {
         mavenCentral()
 
         maven {
-            name = 'Sponge / Mixin'
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
+            name = 'Mixin (Fabric fork)'
+            url = 'https://maven.fabricmc.net/'
+        }
+
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org/'
         }
     }
 
