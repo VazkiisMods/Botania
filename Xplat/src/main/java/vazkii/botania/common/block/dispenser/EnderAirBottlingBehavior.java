@@ -9,15 +9,14 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
@@ -56,8 +55,8 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
-		Level world = source.getLevel();
-		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+		Level world = source.level();
+		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {
 			this.setSuccess(true);
 			return fillBottle(source, stack, new ItemStack(BotaniaItems.enderAirBottle));
@@ -71,7 +70,7 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 		if (input.isEmpty()) {
 			return output.copy();
 		} else {
-			if (((DispenserBlockEntity) source.getEntity()).addItem(output.copy()) < 0) {
+			if (source.blockEntity().addItem(output.copy()) < 0) {
 				this.defaultBehaviour.dispense(source, output.copy());
 			}
 			return input;

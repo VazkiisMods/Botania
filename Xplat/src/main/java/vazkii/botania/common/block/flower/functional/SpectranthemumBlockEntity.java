@@ -54,7 +54,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 
 			boolean did = false;
 
-			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-RANGE, -RANGE, -RANGE), pos.offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(RANGE));
 
 			for (ItemEntity item : items) {
 				if (!DelayHelper.canInteractWith(this, item)) {

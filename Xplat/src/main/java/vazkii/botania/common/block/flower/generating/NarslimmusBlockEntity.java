@@ -44,7 +44,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (ticksExisted % 5 == 0) {
-			List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class, new AABB(getEffectivePos()).inflate(RANGE));
 			for (Slime slime : slimes) {
 				if (slime.isAlive() && XplatAbstractions.INSTANCE.narslimmusComponent(slime).isNaturalSpawned()) {
 					int size = slime.getSize();

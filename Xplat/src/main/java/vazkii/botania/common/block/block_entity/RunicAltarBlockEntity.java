@@ -164,7 +164,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, RunicAltarBlockEntity self) {
 		if (self.manaToGet == 0) {
-			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
+			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
 						&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).runicAltarSpawned) {
@@ -271,7 +271,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		}
 
 		if (recipe != null && manaToGet > 0 && mana >= manaToGet) {
-			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
+			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			ItemEntity livingrock = null;
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().is(BotaniaBlocks.livingrock.asItem())) {

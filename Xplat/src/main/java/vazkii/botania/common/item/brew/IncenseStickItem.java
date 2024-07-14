@@ -15,6 +15,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -56,7 +57,7 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer, C
 		}
 
 		list.add(Component.translatable("botaniamisc.brewOf", Component.translatable(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
-		BaseBrewItem.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
+		PotionUtils.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER, world == null ? 20 : world.tickRateManager().tickrate());
 	}
 
 	@Override

@@ -128,7 +128,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 			}
 		}
 
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos()).inflate(RANGE));
 
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();

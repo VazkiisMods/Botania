@@ -62,7 +62,7 @@ public class BellethornBlockEntity extends FunctionalFlowerBlockEntity {
 
 		if (ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos().offset(-range, -range, -range), getEffectivePos().offset(range + 1, range + 1, range + 1)), getSelector());
+			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos()).inflate(range), getSelector());
 
 			for (LivingEntity entity : entities) {
 				if (getMana() < manaToUse) {

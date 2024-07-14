@@ -107,7 +107,7 @@ public class SojournersSashItem extends BaubleItem {
 			} else {
 				if (player.isShiftKeyDown()) {
 					if (hasBoost) {
-						attrib.removeModifier(STEP_BOOST);
+						attrib.removeModifier(STEP_BOOST_UUID);
 					}
 				} else {
 					if (!hasBoost) {
@@ -116,7 +116,7 @@ public class SojournersSashItem extends BaubleItem {
 				}
 			}
 		} else if (!player.level().isClientSide && hasBoost) {
-			attrib.removeModifier(STEP_BOOST);
+			attrib.removeModifier(STEP_BOOST_UUID);
 		}
 	}
 
