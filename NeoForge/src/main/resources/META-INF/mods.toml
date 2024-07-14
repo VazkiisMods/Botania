@@ -10,38 +10,39 @@ version="${file.jarVersion}"
 displayName="Botania"
 displayURL="https://botaniamod.net"
 description="Botania is a mod that adds nature magic to Minecraft."
-authors="Vazkii, wiiv, williewillus, dylan4ever, Hubry, Alwinfy, artemisSystem, Falkory220"
+authors="Vazkii, wiiv, williewillus, dylan4ever, Hubry, Alwinfy, artemisSystem, Falkory220, Wormbo"
 credits="Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw, quat1024, ToMe25, Eutro and others"
 
 itemIcon="botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod list
 configBackground="botania:textures/block/livingrock_bricks.png" # background for Configured's generated config screen
 
+[[mixins]]
+config="botania_xplat.mixins.json"
+
+[[mixins]]
+config="botania_forge.mixins.json"
+
 [[dependencies.botania]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47.1.3,)"
+    modId="neoforge"
+    type="required"
+    versionRange="[20.4.3,)"
 
 [[dependencies.botania]]
     modId="patchouli"
-    mandatory=true
-    versionRange="[1.20.1-83,)"
+    type="required"
+    versionRange="[1.20.4-85,)"
 
 [[dependencies.botania]]
     modId="curios"
-    mandatory=true
-    versionRange="[1.20.1-5.4.2,)"
+    type="required"
+    versionRange="[1.20.4-7.4,)"
 
 [[dependencies.botania]]
     modId="gardenofglass"
-    mandatory=false
+    type="optional"
     versionRange="[1.12,)"
 
 [[dependencies.botania]]
-    modId="crafttweaker"
-    mandatory=false
-    versionRange="[9.1.116,)"
-
-[[dependencies.botania]]
     modId="ears"
-    mandatory=false
-    versionRange="[1.4.5,)"
+    type="optional"
+    versionRange="[1.4.6,)"
