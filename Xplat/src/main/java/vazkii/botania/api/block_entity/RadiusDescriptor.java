@@ -21,7 +21,8 @@ public sealed interface RadiusDescriptor permits RadiusDescriptor.Circle,RadiusD
 
 	record Rectangle(BlockPos subtileCoords, AABB aabb) implements RadiusDescriptor {
 		public static Rectangle square(BlockPos subtileCoords, int expand) {
-			return new Rectangle(subtileCoords, new AABB(subtileCoords.offset(-expand, 0, -expand), subtileCoords.offset(expand + 1, 0, expand + 1)));
+			return new Rectangle(subtileCoords, new AABB(subtileCoords.getX() - expand, subtileCoords.getY(), subtileCoords.getZ() - expand,
+					subtileCoords.getX() + expand + 1, subtileCoords.getY(), subtileCoords.getZ() + expand + 1));
 		}
 	}
 }

@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -20,6 +22,8 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.MushroomCowAccessor;
 import vazkii.botania.test.TestingUtil;
+
+import java.util.List;
 
 public class DrumBlockTest {
 	private static final String TEMPLATE = "botania:block/drum_gathering";
@@ -76,24 +80,20 @@ public class DrumBlockTest {
 		var cow = setup(helper, EntityType.MOOSHROOM, Items.BOWL);
 		cow.setVariant(MushroomCow.MushroomType.BROWN);
 		var cowAccessor = (MushroomCowAccessor) cow;
-		cowAccessor.setEffect(MobEffects.BLINDNESS);
-		cowAccessor.setEffectDuration(15);
+		cowAccessor.setStewEffects(List.of(new SuspiciousEffectHolder.EffectEntry(MobEffects.BLINDNESS, 15)));
 		helper.startSequence()
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.SUSPICIOUS_STEW, POSITION_MOB, 1.0))
 				.thenExecute(() -> {
 					final var item = helper.getEntities(EntityType.ITEM, POSITION_MOB, 1.0).stream().findFirst();
 					helper.assertTrue(item.isPresent() && item.get().getItem().is(Items.SUSPICIOUS_STEW), "Item not found or not suspicious stew");
-					final var nbt = item.get().getItem().getTag();
-					// TODO: update for 1.20.2 (effect will be stored as string and tag names might change)
-					helper.assertTrue(nbt.contains(SuspiciousStewItem.EFFECTS_TAG, Tag.TAG_LIST), "Missing effects list tag");
+					final var nbt = item.orElseThrow().getItem().getTag();
+					helper.assertTrue(nbt != null && nbt.contains(SuspiciousStewItem.EFFECTS_TAG, Tag.TAG_LIST), "Missing effects list tag");
 					final var effects = nbt.getList(SuspiciousStewItem.EFFECTS_TAG, Tag.TAG_COMPOUND);
-					helper.assertTrue(effects.size() == 1, "Exactly one effect expected");
-					final var effectTag = effects.getCompound(0);
-					helper.assertTrue(effectTag.contains(SuspiciousStewItem.EFFECT_ID_TAG, Tag.TAG_INT) && effectTag.contains(SuspiciousStewItem.EFFECT_DURATION_TAG, Tag.TAG_INT), "Missing ID and/or duration tag for effect");
-					final var effect = MobEffect.byId(effectTag.getInt(SuspiciousStewItem.EFFECT_ID_TAG));
-					final var effectDuration = effectTag.getInt(SuspiciousStewItem.EFFECT_DURATION_TAG);
-					helper.assertTrue(effect == MobEffects.BLINDNESS && effectDuration == 15, "Unexpected effect type or duration");
+					final var parsedEffects = SuspiciousEffectHolder.EffectEntry.LIST_CODEC.parse(NbtOps.INSTANCE, effects).result();
+					helper.assertTrue(parsedEffects.isPresent() && parsedEffects.get().size() == 1, "Exactly one effect expected");
+					final var effectEntry = parsedEffects.orElseThrow().get(0);
+					helper.assertTrue(effectEntry.effect() == MobEffects.BLINDNESS && effectEntry.duration() == 15, "Unexpected effect type or duration");
 				})
 				.thenSucceed();
 	}

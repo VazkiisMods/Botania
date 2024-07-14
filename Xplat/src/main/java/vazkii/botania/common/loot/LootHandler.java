@@ -49,7 +49,7 @@ public final class LootHandler {
 					break;
 			}
 		} else if (XplatAbstractions.INSTANCE.gogLoaded()
-				&& (Blocks.GRASS.getLootTable().equals(id) || Blocks.TALL_GRASS.getLootTable().equals(id))) {
+				&& (Blocks.SHORT_GRASS.getLootTable().equals(id) || Blocks.TALL_GRASS.getLootTable().equals(id))) {
 			addPool.accept(LootPool.lootPool().add(LootTableReference.lootTableReference(GOG_SEEDS_TABLE)));
 		}
 	}

@@ -37,8 +37,8 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canGrow(world, isClient);
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canGrow(world);
 	}
 
 	@Override

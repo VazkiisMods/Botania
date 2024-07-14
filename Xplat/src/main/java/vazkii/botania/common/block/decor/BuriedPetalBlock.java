@@ -8,9 +8,13 @@
  */
 package vazkii.botania.common.block.decor;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -31,10 +35,19 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 
 public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
+	public static final MapCodec<BuriedPetalBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+			StringRepresentable.fromEnum(DyeColor::values).fieldOf("color").forGetter(o -> o.color),
+			propertiesCodec()
+	).apply(instance, BuriedPetalBlock::new));
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 1.6, 16);
 
 	public final DyeColor color;
+
+	@Override
+	protected MapCodec<BuriedPetalBlock> codec() {
+		return CODEC;
+	}
 
 	public BuriedPetalBlock(DyeColor color, Properties builder) {
 		super(builder);
@@ -65,13 +78,13 @@ public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return world.getBlockState(pos.above()).isAir();
 	}
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return isValidBonemealTarget(world, pos, state, false);
+		return isValidBonemealTarget(world, pos, state);
 	}
 
 	@Override

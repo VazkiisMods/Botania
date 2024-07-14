@@ -10,7 +10,7 @@ package vazkii.botania.common.helper;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.PlayerAdvancements;
@@ -141,14 +141,14 @@ public final class PlayerHelper {
 	public static boolean hasAdvancement(ServerPlayer player, ResourceLocation advancementId) {
 		PlayerAdvancements advancements = player.getAdvancements();
 		ServerAdvancementManager manager = player.level().getServer().getAdvancements();
-		Advancement advancement = manager.getAdvancement(advancementId);
+		AdvancementHolder advancement = manager.get(advancementId);
 		return advancement != null && advancements.getOrStartProgress(advancement).isDone();
 	}
 
 	public static void grantCriterion(ServerPlayer player, ResourceLocation advancementId, String criterion) {
 		PlayerAdvancements advancements = player.getAdvancements();
 		ServerAdvancementManager manager = player.level().getServer().getAdvancements();
-		Advancement advancement = manager.getAdvancement(advancementId);
+		AdvancementHolder advancement = manager.get(advancementId);
 		if (advancement != null && !advancements.getOrStartProgress(advancement).isDone()) {
 			advancements.award(advancement, criterion);
 		}

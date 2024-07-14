@@ -76,16 +76,17 @@ public class BottledManaItem extends Item {
 			BlockState replacedState;
 			BlockPos waterPos;
 			// loosely based on BucketItem#emptyContent:
+			Player player = living instanceof Player ? (Player) living : null;
 			if (state.isAir() || state.canBeReplaced(Fluids.WATER)
 					|| state.getBlock() instanceof LiquidBlockContainer lbc
-							&& lbc.canPlaceLiquid(level, playerPos, state, Fluids.WATER)) {
+							&& lbc.canPlaceLiquid(player, level, playerPos, state, Fluids.WATER)) {
 				waterPos = playerPos;
 				replacedState = state;
 			} else {
 				BlockState aboveState = level.getBlockState(playerPos.above());
 				waterPos = (aboveState.isAir() || aboveState.canBeReplaced(Fluids.WATER)
 						|| aboveState.getBlock() instanceof LiquidBlockContainer lbc
-								&& lbc.canPlaceLiquid(level, playerPos.above(), aboveState, Fluids.WATER))
+								&& lbc.canPlaceLiquid(player, level, playerPos.above(), aboveState, Fluids.WATER))
 										? playerPos.above()
 										: null;
 				replacedState = aboveState;

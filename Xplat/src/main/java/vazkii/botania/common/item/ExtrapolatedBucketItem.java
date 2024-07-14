@@ -53,7 +53,7 @@ public class ExtrapolatedBucketItem extends Item {
 				BlockState blockState;
 				blockState = level.getBlockState(blockPos);
 				if (blockState.getBlock() instanceof BucketPickup bucketPickup) {
-					ItemStack itemStack2 = bucketPickup.pickupBlock(level, blockPos, blockState);
+					ItemStack itemStack2 = bucketPickup.pickupBlock(player, level, blockPos, blockState);
 					if (!itemStack2.isEmpty()) {
 						player.awardStat(Stats.ITEM_USED.get(this));
 						bucketPickup.getPickupSound().ifPresent((soundEvent) -> {
