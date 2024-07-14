@@ -8,16 +8,19 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -27,60 +30,32 @@ public class AlfheimPortalTrigger extends SimpleCriterionTrigger<AlfheimPortalTr
 
 	private AlfheimPortalTrigger() {}
 
-	@NotNull
-	@Override
-	public ResourceLocation getId() {
-		return ID;
-	}
-
-	@NotNull
-	@Override
-	public Instance createInstance(@NotNull JsonObject json, ContextAwarePredicate playerPred, DeserializationContext conditions) {
-		return new Instance(playerPred, ItemPredicate.fromJson(json.get("wand")), LocationPredicate.fromJson(json.get("location")));
-	}
-
 	public void trigger(ServerPlayer player, ServerLevel world, BlockPos pos, ItemStack wand) {
 		trigger(player, instance -> instance.test(world, pos, wand));
 	}
 
-	public static class Instance extends AbstractCriterionTriggerInstance {
-		private final ItemPredicate wand;
-		private final LocationPredicate pos;
+	@Override
+	public Codec<Instance> codec() {
+		return Instance.CODEC;
+	}
 
-		public Instance(ContextAwarePredicate playerPred, ItemPredicate predicate, LocationPredicate pos) {
-			super(ID, playerPred);
-			this.wand = predicate;
-			this.pos = pos;
-		}
+	public record Instance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> wand, Optional<LocationPredicate> location)
+			implements
+				SimpleInstance {
 
-		@NotNull
-		@Override
-		public ResourceLocation getCriterion() {
-			return ID;
+		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(Instance::player),
+				ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "wand").forGetter(Instance::wand),
+				ExtraCodecs.strictOptionalField(LocationPredicate.CODEC, "location").forGetter(Instance::location)
+		).apply(instance, Instance::new));
+
+		public static Criterion<Instance> activatedPortal() {
+			return INSTANCE.createCriterion(new Instance(Optional.empty(), Optional.empty(), Optional.empty()));
 		}
 
 		boolean test(ServerLevel world, BlockPos pos, ItemStack wand) {
-			return this.wand.matches(wand) && this.pos.matches(world, pos.getX(), pos.getY(), pos.getZ());
-		}
-
-		@Override
-		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject json = super.serializeToJson(context);
-			if (wand != ItemPredicate.ANY) {
-				json.add("wand", wand.serializeToJson());
-			}
-			if (pos != LocationPredicate.ANY) {
-				json.add("location", pos.serializeToJson());
-			}
-			return json;
-		}
-
-		public ItemPredicate getWand() {
-			return this.wand;
-		}
-
-		public LocationPredicate getPos() {
-			return this.pos;
+			return (this.wand.isEmpty() || this.wand.get().matches(wand))
+					&& (this.location.isEmpty() || this.location.get().matches(world, pos.getX(), pos.getY(), pos.getZ()));
 		}
 	}
 }
