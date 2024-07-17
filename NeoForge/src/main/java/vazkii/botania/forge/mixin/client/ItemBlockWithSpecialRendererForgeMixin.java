@@ -1,7 +1,7 @@
 package vazkii.botania.forge.mixin.client;
 
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import org.spongepowered.asm.mixin.Mixin;
 

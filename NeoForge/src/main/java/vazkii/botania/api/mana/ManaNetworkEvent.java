@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.bus.api.Event;
 
 public class ManaNetworkEvent extends Event {
 	private final ManaReceiver thing;

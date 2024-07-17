@@ -1,8 +1,8 @@
 package vazkii.botania.api;
 
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.CapabilityManager;
+import net.neoforged.neoforge.common.capabilities.CapabilityToken;
 
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HornHarvestable;
