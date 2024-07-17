@@ -74,7 +74,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 		return 70;
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	@NotNull
 	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return hasPhantomInk(stack) ? ResourcesLib.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);

@@ -72,7 +72,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	* - Every tick, if the "temp silk touch" flag is present, remove it and remove any silk touch enchants from the stack
 	*/
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
 		BlockState state = player.level().getBlockState(pos);
 		boolean hasSilk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;

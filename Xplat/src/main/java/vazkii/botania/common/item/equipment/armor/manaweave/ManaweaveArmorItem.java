@@ -108,7 +108,7 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 		list.add(Component.translatable("botania.armorset.manaweave.desc1").withStyle(ChatFormatting.GRAY));
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
 		return stack.is(BotaniaItems.manaweaveBoots);
 	}

@@ -249,7 +249,7 @@ public class SkiesRodItem extends Item {
 		}
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return reequipAnimation(oldStack, newStack);
 	}
