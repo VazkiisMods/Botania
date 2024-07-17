@@ -29,7 +29,7 @@ public interface BotaniaAPIClient {
 
 	/**
 	 * Registers your model for island type islandType here.
-	 * Call this during {@link net.minecraftforge.client.event.ModelRegistryEvent}.
+	 * Call this during {@link net.neoforged.neoforge.client.event.ModelRegistryEvent}.
 	 *
 	 * @param islandType The islandtype to register
 	 * @param model      The model, only {@link ResourceLocation} allowed, no {@link ModelResourceLocation} allowed.
