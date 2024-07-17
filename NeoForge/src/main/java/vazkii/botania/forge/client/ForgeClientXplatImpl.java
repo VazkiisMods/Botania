@@ -14,8 +14,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import net.neoforged.neoforge.common.MinecraftForge;
 
 import org.jetbrains.annotations.Nullable;
 
