@@ -9,7 +9,7 @@
 package vazkii.botania.forge;
 
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -29,27 +29,27 @@ import java.util.List;
 public final class ForgeBotaniaConfig {
 
 	private static class Client implements BotaniaConfig.ClientConfigAccess {
-		public final ForgeConfigSpec.BooleanValue useShaders;
-		public final ForgeConfigSpec.BooleanValue lexiconRotatingItems;
-		public final ForgeConfigSpec.BooleanValue subtlePowerSystem;
-		public final ForgeConfigSpec.BooleanValue staticWandBeam;
-		public final ForgeConfigSpec.BooleanValue boundBlockWireframe;
-		public final ForgeConfigSpec.BooleanValue lexicon3dModel;
-		public final ForgeConfigSpec.DoubleValue flowerParticleFrequency;
-		public final ForgeConfigSpec.BooleanValue elfPortalParticlesEnabled;
-		public final ForgeConfigSpec.BooleanValue renderAccessories;
-		public final ForgeConfigSpec.BooleanValue enableSeasonalFeatures;
-		public final ForgeConfigSpec.BooleanValue enableFancySkybox;
-		public final ForgeConfigSpec.BooleanValue enableFancySkyboxInNormalWorlds;
+		public final ModConfigSpec.BooleanValue useShaders;
+		public final ModConfigSpec.BooleanValue lexiconRotatingItems;
+		public final ModConfigSpec.BooleanValue subtlePowerSystem;
+		public final ModConfigSpec.BooleanValue staticWandBeam;
+		public final ModConfigSpec.BooleanValue boundBlockWireframe;
+		public final ModConfigSpec.BooleanValue lexicon3dModel;
+		public final ModConfigSpec.DoubleValue flowerParticleFrequency;
+		public final ModConfigSpec.BooleanValue elfPortalParticlesEnabled;
+		public final ModConfigSpec.BooleanValue renderAccessories;
+		public final ModConfigSpec.BooleanValue enableSeasonalFeatures;
+		public final ModConfigSpec.BooleanValue enableFancySkybox;
+		public final ModConfigSpec.BooleanValue enableFancySkyboxInNormalWorlds;
 
-		public final ForgeConfigSpec.IntValue manaBarHeight;
+		public final ModConfigSpec.IntValue manaBarHeight;
 
-		public final ForgeConfigSpec.BooleanValue staticFloaters;
-		public final ForgeConfigSpec.BooleanValue debugInfo;
-		public final ForgeConfigSpec.BooleanValue referencesEnabled;
-		public final ForgeConfigSpec.BooleanValue splashesEnabled;
+		public final ModConfigSpec.BooleanValue staticFloaters;
+		public final ModConfigSpec.BooleanValue debugInfo;
+		public final ModConfigSpec.BooleanValue referencesEnabled;
+		public final ModConfigSpec.BooleanValue splashesEnabled;
 
-		public Client(ForgeConfigSpec.Builder builder) {
+		public Client(ModConfigSpec.Builder builder) {
 			builder.push("rendering");
 			useShaders = builder
 					.comment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
@@ -201,36 +201,36 @@ public final class ForgeBotaniaConfig {
 	}
 
 	public static final Client CLIENT;
-	public static final ForgeConfigSpec CLIENT_SPEC;
+	public static final ModConfigSpec CLIENT_SPEC;
 	static {
-		final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+		final Pair<Client, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Client::new);
 		CLIENT_SPEC = specPair.getRight();
 		CLIENT = specPair.getLeft();
 	}
 
 	private static class Common implements BotaniaConfig.ConfigAccess {
-		public final ForgeConfigSpec.BooleanValue blockBreakParticles;
-		public final ForgeConfigSpec.BooleanValue blockBreakParticlesTool;
-		public final ForgeConfigSpec.BooleanValue chargingAnimationEnabled;
-		public final ForgeConfigSpec.BooleanValue silentSpreaders;
-		public final ForgeConfigSpec.IntValue spreaderTraceTime;
-		public final ForgeConfigSpec.BooleanValue flowerForceCheck;
-		public final ForgeConfigSpec.BooleanValue enderPickpocketEnabled;
+		public final ModConfigSpec.BooleanValue blockBreakParticles;
+		public final ModConfigSpec.BooleanValue blockBreakParticlesTool;
+		public final ModConfigSpec.BooleanValue chargingAnimationEnabled;
+		public final ModConfigSpec.BooleanValue silentSpreaders;
+		public final ModConfigSpec.IntValue spreaderTraceTime;
+		public final ModConfigSpec.BooleanValue flowerForceCheck;
+		public final ModConfigSpec.BooleanValue enderPickpocketEnabled;
 
-		public final ForgeConfigSpec.BooleanValue enchanterEnabled;
-		public final ForgeConfigSpec.BooleanValue relicsEnabled;
-		public final ForgeConfigSpec.BooleanValue invertMagnetRing;
+		public final ModConfigSpec.BooleanValue enchanterEnabled;
+		public final ModConfigSpec.BooleanValue relicsEnabled;
+		public final ModConfigSpec.BooleanValue invertMagnetRing;
 
-		public final ForgeConfigSpec.IntValue harvestLevelWeight;
-		public final ForgeConfigSpec.IntValue harvestLevelBore;
+		public final ModConfigSpec.IntValue harvestLevelWeight;
+		public final ModConfigSpec.IntValue harvestLevelBore;
 
-		public final ForgeConfigSpec.BooleanValue gogSpawnWithLexicon;
-		public final ForgeConfigSpec.IntValue gogIslandScaleMultiplier;
+		public final ModConfigSpec.BooleanValue gogSpawnWithLexicon;
+		public final ModConfigSpec.IntValue gogIslandScaleMultiplier;
 
-		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusItemBlacklist;
-		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusModBlacklist;
+		public final ModConfigSpec.ConfigValue<List<? extends String>> rannuncarpusItemBlacklist;
+		public final ModConfigSpec.ConfigValue<List<? extends String>> rannuncarpusModBlacklist;
 
-		public Common(ForgeConfigSpec.Builder builder) {
+		public Common(ModConfigSpec.Builder builder) {
 			builder.push("blockBreakingParticles");
 			blockBreakParticles = builder
 					.comment("Set this to false to remove the block breaking particles from the flowers and other items in the mod.")
@@ -374,9 +374,9 @@ public final class ForgeBotaniaConfig {
 	}
 
 	private static final Common COMMON;
-	private static final ForgeConfigSpec COMMON_SPEC;
+	private static final ModConfigSpec COMMON_SPEC;
 	static {
-		final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+		final Pair<Common, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Common::new);
 		COMMON_SPEC = specPair.getRight();
 		COMMON = specPair.getLeft();
 	}

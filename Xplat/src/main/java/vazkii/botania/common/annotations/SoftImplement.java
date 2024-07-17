@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * named in xplat code and thus cannot be checked with @Override.
  * In this context, "soft implement" means to implement the method by matching the signature
  * with the intended interface method.
- * Examples of interfaces that we would use this for is IForgeItem or FabricItem.
+ * Examples of interfaces that we would use this for is IItemExtension or FabricItem.
  *
  * The intent is that we audit such sites every major Minecraft version or so, to ensure
  * that they still properly override the intended target.

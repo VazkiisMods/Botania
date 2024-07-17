@@ -99,12 +99,12 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 		return super.isFoil(stack) || isEnchantedName(stack.getHoverName(), null);
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
 		return EquipmentSlot.HEAD;
 	}
 
-	@SoftImplement("IForgeItem") // TODO implement on fabric
+	@SoftImplement("IItemExtension") // TODO implement on fabric
 	public boolean canEquip(ItemStack stack, EquipmentSlot armorType, Entity entity) {
 		return armorType == getEquipmentSlot(stack) && entity instanceof Player player
 				&& ContributorList.hasFlower(player.getGameProfile().getName().toLowerCase(Locale.ROOT));

@@ -85,7 +85,7 @@ public class PylonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 		return createTickerHelper(type, BotaniaBlockEntities.PYLON, PylonBlockEntity::commonTick);
 	}
 
-	@SoftImplement("IForgeBlock")
+	@SoftImplement("IBlockExtension")
 	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
 		return variant.enchantPowerBonus;
 	}

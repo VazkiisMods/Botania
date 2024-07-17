@@ -367,7 +367,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			setPos(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 		}
 
-		@SoftImplement("IForgeEntity") // todo implement on fabric
+		@SoftImplement("IEntityExtension") // todo implement on fabric
 		public boolean shouldRiderSit() {
 			return false;
 		}

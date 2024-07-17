@@ -28,7 +28,7 @@ public class ElementiumShovelItem extends ManasteelShovelItem {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		Level world = player.level();
 		BlockState blockState = world.getBlockState(pos);
