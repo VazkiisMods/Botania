@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ToolAction;
 import net.neoforged.neoforge.common.ToolActions;
-import net.neoforged.neoforge.common.extensions.IForgeBlock;
+import net.neoforged.neoforge.common.extensions.IBlockExtension;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +15,7 @@ import vazkii.botania.common.block.BotaniaGrassBlock;
 
 // Self-mixin to implement a method which has a forge-only param
 @Mixin(BotaniaGrassBlock.class)
-public abstract class BotaniaGrassBlockForgeMixin implements IForgeBlock {
+public abstract class BotaniaGrassBlockForgeMixin implements IBlockExtension {
 	@Override
 	public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context,
 			ToolAction toolAction, boolean simulate) {

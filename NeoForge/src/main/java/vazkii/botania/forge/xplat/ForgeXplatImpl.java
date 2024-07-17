@@ -53,12 +53,12 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
-import net.neoforged.neoforge.common.ForgeHooks;
-import net.neoforged.neoforge.common.ForgeMod;
-import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.extensions.IForgeMenuType;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
@@ -221,12 +221,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean isFluidContainer(ItemEntity item) {
-		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+		return item.getItem().getCapability(Capabilities.FLUID_HANDLER_ITEM).isPresent();
 	}
 
 	@Override
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
-		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+		return item.getItem().getCapability(Capabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
 					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
@@ -242,7 +242,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
 		var stack = player.getItemInHand(hand);
-		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+		return stack.getCapability(Capabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
 					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
@@ -267,7 +267,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		ItemStack toFill = stack.copy();
 		toFill.setCount(1);
 
-		var maybeFluidHandler = toFill.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+		var maybeFluidHandler = toFill.getCapability(Capabilities.FLUID_HANDLER_ITEM);
 		if (maybeFluidHandler.isPresent()) {
 			var fluidHandler = maybeFluidHandler.orElseThrow(IllegalStateException::new);
 			var fluidToFill = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
@@ -295,7 +295,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos) {
 		var state = level.getBlockState(pos);
 		var be = level.getBlockEntity(pos);
-		return be != null && be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos).isPresent()
+		return be != null && be.getCapability(Capabilities.ITEM_HANDLER, sideOfPos).isPresent()
 				|| state.getBlock() instanceof WorldlyContainerHolder wch
 						&& wch.getContainer(state, level, pos).getSlotsForFace(sideOfPos).length > 0;
 	}
@@ -305,7 +305,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		var be = level.getBlockEntity(pos);
 		LazyOptional<IItemHandler> cap = LazyOptional.empty();
 		if (be != null) {
-			cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos);
+			cap = be.getCapability(Capabilities.ITEM_HANDLER, sideOfPos);
 		} else {
 			// check vanilla interface for blocks not covered by forge capabilities, e.g. composter
 			var state = level.getBlockState(pos);
@@ -365,41 +365,41 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun) {
-		return MinecraftForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun));
+		return NeoForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun));
 	}
 
 	@Override
 	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
-		return MinecraftForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark));
+		return NeoForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark));
 	}
 
 	@Override
 	public void fireManaItemEvent(Player player, List<ItemStack> toReturn) {
-		MinecraftForge.EVENT_BUS.post(new ManaItemsEvent(player, toReturn));
+		NeoForge.EVENT_BUS.post(new ManaItemsEvent(player, toReturn));
 	}
 
 	@Override
 	public float fireManaDiscountEvent(Player player, float discount, ItemStack tool) {
 		var evt = new ManaDiscountEvent(player, discount, tool);
-		MinecraftForge.EVENT_BUS.post(evt);
+		NeoForge.EVENT_BUS.post(evt);
 		return evt.getDiscount();
 	}
 
 	@Override
 	public boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient) {
 		var evt = new ManaProficiencyEvent(player, tool, proficient);
-		MinecraftForge.EVENT_BUS.post(evt);
+		NeoForge.EVENT_BUS.post(evt);
 		return evt.isProficient();
 	}
 
 	@Override
 	public void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside) {
-		MinecraftForge.EVENT_BUS.post(new ElvenPortalUpdateEvent(portal, bounds, open, stacksInside));
+		NeoForge.EVENT_BUS.post(new ElvenPortalUpdateEvent(portal, bounds, open, stacksInside));
 	}
 
 	@Override
 	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
-		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(thing, type, action));
+		NeoForge.EVENT_BUS.post(new ManaNetworkEvent(thing, type, action));
 	}
 
 	@Override
@@ -469,9 +469,9 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener) {
 		switch (type) {
-			case CLIENT_RESOURCES -> MinecraftForge.EVENT_BUS.addListener(
+			case CLIENT_RESOURCES -> NeoForge.EVENT_BUS.addListener(
 					(RegisterClientReloadListenersEvent e) -> e.registerReloadListener(listener));
-			case SERVER_DATA -> MinecraftForge.EVENT_BUS.addListener(
+			case SERVER_DATA -> NeoForge.EVENT_BUS.addListener(
 					(AddReloadListenerEvent e) -> e.addListener(listener));
 		}
 	}
@@ -488,7 +488,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
-		return IForgeMenuType.create(constructor::apply);
+		return IMenuTypeExtension.create(constructor::apply);
 	}
 
 	@Nullable
@@ -508,12 +508,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Attribute getReachDistanceAttribute() {
-		return ForgeMod.BLOCK_REACH.get();
+		return NeoForgeMod.BLOCK_REACH.get();
 	}
 
 	@Override
 	public Attribute getStepHeightAttribute() {
-		return ForgeMod.STEP_HEIGHT_ADDITION.get();
+		return NeoForgeMod.STEP_HEIGHT_ADDITION.get();
 	}
 
 	@Override
@@ -539,7 +539,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public int getSmeltingBurnTime(ItemStack stack) {
-		return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
+		return CommonHooks.getBurnTime(stack, RecipeType.SMELTING);
 	}
 
 	@Override
@@ -569,10 +569,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 			LazyOptional<IEnergyStorage> storage = LazyOptional.empty();
 
-			if (be.getCapability(ForgeCapabilities.ENERGY, e.getOpposite()).isPresent()) {
-				storage = be.getCapability(ForgeCapabilities.ENERGY, e.getOpposite());
-			} else if (be.getCapability(ForgeCapabilities.ENERGY, null).isPresent()) {
-				storage = be.getCapability(ForgeCapabilities.ENERGY, null);
+			if (be.getCapability(Capabilities.ENERGY, e.getOpposite()).isPresent()) {
+				storage = be.getCapability(Capabilities.ENERGY, e.getOpposite());
+			} else if (be.getCapability(Capabilities.ENERGY, null).isPresent()) {
+				storage = be.getCapability(Capabilities.ENERGY, null);
 			}
 
 			if (storage.isPresent()) {
@@ -595,7 +595,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean isRedStringContainerTarget(BlockEntity be) {
 		for (Direction dir : Direction.values()) {
-			if (be.getCapability(ForgeCapabilities.ITEM_HANDLER, dir).isPresent()) {
+			if (be.getCapability(Capabilities.ITEM_HANDLER, dir).isPresent()) {
 				return true;
 			}
 		}
