@@ -55,7 +55,7 @@ public class ElementiumAxeItem extends ManasteelAxeItem {
 				.getRandomItems(ctx.create(LootContextParamSets.ENTITY), target.getLootTableSeed(), consumer);
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 		if (enchantment == Enchantments.MOB_LOOTING) {
 			return true;

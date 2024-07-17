@@ -75,7 +75,7 @@ public class SnowflakePendantItem extends BaubleItem {
 	}
 
 	// called via Curio API on Forge
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
 		return true;
 	}

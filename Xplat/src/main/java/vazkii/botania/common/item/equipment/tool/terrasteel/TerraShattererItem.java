@@ -142,7 +142,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		return Optional.of(new ManaBarTooltip(percent, level));
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (!player.level().isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
@@ -300,7 +300,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		}
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return reequipAnimation(oldStack, newStack);
 	}

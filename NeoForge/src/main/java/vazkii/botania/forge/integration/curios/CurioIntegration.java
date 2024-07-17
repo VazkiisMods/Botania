@@ -22,7 +22,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
@@ -52,7 +52,7 @@ import java.util.function.Predicate;
 
 public class CurioIntegration extends EquipmentHandler {
 	public static void init() {
-		MinecraftForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
+		NeoForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
 	}
 
 	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky

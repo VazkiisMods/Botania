@@ -39,7 +39,7 @@ public class PermanentBifrostBlock extends BotaniaGlassBlock implements BeaconBe
 		return DyeColor.WHITE;
 	}
 
-	@SoftImplement("IForgeBlock")
+	@SoftImplement("IBlockExtension")
 	public float[] getBeaconColorMultiplier(BlockState state, LevelReader level, BlockPos pos, BlockPos beaconPos) {
 		// Note: pos and beaconPos are not accurate when called from Fabric code
 		int rgb = Mth.hsvToRgb(((Level) level).getGameTime() * 5 % 360 / 360F, 0.4F, 0.9F);

@@ -106,7 +106,7 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 		list.add(Component.translatable("botania.armorset.terrasteel.desc2").withStyle(ChatFormatting.GRAY));
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
 		return true;
 	}

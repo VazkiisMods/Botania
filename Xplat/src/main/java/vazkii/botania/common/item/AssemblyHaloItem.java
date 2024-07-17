@@ -200,7 +200,7 @@ public class AssemblyHaloItem extends Item {
 		}
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onEntitySwing(ItemStack stack, LivingEntity living) {
 		int segment = getSegmentLookedAt(stack, living);
 		if (segment == 0) {

@@ -32,9 +32,9 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.ToolActions;
-import net.neoforged.neoforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.event.*;
@@ -279,7 +279,7 @@ public class ForgeCommonInitializer {
 	}
 
 	private void registerEvents() {
-		IEventBus bus = MinecraftForge.EVENT_BUS;
+		IEventBus bus = NeoForge.EVENT_BUS;
 		registerBlockLookasides();
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
@@ -585,7 +585,7 @@ public class ForgeCommonInitializer {
 		}
 
 		if (be instanceof ExposedSimpleInventoryBlockEntity inv) {
-			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(ForgeCapabilities.ITEM_HANDLER, new SidedInvWrapper(inv, null)));
+			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(Capabilities.ITEM_HANDLER, new SidedInvWrapper(inv, null)));
 		}
 
 		if (be instanceof PowerGeneratorBlockEntity gen) {
@@ -621,7 +621,7 @@ public class ForgeCommonInitializer {
 					return false;
 				}
 			};
-			e.addCapability(prefix("fe"), CapabilityUtil.makeProvider(ForgeCapabilities.ENERGY, energyStorage));
+			e.addCapability(prefix("fe"), CapabilityUtil.makeProvider(Capabilities.ENERGY, energyStorage));
 		}
 
 		if (be.getType() == BotaniaBlockEntities.ANIMATED_TORCH) {

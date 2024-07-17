@@ -8,6 +8,6 @@ import vazkii.botania.common.annotations.SoftImplement;
 import java.util.function.Consumer;
 
 public interface CustomDamageItem {
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	<T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken);
 }
