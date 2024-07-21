@@ -21,7 +21,7 @@ public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RunicAltarRecipe>
 
 	@Override
 	public int getManaCost() {
-		return this.recipe.getManaUsage();
+		return this.recipe.getMana();
 	}
 
 	@Override

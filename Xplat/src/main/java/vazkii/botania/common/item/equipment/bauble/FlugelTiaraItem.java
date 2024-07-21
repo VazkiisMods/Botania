@@ -534,4 +534,8 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	public static int getVariant(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
 	}
+
+	public static void setVariant(ItemStack stack, int variant) {
+		ItemNBTHelper.setInt(stack, TAG_VARIANT, variant);
+	}
 }

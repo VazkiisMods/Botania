@@ -8,26 +8,27 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.mixin.ShapedRecipeAccessor;
+
+import java.util.function.Function;
+
 public class ArmorUpgradeRecipe extends ShapedRecipe {
-	public ArmorUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.category(), compose.getWidth(), compose.getHeight(),
-				compose.getIngredients(),
-				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
-				// RegistryAccess
-				compose.getResultItem(RegistryAccess.EMPTY));
+	public static final WrappingRecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
+
+	private ArmorUpgradeRecipe(ShapedRecipe recipe) {
+		super(recipe.getGroup(), recipe.category(), ((ShapedRecipeAccessor) recipe).botania_getPattern(),
+				((ShapedRecipeAccessor) recipe).botania_getResult(), recipe.showNotification());
 	}
 
 	@NotNull
@@ -50,17 +51,26 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	public static final RecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
+	private static class Serializer implements WrappingRecipeSerializer<ArmorUpgradeRecipe> {
+		public static final Codec<ArmorUpgradeRecipe> CODEC = SHAPED_RECIPE.codec()
+				.xmap(ArmorUpgradeRecipe::new, Function.identity());
 
-	private static class Serializer implements RecipeSerializer<ArmorUpgradeRecipe> {
 		@Override
-		public ArmorUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
+		public ArmorUpgradeRecipe wrap(Recipe<?> recipe) {
+			if (!(recipe instanceof ShapedRecipe shapedRecipe)) {
+				throw new IllegalArgumentException("Unsupported recipe type to wrap: " + recipe.getType());
+			}
+			return new ArmorUpgradeRecipe(shapedRecipe);
 		}
 
 		@Override
-		public ArmorUpgradeRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
+		public Codec<ArmorUpgradeRecipe> codec() {
+			return CODEC;
+		}
+
+		@Override
+		public ArmorUpgradeRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromNetwork(buffer));
 		}
 
 		@Override
