@@ -54,6 +54,8 @@
     "ServerLevelMixin",
     "ServerPlayerGameModeAccessor",
     "ServerPlayerMixin",
+    "ShapedRecipeAccessor",
+    "ShapelessRecipeAccessor",
     "SpawnPlacementsMixin",
     "StatsAccessor",
     "TextureSlotAccessor",

@@ -9,12 +9,12 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -23,10 +23,10 @@ import vazkii.botania.api.item.CosmeticAttachable;
 import vazkii.botania.api.item.CosmeticBauble;
 
 public class CosmeticAttachRecipe extends CustomRecipe {
-	public static final NoOpRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new NoOpRecipeSerializer<>(CosmeticAttachRecipe::new);
+	public static final RecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(CosmeticAttachRecipe::new);
 
-	public CosmeticAttachRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public CosmeticAttachRecipe(CraftingBookCategory craftingBookCategory) {
+		super(craftingBookCategory);
 	}
 
 	@Override

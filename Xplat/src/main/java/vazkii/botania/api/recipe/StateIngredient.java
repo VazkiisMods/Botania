@@ -8,9 +8,6 @@
  */
 package vazkii.botania.api.recipe;
 
-import com.google.gson.JsonObject;
-
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * A basic interface for inputs and outputs for in-world blocks.
@@ -29,9 +27,7 @@ public interface StateIngredient extends Predicate<BlockState> {
 
 	BlockState pick(RandomSource random);
 
-	JsonObject serialize();
-
-	void write(FriendlyByteBuf buffer);
+	StateIngredientType<?> getType();
 
 	List<ItemStack> getDisplayedStacks();
 
@@ -41,4 +37,6 @@ public interface StateIngredient extends Predicate<BlockState> {
 	}
 
 	List<BlockState> getDisplayed();
+
+	Stream<BlockState> streamBlockStates();
 }

@@ -8,26 +8,29 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.BotaniaBlocks;
 
 public interface RunicAltarRecipe extends RecipeWithReagent {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "runic_altar");
 
-	// TODO: read from recipe definition
-	@Override
-	default Ingredient getReagent() {
-		return Ingredient.of(BotaniaBlocks.livingrock);
-	}
+	int getMana();
 
-	int getManaUsage();
+	@NotNull
+	NonNullList<Ingredient> getCatalysts();
+
+	@NotNull
+	@Override
+	NonNullList<ItemStack> getRemainingItems(Container container);
 
 	@NotNull
 	@Override

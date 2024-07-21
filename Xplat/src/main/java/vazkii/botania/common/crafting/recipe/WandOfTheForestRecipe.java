@@ -8,33 +8,31 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
+import vazkii.botania.mixin.ShapedRecipeAccessor;
+
+import java.util.function.Function;
 
 public class WandOfTheForestRecipe extends ShapedRecipe {
-	public static final RecipeSerializer<WandOfTheForestRecipe> SERIALIZER = new Serializer();
+	public static final WrappingRecipeSerializer<WandOfTheForestRecipe> SERIALIZER = new Serializer();
 
-	public WandOfTheForestRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.category(), compose.getWidth(), compose.getHeight(),
-				compose.getIngredients(),
-				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
-				// RegistryAccess
-				compose.getResultItem(RegistryAccess.EMPTY));
+	private WandOfTheForestRecipe(ShapedRecipe recipe) {
+		super(recipe.getGroup(), recipe.category(), ((ShapedRecipeAccessor) recipe).botania_getPattern(),
+				((ShapedRecipeAccessor) recipe).botania_getResult(), recipe.showNotification());
 	}
 
 	@NotNull
@@ -68,17 +66,27 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer implements RecipeSerializer<WandOfTheForestRecipe> {
-		@NotNull
+	private static class Serializer implements WrappingRecipeSerializer<WandOfTheForestRecipe> {
+		public static final Codec<WandOfTheForestRecipe> CODEC = SHAPED_RECIPE.codec()
+				.xmap(WandOfTheForestRecipe::new, Function.identity());
+
 		@Override
-		public WandOfTheForestRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new WandOfTheForestRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
+		public WandOfTheForestRecipe wrap(Recipe<?> recipe) {
+			if (!(recipe instanceof ShapedRecipe shapedRecipe)) {
+				throw new IllegalArgumentException("Unsupported recipe type to wrap: " + recipe.getType());
+			}
+			return new WandOfTheForestRecipe(shapedRecipe);
+		}
+
+		@Override
+		public Codec<WandOfTheForestRecipe> codec() {
+			return CODEC;
 		}
 
 		@NotNull
 		@Override
-		public WandOfTheForestRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new WandOfTheForestRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
+		public WandOfTheForestRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+			return new WandOfTheForestRecipe(SHAPED_RECIPE.fromNetwork(buffer));
 		}
 
 		@Override

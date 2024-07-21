@@ -9,22 +9,25 @@
 package vazkii.botania.data.recipes;
 
 import com.google.common.collect.Sets;
-import com.google.gson.JsonObject;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
+// [VanillaCopy] RecipeProvider's non-static implementation, except getName() is not final
 public abstract class BotaniaRecipeProvider implements DataProvider {
 	private final PackOutput.PathProvider recipePathProvider;
 	private final PackOutput.PathProvider advancementPathProvider;
@@ -34,24 +37,35 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 		this.advancementPathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
 	}
 
-	// [VanillaCopy] RecipeProvider
 	@Override
-	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput cache) {
-		Set<ResourceLocation> checkDuplicates = Sets.newHashSet();
-		List<CompletableFuture<?>> output = new ArrayList<>();
-		buildRecipes((recipe) -> {
-			if (!checkDuplicates.add(recipe.getId())) {
-				throw new IllegalStateException("Duplicate recipe " + recipe.getId());
-			} else {
-				output.add(DataProvider.saveStable(cache, recipe.serializeRecipe(), recipePathProvider.json(recipe.getId())));
-				JsonObject advancement = recipe.serializeAdvancement();
-				if (advancement != null) {
-					output.add(DataProvider.saveStable(cache, advancement, advancementPathProvider.json(recipe.getAdvancementId())));
+	public CompletableFuture<?> run(CachedOutput output) {
+		final Set<ResourceLocation> set = Sets.<ResourceLocation>newHashSet();
+		final List<CompletableFuture<?>> list = new ArrayList();
+		this.buildRecipes(new RecipeOutput() {
+			@Override
+			public void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement) {
+				if (!set.add(location)) {
+					throw new IllegalStateException("Duplicate recipe " + location);
+				} else {
+					list.add(DataProvider.saveStable(output, Recipe.CODEC, recipe, recipePathProvider.json(location)));
+					if (advancement != null) {
+						list.add(DataProvider.saveStable(output, Advancement.CODEC, advancement.value(), advancementPathProvider.json(advancement.id())));
+					}
 				}
 			}
+
+			@Override
+			public Advancement.Builder advancement() {
+				//noinspection removal
+				return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
+			}
 		});
-		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
+		return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
 	}
 
-	protected abstract void buildRecipes(Consumer<FinishedRecipe> consumer);
+	public CompletableFuture<?> buildAdvancement(CachedOutput output, AdvancementHolder advancementBuilder) {
+		return DataProvider.saveStable(output, Advancement.CODEC, advancementBuilder.value(), this.advancementPathProvider.json(advancementBuilder.id()));
+	}
+
+	public abstract void buildRecipes(RecipeOutput recipeOutput);
 }

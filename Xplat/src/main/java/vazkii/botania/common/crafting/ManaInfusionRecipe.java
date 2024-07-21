@@ -8,54 +8,36 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.google.common.base.Preconditions;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
-
-import java.util.Objects;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
 public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusionRecipe {
-	private final ResourceLocation id;
 	private final ItemStack output;
 	private final Ingredient input;
 	private final int mana;
-	@Nullable
 	private final StateIngredient catalyst;
 	private final String group;
 
-	public ManaInfusionRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana,
-			@Nullable String group, @Nullable StateIngredient catalyst) {
-		Preconditions.checkArgument(mana > 0, "Mana cost must be positive");
-		Preconditions.checkArgument(mana <= 1_000_001, "Mana cost must be at most a pool"); // Leaving wiggle room for a certain modpack having creative-pool-only recipes
-		this.id = id;
+	public ManaInfusionRecipe(ItemStack output, Ingredient input, int mana, String group, StateIngredient catalyst) {
 		this.output = output;
 		this.input = input;
 		this.mana = mana;
 		this.group = group == null ? "" : group;
-		this.catalyst = catalyst;
-	}
-
-	@NotNull
-	@Override
-	public final ResourceLocation getId() {
-		return id;
+		this.catalyst = catalyst == null ? StateIngredients.NONE : catalyst;
 	}
 
 	@NotNull
@@ -69,6 +51,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		return input.test(stack);
 	}
 
+	@NotNull
 	@Override
 	public StateIngredient getRecipeCatalyst() {
 		return catalyst;
@@ -103,40 +86,42 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		return new ItemStack(BotaniaBlocks.manaPool);
 	}
 
+	protected Ingredient getInput() {
+		return input;
+	}
+
+	protected ItemStack getOutput() {
+		return output;
+	}
+
 	public static class Serializer implements RecipeSerializer<ManaInfusionRecipe> {
+		public static final Codec<ManaInfusionRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output").forGetter(ManaInfusionRecipe::getOutput),
+				Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(ManaInfusionRecipe::getInput),
+				// Leaving wiggle room for a certain modpack having creative-pool-only recipes
+				ExtraCodecs.intRange(1, ManaPoolBlockEntity.MAX_MANA + 1).fieldOf("mana")
+						.forGetter(ManaInfusionRecipe::getManaToConsume),
+				Codec.STRING.optionalFieldOf("group", "").forGetter(ManaInfusionRecipe::getGroup),
+				StateIngredients.TYPED_CODEC.optionalFieldOf("catalyst", StateIngredients.NONE)
+						.forGetter(ManaInfusionRecipe::getRecipeCatalyst)
+		).apply(instance, ManaInfusionRecipe::new));
 
-		@NotNull
 		@Override
-		public ManaInfusionRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
-			JsonElement input = Objects.requireNonNull(json.get("input"));
-			Ingredient ing = Ingredient.fromJson(input);
-			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-			int mana = GsonHelper.getAsInt(json, "mana");
-			String group = GsonHelper.getAsString(json, "group", "");
-			StateIngredient catalyst = null;
-			if (json.has("catalyst")) {
-				JsonElement element = json.get("catalyst");
-				if (!element.isJsonObject() || !element.getAsJsonObject().has("type")) {
-					throw new JsonParseException("Legacy mana infusion catalyst syntax used");
-				}
-				catalyst = StateIngredientHelper.deserialize(element.getAsJsonObject());
-			}
-
-			return new ManaInfusionRecipe(id, output, ing, mana, group, catalyst);
+		public Codec<ManaInfusionRecipe> codec() {
+			return CODEC;
 		}
 
-		@Nullable
 		@Override
-		public ManaInfusionRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
+		public ManaInfusionRecipe fromNetwork(@NotNull FriendlyByteBuf buf) {
 			Ingredient input = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
 			int mana = buf.readVarInt();
-			StateIngredient catalyst = null;
+			StateIngredient catalyst = StateIngredients.NONE;
 			if (buf.readBoolean()) {
-				catalyst = StateIngredientHelper.read(buf);
+				catalyst = StateIngredients.fromNetwork(buf);
 			}
 			String group = buf.readUtf();
-			return new ManaInfusionRecipe(id, output, input, mana, group, catalyst);
+			return new ManaInfusionRecipe(output, input, mana, group, catalyst);
 		}
 
 		@Override
@@ -144,12 +129,14 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 			recipe.getIngredients().get(0).toNetwork(buf);
 			buf.writeItem(recipe.output);
 			buf.writeVarInt(recipe.getManaToConsume());
-			boolean hasCatalyst = recipe.getRecipeCatalyst() != null;
+			StateIngredient recipeCatalyst = recipe.getRecipeCatalyst();
+			boolean hasCatalyst = recipeCatalyst != StateIngredients.NONE;
 			buf.writeBoolean(hasCatalyst);
 			if (hasCatalyst) {
-				recipe.getRecipeCatalyst().write(buf);
+				StateIngredients.toNetwork(buf, recipeCatalyst);
 			}
 			buf.writeUtf(recipe.getGroup());
 		}
+
 	}
 }

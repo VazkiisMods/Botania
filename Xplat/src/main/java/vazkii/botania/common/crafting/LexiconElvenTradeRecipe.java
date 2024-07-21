@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.mojang.serialization.Codec;
+
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -27,11 +29,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
-	private final ResourceLocation id;
 
-	LexiconElvenTradeRecipe(ResourceLocation id) {
-		this.id = id;
-	}
+	public LexiconElvenTradeRecipe() {}
 
 	@Override
 	public boolean containsItem(ItemStack stack) {
@@ -48,12 +47,6 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(BotaniaBlocks.alfPortal);
-	}
-
-	@NotNull
-	@Override
-	public ResourceLocation getId() {
-		return id;
 	}
 
 	@Override
@@ -84,5 +77,22 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@Override
 	public RecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
 		return BotaniaRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;
+	}
+
+	public static class Serializer implements RecipeSerializer<LexiconElvenTradeRecipe> {
+		@Override
+		public Codec<LexiconElvenTradeRecipe> codec() {
+			return Codec.unit(LexiconElvenTradeRecipe::new);
+		}
+
+		@Override
+		public LexiconElvenTradeRecipe fromNetwork(FriendlyByteBuf friendlyByteBuf) {
+			return new LexiconElvenTradeRecipe();
+		}
+
+		@Override
+		public void toNetwork(FriendlyByteBuf friendlyByteBuf, LexiconElvenTradeRecipe recipe) {
+			// noop
+		}
 	}
 }

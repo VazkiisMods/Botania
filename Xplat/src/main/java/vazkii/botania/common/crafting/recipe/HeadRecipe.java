@@ -8,21 +8,16 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,13 +26,17 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Function;
 
 public class HeadRecipe extends RunicAltarRecipe {
 
-	public HeadRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
-		super(id, output, mana, inputs);
+	public HeadRecipe(ItemStack output, Ingredient reagent, int mana, Ingredient... inputs) {
+		super(output, reagent, mana, inputs, new Ingredient[0]);
+	}
+
+	private HeadRecipe(RunicAltarRecipe recipe) {
+		super(recipe.getOutput(), recipe.getReagent(), recipe.getMana(),
+				recipe.getIngredients().toArray(Ingredient[]::new), recipe.getCatalysts().toArray(Ingredient[]::new));
 	}
 
 	@Override
@@ -78,29 +77,17 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<HeadRecipe> {
+		public static final Codec<HeadRecipe> CODEC = RunicAltarRecipe.Serializer.CODEC
+				.xmap(HeadRecipe::new, Function.identity());
 
-		@NotNull
 		@Override
-		public HeadRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
-			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-			int mana = GsonHelper.getAsInt(json, "mana");
-			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
-			List<Ingredient> inputs = new ArrayList<>();
-			for (JsonElement e : ingrs) {
-				inputs.add(Ingredient.fromJson(e));
-			}
-			return new HeadRecipe(id, output, mana, inputs.toArray(new Ingredient[0]));
+		public Codec<HeadRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public HeadRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
-			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
-			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.fromNetwork(buf);
-			}
-			ItemStack output = buf.readItem();
-			int mana = buf.readVarInt();
-			return new HeadRecipe(id, output, mana, inputs);
+		public HeadRecipe fromNetwork(@NotNull FriendlyByteBuf buf) {
+			return new HeadRecipe(BotaniaRecipeTypes.RUNE_SERIALIZER.fromNetwork(buf));
 		}
 
 		@Override

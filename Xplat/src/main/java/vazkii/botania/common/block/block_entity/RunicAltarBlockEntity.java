@@ -211,10 +211,10 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		int manaToGet = this.manaToGet;
 
 		if (currentRecipe != null) {
-			this.manaToGet = currentRecipe.getManaUsage();
+			this.manaToGet = currentRecipe.getMana();
 		} else {
 			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level)
-					.map(RunicAltarRecipe::getManaUsage)
+					.map(RunicAltarRecipe::getMana)
 					.orElse(0);
 		}
 
@@ -281,7 +281,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			}
 
 			if (livingrock != null) {
-				int mana = recipe.getManaUsage();
+				int mana = recipe.getMana();
 				receiveMana(-mana);
 				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
