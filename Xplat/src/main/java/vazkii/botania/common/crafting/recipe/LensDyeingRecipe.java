@@ -11,14 +11,10 @@ package vazkii.botania.common.crafting.recipe;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +28,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class LensDyeingRecipe extends CustomRecipe {
-	public static final NoOpRecipeSerializer<LensDyeingRecipe> SERIALIZER = new NoOpRecipeSerializer<>(LensDyeingRecipe::new);
+	public static final RecipeSerializer<LensDyeingRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(LensDyeingRecipe::new);
 
 	private final Supplier<List<Ingredient>> dyes = Suppliers.memoize(() -> Arrays.asList(
 			Ingredient.of(Items.WHITE_DYE), Ingredient.of(Items.ORANGE_DYE),
@@ -46,8 +42,8 @@ public class LensDyeingRecipe extends CustomRecipe {
 			Ingredient.of(BotaniaItems.manaPearl)
 	));
 
-	public LensDyeingRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.REDSTONE);
+	public LensDyeingRecipe(CraftingBookCategory craftingBookCategory) {
+		super(craftingBookCategory);
 	}
 
 	@NotNull

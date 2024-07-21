@@ -30,7 +30,7 @@ public class RunicAltarProcessor extends ReagentRecipeProcessor {
 			return super.process(level, key);
 		}
 		if (key.equals("mana")) {
-			return IVariable.wrap(((RunicAltarRecipe) recipe).getManaUsage());
+			return IVariable.wrap(((RunicAltarRecipe) recipe).getMana());
 		}
 		return super.process(level, key);
 	}

@@ -121,7 +121,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		registerCompositeLensRecipeWrapper(helper);
 		registerTerraPickTippingRecipeWrapper(helper);
 
-		helper.registerFiller(PetalsRecipe.class, PetalApothecaryREIDisplay::new);
+		helper.registerFiller(PetalApothecaryRecipe.class, PetalApothecaryREIDisplay::new);
 		helper.registerFiller(BotanicalBreweryRecipe.class, BreweryREIDisplay::new);
 		Predicate<? extends ElvenTradeRecipe> pred = recipe -> !recipe.isReturnRecipe();
 		helper.registerFiller(ElvenTradeRecipe.class, pred, ElvenTradeREIDisplay::new);
@@ -129,7 +129,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(ManaInfusionRecipe.class, ManaPoolREIDisplay::new);
 		helper.registerFiller(PureDaisyRecipe.class, PureDaisyREIDisplay::new);
 		helper.registerFiller(RunicAltarRecipe.class, RunicAltarREIDisplay::new);
-		helper.registerFiller(RecipeTerraPlate.class, TerrestrialAgglomerationREIDisplay::new);
+		helper.registerFiller(TerrestrialAgglomerationRecipe.class, TerrestrialAgglomerationREIDisplay::new);
 
 		try {
 			for (var entry : FabricXplatImpl.CUSTOM_STRIPPING.entrySet()) {

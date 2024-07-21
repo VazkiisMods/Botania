@@ -14,12 +14,12 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.PetalsRecipe;
+import vazkii.botania.common.crafting.PetalApothecaryRecipe;
 
-public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalsRecipe> {
+public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalApothecaryRecipe> {
 	private EntryIngredient reagent;
 
-	public PetalApothecaryREIDisplay(PetalsRecipe recipe) {
+	public PetalApothecaryREIDisplay(PetalApothecaryRecipe recipe) {
 		super(recipe);
 		reagent = EntryIngredients.ofIngredient(recipe.getReagent());
 	}

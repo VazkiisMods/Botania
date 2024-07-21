@@ -8,53 +8,45 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.google.common.base.Preconditions;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetalsRecipe implements PetalApothecaryRecipe {
-	private final ResourceLocation id;
+public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApothecaryRecipe {
 	private final ItemStack output;
 	private final Ingredient reagent;
-	private final NonNullList<Ingredient> inputs;
+	private final NonNullList<Ingredient> ingredients;
 
-	public PetalsRecipe(ResourceLocation id, ItemStack output, Ingredient reagent, Ingredient... inputs) {
-		Preconditions.checkArgument(inputs.length <= 16, "Cannot have more than 16 ingredients");
-		this.id = id;
+	public PetalApothecaryRecipe(ItemStack output, Ingredient reagent, Ingredient... ingredients) {
 		this.output = output;
 		this.reagent = reagent;
-		this.inputs = NonNullList.of(Ingredient.EMPTY, inputs);
+		this.ingredients = NonNullList.of(Ingredient.EMPTY, ingredients);
 	}
 
-	@Override
-	public Ingredient getReagent() {
-		return reagent;
+	private static PetalApothecaryRecipe of(ItemStack output, Ingredient reagent, List<Ingredient> ingredients) {
+		return new PetalApothecaryRecipe(output, reagent, ingredients.toArray(Ingredient[]::new));
 	}
 
 	@Override
 	public boolean matches(Container inv, @NotNull Level world) {
-		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
+		List<Ingredient> ingredientsMissing = new ArrayList<>(ingredients);
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack input = inv.getItem(i);
@@ -94,10 +86,19 @@ public class PetalsRecipe implements PetalApothecaryRecipe {
 		return getResultItem(registries).copy();
 	}
 
+	public ItemStack getOutput() {
+		return output;
+	}
+
+	@Override
+	public Ingredient getReagent() {
+		return reagent;
+	}
+
 	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
-		return inputs;
+		return ingredients;
 	}
 
 	@NotNull
@@ -108,51 +109,46 @@ public class PetalsRecipe implements PetalApothecaryRecipe {
 
 	@NotNull
 	@Override
-	public ResourceLocation getId() {
-		return id;
-	}
-
-	@NotNull
-	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<? extends PetalApothecaryRecipe> getSerializer() {
 		return BotaniaRecipeTypes.PETAL_SERIALIZER;
 	}
 
-	public static class Serializer implements RecipeSerializer<PetalsRecipe> {
-		@NotNull
+	public static class Serializer implements RecipeSerializer<PetalApothecaryRecipe> {
+		public final Codec<PetalApothecaryRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				ItemStack.CODEC.fieldOf("output").forGetter(PetalApothecaryRecipe::getOutput),
+				Ingredient.CODEC_NONEMPTY.fieldOf("reagent").forGetter(PetalApothecaryRecipe::getReagent),
+				ExtraCodecs.validate(ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()), ingredients -> {
+					if (ingredients.size() > 16) {
+						return DataResult.error(() -> "Cannot have more than 16 ingredients");
+					}
+					return DataResult.success(ingredients);
+				}).fieldOf("ingredients").forGetter(PetalApothecaryRecipe::getIngredients)
+		).apply(instance, PetalApothecaryRecipe::of));
+
 		@Override
-		public PetalsRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
-			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-			Ingredient reagent = Ingredient.fromJson(json.get("reagent"));
-			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
-			List<Ingredient> inputs = new ArrayList<>();
-			for (JsonElement e : ingrs) {
-				inputs.add(Ingredient.fromJson(e));
-			}
-			return new PetalsRecipe(id, output, reagent, inputs.toArray(new Ingredient[0]));
+		public Codec<PetalApothecaryRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public PetalsRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
+		public PetalApothecaryRecipe fromNetwork(@NotNull FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
 			}
 			Ingredient reagent = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
-			return new PetalsRecipe(id, output, reagent, inputs);
+			return new PetalApothecaryRecipe(output, reagent, inputs);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull PetalsRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull PetalApothecaryRecipe recipe) {
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);
 			}
-			recipe.reagent.toNetwork(buf);
-			buf.writeItem(recipe.output);
+			recipe.getReagent().toNetwork(buf);
+			buf.writeItem(recipe.getOutput());
 		}
-
 	}
-
 }

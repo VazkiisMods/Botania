@@ -45,7 +45,7 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 		}
 		// TODO 1.19.4 figure out the proper way to get a registry access
 		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
-		this.mana = recipe.getManaUsage();
+		this.mana = recipe.getMana();
 	}
 
 	@Override

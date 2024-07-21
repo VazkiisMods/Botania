@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.commands.CommandFunction;
+import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,7 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
+
+import java.util.Optional;
 
 public interface PureDaisyRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "pure_daisy");
@@ -31,21 +32,36 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	/**
 	 * This gets called every tick, please be careful with your checks.
 	 */
-	boolean matches(Level world, BlockPos pos, SpecialFlowerBlockEntity pureDaisy, BlockState state);
+	boolean matches(Level world, BlockPos pos, BlockState state);
 
 	/**
-	 * Returns true if the block was placed (and if the Pure Daisy should do particles and stuffs).
-	 * Should only place the block if !world.isRemote, but should return true if it would've placed
-	 * it otherwise. You may return false to cancel the normal particles and do your own.
+	 * Returns the input block state definition.
+	 *
 	 */
-	boolean set(Level world, BlockPos pos, SpecialFlowerBlockEntity pureDaisy);
-
 	StateIngredient getInput();
 
-	BlockState getOutputState();
+	/**
+	 * Returns the output block state definition. If it matches multiple block states,
+	 * one of those it picked at random with equal weights when the conversion takes place.
+	 */
+	StateIngredient getOutput();
 
-	CommandFunction.CacheableFunction getSuccessFunction();
+	/**
+	 * Returns whether any relevant block state properties of the matched block will be copied over to the
+	 * converted block as the conversion takes place. (Used to e.g. keep the rotation of converted logs.)
+	 */
+	boolean isCopyInputProperties();
 
+	/**
+	 * Returns the optional mcfunction to execute when the conversion takes place.
+	 * (Might not be available on client-side mirrors of the recipe definition.)
+	 */
+	Optional<CacheableFunction> getSuccessFunction();
+
+	/**
+	 * Returns the number of times a source block must be ticked by the flower before it converts.
+	 * Note that the Pure Daisy ticks its surrounding blocks in a round-robin way, one at a time.
+	 */
 	int getTime();
 
 	@Override
@@ -53,23 +69,39 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 		return BuiltInRegistries.RECIPE_TYPE.get(TYPE_ID);
 	}
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
-	default boolean matches(Container p_77569_1_, Level p_77569_2_) {
+	@Deprecated
+	default boolean matches(Container container, Level level) {
 		return false;
 	}
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
-	default ItemStack assemble(Container container, @NotNull RegistryAccess registries) {
+	@Deprecated
+	default ItemStack assemble(Container container, @NotNull RegistryAccess registryAccess) {
 		return ItemStack.EMPTY;
 	}
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
-	default boolean canCraftInDimensions(int p_194133_1_, int p_194133_2_) {
+	@Deprecated
+	default boolean canCraftInDimensions(int width, int height) {
 		return false;
 	}
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
-	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	@Deprecated
+	default ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
 		return ItemStack.EMPTY;
 	}
 

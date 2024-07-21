@@ -92,6 +92,7 @@ public interface XplatAbstractions {
 
 	boolean isModLoaded(String modId);
 	boolean isDevEnvironment();
+	boolean isDataGen();
 	boolean isPhysicalClient();
 	String getBotaniaVersion();
 

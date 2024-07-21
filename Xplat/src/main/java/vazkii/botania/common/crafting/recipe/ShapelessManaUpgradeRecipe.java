@@ -8,26 +8,25 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.item.crafting.*;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.mixin.ShapelessRecipeAccessor;
+
+import java.util.function.Function;
+
 public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
-	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
-		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT,
-				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
-				// RegistryAccess
-				compose.getResultItem(RegistryAccess.EMPTY),
-				compose.getIngredients());
+	public static final WrappingRecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
+
+	private ShapelessManaUpgradeRecipe(ShapelessRecipe recipe) {
+		super(recipe.getGroup(), recipe.category(), ((ShapelessRecipeAccessor) recipe).botania_getResult(), recipe.getIngredients());
 	}
 
 	@NotNull
@@ -42,19 +41,27 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 		return SERIALIZER;
 	}
 
-	public static final RecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
+	private static class Serializer implements WrappingRecipeSerializer<ShapelessManaUpgradeRecipe> {
+		public static final Codec<ShapelessManaUpgradeRecipe> CODEC = SHAPELESS_RECIPE.codec()
+				.xmap(ShapelessManaUpgradeRecipe::new, Function.identity());
 
-	private static class Serializer implements RecipeSerializer<ShapelessManaUpgradeRecipe> {
-		@NotNull
 		@Override
-		public ShapelessManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromJson(recipeId, json));
+		public ShapelessManaUpgradeRecipe wrap(Recipe<?> recipe) {
+			if (!(recipe instanceof ShapelessRecipe shapelessRecipe)) {
+				throw new IllegalArgumentException("Unsupported recipe type to wrap: " + recipe.getType());
+			}
+			return new ShapelessManaUpgradeRecipe(shapelessRecipe);
+		}
+
+		@Override
+		public Codec<ShapelessManaUpgradeRecipe> codec() {
+			return CODEC;
 		}
 
 		@NotNull
 		@Override
-		public ShapelessManaUpgradeRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromNetwork(recipeId, buffer));
+		public ShapelessManaUpgradeRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromNetwork(buffer));
 		}
 
 		@Override
