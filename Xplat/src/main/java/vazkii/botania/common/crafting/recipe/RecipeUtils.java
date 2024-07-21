@@ -11,10 +11,16 @@ package vazkii.botania.common.crafting.recipe;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -76,5 +82,21 @@ public class RecipeUtils {
 		}
 
 		return ret;
+	}
+
+	public static @NotNull Recipe<?> recipeFromNetwork(@NotNull FriendlyByteBuf buffer) {
+		ResourceLocation serializerId = buffer.readResourceLocation();
+		return BuiltInRegistries.RECIPE_SERIALIZER.getOptional(serializerId)
+				.orElseThrow(() -> new IllegalArgumentException("Unknown recipe serializer: " + serializerId))
+				.fromNetwork(buffer);
+	}
+
+	public static void recipeToNetwork(@NotNull FriendlyByteBuf buffer, Recipe<?> recipe) {
+		@SuppressWarnings("unchecked")
+		RecipeSerializer<Recipe<?>> recipeSerializer = (RecipeSerializer<Recipe<?>>) recipe.getSerializer();
+		buffer.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getResourceKey(recipeSerializer)
+				.orElseThrow(() -> new IllegalArgumentException("Unregistered recipe serializer: " + recipeSerializer))
+				.location());
+		recipeSerializer.toNetwork(buffer, recipe);
 	}
 }

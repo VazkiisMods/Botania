@@ -25,7 +25,7 @@ import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.StateIngredientHelper;
+import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.function.Consumer;
@@ -107,11 +107,11 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static StateIngredient forBlock(Block block) {
-		return StateIngredientHelper.of(block);
+		return StateIngredients.of(block);
 	}
 
 	protected static StateIngredient forTag(TagKey<Block> tag) {
-		return StateIngredientHelper.of(tag);
+		return StateIngredients.of(tag);
 	}
 
 	@Override

@@ -8,56 +8,87 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.TagParser;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-public class NbtOutputRecipe {
-	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
+public class NbtOutputRecipe<C extends Container> implements Recipe<C> {
+	public static final RecipeSerializer<NbtOutputRecipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
 
-	private static class Serializer implements RecipeSerializer<Recipe<?>> {
-		@NotNull
+	private final Recipe<C> recipe;
+	private final CompoundTag nbt;
+
+	public NbtOutputRecipe(Recipe<C> recipe, CompoundTag nbt) {
+		this.recipe = recipe;
+		this.nbt = nbt;
+	}
+
+	@Override
+	public boolean matches(C container, Level level) {
+		return recipe.matches(container, level);
+	}
+
+	@Override
+	public ItemStack assemble(C container, RegistryAccess registryAccess) {
+		ItemStack result = recipe.assemble(container, registryAccess);
+		result.setTag(nbt);
+		return result;
+	}
+
+	@Override
+	public boolean canCraftInDimensions(int width, int height) {
+		return recipe.canCraftInDimensions(width, height);
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess registryAccess) {
+		return recipe.getResultItem(registryAccess);
+	}
+
+	@Override
+	public RecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
+	}
+
+	@Override
+	public RecipeType<?> getType() {
+		return recipe.getType();
+	}
+
+	private static class Serializer implements RecipeSerializer<NbtOutputRecipe<?>> {
+		public static final Codec<NbtOutputRecipe<?>> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				Recipe.CODEC.fieldOf("recipe").forGetter(r -> r.recipe),
+				CompoundTag.CODEC.fieldOf("nbt").forGetter(r -> r.nbt)
+		).apply(instance, NbtOutputRecipe::new));
+
 		@Override
-		public Recipe<?> fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
-			var recipe = RecipeManager.fromJson(resourceLocation, GsonHelper.getAsJsonObject(jsonObject, "recipe"));
-			JsonElement nbt = jsonObject.get("nbt");
-
-			if (nbt == null) {
-				throw new JsonSyntaxException("No nbt tag");
-			}
-			try {
-				CompoundTag tag = TagParser.parseTag(GsonHelper.convertToString(nbt, "nbt"));
-				// XXX: Hack, but we only use this recipe type with vanilla recipe types which return a constant from
-				// getResultItem without consulting the RegistryAccess
-				recipe.getResultItem(RegistryAccess.EMPTY).setTag(tag);
-			} catch (CommandSyntaxException e) {
-				throw new JsonSyntaxException("Invalid nbt tag: " + e.getMessage(), e);
-			}
-			return recipe;
+		public Codec<NbtOutputRecipe<?>> codec() {
+			return CODEC;
 		}
 
 		@NotNull
 		@Override
-		public Recipe<?> fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			throw new IllegalStateException("NbtOutputRecipe should not be sent over network");
+		public NbtOutputRecipe<?> fromNetwork(@NotNull FriendlyByteBuf buffer) {
+			var recipe = RecipeUtils.recipeFromNetwork(buffer);
+			var nbt = buffer.readNbt();
+			return new NbtOutputRecipe<>(recipe, nbt);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull Recipe<?> recipe) {
-			throw new IllegalStateException("NbtOutputRecipe should not be sent over network");
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull NbtOutputRecipe<?> recipe) {
+			RecipeUtils.recipeToNetwork(buffer, recipe.recipe);
+			buffer.writeNbt(recipe.nbt);
 		}
 	}
 }

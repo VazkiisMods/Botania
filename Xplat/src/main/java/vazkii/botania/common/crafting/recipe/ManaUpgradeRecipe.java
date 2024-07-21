@@ -8,28 +8,28 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.mixin.ShapedRecipeAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.function.Function;
+
 public class ManaUpgradeRecipe extends ShapedRecipe {
-	public ManaUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.category(), compose.getWidth(), compose.getHeight(),
-				compose.getIngredients(),
-				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
-				// RegistryAccess
-				compose.getResultItem(RegistryAccess.EMPTY));
+	public static final WrappingRecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
+
+	private ManaUpgradeRecipe(ShapedRecipe recipe) {
+		super(recipe.getGroup(), recipe.category(), ((ShapedRecipeAccessor) recipe).botania_getPattern(),
+				((ShapedRecipeAccessor) recipe).botania_getResult(), recipe.showNotification());
 	}
 
 	public static ItemStack output(ItemStack output, Container inv) {
@@ -60,17 +60,26 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	public static final RecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
+	private static class Serializer implements WrappingRecipeSerializer<ManaUpgradeRecipe> {
+		public static final Codec<ManaUpgradeRecipe> CODEC = SHAPED_RECIPE.codec()
+				.xmap(ManaUpgradeRecipe::new, Function.identity());
 
-	private static class Serializer implements RecipeSerializer<ManaUpgradeRecipe> {
 		@Override
-		public ManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
+		public ManaUpgradeRecipe wrap(Recipe<?> recipe) {
+			if (!(recipe instanceof ShapedRecipe shapedRecipe)) {
+				throw new IllegalArgumentException("Unsupported recipe type to wrap: " + recipe.getType());
+			}
+			return new ManaUpgradeRecipe(shapedRecipe);
 		}
 
 		@Override
-		public ManaUpgradeRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
+		public Codec<ManaUpgradeRecipe> codec() {
+			return CODEC;
+		}
+
+		@Override
+		public ManaUpgradeRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromNetwork(buffer));
 		}
 
 		@Override

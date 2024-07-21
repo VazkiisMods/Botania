@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
@@ -27,8 +28,6 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.function.Consumer;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BrewProvider extends BotaniaRecipeProvider {
@@ -42,7 +41,7 @@ public class BrewProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	public void buildRecipes(RecipeOutput consumer) {
 		consumer.accept(new FinishedRecipe(idFor("speed"), BotaniaBrews.speed, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SUGAR), Ingredient.of(Items.REDSTONE)));
 		consumer.accept(new FinishedRecipe(idFor("strength"), BotaniaBrews.strength, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.BLAZE_POWDER), Ingredient.of(Items.GLOWSTONE_DUST)));
 		consumer.accept(new FinishedRecipe(idFor("haste"), BotaniaBrews.haste, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SUGAR), Ingredient.of(Items.GOLD_NUGGET)));

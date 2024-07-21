@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.StateIngredientHelper;
+import vazkii.botania.common.crafting.StateIngredients;
 
 import java.util.function.Consumer;
 
@@ -39,18 +39,18 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	@Override
 	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 
-		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Blocks.STONE), BotaniaBlocks.livingrock.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredients.of(Blocks.STONE), BotaniaBlocks.livingrock.defaultBlockState()));
 		consumer.accept(new StateCopyingRecipe(id("livingwood"),
-				StateIngredientHelper.of(BlockTags.LOGS),
+				StateIngredients.of(BlockTags.LOGS),
 				BotaniaBlocks.livingwoodLog));
 
-		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredientHelper.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState()));
-		consumer.accept(new FinishedRecipe(id("end_stone_to_cobbled_deepslate"), StateIngredientHelper.of(Blocks.END_STONE), Blocks.COBBLED_DEEPSLATE.defaultBlockState(), FinishedRecipe.DEFAULT_TIME, prefix("ender_air_release")));
-		consumer.accept(new FinishedRecipe(id("sand"), StateIngredientHelper.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState()));
-		consumer.accept(new FinishedRecipe(id("packed_ice"), StateIngredientHelper.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState()));
-		consumer.accept(new FinishedRecipe(id("blue_ice"), StateIngredientHelper.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState()));
-		consumer.accept(new FinishedRecipe(id("obsidian"), StateIngredientHelper.of(BotaniaBlocks.blazeBlock), Blocks.OBSIDIAN.defaultBlockState()));
-		consumer.accept(new FinishedRecipe(id("snow_block"), StateIngredientHelper.of(Blocks.WATER), Blocks.SNOW_BLOCK.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("end_stone_to_cobbled_deepslate"), StateIngredients.of(Blocks.END_STONE), Blocks.COBBLED_DEEPSLATE.defaultBlockState(), FinishedRecipe.DEFAULT_TIME, prefix("ender_air_release")));
+		consumer.accept(new FinishedRecipe(id("sand"), StateIngredients.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("packed_ice"), StateIngredients.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("blue_ice"), StateIngredients.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("obsidian"), StateIngredients.of(BotaniaBlocks.blazeBlock), Blocks.OBSIDIAN.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("snow_block"), StateIngredients.of(Blocks.WATER), Blocks.SNOW_BLOCK.defaultBlockState()));
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		@Override
 		public void serializeRecipeData(JsonObject json) {
 			json.add("input", input.serialize());
-			json.add("output", StateIngredientHelper.serializeBlockState(outputState));
+			json.add("output", StateIngredients.serializeBlockState(outputState));
 			if (time != DEFAULT_TIME) {
 				json.addProperty("time", time);
 			}

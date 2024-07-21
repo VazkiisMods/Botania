@@ -28,6 +28,7 @@ import java.util.Optional;
 
 public interface ElvenTradeRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "elven_trade");
+	ResourceLocation TYPE_ID_LEXICON = new ResourceLocation(BotaniaAPI.MODID, "elven_trade_lexicon");
 
 	/**
 	 * Attempts to match the recipe
