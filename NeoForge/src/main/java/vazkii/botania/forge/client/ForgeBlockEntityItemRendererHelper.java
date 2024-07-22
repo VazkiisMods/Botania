@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-import vazkii.botania.client.render.block_entity.TEISR;
+import vazkii.botania.client.render.block_entity.BlockEntityItemRenderer;
 import vazkii.botania.client.render.entity.EntityRenderers;
 
 import java.util.IdentityHashMap;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class ForgeBlockEntityItemRendererHelper {
 	// Nulls in ctor call are fine, we don't use those fields
 	private static final BlockEntityWithoutLevelRenderer RENDERER = new BlockEntityWithoutLevelRenderer(null, null) {
-		private final Map<Item, TEISR> renderers = new IdentityHashMap<>();
+		private final Map<Item, BlockEntityItemRenderer> renderers = new IdentityHashMap<>();
 
 		@Override
 		public void renderByItem(ItemStack stack, ItemDisplayContext transform,

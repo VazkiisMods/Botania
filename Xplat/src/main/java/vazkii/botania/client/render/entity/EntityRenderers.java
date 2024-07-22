@@ -157,16 +157,16 @@ public final class EntityRenderers {
 		consumer.register(BotaniaFlowerBlocks.LABELLIA, SpecialFlowerBlockEntityRenderer::new);
 	}
 
-	public static final Map<Block, Function<Block, TEISR>> BE_ITEM_RENDERER_FACTORIES = Map.of(
+	public static final Map<Block, Function<Block, BlockEntityItemRenderer>> BE_ITEM_RENDERER_FACTORIES = Map.of(
 			BotaniaBlocks.manaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
 			BotaniaBlocks.naturaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
 			BotaniaBlocks.gaiaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
-			BotaniaBlocks.teruTeruBozu, TEISR::new,
-			BotaniaBlocks.avatar, TEISR::new,
-			BotaniaBlocks.bellows, TEISR::new,
-			BotaniaBlocks.brewery, TEISR::new,
-			BotaniaBlocks.corporeaIndex, TEISR::new,
-			BotaniaBlocks.hourglass, TEISR::new
+			BotaniaBlocks.teruTeruBozu, BlockEntityItemRenderer::new,
+			BotaniaBlocks.avatar, BlockEntityItemRenderer::new,
+			BotaniaBlocks.bellows, BlockEntityItemRenderer::new,
+			BotaniaBlocks.brewery, BlockEntityItemRenderer::new,
+			BotaniaBlocks.corporeaIndex, BlockEntityItemRenderer::new,
+			BotaniaBlocks.hourglass, BlockEntityItemRenderer::new
 	);
 
 	private EntityRenderers() {}
