@@ -26,11 +26,11 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 
 import java.util.function.Supplier;
 
-public class TEISR {
+public class BlockEntityItemRenderer {
 	private final Block block;
 	private final Supplier<BlockEntity> dummy;
 
-	public TEISR(Block block) {
+	public BlockEntityItemRenderer(Block block) {
 		Preconditions.checkArgument(block instanceof EntityBlock);
 		this.block = block;
 		this.dummy = Suppliers.memoize(() -> ((EntityBlock) block).newBlockEntity(ManaBurst.NO_SOURCE, block.defaultBlockState()));
