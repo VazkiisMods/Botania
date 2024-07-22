@@ -120,7 +120,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 		ms.popPose();
 	}
 
-	public static class ItemRenderer extends TEISR {
+	public static class ItemRenderer extends BlockEntityItemRenderer {
 		public ItemRenderer(Block block) {
 			super(block);
 		}
