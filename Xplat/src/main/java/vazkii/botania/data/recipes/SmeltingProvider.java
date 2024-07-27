@@ -8,29 +8,28 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 
-import java.util.function.Consumer;
-
 public class SmeltingProvider extends BotaniaRecipeProvider {
 	public SmeltingProvider(PackOutput packOutput) {
 		super(packOutput);
 	}
 
-	private static InventoryChangeTrigger.TriggerInstance conditionsFromItem(ItemLike item) {
+	private static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromItem(ItemLike item) {
 		return CraftingRecipeProvider.conditionsFromItem(item);
 	}
 
 	@Override
-	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	public void buildRecipes(RecipeOutput consumer) {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(BotaniaBlocks.biomeCobblestoneForest),
 				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.biomeStoneForest, 0.1f, 200)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.biomeCobblestoneForest))
