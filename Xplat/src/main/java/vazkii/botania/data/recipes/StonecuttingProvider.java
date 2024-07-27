@@ -8,30 +8,28 @@
  */
 package vazkii.botania.data.recipes;
 
-import com.google.gson.JsonObject;
-
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class StonecuttingProvider extends BotaniaRecipeProvider {
 	public StonecuttingProvider(PackOutput packOutput) {
@@ -39,7 +37,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	public void buildRecipes(RecipeOutput consumer) {
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			registerForMetamorphic(variant, consumer);
 		}
@@ -52,77 +50,75 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 			registerForQuartz(variant, consumer);
 		}
 
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockWall));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolished));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolishedSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolishedStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolishedWall));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrick));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickWall));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickChiseled));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlate));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedWall));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrick));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickWall));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickChiseled));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickWall));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickChiseled));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaBlocks.livingrockBrickMossySlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaBlocks.livingrockBrickMossyStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaBlocks.livingrockBrickMossyWall));
-		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockStairs));
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockStairs);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockWall);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolished);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolishedSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolishedStairs);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockPolishedWall);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrick);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickStairs);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickWall);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickChiseled);
+		stonecutting(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlate);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedStairs);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedWall);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrick);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickStairs);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickWall);
+		stonecutting(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickChiseled);
+		stonecutting(consumer, BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickStairs);
+		stonecutting(consumer, BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickWall);
+		stonecutting(consumer, BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickChiseled);
+		stonecutting(consumer, BotaniaBlocks.livingrockBrickMossy, BotaniaBlocks.livingrockBrickMossySlab, 2);
+		stonecutting(consumer, BotaniaBlocks.livingrockBrickMossy, BotaniaBlocks.livingrockBrickMossyStairs);
+		stonecutting(consumer, BotaniaBlocks.livingrockBrickMossy, BotaniaBlocks.livingrockBrickMossyWall);
+		stonecutting(consumer, BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockStairs);
 
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickWall));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickWall));
+		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaStairs);
+		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick);
+		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickStairs);
+		stonecutting(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickWall);
+		stonecutting(consumer, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, 2);
+		stonecutting(consumer, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickStairs);
+		stonecutting(consumer, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickWall);
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)
 				.map(BuiltInRegistries.ITEM::get)
 				.collect(Collectors.toList());
-		for (Item azulejo : allAzulejos) {
-			consumer.accept(anyToAnyStonecutting(allAzulejos, azulejo));
-		}
+		anyToAnyStonecutting(consumer, allAzulejos);
 	}
 
-	private void registerForQuartz(String variant, Consumer<FinishedRecipe> consumer) {
+	private void registerForQuartz(String variant, RecipeOutput consumer) {
 		Block base = BuiltInRegistries.BLOCK.get(prefix(variant));
 		Block slab = BuiltInRegistries.BLOCK.get(prefix(variant + LibBlockNames.SLAB_SUFFIX));
 		Block stairs = BuiltInRegistries.BLOCK.get(prefix(variant + LibBlockNames.STAIR_SUFFIX));
 		Block chiseled = BuiltInRegistries.BLOCK.get(prefix("chiseled_" + variant));
 		Block pillar = BuiltInRegistries.BLOCK.get(prefix(variant + "_pillar"));
-		consumer.accept(stonecutting(base, slab, 2));
-		consumer.accept(stonecutting(base, stairs));
-		consumer.accept(stonecutting(base, chiseled));
-		consumer.accept(stonecutting(base, pillar));
+		stonecutting(consumer, base, slab, 2);
+		stonecutting(consumer, base, stairs);
+		stonecutting(consumer, base, chiseled);
+		stonecutting(consumer, base, pillar);
 	}
 
-	private void registerForPavement(String color, Consumer<FinishedRecipe> consumer) {
+	private void registerForPavement(String color, RecipeOutput consumer) {
 		Block base = BuiltInRegistries.BLOCK.get(prefix(color + LibBlockNames.PAVEMENT_SUFFIX));
 		Block slab = BuiltInRegistries.BLOCK.get(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX));
 		Block stair = BuiltInRegistries.BLOCK.get(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX));
-		consumer.accept(stonecutting(base, slab, 2));
-		consumer.accept(stonecutting(base, stair));
+		stonecutting(consumer, base, slab, 2);
+		stonecutting(consumer, base, stair);
 	}
 
-	private void registerForMetamorphic(String variant, Consumer<FinishedRecipe> consumer) {
+	private void registerForMetamorphic(String variant, RecipeOutput consumer) {
 		Block base = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone"));
 		Block slab = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX));
 		Block stair = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX));
@@ -137,23 +133,23 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		Block cobbleStair = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
 		Block cobbleWall = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
 
-		consumer.accept(stonecutting(base, slab, 2));
-		consumer.accept(stonecutting(base, stair));
-		consumer.accept(stonecutting(base, wall));
-		consumer.accept(stonecutting(base, brick));
-		consumer.accept(stonecutting(base, brickSlab, 2));
-		consumer.accept(stonecutting(base, brickStair));
-		consumer.accept(stonecutting(base, brickWall));
-		consumer.accept(stonecutting(base, chiseledBrick));
+		stonecutting(consumer, base, slab, 2);
+		stonecutting(consumer, base, stair);
+		stonecutting(consumer, base, wall);
+		stonecutting(consumer, base, brick);
+		stonecutting(consumer, base, brickSlab, 2);
+		stonecutting(consumer, base, brickStair);
+		stonecutting(consumer, base, brickWall);
+		stonecutting(consumer, base, chiseledBrick);
 
-		consumer.accept(stonecutting(brick, brickSlab, 2));
-		consumer.accept(stonecutting(brick, brickStair));
-		consumer.accept(stonecutting(brick, brickWall));
-		consumer.accept(stonecutting(brick, chiseledBrick));
+		stonecutting(consumer, brick, brickSlab, 2);
+		stonecutting(consumer, brick, brickStair);
+		stonecutting(consumer, brick, brickWall);
+		stonecutting(consumer, brick, chiseledBrick);
 
-		consumer.accept(stonecutting(cobble, cobbleSlab, 2));
-		consumer.accept(stonecutting(cobble, cobbleStair));
-		consumer.accept(stonecutting(cobble, cobbleWall));
+		stonecutting(consumer, cobble, cobbleSlab, 2);
+		stonecutting(consumer, cobble, cobbleStair);
+		stonecutting(consumer, cobble, cobbleWall);
 	}
 
 	@NotNull
@@ -168,39 +164,31 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		return prefix("stonecutting/" + aId.getPath() + "_to_" + bId.getPath());
 	}
 
-	protected FinishedRecipe stonecutting(ItemLike input, ItemLike output) {
-		return stonecutting(input, output, 1);
+	protected void stonecutting(RecipeOutput consumer, ResourceLocation id, Ingredient input, ItemLike output) {
+		stonecutting(consumer, id, input, output, 1);
 	}
 
-	protected FinishedRecipe stonecutting(ItemLike input, ItemLike output, int count) {
-		return new Result(idFor(input, output), RecipeSerializer.STONECUTTER, Ingredient.of(input), output.asItem(), count);
+	protected void stonecutting(RecipeOutput consumer, ResourceLocation id, Ingredient input, ItemLike output, int count) {
+		ItemStack outputStack = new ItemStack(output);
+		outputStack.setCount(count);
+		consumer.accept(id, new StonecutterRecipe("", input, outputStack), null);
 	}
 
-	protected FinishedRecipe anyToAnyStonecutting(List<? extends ItemLike> inputs, ItemLike output) {
-		Ingredient input = Ingredient.of(inputs.stream().filter(obj -> output != obj).toArray(ItemLike[]::new));
-		return new Result(prefix("stonecutting/" + BuiltInRegistries.ITEM.getKey(output.asItem()).getPath()), RecipeSerializer.STONECUTTER, input, output.asItem(), 1);
+	protected void stonecutting(RecipeOutput consumer, ItemLike input, ItemLike output) {
+		stonecutting(consumer, input, output, 1);
 	}
 
-	protected ResourceLocation prefix(String path) {
-		return ResourceLocationHelper.prefix(path);
+	protected void stonecutting(RecipeOutput consumer, ItemLike input, ItemLike output, int count) {
+		ItemStack outputStack = new ItemStack(output);
+		outputStack.setCount(count);
+		consumer.accept(idFor(input, output), new StonecutterRecipe("", Ingredient.of(input), outputStack), null);
 	}
 
-	// Wrapper without advancements
-	public static class Result extends SingleItemRecipeBuilder.Result {
-		public Result(ResourceLocation id, RecipeSerializer<?> serializer, Ingredient input, Item result, int count) {
-			super(id, serializer, "", input, result, count, null, null);
-		}
-
-		@Nullable
-		@Override
-		public JsonObject serializeAdvancement() {
-			return null;
-		}
-
-		@Nullable
-		@Override
-		public ResourceLocation getAdvancementId() {
-			return null;
+	protected void anyToAnyStonecutting(RecipeOutput consumer, List<? extends ItemLike> inputs) {
+		for (ItemLike output : inputs) {
+			Ingredient input = Ingredient.of(inputs.stream().filter(thisInput -> output != thisInput).toArray(ItemLike[]::new));
+			ResourceLocation id = prefix("stonecutting/" + BuiltInRegistries.ITEM.getKey(output.asItem()).getPath());
+			stonecutting(consumer, id, input, output);
 		}
 	}
 }
