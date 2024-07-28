@@ -7,10 +7,12 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
@@ -28,16 +30,16 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 		POOL = EmiStack.of(stack);
 	}
 
-	public ManaInfusionEmiRecipe(ManaInfusionRecipe recipe) {
+	public ManaInfusionEmiRecipe(RecipeHolder<? extends ManaInfusionRecipe> recipe) {
 		super(BotaniaEmiPlugin.MANA_INFUSION, recipe);
-		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
-		if (recipe.getRecipeCatalyst() != null) {
-			this.catalysts = List.of(EmiIngredient.of(recipe.getRecipeCatalyst().getDisplayed().stream()
+		this.input = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
+		if (recipe.value().getRecipeCatalyst() != StateIngredients.NONE) {
+			this.catalysts = List.of(EmiIngredient.of(recipe.value().getRecipeCatalyst().getDisplayed().stream()
 					.map(s -> EmiStack.of(s.getBlock())).toList()));
 		}
 		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
-		mana = recipe.getManaToConsume();
+		this.output = List.of(EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)));
+		mana = recipe.value().getManaToConsume();
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 		widgets.add(new ManaWidget(7, 50, mana, ManaPoolBlockEntity.MAX_MANA / 10));
 		widgets.addSlot(input.get(0), 21, 13).drawBack(false);
 		widgets.addSlot(POOL, 50, 13).catalyst(true).drawBack(false);
-		if (catalysts.size() > 0) {
+		if (!catalysts.isEmpty()) {
 			widgets.addSlot(catalysts.get(0), 0, 13).catalyst(true).drawBack(false);
 		}
 		widgets.addSlot(output.get(0), 79, 13).drawBack(false).recipeContext(this);

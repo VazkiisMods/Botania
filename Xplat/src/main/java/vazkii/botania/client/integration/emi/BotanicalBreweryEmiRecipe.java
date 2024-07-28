@@ -7,6 +7,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -22,12 +23,12 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 	private final List<EmiIngredient> ingredients;
 	private final ResourceLocation id;
 
-	public BotanicalBreweryEmiRecipe(BotanicalBreweryRecipe recipe, ItemStack container) {
+	public BotanicalBreweryEmiRecipe(RecipeHolder<? extends BotanicalBreweryRecipe> recipe, ItemStack container) {
 		super(BotaniaEmiPlugin.BOTANICAL_BREWERY, recipe);
-		this.ingredients = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
+		this.ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
 		this.input = Stream.concat(Stream.of(EmiStack.of(container)), ingredients.stream()).toList();
-		this.output = List.of(EmiStack.of(recipe.getOutput(container.copy())));
-		ResourceLocation id = recipe.getId();
+		this.output = List.of(EmiStack.of(recipe.value().getOutput(container.copy())));
+		ResourceLocation id = recipe.id();
 		ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(container.getItem());
 		this.id = new ResourceLocation("emi", "botania/botanical_brewery/"
 				+ id.getNamespace() + "/" + id.getPath() + "/"
