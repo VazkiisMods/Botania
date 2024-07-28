@@ -13,23 +13,23 @@ import com.google.common.collect.ImmutableList;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.PureDaisyRecipe;
+import vazkii.botania.api.recipe.PureDaisyRecipe;
 
 import java.util.Collections;
 
 public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<PureDaisyRecipe> {
 
-	public PureDaisyREIDisplay(PureDaisyRecipe recipe) {
+	public PureDaisyREIDisplay(RecipeHolder<? extends PureDaisyRecipe> recipe) {
 		super(recipe);
 		ImmutableList.Builder<EntryStack<?>> inputs = ImmutableList.builder();
-		for (BlockState state : recipe.getInput().getDisplayed()) {
+		for (BlockState state : recipe.value().getInput().getDisplayed()) {
 			if (!state.getFluidState().isEmpty()) {
 				inputs.add(EntryStacks.of(state.getFluidState().getType()));
 			} else {
@@ -37,7 +37,16 @@ public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<PureDaisyRecipe> {
 			}
 		}
 		this.inputs = Collections.singletonList(EntryIngredient.of(inputs.build()));
-		this.outputs = EntryIngredients.of(recipe.getOutputState().getBlock());
+
+		ImmutableList.Builder<EntryStack<?>> outputs = ImmutableList.builder();
+		for (BlockState state : recipe.value().getOutput().getDisplayed()) {
+			if (!state.getFluidState().isEmpty()) {
+				outputs.add(EntryStacks.of(state.getFluidState().getType()));
+			} else {
+				outputs.add(EntryStacks.of(state.getBlock()));
+			}
+		}
+		this.outputs = EntryIngredient.of(outputs.build());
 	}
 
 	/*todo implement time-based hints?

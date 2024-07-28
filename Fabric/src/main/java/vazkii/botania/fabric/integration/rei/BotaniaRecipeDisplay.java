@@ -16,6 +16,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,15 +25,15 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implements Display {
-	protected final T recipe;
+	protected final RecipeHolder<? extends T> recipe;
 	protected List<EntryIngredient> inputs;
 	protected EntryIngredient outputs;
 
-	public BotaniaRecipeDisplay(T recipe) {
+	public BotaniaRecipeDisplay(RecipeHolder<? extends T> recipe) {
 		this.recipe = recipe;
-		this.inputs = EntryIngredients.ofIngredients(recipe.getIngredients());
+		this.inputs = EntryIngredients.ofIngredients(recipe.value().getIngredients());
 		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.outputs = EntryIngredients.of(recipe.getResultItem(RegistryAccess.EMPTY));
+		this.outputs = EntryIngredients.of(recipe.value().getResultItem(RegistryAccess.EMPTY));
 	}
 
 	@Override
@@ -49,6 +50,6 @@ public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implemen
 
 	@Override
 	public @NotNull Optional<ResourceLocation> getDisplayLocation() {
-		return Optional.ofNullable(this.recipe).map(T::getId);
+		return Optional.ofNullable(this.recipe).map(RecipeHolder::id);
 	}
 }

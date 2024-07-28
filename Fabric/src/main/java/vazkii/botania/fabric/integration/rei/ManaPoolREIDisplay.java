@@ -10,19 +10,21 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.crafting.ManaInfusionRecipe;
 
 public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<ManaInfusionRecipe> {
 	@Nullable
 	private final StateIngredient catalyst;
 
-	public ManaPoolREIDisplay(ManaInfusionRecipe recipe) {
+	public ManaPoolREIDisplay(RecipeHolder<? extends ManaInfusionRecipe> recipe) {
 		super(recipe);
-		this.catalyst = recipe.getRecipeCatalyst();
+		this.catalyst = recipe.value().getRecipeCatalyst();
 	}
 
 	@Nullable
@@ -32,7 +34,7 @@ public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<ManaInfusionRecipe>
 
 	@Override
 	public int getManaCost() {
-		return recipe.getManaToConsume();
+		return recipe.value().getManaToConsume();
 	}
 
 	@Override
