@@ -1,8 +1,8 @@
 package vazkii.botania.fabric.data;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
@@ -11,8 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
-
-import java.util.function.Consumer;
+import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import static vazkii.botania.data.recipes.CraftingRecipeProvider.*;
 
@@ -22,7 +21,7 @@ public class FabricRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	public void buildRecipes(RecipeOutput consumer) {
 		// Quartz tag
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.azulejo0)
 				.requires(Items.BLUE_DYE)
