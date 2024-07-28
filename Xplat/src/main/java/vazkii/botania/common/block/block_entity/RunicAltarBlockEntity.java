@@ -24,6 +24,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -214,6 +215,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			this.manaToGet = currentRecipe.getMana();
 		} else {
 			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level)
+					.map(RecipeHolder::value)
 					.map(RunicAltarRecipe::getMana)
 					.orElse(0);
 		}
@@ -264,9 +266,9 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
-			Optional<RunicAltarRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level);
+			Optional<RecipeHolder<RunicAltarRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level);
 			if (maybeRecipe.isPresent()) {
-				recipe = maybeRecipe.get();
+				recipe = maybeRecipe.get().value();
 			}
 		}
 
@@ -425,7 +427,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					}
 
 					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
-							recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
+							recipe.value().assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
 
 					if (progress == 1F) {
 						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);

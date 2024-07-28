@@ -26,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -101,12 +102,12 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			return true;
 		}
 
-		Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getItemHandler(), level);
+		Optional<RecipeHolder<PetalApothecaryRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getItemHandler(), level);
 		if (maybeRecipe.isPresent()) {
 			var recipe = maybeRecipe.get();
-			if (recipe.getReagent().test(item.getItem())) {
-				saveLastRecipe(recipe.getReagent());
-				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
+			if (recipe.value().getReagent().test(item.getItem())) {
+				saveLastRecipe(recipe.value().getReagent());
+				ItemStack output = recipe.value().assemble(getItemHandler(), getLevel().registryAccess());
 
 				for (int i = 0; i < inventorySize(); i++) {
 					getItemHandler().setItem(i, ItemStack.EMPTY);
@@ -336,16 +337,16 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			if (amt > 0) {
 				float anglePer = 360F / amt;
 
-				Optional<PetalApothecaryRecipe> maybeRecipe = altar.level.getRecipeManager()
+				Optional<RecipeHolder<PetalApothecaryRecipe>> maybeRecipe = altar.level.getRecipeManager()
 						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, altar.getItemHandler(), altar.level);
 				maybeRecipe.ifPresent(recipe -> {
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-					ItemStack stack = recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess());
+					ItemStack stack = recipe.value().assemble(altar.getItemHandler(), altar.getLevel().registryAccess());
 					gui.renderFakeItem(stack, xc + radius + 32, yc - 8);
 
-					var reagents = recipe.getReagent().getItems();
+					var reagents = recipe.value().getReagent().getItems();
 					ItemStack reagent;
 					if (reagents.length == 0) {
 						reagent = new ItemStack(Items.BARRIER);

@@ -35,7 +35,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -533,9 +533,9 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
 		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace)
-				.callCanBurn(furnace.getLevel().registryAccess(), recipe, items, maxStackSize);
+				.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);
 	}
 
 	@Override

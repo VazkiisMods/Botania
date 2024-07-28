@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +28,8 @@ import java.util.UUID;
 
 public class SkyblockSavedData extends SavedData {
 	private static final String NAME = "gog_skyblock_islands";
+	public static final Factory<SkyblockSavedData> FACTORY =
+			new Factory<>(() -> new SkyblockSavedData(new CompoundTag()), SkyblockSavedData::new, DataFixTypes.LEVEL);
 
 	/** The offset is chosen to put islands under default settings in the center of a chunk region. */
 	private static final int OFFSET = 1;
@@ -49,8 +52,7 @@ public class SkyblockSavedData extends SavedData {
 	}
 
 	public static SkyblockSavedData get(ServerLevel world) {
-		return world.getDataStorage().computeIfAbsent(SkyblockSavedData::new,
-				() -> new SkyblockSavedData(new CompoundTag()), NAME);
+		return world.getDataStorage().computeIfAbsent(FACTORY, NAME);
 	}
 
 	public IslandPos getSpawn() {

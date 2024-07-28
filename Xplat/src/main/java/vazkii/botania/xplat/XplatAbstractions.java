@@ -32,7 +32,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -203,7 +203,7 @@ public interface XplatAbstractions {
 	TagKey<Block> getOreTag();
 	boolean isInGlassTag(BlockState state);
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
-	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
+	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize);
 	// Forge patches BucketItem to use a supplier for the fluid, and exposes it, while Fabric needs an accessor
 	Fluid getBucketFluid(BucketItem item);
 	int getSmeltingBurnTime(ItemStack stack);
