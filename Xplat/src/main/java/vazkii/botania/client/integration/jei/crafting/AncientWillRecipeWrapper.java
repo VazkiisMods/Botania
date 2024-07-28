@@ -15,11 +15,10 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
@@ -30,21 +29,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
-	private final ResourceLocation name;
-
-	public AncientWillRecipeWrapper(AncientWillRecipe recipe) {
-		this.name = recipe.getId();
-	}
-
-	@Nullable
+public class AncientWillRecipeWrapper implements ICraftingCategoryExtension<AncientWillRecipe> {
 	@Override
-	public ResourceLocation getRegistryName() {
-		return name;
-	}
-
-	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(RecipeHolder<AncientWillRecipe> recipe, @NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
 		var foci = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
 				.filter(f -> f.getTypedValue().getIngredient().getItem() instanceof AncientWillItem)
 				.map(f -> f.getTypedValue().getIngredient())

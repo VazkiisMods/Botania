@@ -29,10 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.Block;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -52,6 +49,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
+import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
@@ -66,8 +64,6 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
@@ -127,9 +123,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
-		registration.getCraftingCategory().addCategoryExtension(AncientWillRecipe.class, AncientWillRecipeWrapper::new);
-		registration.getCraftingCategory().addCategoryExtension(TerraShattererTippingRecipe.class, TerraShattererTippingRecipeWrapper::new);
-		registration.getCraftingCategory().addCategoryExtension(CompositeLensRecipe.class, CompositeLensRecipeWrapper::new);
+		registration.getCraftingCategory().addExtension(AncientWillRecipe.class, new AncientWillRecipeWrapper());
+		registration.getCraftingCategory().addExtension(TerraShattererTippingRecipe.class, new TerraShattererTippingRecipeWrapper());
+		registration.getCraftingCategory().addExtension(CompositeLensRecipe.class, new CompositeLensRecipeWrapper());
 	}
 
 	@Override
@@ -142,32 +138,32 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(ManaPoolRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)));
 		registry.addRecipes(TerrestrialAgglomerationRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
 
-		Comparator<OrechidRecipe> comp = BY_WEIGHT.thenComparing(BY_ID);
+		Comparator<RecipeHolder<? extends OrechidRecipe>> comp = BY_WEIGHT.thenComparing(BY_ID);
 		registry.addRecipes(OrechidRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.ORECHID_TYPE, comp));
 		registry.addRecipes(OrechidIgnemRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE, comp));
 		registry.addRecipes(MarimorphosisRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, comp));
 	}
 
-	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
-	private static final Comparator<Recipe<?>> BY_GROUP = Comparator.comparing(Recipe::getGroup);
-	private static final Comparator<OrechidRecipe> BY_WEIGHT = Comparator.<OrechidRecipe, Integer>comparing(OrechidRecipe::getWeight).reversed();
-	private static final Comparator<ManaInfusionRecipe> BY_CATALYST = (l, r) -> {
-		StateIngredient left = l.getRecipeCatalyst();
-		StateIngredient right = r.getRecipeCatalyst();
-		if (left == null) {
-			return right == null ? 0 : -1;
-		} else if (right == null) {
+	private static final Comparator<RecipeHolder<? extends Recipe<?>>> BY_ID = Comparator.comparing(RecipeHolder::id);
+	private static final Comparator<RecipeHolder<? extends Recipe<?>>> BY_GROUP = Comparator.comparing(holder -> holder.value().getGroup());
+	private static final Comparator<RecipeHolder<? extends OrechidRecipe>> BY_WEIGHT =
+			Comparator.<RecipeHolder<? extends OrechidRecipe>, Integer>comparing(holder -> holder.value().getWeight()).reversed();
+	private static final Comparator<RecipeHolder<ManaInfusionRecipe>> BY_CATALYST = (l, r) -> {
+		StateIngredient left = l.value().getRecipeCatalyst();
+		StateIngredient right = r.value().getRecipeCatalyst();
+		if (left == StateIngredients.NONE) {
+			return right == StateIngredients.NONE ? 0 : -1;
+		} else if (right == StateIngredients.NONE) {
 			return 1;
 		} else {
-			return left.toString().compareTo(right.toString());
+			return left.streamBlockStates().map(Object::toString).findFirst().orElse("")
+					.compareTo(right.streamBlockStates().map(Object::toString).findFirst().orElse(""));
 		}
 	};
 
-	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {
-		Collection<T> recipes = BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type).values();
-		List<T> list = new ArrayList<>(recipes);
-		list.sort(comparator);
-		return list;
+	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super RecipeHolder<T>> comparator) {
+		return Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(type)
+				.stream().sorted(comparator).map(RecipeHolder::value).toList();
 	}
 
 	@Override
@@ -223,13 +219,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 		recipeManager.byKey(prefix("petal_apothecary/daybloom_motif"))
 				.ifPresent(r -> {
-					if (r instanceof PetalApothecaryRecipe pr) {
+					if (r.value() instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
 					}
 				});
 		recipeManager.byKey(prefix("petal_apothecary/nightshade_motif"))
 				.ifPresent(r -> {
-					if (r instanceof PetalApothecaryRecipe pr) {
+					if (r.value() instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
 					}
 				});

@@ -19,6 +19,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,10 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
+public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension<CompositeLensRecipe> {
 	private final List<Item> allLenses;
 
-	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
+	public CompositeLensRecipeWrapper() {
 		allLenses = StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
 				.map(ItemStack::new)
 				.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
@@ -43,7 +44,7 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(RecipeHolder<CompositeLensRecipe> recipe, @NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
 		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
 				.filter(f -> allLenses.contains(f.getTypedValue().getIngredient().getItem()))
 				.map(f -> f.getTypedValue().getIngredient().getItem())

@@ -25,9 +25,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.FluidState;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -88,37 +85,27 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 		RenderSystem.disableBlend();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PureDaisyRecipe recipe, @NotNull IFocusGroup focusGroup) {
-		StateIngredient input = recipe.getInput();
+		buildSlot(recipe.getInput(), builder, RecipeIngredientRole.INPUT, 9, 12);
 
-		IRecipeSlotBuilder inputSlotBuilder = builder.addSlot(RecipeIngredientRole.INPUT, 9, 12)
+		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12)
+				.addItemStack(new ItemStack(BotaniaFlowerBlocks.pureDaisy));
+
+		buildSlot(recipe.getOutput(), builder, RecipeIngredientRole.OUTPUT, 68, 12);
+	}
+
+	@SuppressWarnings("unchecked")
+	private void buildSlot(StateIngredient ingredient, @NotNull IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y) {
+		IRecipeSlotBuilder inputSlotBuilder = builder.addSlot(role, x, y)
 				.setFluidRenderer(1000, false, 16, 16);
-		for (var state : input.getDisplayed()) {
+		for (var state : ingredient.getDisplayed()) {
 			if (!state.getFluidState().isEmpty()) {
 				inputSlotBuilder.addIngredient(this.fluidHelper.getFluidIngredientType(),
 						this.fluidHelper.create(state.getFluidState().getType(), 1000));
 			}
 		}
-		inputSlotBuilder.addItemStacks(input.getDisplayedStacks())
-				.addTooltipCallback((view, tooltip) -> tooltip.addAll(input.descriptionTooltip()));
-
-		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12)
-				.addItemStack(new ItemStack(BotaniaFlowerBlocks.pureDaisy));
-
-		Block outBlock = recipe.getOutputState().getBlock();
-		FluidState outFluid = outBlock.defaultBlockState().getFluidState();
-		if (!outFluid.isEmpty()) {
-			builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
-					.setFluidRenderer(1000, false, 16, 16)
-					.addIngredient(this.fluidHelper.getFluidIngredientType(),
-							this.fluidHelper.create(outFluid.getType(), 1000));
-		} else {
-			if (outBlock.asItem() != Items.AIR) {
-				builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
-						.addItemStack(new ItemStack(outBlock));
-			}
-		}
+		inputSlotBuilder.addItemStacks(ingredient.getDisplayedStacks())
+				.addTooltipCallback((view, tooltip) -> tooltip.addAll(ingredient.descriptionTooltip()));
 	}
 }
