@@ -43,7 +43,7 @@ public class OrechidIgnemRecipe extends OrechidRecipe {
 
 	@NotNull
 	@Override
-	public RecipeType<? extends OrechidIgnemRecipe> getType() {
+	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
 		return BotaniaRecipeTypes.ORECHID_IGNEM_TYPE;
 	}
 

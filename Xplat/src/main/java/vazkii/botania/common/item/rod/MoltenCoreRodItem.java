@@ -84,7 +84,7 @@ public class MoltenCoreRodItem extends Item {
 
 			dummyInv.setItem(0, new ItemStack(state.getBlock()));
 			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, p.level())
-					.map(r -> r.assemble(dummyInv, world.registryAccess()))
+					.map(r -> r.value().assemble(dummyInv, world.registryAccess()))
 					.filter(r -> !r.isEmpty() && r.getItem() instanceof BlockItem)
 					.ifPresent(result -> {
 						boolean decremented = false;

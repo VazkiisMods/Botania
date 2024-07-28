@@ -18,6 +18,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -89,9 +90,9 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	private void findRecipe() {
-		Optional<BotanicalBreweryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.BREW_TYPE, getItemHandler(), level);
+		Optional<RecipeHolder<BotanicalBreweryRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.BREW_TYPE, getItemHandler(), level);
 		maybeRecipe.ifPresent(recipeBrew -> {
-			this.recipe = recipeBrew;
+			this.recipe = recipeBrew.value();
 			level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
 		});
 	}

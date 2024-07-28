@@ -12,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -20,6 +21,7 @@ import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.mixin.RecipeManagerAccessor;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -48,13 +50,13 @@ public class BotaniaRecipeTypes {
 	public static final RecipeType<vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe> TERRA_PLATE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<TerrestrialAgglomerationRecipe> TERRA_PLATE_SERIALIZER = new TerrestrialAgglomerationRecipe.Serializer();
 
-	public static final RecipeType<OrechidRecipe> ORECHID_TYPE = new ModRecipeType<>();
+	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<OrechidRecipe> ORECHID_SERIALIZER = new OrechidRecipe.Serializer();
 
-	public static final RecipeType<OrechidIgnemRecipe> ORECHID_IGNEM_TYPE = new ModRecipeType<>();
+	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> ORECHID_IGNEM_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<OrechidIgnemRecipe> ORECHID_IGNEM_SERIALIZER = new OrechidIgnemRecipe.Serializer();
 
-	public static final RecipeType<MarimorphosisRecipe> MARIMORPHOSIS_TYPE = new ModRecipeType<>();
+	public static final RecipeType<vazkii.botania.api.recipe.OrechidRecipe> MARIMORPHOSIS_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<MarimorphosisRecipe> MARIMORPHOSIS_SERIALIZER = new MarimorphosisRecipe.Serializer();
 
 	public static void submitRecipeTypes(BiConsumer<RecipeType<?>, ResourceLocation> r) {
@@ -94,5 +96,13 @@ public class BotaniaRecipeTypes {
 
 	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
 		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <C extends Container, T extends Recipe<C>> Optional<RecipeHolder<T>> getRecipe(Level world, ResourceLocation id, RecipeType<T> expectedType) {
+		var holder = world.getRecipeManager().byKey(id);
+		return holder.isPresent() && holder.get().value().getType() == expectedType
+				? holder.map(h -> (RecipeHolder<T>) h)
+				: Optional.empty();
 	}
 }

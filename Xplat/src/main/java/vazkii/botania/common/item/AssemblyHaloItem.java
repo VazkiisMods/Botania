@@ -44,10 +44,7 @@ import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
@@ -60,13 +57,14 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.crafting.AssemblyHaloContainer;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
+
+import java.util.Optional;
 
 public class AssemblyHaloItem extends Item {
 
@@ -90,7 +88,7 @@ public class AssemblyHaloItem extends Item {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide) {
 			int segment = getSegmentLookedAt(stack, player);
-			Recipe<?> recipe = getSavedRecipe(world, stack, segment);
+			RecipeHolder<? extends Recipe<CraftingContainer>> recipe = getSavedRecipe(world, stack, segment);
 
 			if (segment == 0) {
 				// Pos is never used by workbench, so use origin.
@@ -102,9 +100,9 @@ public class AssemblyHaloItem extends Item {
 						stack.getHoverName()));
 			} else {
 				if (recipe == null) {
-					Recipe<?> lastRecipe = getLastRecipe(world, stack);
+					RecipeHolder<? extends Recipe<CraftingContainer>> lastRecipe = getLastRecipe(world, stack);
 					if (lastRecipe != null) {
-						saveRecipe(stack, lastRecipe.getId(), segment);
+						saveRecipe(stack, lastRecipe.id(), segment);
 					}
 				} else {
 					tryCraft(player, stack, segment, true);
@@ -155,7 +153,7 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	void tryCraft(Player player, ItemStack halo, int slot, boolean particles) {
-		Recipe<CraftingContainer> recipe = getSavedRecipe(player.level(), halo, slot);
+		RecipeHolder<? extends Recipe<CraftingContainer>> recipe = getSavedRecipe(player.level(), halo, slot);
 		if (recipe == null) {
 			return;
 		}
@@ -170,14 +168,14 @@ public class AssemblyHaloItem extends Item {
 		}
 
 		// Double check that the recipe matches
-		if (!recipe.matches(craftInv, player.level())) {
+		if (!recipe.value().matches(craftInv, player.level())) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
 			placer.clearGrid();
 			return;
 		}
 
-		ItemStack result = recipe.assemble(craftInv, player.level().registryAccess());
+		ItemStack result = recipe.value().assemble(craftInv, player.level().registryAccess());
 
 		// Check if we have room for the result
 		if (!hasRoomFor(player.getInventory(), result)) {
@@ -189,7 +187,7 @@ public class AssemblyHaloItem extends Item {
 		player.getInventory().add(result);
 
 		// Give or toss all byproducts
-		NonNullList<ItemStack> remainingItems = recipe.getRemainingItems(craftInv);
+		NonNullList<ItemStack> remainingItems = recipe.value().getRemainingItems(craftInv);
 		remainingItems.forEach(s -> player.getInventory().placeItemBackInInventory(s));
 
 		// The items we consumed will stay in the dummy workbench and get deleted
@@ -207,7 +205,7 @@ public class AssemblyHaloItem extends Item {
 			return false;
 		}
 
-		Recipe<?> recipe = getSavedRecipe(living.level(), stack, segment);
+		RecipeHolder<? extends Recipe<CraftingContainer>> recipe = getSavedRecipe(living.level(), stack, segment);
 		if (recipe != null && living.isShiftKeyDown()) {
 			saveRecipe(stack, null, segment);
 			return true;
@@ -256,14 +254,14 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	@Nullable
-	private static Recipe<CraftingContainer> getSavedRecipe(Level world, ItemStack halo, int position) {
+	private static RecipeHolder<? extends Recipe<CraftingContainer>> getSavedRecipe(Level world, ItemStack halo, int position) {
 		String savedId = ItemNBTHelper.getString(halo, TAG_STORED_RECIPE_PREFIX + position, "");
 		ResourceLocation id = savedId.isEmpty() ? null : ResourceLocation.tryParse(savedId);
 
 		if (position <= 0 || position >= SEGMENTS || id == null) {
 			return null;
 		} else {
-			return BotaniaRecipeTypes.getRecipes(world, RecipeType.CRAFTING).get(id);
+			return getRecipeHolder(world, id);
 		}
 	}
 
@@ -281,9 +279,9 @@ public class AssemblyHaloItem extends Item {
 		} else if (position >= SEGMENTS) {
 			return ItemStack.EMPTY;
 		} else {
-			Recipe<?> recipe = getSavedRecipe(world, stack, position);
-			if (recipe != null) {
-				return recipe.getResultItem(world.registryAccess());
+			RecipeHolder<? extends Recipe<CraftingContainer>> recipeHolder = getSavedRecipe(world, stack, position);
+			if (recipeHolder != null) {
+				return recipeHolder.value().getResultItem(world.registryAccess());
 			} else {
 				return ItemStack.EMPTY;
 			}
@@ -302,7 +300,7 @@ public class AssemblyHaloItem extends Item {
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack stack = player.getInventory().getItem(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof AssemblyHaloItem) {
-					rememberLastRecipe(recipe.getId(), stack);
+					rememberLastRecipe(recipe.id(), stack);
 				}
 			}
 		});
@@ -313,11 +311,18 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	@Nullable
-	private static Recipe<CraftingContainer> getLastRecipe(Level world, ItemStack halo) {
+	private static RecipeHolder<? extends Recipe<CraftingContainer>> getLastRecipe(Level world, ItemStack halo) {
 		String savedId = ItemNBTHelper.getString(halo, TAG_LAST_CRAFTING, "");
 		ResourceLocation id = savedId.isEmpty() ? null : ResourceLocation.tryParse(savedId);
 
-		return BotaniaRecipeTypes.getRecipes(world, RecipeType.CRAFTING).get(id);
+		return getRecipeHolder(world, id);
+	}
+
+	private static @Nullable RecipeHolder<? extends Recipe<CraftingContainer>> getRecipeHolder(Level world, ResourceLocation id) {
+		Optional<RecipeHolder<?>> recipeHolder = world.getRecipeManager().byKey(id);
+		return recipeHolder.isPresent() && recipeHolder.get().value().getType() == RecipeType.CRAFTING
+				? (RecipeHolder<? extends Recipe<CraftingContainer>>) recipeHolder.get()
+				: null;
 	}
 
 	private static boolean wasEquipped(ItemStack stack) {
@@ -455,7 +460,7 @@ public class AssemblyHaloItem extends Item {
 
 				gui.drawString(mc.font, name, x, y, 0xFFFFFF);
 			} else {
-				Recipe<CraftingContainer> recipe = getSavedRecipe(player.level(), stack, slot);
+				RecipeHolder<? extends Recipe<CraftingContainer>> recipe = getSavedRecipe(player.level(), stack, slot);
 				Component label;
 				boolean setRecipe = false;
 
@@ -463,11 +468,11 @@ public class AssemblyHaloItem extends Item {
 					label = Component.translatable("botaniamisc.unsetRecipe");
 					recipe = getLastRecipe(player.level(), stack);
 				} else {
-					label = recipe.getResultItem(player.level().registryAccess()).getHoverName();
+					label = recipe.value().getResultItem(player.level().registryAccess()).getHoverName();
 					setRecipe = true;
 				}
 
-				renderRecipe(gui, label, recipe, player, setRecipe);
+				renderRecipe(gui, label, recipe.value(), player, setRecipe);
 			}
 		}
 
@@ -520,7 +525,7 @@ public class AssemblyHaloItem extends Item {
 		}
 
 		// [VanillaCopy] Based on super.recipeClicked
-		public boolean place(ServerPlayer player, @Nullable Recipe<CraftingContainer> recipe) {
+		public boolean place(ServerPlayer player, @Nullable RecipeHolder<? extends Recipe<CraftingContainer>> recipe) {
 			if (recipe != null) {
 				this.inventory = player.getInventory();
 				this.stackedContents.clear();
@@ -528,7 +533,7 @@ public class AssemblyHaloItem extends Item {
 				this.menu.fillCraftSlotsStackedContents(this.stackedContents);
 
 				boolean ret;
-				if (this.stackedContents.canCraft(recipe, null)) {
+				if (this.stackedContents.canCraft(recipe.value(), null)) {
 					this.handleRecipeClicked(recipe, false);
 					ret = true;
 				} else {

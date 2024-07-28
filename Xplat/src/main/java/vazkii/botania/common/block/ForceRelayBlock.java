@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -123,6 +124,8 @@ public class ForceRelayBlock extends BotaniaBlock {
 	public static class WorldData extends SavedData {
 
 		private static final String ID = "PistonRelayPairs";
+		public static final Factory<WorldData> FACTORY = new Factory<>(() -> new WorldData(new CompoundTag()),
+				WorldData::new, DataFixTypes.LEVEL);
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
 
 		public WorldData(@NotNull CompoundTag cmp) {
@@ -152,13 +155,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 		}
 
 		public static WorldData get(Level world) {
-			WorldData data = ((ServerLevel) world).getDataStorage().get(WorldData::new, ID);
-			if (data == null) {
-				data = new WorldData(new CompoundTag());
-				data.setDirty();
-				((ServerLevel) world).getDataStorage().set(ID, data);
-			}
-			return data;
+			return ((ServerLevel) world).getDataStorage().computeIfAbsent(FACTORY, ID);
 		}
 	}
 }
