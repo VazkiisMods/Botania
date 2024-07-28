@@ -6,12 +6,12 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -19,16 +19,22 @@ public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = prefix("textures/gui/pure_daisy_overlay.png");
 	private static final EmiStack PURE_DAISY = EmiStack.of(BotaniaFlowerBlocks.pureDaisy);
 
-	public PureDaisyEmiRecipe(PureDaisyRecipe recipe) {
+	public PureDaisyEmiRecipe(RecipeHolder<? extends PureDaisyRecipe> recipe) {
 		super(BotaniaEmiPlugin.PURE_DAISY, recipe);
-		this.input = List.of(EmiIngredient.of(recipe.getInput().getDisplayed().stream().map(s -> {
+		this.input = List.of(EmiIngredient.of(recipe.value().getInput().getDisplayed().stream().map(s -> {
 			if (s.getFluidState().isEmpty()) {
 				return EmiStack.of(s.getBlock());
 			} else {
 				return EmiStack.of(s.getFluidState().getType());
 			}
-		}).collect(Collectors.toList())));
-		this.output = List.of(EmiStack.of(recipe.getOutputState().getBlock()));
+		}).toList()));
+		this.output = recipe.value().getOutput().getDisplayed().stream().map(s -> {
+			if (s.getFluidState().isEmpty()) {
+				return EmiStack.of(s.getBlock());
+			} else {
+				return EmiStack.of(s.getFluidState().getType());
+			}
+		}).toList();
 	}
 
 	@Override

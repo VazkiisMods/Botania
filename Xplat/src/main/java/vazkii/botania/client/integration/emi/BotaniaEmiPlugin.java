@@ -20,19 +20,10 @@ import net.minecraft.world.level.block.Block;
 
 import org.apache.commons.lang3.StringUtils;
 
-import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
-import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.api.recipe.ManaInfusionRecipe;
-import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.api.recipe.PureDaisyRecipe;
-import vazkii.botania.api.recipe.RunicAltarRecipe;
-import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.MarimorphosisRecipe;
+import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
@@ -177,45 +168,45 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(BotaniaItems.terraPick),
 				EmiStack.of(BotaniaItems.elementiumPick)), EmiStack.of(tipped), null));
 
-		for (PetalApothecaryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
 			registry.addRecipe(new PetalApothecaryEmiRecipe(recipe));
 		}
-		for (ManaInfusionRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
 			registry.addRecipe(new ManaInfusionEmiRecipe(recipe));
 		}
-		for (RunicAltarRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNE_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNE_TYPE)) {
 			registry.addRecipe(new RunicAltarEmiRecipe(recipe));
 		}
-		for (TerrestrialAgglomerationRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {
 			registry.addRecipe(new TerrestrialAgglomerationEmiRecipe(recipe));
 		}
-		for (ElvenTradeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
 			registry.addRecipe(new ElvenTradeEmiRecipe(recipe));
 		}
 		List<ItemStack> containers = List.of(BotaniaItems.vial, BotaniaItems.flask, BotaniaItems.incenseStick, BotaniaItems.bloodPendant)
 				.stream().map(ItemStack::new).toList();
-		for (BotanicalBreweryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.BREW_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.BREW_TYPE)) {
 			for (ItemStack container : containers) {
-				if (!recipe.getOutput(container.copy()).isEmpty()) {
+				if (!recipe.value().getOutput(container.copy()).isEmpty()) {
 					registry.addRecipe(new BotanicalBreweryEmiRecipe(recipe, container));
 				}
 			}
 		}
-		for (PureDaisyRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
 			registry.addRecipe(new PureDaisyEmiRecipe(recipe));
 		}
 
-		EmiIngredient flower = EmiStack.of(BotaniaFlowerBlocks.orechid);
-		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, flower));
+		EmiIngredient orechid = EmiStack.of(BotaniaFlowerBlocks.orechid);
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_TYPE)) {
+			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, orechid));
 		}
-		flower = EmiStack.of(BotaniaFlowerBlocks.orechidIgnem);
-		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, flower));
+		EmiIngredient orechidIgnem = EmiStack.of(BotaniaFlowerBlocks.orechidIgnem);
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE)) {
+			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, orechidIgnem));
 		}
-		flower = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
-		for (MarimorphosisRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
-			registry.addRecipe(new MarimorphosisEmiRecipe(recipe, flower));
+		EmiIngredient marimorphosis = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
+			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, marimorphosis));
 		}
 	}
 
