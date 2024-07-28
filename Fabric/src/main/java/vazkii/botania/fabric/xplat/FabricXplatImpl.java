@@ -9,8 +9,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -633,11 +633,28 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public BlockSetType registerBlockSetType(String name, boolean canOpenByHand, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
-		return BlockSetTypeRegistry.register(prefix(name), canOpenByHand, soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn);
+		return BlockSetTypeBuilder.copyOf(BlockSetType.OAK)
+				.openableByHand(canOpenByHand)
+				.openableByWindCharge(canOpenByHand)
+				.soundGroup(soundType)
+				.doorCloseSound(doorClose)
+				.doorOpenSound(doorOpen)
+				.trapdoorCloseSound(trapdoorClose)
+				.trapdoorOpenSound(trapdoorOpen)
+				.pressurePlateClickOffSound(pressurePlateClickOff)
+				.pressurePlateClickOnSound(pressurePlateClickOn)
+				.buttonClickOffSound(buttonClickOff)
+				.buttonClickOnSound(buttonClickOn)
+				.register(prefix(name));
 	}
 
 	@Override
 	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
-		return WoodTypeRegistry.register(prefix(name), setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen);
+		return WoodTypeBuilder.copyOf(WoodType.OAK)
+				.soundGroup(soundType)
+				.hangingSignSoundGroup(hangingSignSoundType)
+				.fenceGateCloseSound(fenceGateClose)
+				.fenceGateOpenSound(fenceGateOpen)
+				.register(prefix(name), setType);
 	}
 }
