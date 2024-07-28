@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import com.google.common.base.Preconditions;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -31,6 +32,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class SpectralRailBlock extends BaseRailBlock {
+	public static final MapCodec<SpectralRailBlock> CODEC = simpleCodec(SpectralRailBlock::new);
 
 	public static final String TAG_FLOAT_TICKS = "botania:float_ticks";
 
@@ -67,7 +69,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 			}
 			cart.setDeltaMovement(cart.getDeltaMovement().x() * 1.4, 0.2, cart.getDeltaMovement().z() * 1.4);
 			persistentData.floatTicks--;
-			cart.level().levelEvent(LevelEvent.PARTICLES_SHOOT, entPos, 0);
+			cart.level().levelEvent(LevelEvent.PARTICLES_SHOOT_SMOKE, entPos, 0);
 		}
 
 		cart.level().getProfiler().pop();
@@ -97,6 +99,11 @@ public class SpectralRailBlock extends BaseRailBlock {
 		if (persistentData.floatTicks <= 0) {
 			c.noPhysics = false;
 		}
+	}
+
+	@Override
+	protected MapCodec<? extends BaseRailBlock> codec() {
+		return CODEC;
 	}
 
 	@NotNull

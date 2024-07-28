@@ -97,7 +97,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 
 	@NotNull
 	@Override
-	public RecipeType<? extends OrechidRecipe> getType() {
+	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
 		return BotaniaRecipeTypes.ORECHID_TYPE;
 	}
 

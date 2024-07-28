@@ -18,7 +18,17 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
 
 public class GaiaHeadBlock extends SkullBlock {
-	public static final SkullBlock.Type GAIA_TYPE = new SkullBlock.Type() {};
+	public static final String GAIA_SKULL_TYPE = "gaia";
+	public static final SkullBlock.Type GAIA_TYPE = new SkullBlock.Type() {
+		@Override
+		public String getSerializedName() {
+			return GAIA_SKULL_TYPE;
+		}
+	};
+
+	static {
+		Type.TYPES.put(GAIA_SKULL_TYPE, GAIA_TYPE);
+	}
 
 	public GaiaHeadBlock(Properties builder) {
 		super(GAIA_TYPE, builder);

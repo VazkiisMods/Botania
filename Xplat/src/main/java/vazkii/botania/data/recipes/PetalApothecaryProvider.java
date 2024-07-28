@@ -139,7 +139,7 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		ItemNBTHelper.setString(vazkiiHead, "SkullOwner", "Vazkii");
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		output.accept(idFor(prefix("vazkii_head")), new NbtOutputRecipe<>(
+		consumer.accept(idFor(prefix("vazkii_head")), new NbtOutputRecipe<>(
 				new PetalApothecaryRecipe(vazkiiHead, DEFAULT_REAGENT, inputs),
 				vazkiiHead.getTag()
 		), null);

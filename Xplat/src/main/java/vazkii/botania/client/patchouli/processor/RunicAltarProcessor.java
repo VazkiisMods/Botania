@@ -9,6 +9,7 @@
 package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
@@ -17,11 +18,11 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
-public class RunicAltarProcessor extends ReagentRecipeProcessor {
+public class RunicAltarProcessor extends ReagentRecipeProcessor<RunicAltarRecipe> {
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.RUNE_TYPE, id);
+		this.recipe = new RecipeHolder<>(id, PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.RUNE_TYPE, id));
 	}
 
 	@Override
@@ -30,7 +31,7 @@ public class RunicAltarProcessor extends ReagentRecipeProcessor {
 			return super.process(level, key);
 		}
 		if (key.equals("mana")) {
-			return IVariable.wrap(((RunicAltarRecipe) recipe).getMana());
+			return IVariable.wrap(recipe.value().getMana());
 		}
 		return super.process(level, key);
 	}
