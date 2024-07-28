@@ -9,19 +9,32 @@
 package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RunicAltarRecipe;
+import vazkii.botania.api.recipe.RunicAltarRecipe;
+
+import java.util.List;
 
 public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RunicAltarRecipe> {
-	public RunicAltarREIDisplay(RunicAltarRecipe recipe) {
+	protected final List<EntryIngredient> catalysts;
+
+	public RunicAltarREIDisplay(RecipeHolder<? extends RunicAltarRecipe> recipe) {
 		super(recipe);
+		this.catalysts = EntryIngredients.ofIngredients(recipe.value().getCatalysts());
+	}
+
+	public List<EntryIngredient> getCatalysts() {
+		return catalysts;
 	}
 
 	@Override
 	public int getManaCost() {
-		return this.recipe.getMana();
+		return this.recipe.value().getMana();
 	}
 
 	@Override

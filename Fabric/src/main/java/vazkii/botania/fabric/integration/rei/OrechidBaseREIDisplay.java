@@ -12,6 +12,8 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
@@ -20,14 +22,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class OrechidBaseREIDisplay<T extends OrechidRecipe> implements Display {
+public abstract class OrechidBaseREIDisplay implements Display {
 	private final List<EntryIngredient> stone;
 	private final List<EntryIngredient> ores;
-	private final T recipe;
+	private final RecipeHolder<? extends OrechidRecipe> recipe;
 
-	public OrechidBaseREIDisplay(T recipe) {
-		stone = Collections.singletonList(EntryIngredient.of(recipe.getInput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
-		ores = Collections.singletonList(EntryIngredient.of(recipe.getOutput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
+	public OrechidBaseREIDisplay(RecipeHolder<? extends OrechidRecipe> recipe) {
+		stone = Collections.singletonList(EntryIngredient.of(recipe.value().getInput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
+		ores = Collections.singletonList(EntryIngredient.of(recipe.value().getOutput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
 		this.recipe = recipe;
 	}
 
@@ -41,7 +43,7 @@ public abstract class OrechidBaseREIDisplay<T extends OrechidRecipe> implements 
 		return ores;
 	}
 
-	public T getRecipe() {
+	public RecipeHolder<? extends OrechidRecipe> getRecipe() {
 		return recipe;
 	}
 }

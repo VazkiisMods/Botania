@@ -10,10 +10,12 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-import vazkii.botania.common.crafting.MarimorphosisRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class MarimorphosisREIDisplay extends OrechidBaseREIDisplay<MarimorphosisRecipe> {
-	public MarimorphosisREIDisplay(MarimorphosisRecipe recipe) {
+import vazkii.botania.api.recipe.OrechidRecipe;
+
+public class MarimorphosisREIDisplay extends OrechidBaseREIDisplay {
+	public MarimorphosisREIDisplay(RecipeHolder<? extends OrechidRecipe> recipe) {
 		super(recipe);
 	}
 
