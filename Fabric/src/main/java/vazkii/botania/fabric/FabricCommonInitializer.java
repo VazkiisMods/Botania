@@ -44,6 +44,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -125,7 +126,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricCommonInitializer implements ModInitializer {
 	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, prefix("fallback")).buildAndRegister();
-	private static final Registry<StateIngredientType> STATE_INGREDIENT_TYPE_REGISTRY = FabricRegistryBuilder.createSimple(BotaniaRegistries.STATE_INGREDIENT_TYPE).buildAndRegister();
+	private static final MappedRegistry<StateIngredientType<?>> STATE_INGREDIENT_TYPE_REGISTRY = FabricRegistryBuilder.createSimple(BotaniaRegistries.STATE_INGREDIENT_TYPE).buildAndRegister();
 
 	@Override
 	public void onInitialize() {
