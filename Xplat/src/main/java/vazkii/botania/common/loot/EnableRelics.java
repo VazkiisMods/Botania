@@ -8,9 +8,7 @@
  */
 package vazkii.botania.common.loot;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -21,6 +19,10 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public class EnableRelics implements LootItemCondition {
+	public static final EnableRelics INSTANCE = new EnableRelics();
+	public static final Codec<EnableRelics> CODEC = Codec.unit(INSTANCE);
+
+	private EnableRelics() {}
 
 	@Override
 	public boolean test(@NotNull LootContext context) {
@@ -31,16 +33,4 @@ public class EnableRelics implements LootItemCondition {
 	public LootItemConditionType getType() {
 		return BotaniaLootModifiers.ENABLE_RELICS;
 	}
-
-	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<EnableRelics> {
-		@Override
-		public void serialize(@NotNull JsonObject json, @NotNull EnableRelics value, @NotNull JsonSerializationContext context) {}
-
-		@NotNull
-		@Override
-		public EnableRelics deserialize(@NotNull JsonObject json, @NotNull JsonDeserializationContext context) {
-			return new EnableRelics();
-		}
-	}
-
 }

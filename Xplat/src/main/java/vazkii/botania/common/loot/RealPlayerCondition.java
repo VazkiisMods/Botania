@@ -9,9 +9,7 @@
 package vazkii.botania.common.loot;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -28,6 +26,7 @@ import java.util.Set;
 
 public class RealPlayerCondition implements LootItemCondition {
 	public static final RealPlayerCondition INSTANCE = new RealPlayerCondition();
+	public static final Codec<RealPlayerCondition> CODEC = Codec.unit(INSTANCE);
 
 	private RealPlayerCondition() {}
 
@@ -47,16 +46,5 @@ public class RealPlayerCondition implements LootItemCondition {
 	@Override
 	public LootItemConditionType getType() {
 		return BotaniaLootModifiers.KILLED_BY_REAL_PLAYER;
-	}
-
-	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<RealPlayerCondition> {
-		@Override
-		public void serialize(@NotNull JsonObject json, @NotNull RealPlayerCondition value, @NotNull JsonSerializationContext context) {}
-
-		@NotNull
-		@Override
-		public RealPlayerCondition deserialize(@NotNull JsonObject json, @NotNull JsonDeserializationContext context) {
-			return INSTANCE;
-		}
 	}
 }
