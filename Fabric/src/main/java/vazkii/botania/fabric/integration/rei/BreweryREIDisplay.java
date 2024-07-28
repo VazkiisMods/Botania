@@ -13,10 +13,11 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.BotanicalBreweryRecipe;
+import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.ArrayList;
@@ -26,13 +27,13 @@ import java.util.List;
 public class BreweryREIDisplay extends BotaniaRecipeDisplay<BotanicalBreweryRecipe> {
 	private final EntryIngredient containers;
 
-	public BreweryREIDisplay(BotanicalBreweryRecipe recipe) {
+	public BreweryREIDisplay(RecipeHolder<? extends BotanicalBreweryRecipe> recipe) {
 		super(recipe);
 		List<ItemStack> items = Arrays.asList(new ItemStack(BotaniaItems.vial), new ItemStack(BotaniaItems.flask), new ItemStack(BotaniaItems.incenseStick), new ItemStack(BotaniaItems.bloodPendant));
 		this.containers = EntryIngredients.ofItemStacks(items);
 		List<ItemStack> outputs = new ArrayList<>();
 		for (ItemStack stack : items) {
-			ItemStack brewed = recipe.getOutput(stack);
+			ItemStack brewed = recipe.value().getOutput(stack);
 			if (!brewed.isEmpty()) {
 				outputs.add(brewed);
 			}
@@ -46,7 +47,7 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<BotanicalBreweryReci
 
 	@Override
 	public int getManaCost() {
-		return recipe.getManaUsage();
+		return recipe.value().getManaUsage();
 	}
 
 	@Override

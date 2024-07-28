@@ -56,7 +56,9 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 
 	@Override
 	public @NotNull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
-		List<EntryIngredient> inputs = display.getInputEntries();
+		// TODO: optimize catalyst handling
+		List<EntryIngredient> inputs = new ArrayList<>(display.getInputEntries());
+		inputs.addAll(display.getCatalysts());
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
 
 		double angleBetweenEach = 360.0 / inputs.size();
