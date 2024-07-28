@@ -10,16 +10,18 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 
 public class TerrestrialAgglomerationREIDisplay extends BotaniaRecipeDisplay<TerrestrialAgglomerationRecipe> {
-	public TerrestrialAgglomerationREIDisplay(TerrestrialAgglomerationRecipe recipe) {
+	public TerrestrialAgglomerationREIDisplay(RecipeHolder<? extends TerrestrialAgglomerationRecipe> recipe) {
 		super(recipe);
 	}
 
 	@Override
 	public int getManaCost() {
-		return recipe.getMana();
+		return recipe.value().getMana();
 	}
 
 	@Override

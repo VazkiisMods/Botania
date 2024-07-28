@@ -34,16 +34,18 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.AncientWillContainer;
+import vazkii.botania.api.recipe.*;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.crafting.*;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.AncientWillItem;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
@@ -78,7 +80,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new TerrestrialAgglomerationREICategory(),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, BotaniaFlowerBlocks.orechid),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, BotaniaFlowerBlocks.orechidIgnem),
-				new MarimorphosisREICategory()
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaFlowerBlocks.marimorphosis)
 		));
 
 		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(BotaniaItems.craftingHalo), EntryStacks.of(BotaniaItems.autocraftingHalo));
@@ -121,15 +123,14 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		registerCompositeLensRecipeWrapper(helper);
 		registerTerraPickTippingRecipeWrapper(helper);
 
-		helper.registerFiller(PetalApothecaryRecipe.class, PetalApothecaryREIDisplay::new);
-		helper.registerFiller(BotanicalBreweryRecipe.class, BreweryREIDisplay::new);
-		Predicate<? extends ElvenTradeRecipe> pred = recipe -> !recipe.isReturnRecipe();
-		helper.registerFiller(ElvenTradeRecipe.class, pred, ElvenTradeREIDisplay::new);
-		helper.registerFiller(LexiconElvenTradeRecipe.class, ElvenTradeREIDisplay::new);
-		helper.registerFiller(ManaInfusionRecipe.class, ManaPoolREIDisplay::new);
-		helper.registerFiller(PureDaisyRecipe.class, PureDaisyREIDisplay::new);
-		helper.registerFiller(RunicAltarRecipe.class, RunicAltarREIDisplay::new);
-		helper.registerFiller(TerrestrialAgglomerationRecipe.class, TerrestrialAgglomerationREIDisplay::new);
+		helper.registerRecipeFiller(PetalApothecaryRecipe.class, BotaniaRecipeTypes.PETAL_TYPE, PetalApothecaryREIDisplay::new);
+		helper.registerRecipeFiller(BotanicalBreweryRecipe.class, BotaniaRecipeTypes.BREW_TYPE, BreweryREIDisplay::new);
+		Predicate<RecipeHolder<ElvenTradeRecipe>> pred = recipe -> !recipe.value().isReturnRecipe();
+		helper.registerRecipeFiller(ElvenTradeRecipe.class, BotaniaRecipeTypes.ELVEN_TRADE_TYPE::equals, pred, ElvenTradeREIDisplay::new);
+		helper.registerRecipeFiller(ManaInfusionRecipe.class, BotaniaRecipeTypes.MANA_INFUSION_TYPE, ManaPoolREIDisplay::new);
+		helper.registerRecipeFiller(PureDaisyRecipe.class, BotaniaRecipeTypes.PURE_DAISY_TYPE, PureDaisyREIDisplay::new);
+		helper.registerRecipeFiller(RunicAltarRecipe.class, BotaniaRecipeTypes.RUNE_TYPE, RunicAltarREIDisplay::new);
+		helper.registerRecipeFiller(TerrestrialAgglomerationRecipe.class, BotaniaRecipeTypes.TERRA_PLATE_TYPE, TerrestrialAgglomerationREIDisplay::new);
 
 		try {
 			for (var entry : FabricXplatImpl.CUSTOM_STRIPPING.entrySet()) {
@@ -141,9 +142,9 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 
 		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.ORECHID_TYPE,
 				OrechidREIDisplay::new);
-		helper.registerRecipeFiller(OrechidIgnemRecipe.class, BotaniaRecipeTypes.ORECHID_IGNEM_TYPE,
+		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.ORECHID_IGNEM_TYPE,
 				OrechidIgnemREIDisplay::new);
-		helper.registerRecipeFiller(MarimorphosisRecipe.class, BotaniaRecipeTypes.MARIMORPHOSIS_TYPE,
+		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.MARIMORPHOSIS_TYPE,
 				MarimorphosisREIDisplay::new);
 	}
 
