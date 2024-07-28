@@ -37,7 +37,7 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 
 	@NotNull
 	@Override
-	public RecipeType<? extends MarimorphosisRecipe> getType() {
+	public RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> getType() {
 		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
 

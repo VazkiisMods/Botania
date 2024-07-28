@@ -54,8 +54,8 @@ public class OrechidManager implements ResourceManagerReloadListener {
 		final var list = byState.computeIfAbsent(state, s -> {
 			var builder = ImmutableList.<T>builder();
 			for (var recipe : manager.getAllRecipesFor(type)) {
-				if (recipe.getInput().test(state)) {
-					builder.add(recipe);
+				if (recipe.value().getInput().test(state)) {
+					builder.add(recipe.value());
 				}
 			}
 			return builder.build();
