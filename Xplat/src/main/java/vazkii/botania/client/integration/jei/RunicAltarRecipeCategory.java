@@ -33,6 +33,8 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.ArrayList;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipe> {
@@ -87,7 +89,10 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RunicAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
-		PetalApothecaryRecipeCategory.setRecipeLayout(builder, recipe.getIngredients(), BotaniaBlocks.runeAltar,
+		var inputs = new ArrayList<>(recipe.getIngredients());
+		// TODO: visualize that the catalysts (usually runes) are returned
+		inputs.addAll(recipe.getCatalysts());
+		PetalApothecaryRecipeCategory.setRecipeLayout(builder, inputs, BotaniaBlocks.runeAltar,
 				recipe.getResultItem(RegistryAccess.EMPTY), LIVINGROCK);
 	}
 

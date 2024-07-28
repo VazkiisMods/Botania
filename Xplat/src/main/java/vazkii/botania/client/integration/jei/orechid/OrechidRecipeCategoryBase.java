@@ -25,7 +25,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +38,7 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> implements IRecipeCategory<T> {
+public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<OrechidRecipe> {
 
 	private final IDrawableStatic background;
 	private final Component localizedName;
@@ -73,8 +72,6 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 	public IDrawable getIcon() {
 		return icon;
 	}
-
-	protected abstract RecipeType<T> recipeType();
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull OrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
@@ -117,7 +114,9 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 	@NotNull
 	protected Stream<Component> getChanceTooltipComponents(double chance, @NotNull OrechidRecipe recipe) {
 		final var ratio = OrechidUIHelper.getRatioForChance(chance);
-		return Stream.of(OrechidUIHelper.getRatioTooltipComponent(ratio));
+		Stream<Component> genericChanceTooltipComponents = Stream.of(OrechidUIHelper.getRatioTooltipComponent(ratio));
+		Stream<Component> biomeChanceTooltipComponents = OrechidUIHelper.getBiomeChanceAndRatioTooltipComponents(chance, recipe);
+		return Stream.concat(genericChanceTooltipComponents, biomeChanceTooltipComponents);
 	}
 
 	@Nullable
