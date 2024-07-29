@@ -216,7 +216,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaFeatures.MYSTICAL_MUSHROOMS_PLACED_FEATURE);
 
 		// Rest
-		BotaniaCriteriaTriggers.init();
+		BotaniaCriteriaTriggers.init(bind(BuiltInRegistries.TRIGGER_TYPES));
 		BotaniaParticles.registerParticles(bind(BuiltInRegistries.PARTICLE_TYPE));
 		BotaniaLootModifiers.submitLootConditions(bind(BuiltInRegistries.LOOT_CONDITION_TYPE));
 		BotaniaLootModifiers.submitLootFunctions(bind(BuiltInRegistries.LOOT_FUNCTION_TYPE));
