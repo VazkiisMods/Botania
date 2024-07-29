@@ -17,7 +17,6 @@
     "CollectingNeighborUpdaterMixin",
     "CreeperAccessor",
     "CreeperMixin",
-    "CriteriaTriggersAccessor",
     "DispenserBlockAccessor",
     "EntityAccessor",
     "EntityMixin",
