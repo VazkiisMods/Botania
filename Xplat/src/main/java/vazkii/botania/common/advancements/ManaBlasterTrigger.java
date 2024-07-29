@@ -23,7 +23,7 @@ import java.util.Optional;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigger.Instance> {
-	private static final ResourceLocation ID = prefix("fire_mana_blaster");
+	public static final ResourceLocation ID = prefix("fire_mana_blaster");
 	public static final ManaBlasterTrigger INSTANCE = new ManaBlasterTrigger();
 
 	private ManaBlasterTrigger() {}

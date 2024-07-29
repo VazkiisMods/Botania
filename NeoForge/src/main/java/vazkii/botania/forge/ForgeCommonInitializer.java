@@ -220,7 +220,7 @@ public class ForgeCommonInitializer {
 		bind(Registries.CHUNK_GENERATOR, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest
-		BotaniaCriteriaTriggers.init();
+		bind(Registries.TRIGGER_TYPE, BotaniaCriteriaTriggers::init);
 		bind(Registries.PARTICLE_TYPE, BotaniaParticles::registerParticles);
 
 		bind(Registries.LOOT_CONDITION_TYPE, BotaniaLootModifiers::submitLootConditions);
