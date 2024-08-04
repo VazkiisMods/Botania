@@ -2756,6 +2756,7 @@
     "botania.tagline.teruTeruBozu": "Wetterkontrolle und Niedlichkeitsüberlauf",
     "botania.page.teruTeruBozu0": "$(item)Teru Teru Bozu$(0) sind Amulette, die schlechtes Wetter abwehren. Einfach einen von dieser Herstellen und in der Welt platzieren reduziert die Dauer von $(thing)Regen$(0) und $(thing)Schneefall$(0). Bei schlechtem Wetter kann eine $(item)Sonnenblume$(0) (per Rechtsklick oder durch Werfen) offeriert werden, um die Sonne zurückkehren zu lassen. Mit einem $(item)Redstone-Komparator$(0) kann man schlechtes Wetter erkennen.",
     "botania.page.teruTeruBozu1": "Was ist eigentlich so besonders an einer Sonnenblume?",
+    "botania.page.teruTeruBozu2": "Während $(item)Teru Teru Bozu$(0) $(item)Sonnenblumen$(0) lieben, kann das Offerieren von $(item)Blauen Orchideen$(0) ihrer Stimmung (und dem Wetter) einen Dämpfer verpassen.",
 
     "botania.entry.avatar": "Lebeholz-Avatar",
     "botania.tagline.avatar": "Ruteneffekte in einem Block",
