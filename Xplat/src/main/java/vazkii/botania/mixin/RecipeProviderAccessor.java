@@ -21,16 +21,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(RecipeProvider.class)
 public interface RecipeProviderAccessor {
-	@Invoker("has")
-	static Criterion<InventoryChangeTrigger.TriggerInstance> botania_has(ItemLike itemLike) {
-		throw new IllegalStateException("Direct call to invoker method");
-	}
-
-	@Invoker("has")
-	static Criterion<InventoryChangeTrigger.TriggerInstance> botania_has(TagKey<Item> tag) {
-		throw new IllegalStateException("Direct call to invoker method");
-	}
-
 	@Invoker("inventoryTrigger")
 	static Criterion<InventoryChangeTrigger.TriggerInstance> botania_inventoryTrigger(ItemPredicate.Builder... $$0) {
 		throw new IllegalStateException("Direct call to invoker method");

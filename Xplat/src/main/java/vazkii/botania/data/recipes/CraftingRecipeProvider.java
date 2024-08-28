@@ -85,7 +85,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	public static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromItem(ItemLike item) {
-		return RecipeProviderAccessor.botania_has(item);
+		return RecipeProviderAccessor.botania_inventoryTrigger(ItemPredicate.Builder.item().of(item));
 	}
 
 	private static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromItems(ItemLike... items) {
@@ -98,7 +98,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	public static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromTag(TagKey<Item> tag) {
-		return RecipeProviderAccessor.botania_has(tag);
+		return RecipeProviderAccessor.botania_inventoryTrigger(ItemPredicate.Builder.item().of(tag));
 	}
 
 	/** Addons: override this to return your modid */
