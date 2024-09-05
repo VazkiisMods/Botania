@@ -1,6 +1,6 @@
 image: debian/bookworm
 packages:
-  - openjdk-17-jdk-headless
+  - openjdk-21-jdk-headless
   - jq
 sources:
   - https://git.sr.ht/~williewillus/botania
