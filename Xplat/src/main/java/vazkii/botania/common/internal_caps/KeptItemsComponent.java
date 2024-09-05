@@ -11,13 +11,17 @@ package vazkii.botania.common.internal_caps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class KeptItemsComponent extends SerializableComponent {
+	public static final ResourceLocation ID = prefix("kept_items");
 	private final List<ItemStack> stacks = new ArrayList<>();
 
 	public void addAll(Collection<ItemStack> stack) {
