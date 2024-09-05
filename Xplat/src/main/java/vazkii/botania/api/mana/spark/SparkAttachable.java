@@ -8,13 +8,17 @@
  */
 package vazkii.botania.api.mana.spark;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import vazkii.botania.api.BotaniaAPI;
 
 /**
  * A block entity with this capability can have a mana spark attached to it.
  * For the Spark to be allowed to have upgrades, the same block position must also have an ManaPool capability
  */
 public interface SparkAttachable {
+
+	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "spark_attachable");
 
 	/**
 	 * Can this block have a Spark attached to it. Note that this will not

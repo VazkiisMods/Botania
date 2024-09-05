@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.util.UUID;
 
@@ -20,6 +21,8 @@ import java.util.UUID;
  * and other mod items should not reuse this capability.
  */
 public interface Relic {
+
+	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "relic");
 
 	/**
 	 * Binds to the UUID passed in.

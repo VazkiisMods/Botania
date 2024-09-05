@@ -9,10 +9,12 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Bound;
 
 /**
@@ -22,6 +24,8 @@ import vazkii.botania.api.block.Bound;
  * @see Bound
  */
 public interface CoordBoundItem {
+
+	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "coord_bound_item");
 
 	@Nullable
 	BlockPos getBinding(Level world);
