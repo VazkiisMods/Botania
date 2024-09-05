@@ -1,6 +1,9 @@
 plugins {
     id 'java'
-    id 'agency.highlysuspect.minivan'
+    // temporary until https://github.com/CrackedPolishedBlackstoneBricksMC/minivan/issues/2 is fixed
+    // id 'agency.highlysuspect.minivan'
+    // could probably have used NeoGradle but i had the code for ModDevGradle ready
+    id "net.neoforged.moddev"
 }
 
 archivesBaseName = "${mod_name}-xplat"
@@ -9,9 +12,19 @@ if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
 
-minivan {
-    version(minecraft_version)
-    accessWideners 'src/main/resources/botania_xplat.accesswidener'
+// minivan {
+//     version(minecraft_version)
+//     accessWideners 'src/main/resources/botania_xplat.accesswidener'
+// }
+
+neoForge {
+    neoFormVersion = "1.21.1-20240808.144430"
+
+    parchment {
+        var parchment_components = parchment_version.split(":")
+        mappingsVersion = parchment_components[1]
+        minecraftVersion = parchment_components[0]
+    }
 }
 
 repositories {
@@ -35,7 +48,7 @@ repositories {
 dependencies {
     compileOnly "net.fabricmc:sponge-mixin:${mixin_version}"
     annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}")
-    compileOnly "vazkii.patchouli:Patchouli-xplat:${minecraft_version}-${patchouli_version}"
+    compileOnly "vazkii.patchouli:Patchouli-xplat:${patchouli_version}"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
@@ -45,7 +58,7 @@ dependencies {
     compileOnly "com.unascribed:ears-api:${ears_version}"
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    compileOnly "dev.emi:emi-xplat-mojmap:${emi_version}+${minecraft_version}:api"
+    compileOnly "dev.emi:emi-xplat-mojmap:${emi_version}:api"
 
     compileOnly "org.jetbrains:annotations:24.0.1"
 
