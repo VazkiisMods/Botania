@@ -99,20 +99,20 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+        parchment("org.parchmentmc.data:parchment-${parchment_version}@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:0.16.0"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.97.0+${minecraft_version}"
+    modImplementation "net.fabricmc:fabric-loader:${fabric_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
-    modCompileOnly "dev.emi:emi-fabric:${emi_version}+${minecraft_version}:api"
-    modLocalRuntime "dev.emi:emi-fabric:${emi_version}+${minecraft_version}"
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"  
     include "me.zeroeightsix:fiber:0.23.0-2"

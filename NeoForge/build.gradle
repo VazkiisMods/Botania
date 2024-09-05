@@ -34,8 +34,9 @@ repositories {
 
 subsystems {
     parchment {
-        minecraftVersion = "${minecraft_version}"
-        mappingsVersion = "${parchment_version}"
+        var parchment_components = parchment_version.split(":")
+        minecraftVersion = parchment_components[0]
+        mappingsVersion = parchment_components[1]
     }
 }
 
@@ -56,18 +57,18 @@ runs {
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:20.4.173"
+    implementation "net.neoforged:neoforge:${neoforge_version}"
     implementation project(":Xplat")
 
-    implementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-NEOFORGE"
+    implementation "vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE"
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    // runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
-    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
-    //runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
+    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // compileOnly 'com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123'
 
