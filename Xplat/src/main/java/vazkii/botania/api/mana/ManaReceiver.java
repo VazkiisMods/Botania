@@ -9,12 +9,16 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import vazkii.botania.api.BotaniaAPI;
 
 /**
  * Any Block or Block Entity with this capability can hold and receive mana from mana bursts.
  */
 public interface ManaReceiver {
+	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "mana_receiver");
+
 	Level getManaReceiverLevel();
 
 	BlockPos getManaReceiverPos();

@@ -9,11 +9,13 @@
 package vazkii.botania.api.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.api.BotaniaAPI;
 
 /**
  * Blocks with this capability can express custom logic when being
@@ -21,6 +23,8 @@ import org.jetbrains.annotations.Nullable;
  */
 @FunctionalInterface
 public interface HornHarvestable {
+	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable");
+
 	/**
 	 * Returns true if this block can be uprooted.
 	 * Note that the stack param can be empty if it's a drum breaking it.

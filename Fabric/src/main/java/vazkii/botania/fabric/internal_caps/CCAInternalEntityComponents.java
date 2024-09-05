@@ -23,16 +23,14 @@ import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
 import vazkii.botania.common.internal_caps.*;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 public class CCAInternalEntityComponents implements EntityComponentInitializer {
-	public static final ComponentKey<CCAEthicalComponent> TNT_ETHICAL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("tnt_ethical"), CCAEthicalComponent.class);
-	public static final ComponentKey<CCASpectralRailComponent> GHOST_RAIL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("ghost_rail"), CCASpectralRailComponent.class);
-	public static final ComponentKey<CCAItemFlagsComponent> INTERNAL_ITEM = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("iitem"), CCAItemFlagsComponent.class);
-	public static final ComponentKey<CCAKeptItemsComponent> KEPT_ITEMS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("kept_items"), CCAKeptItemsComponent.class);
-	public static final ComponentKey<CCALooniumComponent> LOONIUM_DROP = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("loonium_drop"), CCALooniumComponent.class);
-	public static final ComponentKey<CCANarslimmusComponent> NARSLIMMUS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("narslimmus"), CCANarslimmusComponent.class);
-	public static final ComponentKey<CCATigerseyeComponent> TIGERSEYE = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("tigerseye_pacified"), CCATigerseyeComponent.class);
+	public static final ComponentKey<CCAEthicalComponent> TNT_ETHICAL = ComponentRegistryV3.INSTANCE.getOrCreate(EthicalComponent.ID, CCAEthicalComponent.class);
+	public static final ComponentKey<CCASpectralRailComponent> GHOST_RAIL = ComponentRegistryV3.INSTANCE.getOrCreate(SpectralRailComponent.ID, CCASpectralRailComponent.class);
+	public static final ComponentKey<CCAItemFlagsComponent> INTERNAL_ITEM = ComponentRegistryV3.INSTANCE.getOrCreate(ItemFlagsComponent.ID, CCAItemFlagsComponent.class);
+	public static final ComponentKey<CCAKeptItemsComponent> KEPT_ITEMS = ComponentRegistryV3.INSTANCE.getOrCreate(KeptItemsComponent.ID, CCAKeptItemsComponent.class);
+	public static final ComponentKey<CCALooniumComponent> LOONIUM_DROP = ComponentRegistryV3.INSTANCE.getOrCreate(LooniumComponent.ID, CCALooniumComponent.class);
+	public static final ComponentKey<CCANarslimmusComponent> NARSLIMMUS = ComponentRegistryV3.INSTANCE.getOrCreate(NarslimmusComponent.ID, CCANarslimmusComponent.class);
+	public static final ComponentKey<CCATigerseyeComponent> TIGERSEYE = ComponentRegistryV3.INSTANCE.getOrCreate(TigerseyeComponent.ID, CCATigerseyeComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {

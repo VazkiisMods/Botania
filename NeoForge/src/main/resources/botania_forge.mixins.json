@@ -5,13 +5,12 @@
   "package": "vazkii.botania.forge.mixin",
   "mixins": [
     "AbstractFurnaceBlockEntityForgeAccessor",
-    "BotaniaGrassBlockForgeMixin",
-    "BuiltInRegistriesForgeAccessor"
+    "BotaniaGrassBlockForgeMixin"
   ],
   "client": [
-    "client.ModelBakeryForgeAccessor",
     "client.ItemBlockWithSpecialRendererForgeMixin",
-    "client.ItemManasteelArmorForgeMixin"
+    "client.ItemManasteelArmorForgeMixin",
+    "client.ModelBakeryForgeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
