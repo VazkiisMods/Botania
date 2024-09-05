@@ -8,10 +8,15 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.resources.ResourceLocation;
+import vazkii.botania.api.BotaniaAPI;
+
 /**
  * Any Block or Block Entity with this capability has custom collision logic for bursts.
  */
 public interface ManaCollisionGhost {
+	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "mana_ghost");
+
 	enum Behaviour {
 		/**
 		 * Skip all collision logic, the burst acts as if this block did not exist
