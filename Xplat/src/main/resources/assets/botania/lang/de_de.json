@@ -132,6 +132,10 @@
     "botaniamisc.rannuncarpus.state_sensitive": "Exakten Blockzustand vergleichen",
     "botaniamisc.rannuncarpus.state_insensitive": "Nur Block vergleichen",
     "botaniamisc.lokiRingLimitReached": "Auswahlbegrenzung erreicht",
+    "botaniamisc.loonium.not_attuned": "Nicht abgestimmt",
+    "botaniamisc.loonium.attuned": "Abgestimmt",
+    "botaniamisc.loonium.attuned_one": "Abgestimmt auf Bauwerk: %s",
+    "botaniamisc.loonium.attuned_many": "Abgestimmt auf mehrere Bauwerke",
     "botaniamisc.pollidisiac.feed_adults": "Füttere erwachsene Tiere",
     "botaniamisc.pollidisiac.feed_babies": "Füttere Tierkinder",
     "botaniamisc.pollidisiac.feed_all": "Füttere alle Tiere",
@@ -238,6 +242,38 @@
     "tag.botania.mana_dusts": "Manastäube",
     "tag.botania.burst_viewers": "Burst Viewers",
     "tag.botania.seed_apothecary_reagent": "Samenreagenzen",
+    "tag.botania.loonium_offhand_equipment": "Loonium-Zweithand-Ausrüstung",
+
+    "structure.minecraft.ancient_city": "Antike Stätte",
+    "structure.minecraft.bastion_remnant": "Bastionsruine",
+    "structure.minecraft.buried_treasure": "Vergrabener Schatz",
+    "structure.minecraft.desert_pyramid": "Wüstentempel",
+    "structure.minecraft.end_city": "Endsiedlung",
+    "structure.minecraft.fortress": "Netherfestung",
+    "structure.minecraft.jungle_pyramid": "Dschungeltempel",
+    "structure.minecraft.mansion": "Waldanwesen",
+    "structure.minecraft.mineshaft_mesa": "Tafelberge-Mine",
+    "structure.minecraft.mineshaft": "Mine",
+    "structure.minecraft.monument": "Ozeanmonument",
+    "structure.minecraft.ocean_ruin_cold": "Kalte Ozeanruine",
+    "structure.minecraft.ocean_ruin_warm": "Warme Ozeanruine",
+    "structure.minecraft.pillager_outpost": "Plünderer-Außenposten",
+    "structure.minecraft.ruined_portal_desert": "Portalruine (Wüste)",
+    "structure.minecraft.ruined_portal_jungle": "Portalruine (Dschungel)",
+    "structure.minecraft.ruined_portal_mountain": "Portalruine (Gebirge)",
+    "structure.minecraft.ruined_portal_nether": "Portalruine (Nether)",
+    "structure.minecraft.ruined_portal_ocean": "Portalruine (Ozean)",
+    "structure.minecraft.ruined_portal_swamp": "Portalruine (Sumpf)",
+    "structure.minecraft.ruined_portal": "Portalruine",
+    "structure.minecraft.shipwreck_beached": "Gestrandetes Schiffswrack",
+    "structure.minecraft.shipwreck": "Schiffswrack",
+    "structure.minecraft.stronghold": "Festung",
+    "structure.minecraft.trail_ruins": "Pfadruine",
+    "structure.minecraft.village_desert": "Wüstendorf",
+    "structure.minecraft.village_plains": "Ebenendorf",
+    "structure.minecraft.village_savanna": "Savannendorf",
+    "structure.minecraft.village_snowy": "Verschneites Dorf",
+    "structure.minecraft.village_taiga": "Taigadorf",
 
     "key.botania_corporea_request": "Corporea-Anfrage",
 
@@ -541,6 +577,8 @@
 
 
     "advancement.botania:tinyPotatoBirthday.desc": "Feiere den Geburtstag der Winzigen Kartoffel am 19. Juli",
+
+    "advancement.botania:allLooniumMobs.desc": "Erlege jedes von der Loonium erzeugte Monster mindestens ein Mal",
 
     "botania.challengelevel.easy": "Leicht",
     "botania.challengelevel.normal": "Mittel",
@@ -2373,7 +2411,8 @@
 
     "botania.entry.loonium": "Beutanie",
     "botania.tagline.loonium": "Beschwört Verliesbeute",
-    "botania.page.loonium0": "Jeder Abenteurer weiß, dass $(thing)Verliese$(0) Wertvolles enthalten können. Die $(item)Beutanie$(0) beschwört, wenn sie mit einer ziemlichen Menge an $(thing)Mana$(0) gefüttert wird, diese Gegenstände zum Einsammeln durch besagte Abenteurer.$(p)Es gibt aber einen Haken: Jeder Gegenstand wird von einer Kreatur gehalten. Diese Kreaturen sind besonders stark, aber lassen ihre wertvolle $(thing)Verliesbeute$(0) nach ihrem Ableben fallen.",
+    "botania.page.loonium0": "Jeder Abenteurer weiß, dass $(thing)Verliese$(0) Wertvolles enthalten können. Die $(item)Beutanie$(0) beschwört, wenn sie mit einer ziemlichen Menge an $(thing)Mana$(0) gefüttert wird, diese Gegenstände zum Einsammeln.$(p)Der Haken: Jeder Gegenstand wird von einer Kreatur gehalten. Diese Kreaturen sind besonders stark, aber lassen ihre wertvolle $(thing)Verliesbeute$(0) nach ihrem Ableben fallen.",
+    "botania.page.looniumStructures": "Üblicherweise beschwört die Beutania die Art Schätze, die in einem $(thing)Verließ$(0) zu finden wären. Die Beutania reagiert jedoch auch auf größere Bauwerke: Wird sie in einem solchen Bauwerk gepflanzt, beschwört sie stattdessen für ihre Umgebung angemessene Beute.$(p)Es scheint jedoch, dass die Beutanie etwas wählerisch ist — es kann gewisse Gegenstände geben, die niemals von den so beschwörten Kreaturen fallen gelassen werden.",
 
 
     "botania.entry.daffomill": "Ostermühle",
@@ -3066,7 +3105,7 @@
     "botania.entry.enderAir": "Extraktion von Enderluft",
     "botania.tagline.enderAir": "Werfbare Flaschen, die Endstein erzeugen",
     "botania.page.enderAir0": "Die Luft in der Leere des $(thing)Endes$(0) scheint Veränderungen hervorrufen zu können. Wird eine leere $(item)Glasflasche$(0) im $(thing)Ende$(0) benutzt, fängt sie etwas dieser Luft ein, die dann wie ein Wurftrank benutzt werden kann, um $(item)Stein$(0) am Aufschlagsort zu $(item)Endstein$(0) umzuwandeln. $(br)$(item)Werfer$(0) können ebenfalls benutzt werden, um die Luft einzufangen, sofern der Bereich über der Sammelstelle frei ist.",
-    "botania.page.enderAir1": "Es wurde \"experimentell\" ermittelt, dass die Gase der $(thing)End$(0)leere, gemischt mit normaler $(thing)Overworld$(0)-Luft, recht toxisch auf $(thing)Nether$(0)-Kreaturen wie z.B. dem $(thing)Ghast$(0) wirken.$(p)Auch wenn die Menge in einer $(item)Enderluftflasche$(0) viel zu gering ist, um echten Schaden zu verursachen, ist sie trotzdem ein effektiver Reizstoff.$(p)Insbesondere wenn sie in die Augen gelangt.",
+    "botania.page.enderAir1": "Es wurde \"experimentell\" ermittelt, dass die Gase der $(thing)End$(0)leere, gemischt mit normaler $(thing)Oberworld$(0)-Luft, recht toxisch auf $(thing)Nether$(0)-Kreaturen wie z.B. dem $(thing)Ghast$(0) wirken.$(p)Auch wenn die Menge in einer $(item)Enderluftflasche$(0) viel zu gering ist, um echten Schaden zu verursachen, ist sie trotzdem ein effektiver Reizstoff.$(p)Insbesondere wenn sie in die Augen gelangt.",
 
     "botania.entry.enderEyeBlock": "Ender-Aufseher",
     "botania.tagline.enderEyeBlock": "Sicht-aktivierter Redstone-Sensor",
