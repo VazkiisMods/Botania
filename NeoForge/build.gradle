@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'idea'
-    id 'net.neoforged.gradle.userdev'
+    id 'net.neoforged.moddev'
     id 'eclipse'
 }
 
@@ -32,32 +32,39 @@ repositories {
     }
 }
 
-subsystems {
+neoForge {
+    version = neoforge_version
+
     parchment {
         var parchment_components = parchment_version.split(":")
         minecraftVersion = parchment_components[0]
         mappingsVersion = parchment_components[1]
     }
-}
 
-runs {
-    configureEach {
-        workingDirectory project.file('../run')
-        systemProperty 'forge.logging.console.level', 'debug'
-        systemProperty 'fml.earlyprogresswindow', 'false'
+    runs {
+        configureEach {
+            gameDirectory = project.file('../run')
+            systemProperty 'forge.logging.console.level', 'debug'
+            systemProperty 'fml.earlyprogresswindow', 'false'
+        }
 
-        modSource project.sourceSets.main
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
     }
 
-    client {
-    }
-    server {
-        programArgument '--nogui'
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
     }
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${neoforge_version}"
     implementation project(":Xplat")
 
     implementation "vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE"
@@ -67,8 +74,8 @@ dependencies {
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    // compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    // runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // compileOnly 'com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123'
 
