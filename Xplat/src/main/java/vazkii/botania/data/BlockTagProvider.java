@@ -130,7 +130,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
 		tag(BotaniaTags.Blocks.MINI_FLOWERS).add(
-				getModBlocks(b -> XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
+				getModBlocks(b -> b instanceof SpecialFlowerBlock
 						&& BuiltInRegistries.BLOCK.getKey(b).getPath().endsWith("_chibi"))
 		);
 
