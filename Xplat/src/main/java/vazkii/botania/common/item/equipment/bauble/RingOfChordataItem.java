@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -49,7 +50,7 @@ public class RingOfChordataItem extends BaubleItem {
 		}
 	}
 
-	private static void addEffect(LivingEntity living, MobEffect effect) {
+	private static void addEffect(LivingEntity living, Holder<MobEffect> effect) {
 		MobEffectInstance inst = living.getEffect(effect);
 		if (inst == null || (inst.getAmplifier() == 0 && inst.getDuration() == 1)) {
 			MobEffectInstance neweffect = new MobEffectInstance(effect, 100, 0, true, true);

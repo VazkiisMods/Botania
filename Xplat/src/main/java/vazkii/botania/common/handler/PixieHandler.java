@@ -89,7 +89,7 @@ public final class PixieHandler {
 
 				pixie.setProps(livingSource, player, 0, dmg);
 				pixie.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(pixie.blockPosition()),
-						MobSpawnType.EVENT, null, null);
+						MobSpawnType.EVENT, null);
 				player.level().addFreshEntity(pixie);
 			}
 		}

@@ -1,6 +1,7 @@
 package vazkii.botania.forge.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,14 +35,15 @@ public class ForgeSpecialFlowerBlock extends FlowerBlock implements EntityBlock 
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 	private final boolean hasComparatorOutput;
 
-	public ForgeSpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+	public ForgeSpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
 		this(stewEffect, stewDuration, props, blockEntityType, false);
 	}
 
-	public ForgeSpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType, boolean hasComparatorOutput) {
+	public ForgeSpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType, boolean hasComparatorOutput) {
 		super(/* the only godforsaken reason why this class needs to be duplicated for each loader
 				is so that we can add a "() ->" here. Amazing. */
-				() -> stewEffect, stewDuration, props);
+				// TODO: I think we can remove this now, the superclass is no longer patched
+				stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 		this.hasComparatorOutput = hasComparatorOutput;
 	}
