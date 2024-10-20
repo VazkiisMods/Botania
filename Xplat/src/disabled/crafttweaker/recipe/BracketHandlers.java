@@ -58,7 +58,7 @@ public final class BracketHandlers {
 		if (split.length != 2) {
 			throw new IllegalArgumentException("Could not get brew with name: <brew:" + tokens + ">! Syntax is <brew:modid:name>");
 		}
-		ResourceLocation key = new ResourceLocation(split[0], split[1]);
+		ResourceLocation key = ResourceLocation.fromNamespaceAndPath(split[0], split[1]);
 
 		return ModBrews.registry.getOptional(key)
 				.orElseThrow(() -> new IllegalArgumentException("Could not get brew with name: <brew:" + tokens + ">! Brew does not appear to exist!"));

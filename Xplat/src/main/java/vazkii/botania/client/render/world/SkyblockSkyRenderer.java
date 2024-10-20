@@ -34,15 +34,15 @@ import java.util.Random;
 
 public class SkyblockSkyRenderer {
 
-	private static final ResourceLocation textureSkybox = new ResourceLocation(ResourcesLib.MISC_SKYBOX);
-	private static final ResourceLocation textureRainbow = new ResourceLocation(ResourcesLib.MISC_RAINBOW);
+	private static final ResourceLocation textureSkybox = ResourceLocation.parse(ResourcesLib.MISC_SKYBOX);
+	private static final ResourceLocation textureRainbow = ResourceLocation.parse(ResourcesLib.MISC_RAINBOW);
 	private static final ResourceLocation[] planetTextures = new ResourceLocation[] {
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "0.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "1.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "2.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "3.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "4.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "5.png")
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "0.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "1.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "2.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "3.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "4.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "5.png")
 	};
 
 	public static void renderExtra(PoseStack ms, ClientLevel world, float partialTicks, float insideVoid) {

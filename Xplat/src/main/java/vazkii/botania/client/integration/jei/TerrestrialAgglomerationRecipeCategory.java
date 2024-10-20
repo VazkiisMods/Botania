@@ -35,7 +35,7 @@ import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<TerrestrialAgglomerationRecipe> {
 	public static final RecipeType<TerrestrialAgglomerationRecipe> TYPE =
@@ -49,7 +49,7 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 	private final IDrawable terraPlate;
 
 	public TerrestrialAgglomerationRecipeCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = prefix("textures/gui/terrasteel_jei_overlay.png");
+		ResourceLocation location = botaniaRL("textures/gui/terrasteel_jei_overlay.png");
 		background = guiHelper.createBlankDrawable(114, 131);
 		overlay = guiHelper.createDrawable(location, 42, 29, 64, 64);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.terraPlate));

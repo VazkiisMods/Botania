@@ -23,12 +23,13 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaPool;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * The basic class for a Functional Flower.
  */
 public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerBlockEntity<ManaPool> {
-	private static final ResourceLocation POOL_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_pool");
+	private static final ResourceLocation POOL_ID = botaniaRL("mana_pool");
 
 	public static final int LINK_RANGE = 10;
 	private static final String TAG_MANA = "mana";

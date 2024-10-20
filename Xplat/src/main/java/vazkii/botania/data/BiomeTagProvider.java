@@ -26,8 +26,8 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
 
 		tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST).addTag(BiomeTags.IS_OVERWORLD);
 		tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST)
-				.addOptionalTag(new ResourceLocation("forge", "is_mushroom"))
-				.addOptionalTag(new ResourceLocation("c", "mushroom"));
+				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("forge", "is_mushroom"))
+				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "mushroom"));
 
 		tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST).addTag(BiomeTags.IS_OVERWORLD)
 				.addTag(BiomeTags.IS_NETHER);

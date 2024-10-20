@@ -27,7 +27,7 @@ import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Objects;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEntityRenderer<TerrestrialAgglomerationPlateBlockEntity> {
 	private final TextureAtlasSprite overlaySprite;
@@ -35,7 +35,7 @@ public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEn
 	public TerrestrialAgglomerationPlateBlockEntityRenderer(BlockEntityRendererProvider.Context manager) {
 		this.overlaySprite = Objects.requireNonNull(
 				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-						.apply(prefix("block/terra_plate_overlay"))
+						.apply(botaniaRL("block/terra_plate_overlay"))
 		);
 	}
 

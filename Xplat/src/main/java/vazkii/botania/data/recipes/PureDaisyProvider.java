@@ -24,7 +24,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.PureDaisyRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyProvider extends BotaniaRecipeProvider {
 	public PureDaisyProvider(PackOutput packOutput) {
@@ -39,7 +39,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 
 		normal(consumer, id("cobblestone"), StateIngredients.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState());
 		withFunction(consumer, id("end_stone_to_cobbled_deepslate"), StateIngredients.of(Blocks.END_STONE),
-				Blocks.COBBLED_DEEPSLATE.defaultBlockState(), new CacheableFunction(prefix("ender_air_release")));
+				Blocks.COBBLED_DEEPSLATE.defaultBlockState(), new CacheableFunction(botaniaRL("ender_air_release")));
 		normal(consumer, id("sand"), StateIngredients.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState());
 		normal(consumer, id("packed_ice"), StateIngredients.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState());
 		normal(consumer, id("blue_ice"), StateIngredients.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState());
@@ -65,6 +65,6 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	}
 
 	private static ResourceLocation id(String path) {
-		return prefix("pure_daisy/" + path);
+		return botaniaRL("pure_daisy/" + path);
 	}
 }

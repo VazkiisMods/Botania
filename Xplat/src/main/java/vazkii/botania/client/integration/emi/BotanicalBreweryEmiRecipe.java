@@ -16,10 +16,10 @@ import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = prefix("textures/gui/nei_brewery.png");
+	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/nei_brewery.png");
 	private final List<EmiIngredient> ingredients;
 	private final ResourceLocation id;
 
@@ -30,7 +30,7 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 		this.output = List.of(EmiStack.of(recipe.value().getOutput(container.copy())));
 		ResourceLocation id = recipe.id();
 		ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(container.getItem());
-		this.id = new ResourceLocation("emi", "botania/botanical_brewery/"
+		this.id = ResourceLocation.fromNamespaceAndPath("emi", "botania/botanical_brewery/"
 				+ id.getNamespace() + "/" + id.getPath() + "/"
 				+ itemId.getNamespace() + "/" + itemId.getPath());
 	}

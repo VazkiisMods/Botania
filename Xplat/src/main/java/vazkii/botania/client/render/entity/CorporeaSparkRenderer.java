@@ -17,7 +17,7 @@ import vazkii.botania.common.entity.CorporeaSparkEntity;
 
 import java.util.Objects;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CorporeaSparkRenderer extends BaseSparkRenderer<CorporeaSparkEntity> {
 	private final TextureAtlasSprite corporeaWorldSprite;
@@ -27,9 +27,9 @@ public class CorporeaSparkRenderer extends BaseSparkRenderer<CorporeaSparkEntity
 	public CorporeaSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
-		this.corporeaWorldSprite = Objects.requireNonNull(atlas.apply(prefix("item/corporea_spark")));
-		this.corporeaMasterWorldSprite = Objects.requireNonNull(atlas.apply(prefix("item/corporea_spark_master")));
-		this.corporeaCreativeWorldSprite = Objects.requireNonNull(atlas.apply(prefix("item/corporea_spark_creative")));
+		this.corporeaWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/corporea_spark")));
+		this.corporeaMasterWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/corporea_spark_master")));
+		this.corporeaCreativeWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("item/corporea_spark_creative")));
 	}
 
 	@Override

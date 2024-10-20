@@ -34,7 +34,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class HellsRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_FIRE);
+	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_FIRE);
 
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;

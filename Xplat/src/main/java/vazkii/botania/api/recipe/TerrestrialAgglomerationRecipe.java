@@ -18,9 +18,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface TerrestrialAgglomerationRecipe extends Recipe<Container> {
-	ResourceLocation TERRA_PLATE_ID = new ResourceLocation(BotaniaAPI.MODID, "terra_plate");
+	ResourceLocation TERRA_PLATE_ID = botaniaRL("terra_plate");
 	ResourceLocation TYPE_ID = TERRA_PLATE_ID;
 
 	int getMana();

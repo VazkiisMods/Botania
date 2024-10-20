@@ -8,10 +8,10 @@ import net.minecraft.server.level.ServerPlayer;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public record IndexStringRequestPacket(String message) implements BotaniaPacket {
-	public static final ResourceLocation ID = prefix("idxs");
+	public static final ResourceLocation ID = botaniaRL("idxs");
 
 	public static IndexStringRequestPacket decode(FriendlyByteBuf buf) {
 		return new IndexStringRequestPacket(buf.readUtf());

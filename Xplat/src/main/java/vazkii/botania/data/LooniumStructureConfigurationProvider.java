@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumStructureConfigurationProvider implements DataProvider {
 
@@ -79,7 +79,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		configs.put(BuiltinStructures.JUNGLE_TEMPLE.location(), getConfigJungleTemple(defaultConfigId));
 		configs.put(BuiltinStructures.OCEAN_MONUMENT.location(), getConfigOceanMonument(defaultConfigId));
 
-		ResourceLocation oceanRuinId = prefix("ocean_ruins");
+		ResourceLocation oceanRuinId = botaniaRL("ocean_ruins");
 		configs.put(oceanRuinId,
 				LooniumStructureConfiguration.forParent(defaultConfigId)
 						.boundingBoxType(StructureSpawnOverride.BoundingBoxType.STRUCTURE).build()
@@ -103,7 +103,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 		configs.put(BuiltinStructures.STRONGHOLD.location(), getConfigStronghold(defaultConfigId));
 		configs.put(BuiltinStructures.TRAIL_RUINS.location(), getConfigTrailRuins(defaultConfigId));
 
-		ResourceLocation villageId = prefix("village");
+		ResourceLocation villageId = botaniaRL("village");
 		configs.put(villageId, LooniumStructureConfiguration.forParent(defaultConfigId)
 				.boundingBoxType(StructureSpawnOverride.BoundingBoxType.STRUCTURE).build()
 		);

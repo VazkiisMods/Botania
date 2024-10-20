@@ -19,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements BotaniaPacket {
 
-	public static final ResourceLocation ID = prefix("rem");
+	public static final ResourceLocation ID = botaniaRL("rem");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {

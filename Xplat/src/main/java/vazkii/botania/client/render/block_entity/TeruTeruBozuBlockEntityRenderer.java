@@ -30,8 +30,8 @@ import java.util.Random;
 
 public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<TeruTeruBozuBlockEntity> {
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU);
-	private static final ResourceLocation textureHalloween = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU_HALLOWEEN);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_TERU_TERU_BOZU);
+	private static final ResourceLocation textureHalloween = ResourceLocation.parse(ResourcesLib.MODEL_TERU_TERU_BOZU_HALLOWEEN);
 	private final TeruTeruBozuModel model;
 
 	public TeruTeruBozuBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {

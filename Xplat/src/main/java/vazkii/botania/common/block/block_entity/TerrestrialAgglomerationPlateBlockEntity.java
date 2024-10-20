@@ -70,8 +70,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 			'0', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(
 					XplatAbstractions.INSTANCE.isFabric()
-							? TagKey.create(Registries.BLOCK, new ResourceLocation("c", "lapis_blocks"))
-							: TagKey.create(Registries.BLOCK, new ResourceLocation("forge", "storage_blocks/lapis")))
+							? TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "lapis_blocks"))
+							: TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("forge", "storage_blocks/lapis")))
 	));
 
 	private static final String TAG_MANA = "mana";

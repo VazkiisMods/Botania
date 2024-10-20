@@ -9,14 +9,15 @@
 package vazkii.botania.api.block;
 
 import net.minecraft.resources.ResourceLocation;
-import vazkii.botania.api.BotaniaAPI;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A Block Entity that has this component can be heated by an Exoflame flower.
  * NOTE: Do not attach this component to subclasses of AbstractFurnaceBlockEntity, as Botania already does so.
  */
 public interface ExoflameHeatable {
-	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "exoflame_heatable");
+	ResourceLocation ID = botaniaRL("exoflame_heatable");
 
 	/**
 	 * Can this BlockEntity smelt its contents. If true, the Exoflame is allowed

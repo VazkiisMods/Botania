@@ -28,7 +28,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.VecHelper;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class KeyOfTheKingsLawItem extends RelicItem {
 
@@ -130,6 +130,6 @@ public class KeyOfTheKingsLawItem extends RelicItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, prefix("challenge/king_key"));
+		return new RelicImpl(stack, botaniaRL("challenge/king_key"));
 	}
 }

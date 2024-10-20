@@ -10,12 +10,13 @@ package vazkii.botania.api.mana;
 
 import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Any Block or Block Entity with this capability has custom collision logic for bursts.
  */
 public interface ManaCollisionGhost {
-	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "mana_ghost");
+	ResourceLocation ID = botaniaRL("mana_ghost");
 
 	enum Behaviour {
 		/**

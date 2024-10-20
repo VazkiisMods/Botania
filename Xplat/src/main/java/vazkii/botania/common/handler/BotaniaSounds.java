@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaSounds {
 	private static final List<SoundEvent> EVENTS = new ArrayList<>();
@@ -122,7 +122,7 @@ public final class BotaniaSounds {
 	public static final SoundEvent way = makeSoundEvent("way");
 
 	private static SoundEvent makeSoundEvent(String name) {
-		SoundEvent event = SoundEvent.createVariableRangeEvent(prefix(name));
+		SoundEvent event = SoundEvent.createVariableRangeEvent(botaniaRL(name));
 		EVENTS.add(event);
 		return event;
 	}

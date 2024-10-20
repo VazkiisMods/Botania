@@ -30,7 +30,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Arrays;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	private static final Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaTags.Items.SEED_APOTHECARY_REAGENT);
@@ -108,7 +108,7 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 
 		PetalApothecaryRecipe base = new PetalApothecaryRecipe(new ItemStack(BotaniaFlowerBlocks.orechid), DEFAULT_REAGENT, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
 		PetalApothecaryRecipe gog = new PetalApothecaryRecipe(new ItemStack(BotaniaFlowerBlocks.orechid), DEFAULT_REAGENT, gray, gray, yellow, yellow, green, green, red, red);
-		consumer.accept(idFor(prefix("orechid")), new GogAlternationRecipe<>(base, gog), null);
+		consumer.accept(idFor(botaniaRL("orechid")), new GogAlternationRecipe<>(base, gog), null);
 
 		make(consumer, BotaniaFlowerBlocks.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);
 		make(consumer, BotaniaFlowerBlocks.fallenKanade, white, white, yellow, yellow, orange, runeSpring);
@@ -139,14 +139,14 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		ItemNBTHelper.setString(vazkiiHead, "SkullOwner", "Vazkii");
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		consumer.accept(idFor(prefix("vazkii_head")), new NbtOutputRecipe<>(
+		consumer.accept(idFor(botaniaRL("vazkii_head")), new NbtOutputRecipe<>(
 				new PetalApothecaryRecipe(vazkiiHead, DEFAULT_REAGENT, inputs),
 				vazkiiHead.getTag()
 		), null);
 	}
 
 	protected static Ingredient tagIngr(String tag) {
-		return Ingredient.of(TagKey.create(Registries.ITEM, prefix(tag)));
+		return Ingredient.of(TagKey.create(Registries.ITEM, botaniaRL(tag)));
 	}
 
 	protected static void make(RecipeOutput consumer, ItemLike output, Ingredient... ingredients) {
@@ -155,6 +155,6 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static ResourceLocation idFor(ResourceLocation name) {
-		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
+		return ResourceLocation.fromNamespaceAndPath(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 }

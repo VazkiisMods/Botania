@@ -22,12 +22,13 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaCollector;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * The basic class for a Generating Flower.
  */
 public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerBlockEntity<ManaCollector> {
-	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
+	private static final ResourceLocation SPREADER_ID = botaniaRL("mana_spreader");
 
 	public static final int LINK_RANGE = 6;
 	private static final String TAG_MANA = "mana";

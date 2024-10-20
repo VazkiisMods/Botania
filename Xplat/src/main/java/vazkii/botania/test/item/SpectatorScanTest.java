@@ -91,10 +91,10 @@ public class SpectatorScanTest {
 
 		// set loot tables
 		var lootChestCart = helper.spawn(EntityType.CHEST_MINECART, POSITION_CART_LOOT);
-		lootChestCart.setLootTable(new ResourceLocation(LOOT_TABLE_CART), 1L);
+		lootChestCart.setLootTable(ResourceLocation.parse(LOOT_TABLE_CART), 1L);
 
 		var lootChest = TestingUtil.assertBlockEntity(helper, POSITION_CHEST_LOOT, BlockEntityType.CHEST);
-		lootChest.setLootTable(new ResourceLocation(LOOT_TABLE_CHEST), 1L);
+		lootChest.setLootTable(ResourceLocation.parse(LOOT_TABLE_CHEST), 1L);
 
 		// set up player
 		var player = helper.makeMockPlayer();

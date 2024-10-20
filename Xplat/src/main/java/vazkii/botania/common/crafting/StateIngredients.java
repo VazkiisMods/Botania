@@ -30,7 +30,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class StateIngredients {
 	public static final Codec<StateIngredient> TYPED_CODEC = ExtraCodecs.lazyInitializedCodec(() -> RegistryHelper
@@ -77,11 +77,11 @@ public class StateIngredients {
 	};
 
 	public static void submitRegistrations(BiConsumer<StateIngredientType<?>, ResourceLocation> r) {
-		r.accept(BLOCK_TYPE, prefix("block"));
-		r.accept(BLOCK_STATE, prefix("state"));
-		r.accept(BLOCK_TAG, prefix("tag"));
-		r.accept(ANY_OF, prefix("any_of"));
-		r.accept(ALL_OF_EXCLUDING, prefix("all_of_excluding"));
+		r.accept(BLOCK_TYPE, botaniaRL("block"));
+		r.accept(BLOCK_STATE, botaniaRL("state"));
+		r.accept(BLOCK_TAG, botaniaRL("tag"));
+		r.accept(ANY_OF, botaniaRL("any_of"));
+		r.accept(ALL_OF_EXCLUDING, botaniaRL("all_of_excluding"));
 	}
 
 	public static StateIngredient of(Block block) {

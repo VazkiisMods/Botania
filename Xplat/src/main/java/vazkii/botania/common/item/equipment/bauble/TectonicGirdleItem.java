@@ -35,7 +35,7 @@ import vazkii.botania.common.proxy.Proxy;
 
 public class TectonicGirdleItem extends BaubleItem {
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_KNOCKBACK_BELT);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_KNOCKBACK_BELT);
 
 	public TectonicGirdleItem(Properties props) {
 		super(props);

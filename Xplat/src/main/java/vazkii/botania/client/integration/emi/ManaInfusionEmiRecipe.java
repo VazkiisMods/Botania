@@ -17,10 +17,10 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = prefix("textures/gui/pure_daisy_overlay.png");
+	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/pure_daisy_overlay.png");
 	private static final EmiStack POOL;
 	private final int mana;
 

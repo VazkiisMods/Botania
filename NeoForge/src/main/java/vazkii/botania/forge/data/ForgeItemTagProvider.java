@@ -121,11 +121,11 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 	}
 
 	private static TagKey<Item> accessory(String name) {
-		return ItemTags.create(new ResourceLocation("curios", name));
+		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", name));
 	}
 
 	private static TagKey<Item> forge(String name) {
-		return ItemTags.create(new ResourceLocation("forge", name));
+		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
 	}
 
 	private void copyToSameName(TagKey<Block> source) {

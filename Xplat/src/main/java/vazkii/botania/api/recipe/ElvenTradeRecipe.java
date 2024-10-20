@@ -25,10 +25,11 @@ import vazkii.botania.api.BotaniaAPI;
 
 import java.util.List;
 import java.util.Optional;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ElvenTradeRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "elven_trade");
-	ResourceLocation TYPE_ID_LEXICON = new ResourceLocation(BotaniaAPI.MODID, "elven_trade_lexicon");
+	ResourceLocation TYPE_ID = botaniaRL("elven_trade");
+	ResourceLocation TYPE_ID_LEXICON = botaniaRL("elven_trade_lexicon");
 
 	/**
 	 * Attempts to match the recipe

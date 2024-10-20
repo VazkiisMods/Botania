@@ -46,7 +46,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class EyeOfTheFlugelItem extends RelicItem {
 
@@ -201,7 +201,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, prefix("challenge/flugel_eye"));
+		return new RelicImpl(stack, botaniaRL("challenge/flugel_eye"));
 	}
 
 }

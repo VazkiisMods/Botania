@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
@@ -23,7 +24,7 @@ import vazkii.botania.api.BotaniaAPI;
  */
 @FunctionalInterface
 public interface HornHarvestable {
-	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable");
+	ResourceLocation ID = botaniaRL("horn_harvestable");
 
 	/**
 	 * Returns true if this block can be uprooted.

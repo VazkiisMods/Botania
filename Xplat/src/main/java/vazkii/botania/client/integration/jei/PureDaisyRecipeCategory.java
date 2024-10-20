@@ -33,7 +33,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe> {
 
@@ -48,7 +48,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper, IPlatformFluidHelper<?> fluidHelper) {
 		background = guiHelper.createBlankDrawable(96, 44);
 		localizedName = Component.translatable("botania.nei.pureDaisy");
-		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaFlowerBlocks.pureDaisy));
 		this.fluidHelper = fluidHelper;

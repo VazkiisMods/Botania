@@ -42,7 +42,7 @@ import java.util.List;
 
 public class BifrostRodItem extends SelfReturningItem {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_RAINBOW);
+	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_RAINBOW);
 
 	private static final int MANA_COST = 750;
 	private static final int MANA_COST_AVATAR = 4;

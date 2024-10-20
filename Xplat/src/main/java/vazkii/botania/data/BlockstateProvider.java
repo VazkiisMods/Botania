@@ -42,7 +42,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
 import vazkii.botania.mixin.TextureSlotAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -55,7 +54,7 @@ import java.util.stream.Stream;
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
 import static vazkii.botania.common.block.BotaniaBlocks.*;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BlockstateProvider implements DataProvider {
 	protected final PackOutput packOutput;
@@ -146,7 +145,7 @@ public class BlockstateProvider implements DataProvider {
 						.put(TextureSlot.TOP, getBlockTexture(cacophonium, "_top")), this.modelOutput));
 		remainingBlocks.remove(cacophonium);
 
-		var crateTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/crate")), Optional.empty(),
+		var crateTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/crate")), Optional.empty(),
 				TextureSlot.BOTTOM, TextureSlot.SIDE);
 		var craftCrateBottomTex = getBlockTexture(craftCrate, "_bottom");
 		var crateDispatch = PropertyDispatch.property(BotaniaStateProperties.CRATE_PATTERN);
@@ -161,7 +160,7 @@ public class BlockstateProvider implements DataProvider {
 		this.blockstates.add(MultiVariantGenerator.multiVariant(craftCrate).with(crateDispatch));
 		remainingBlocks.remove(craftCrate);
 
-		ResourceLocation corpSlabSide = prefix("block/corporea_slab_side");
+		ResourceLocation corpSlabSide = botaniaRL("block/corporea_slab_side");
 		ResourceLocation corpBlock = getBlockTexture(corporeaBlock);
 		var corpSlabBottomModel = ModelTemplates.SLAB_BOTTOM.create(corporeaSlab,
 				new TextureMapping()
@@ -171,7 +170,7 @@ public class BlockstateProvider implements DataProvider {
 				new TextureMapping()
 						.put(TextureSlot.BOTTOM, corpBlock).put(TextureSlot.TOP, corpBlock).put(TextureSlot.SIDE, corpBlock),
 				this.modelOutput);
-		var corpSlabDoubleModel = ModelTemplates.CUBE_BOTTOM_TOP.create(prefix("block/corporea_double_slab"),
+		var corpSlabDoubleModel = ModelTemplates.CUBE_BOTTOM_TOP.create(botaniaRL("block/corporea_double_slab"),
 				new TextureMapping()
 						.put(TextureSlot.SIDE, corpSlabSide).put(TextureSlot.BOTTOM, corpBlock).put(TextureSlot.TOP, corpBlock),
 				this.modelOutput);
@@ -208,7 +207,7 @@ public class BlockstateProvider implements DataProvider {
 				.with(BlockModelGeneratorsAccessor.horizontalDispatch()));
 		remainingBlocks.remove(felPumpkin);
 
-		ModelTemplate eightByEightTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/eightbyeight")),
+		ModelTemplate eightByEightTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/eightbyeight")),
 				Optional.empty(),
 				TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.NORTH, TextureSlot.SOUTH, TextureSlot.WEST, TextureSlot.EAST);
 		singleVariantBlockState(forestEye, eightByEightTemplate.create(forestEye,
@@ -227,7 +226,7 @@ public class BlockstateProvider implements DataProvider {
 				.with(BlockModelGeneratorsAccessor.horizontalDispatch()));
 		remainingBlocks.remove(incensePlate);
 
-		var fourHighBottomTopTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/four_high_bottom_top")),
+		var fourHighBottomTopTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/four_high_bottom_top")),
 				Optional.empty(),
 				TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE);
 		singleVariantBlockState(lightLauncher, fourHighBottomTopTemplate.create(lightLauncher,
@@ -247,7 +246,7 @@ public class BlockstateProvider implements DataProvider {
 				));
 		remainingBlocks.remove(openCrate);
 
-		var threeHighBottomTopTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/three_high_bottom_top")),
+		var threeHighBottomTopTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/three_high_bottom_top")),
 				Optional.empty(),
 				TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE);
 		singleVariantBlockState(sparkChanger, threeHighBottomTopTemplate.create(sparkChanger,
@@ -263,7 +262,7 @@ public class BlockstateProvider implements DataProvider {
 				TextureMapping.cubeBottomTop(terraPlate), this.modelOutput));
 		remainingBlocks.remove(terraPlate);
 
-		var tenByTenAllTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/tenbyten_all")),
+		var tenByTenAllTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/tenbyten_all")),
 				Optional.empty(),
 				TextureSlot.ALL);
 		singleVariantBlockState(tinyPlanet, tenByTenAllTemplate.create(tinyPlanet,
@@ -369,7 +368,7 @@ public class BlockstateProvider implements DataProvider {
 		particleOnly(remainingBlocks, gaiaPylon, getBlockTexture(elementiumBlock));
 		particleOnly(remainingBlocks, hourglass, getBlockTexture(manaGlass));
 		particleOnly(remainingBlocks, lightRelayDefault, getBlockTexture(lightRelayDefault));
-		particleOnly(remainingBlocks, manaFlame, new ResourceLocation("block/fire_0"));
+		particleOnly(remainingBlocks, manaFlame, ResourceLocation.withDefaultNamespace("block/fire_0"));
 		particleOnly(remainingBlocks, manaPylon, getBlockTexture(manasteelBlock));
 		particleOnly(remainingBlocks, naturaPylon, getBlockTexture(terrasteelBlock));
 		particleOnly(remainingBlocks, teruTeruBozu, getBlockTexture(Blocks.WHITE_WOOL));
@@ -379,14 +378,14 @@ public class BlockstateProvider implements DataProvider {
 		Predicate<Block> flowers = b -> b instanceof SpecialFlowerBlock
 				|| b instanceof BotaniaMushroomBlock
 				|| b instanceof BotaniaFlowerBlock;
-		ModelTemplate crossTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);
+		ModelTemplate crossTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);
 		takeAll(remainingBlocks, flowers).forEach(b -> singleVariantBlockState(b, crossTemplate.create(b, TextureMapping.cross(b), this.modelOutput))
 		);
 
 		takeAll(remainingBlocks, b -> b instanceof FlowerMotifBlock).forEach(b -> {
 			String name = BuiltInRegistries.BLOCK.getKey(b).getPath().replace("_motif", "");
 			singleVariantBlockState(b, crossTemplate.create(b, new TextureMapping()
-					.put(TextureSlot.CROSS, prefix("block/" + name)),
+					.put(TextureSlot.CROSS, botaniaRL("block/" + name)),
 					this.modelOutput));
 		});
 
@@ -396,24 +395,24 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput));
 		});
 
-		var drumModelTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/drum")), Optional.empty(), TextureSlot.TOP, TextureSlot.SIDE);
+		var drumModelTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/drum")), Optional.empty(), TextureSlot.TOP, TextureSlot.SIDE);
 		takeAll(remainingBlocks, gatheringDrum, canopyDrum, wildDrum).forEach(b -> {
 			singleVariantBlockState(b, drumModelTemplate.create(b,
 					new TextureMapping()
-							.put(TextureSlot.TOP, prefix("block/drum_top"))
+							.put(TextureSlot.TOP, botaniaRL("block/drum_top"))
 							.put(TextureSlot.SIDE, getBlockTexture(b)),
 					this.modelOutput));
 		});
 
 		var outsideSlot = TextureSlotAccessor.make("outside");
 		var coreSlot = TextureSlotAccessor.make("core");
-		var spreaderTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader")), Optional.empty(),
+		var spreaderTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader")), Optional.empty(),
 				TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, outsideSlot);
-		var spreaderCoreTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_core")), Optional.of("_core"),
+		var spreaderCoreTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_core")), Optional.of("_core"),
 				coreSlot);
-		var spreaderPaddingTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_padding")),
+		var spreaderPaddingTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_padding")),
 				Optional.empty(), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE);
-		var spreaderScaffoldingTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_scaffolding")),
+		var spreaderScaffoldingTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_scaffolding")),
 				Optional.of("_scaffolding"), TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.BOTTOM);
 		takeAll(remainingBlocks, manaSpreader, redstoneSpreader, gaiaSpreader, elvenSpreader).forEach(b -> {
 			ResourceLocation outside;
@@ -448,7 +447,7 @@ public class BlockstateProvider implements DataProvider {
 		});
 		ColorHelper.supportedColors().forEach(color -> {
 			Block wool = ColorHelper.WOOL_MAP.apply(color);
-			spreaderPaddingTemplate.create(prefix("block/" + color.getName() + "_spreader_padding"),
+			spreaderPaddingTemplate.create(botaniaRL("block/" + color.getName() + "_spreader_padding"),
 					new TextureMapping()
 							.put(TextureSlot.FRONT, getBlockTexture(wool))
 							.put(TextureSlot.BACK, getBlockTexture(wool))
@@ -459,12 +458,12 @@ public class BlockstateProvider implements DataProvider {
 		var manaSlot = TextureSlotAccessor.make("mana");
 		TextureSlot[] manaPoolSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE };
 		TextureSlot[] manaPoolFullSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE, manaSlot };
-		var poolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/mana_pool")), Optional.empty(), manaPoolSlots);
-		var dilutedPoolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/diluted_mana_pool")), Optional.empty(), manaPoolSlots);
-		var creativePoolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/creative_mana_pool")), Optional.empty(), manaPoolSlots);
-		var poolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
-		var dilutedPoolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/diluted_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
-		var creativePoolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/creative_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
+		var poolTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/mana_pool")), Optional.empty(), manaPoolSlots);
+		var dilutedPoolTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/diluted_mana_pool")), Optional.empty(), manaPoolSlots);
+		var creativePoolTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/creative_mana_pool")), Optional.empty(), manaPoolSlots);
+		var poolFullTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
+		var dilutedPoolFullTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/diluted_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
+		var creativePoolFullTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/creative_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
 		takeAll(remainingBlocks, manaPool, dilutedPool, fabulousPool, creativePool).forEach(b -> {
 			Block blockForTexture = b == fabulousPool ? manaPool : b;
 			ResourceLocation side = getBlockTexture(blockForTexture, "_side");
@@ -489,7 +488,7 @@ public class BlockstateProvider implements DataProvider {
 					.put(TextureSlot.INSIDE, inside);
 
 			singleVariantBlockState(b, template.create(b, mapping, this.modelOutput));
-			fullTemplate.create(b, mapping.put(manaSlot, prefix("block/mana_water")), this.modelOutput);
+			fullTemplate.create(b, mapping.put(manaSlot, botaniaRL("block/mana_water")), this.modelOutput);
 		});
 
 		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, getModelLocation(b)))
@@ -507,8 +506,8 @@ public class BlockstateProvider implements DataProvider {
 			));
 		});
 
-		var petalBlockModel = new ModelTemplate(Optional.of(prefix("block/shapes/cube_all_tinted")), Optional.empty(), TextureSlot.ALL)
-				.create(prefix("block/petal_block"), new TextureMapping().put(TextureSlot.ALL, prefix("block/petal_block")), this.modelOutput);
+		var petalBlockModel = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cube_all_tinted")), Optional.empty(), TextureSlot.ALL)
+				.create(botaniaRL("block/petal_block"), new TextureMapping().put(TextureSlot.ALL, botaniaRL("block/petal_block")), this.modelOutput);
 		takeAll(remainingBlocks, b -> b instanceof PetalBlock).forEach(b -> singleVariantBlockState(b, petalBlockModel));
 
 		takeAll(remainingBlocks, b -> b instanceof BotaniaGrassBlock).forEach(b -> {
@@ -652,19 +651,19 @@ public class BlockstateProvider implements DataProvider {
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
-			ResourceLocation quartzId = prefix(variant + "_quartz");
+			ResourceLocation quartzId = botaniaRL(variant + "_quartz");
 			Block quartz = BuiltInRegistries.BLOCK.get(quartzId);
 			singleVariantBlockState(quartz,
 					ModelTemplates.CUBE_BOTTOM_TOP.create(quartz, TextureMapping.cubeBottomTop(quartz), this.modelOutput));
 
-			ResourceLocation pillarId = prefix(variant + "_quartz_pillar");
+			ResourceLocation pillarId = botaniaRL(variant + "_quartz_pillar");
 			Block pillar = BuiltInRegistries.BLOCK.get(pillarId);
 			var pillarModel = ModelTemplates.CUBE_COLUMN.create(pillar,
 					TextureMapping.column(getBlockTexture(pillar, "_side"), getBlockTexture(pillar, "_end")),
 					this.modelOutput);
 			this.blockstates.add(BlockModelGeneratorsAccessor.createAxisAlignedPillarBlock(pillar, pillarModel));
 
-			ResourceLocation chiseledId = prefix("chiseled_" + variant + "_quartz");
+			ResourceLocation chiseledId = botaniaRL("chiseled_" + variant + "_quartz");
 			Block chiseled = BuiltInRegistries.BLOCK.get(chiseledId);
 			singleVariantBlockState(chiseled,
 					ModelTemplates.CUBE_COLUMN.create(chiseled, new TextureMapping()
@@ -678,11 +677,11 @@ public class BlockstateProvider implements DataProvider {
 
 		takeAll(remainingBlocks, b -> b instanceof BuriedPetalBlock).forEach(b -> {
 			DyeColor color = ((BuriedPetalBlock) b).color;
-			ResourceLocation wool = new ResourceLocation("block/" + color.getSerializedName() + "_wool");
+			ResourceLocation wool = ResourceLocation.withDefaultNamespace("block/" + color.getSerializedName() + "_wool");
 			particleOnly(remainingBlocks, b, wool);
 		});
 
-		var apothecaryTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/petal_apothecary")), Optional.empty(),
+		var apothecaryTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/petal_apothecary")), Optional.empty(),
 				TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
 		takeAll(remainingBlocks, b -> b instanceof PetalApothecaryBlock).forEach(b -> singleVariantBlockState(b,
 				apothecaryTemplate.create(b, new TextureMapping()
@@ -700,7 +699,7 @@ public class BlockstateProvider implements DataProvider {
 			String name = BuiltInRegistries.BLOCK.getKey(b).getPath();
 			var mapping = new TextureMapping()
 					.put(TextureSlot.EDGE, getBlockTexture(b))
-					.put(TextureSlot.PANE, prefix("block/" + name.substring(0, name.length() - "_pane".length())));
+					.put(TextureSlot.PANE, botaniaRL("block/" + name.substring(0, name.length() - "_pane".length())));
 			ResourceLocation postModel = ModelTemplates.STAINED_GLASS_PANE_POST.create(b, mapping, this.modelOutput);
 			ResourceLocation sideModel = ModelTemplates.STAINED_GLASS_PANE_SIDE.create(b, mapping, this.modelOutput);
 			ResourceLocation sideAltModel = ModelTemplates.STAINED_GLASS_PANE_SIDE_ALT.create(b, mapping, this.modelOutput);
@@ -725,12 +724,12 @@ public class BlockstateProvider implements DataProvider {
 			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
 			boolean quartz = name.contains("quartz");
 			if (quartz) {
-				ResourceLocation side = prefix("block/" + baseName + "_side");
-				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
-				ResourceLocation top = prefix("block/" + baseName + "_top");
+				ResourceLocation side = botaniaRL("block/" + baseName + "_side");
+				ResourceLocation bottom = botaniaRL("block/" + baseName + "_bottom");
+				ResourceLocation top = botaniaRL("block/" + baseName + "_top");
 				stairsBlock(new HashSet<>(), b, side, bottom, top);
 			} else {
-				var tex = prefix("block/" + baseName);
+				var tex = botaniaRL("block/" + baseName);
 				stairsBlock(new HashSet<>(), b, tex, tex, tex);
 			}
 		});
@@ -738,7 +737,7 @@ public class BlockstateProvider implements DataProvider {
 		takeAll(remainingBlocks, b -> b instanceof SlabBlock).forEach(slabBlock -> {
 			String name = BuiltInRegistries.BLOCK.getKey(slabBlock).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
-			Block base = BuiltInRegistries.BLOCK.get(prefix(baseName));
+			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
 			boolean quartz = name.contains("quartz");
 			if (quartz) {
 				var side = getBlockTexture(base, "_side");
@@ -756,7 +755,7 @@ public class BlockstateProvider implements DataProvider {
 		takeAll(remainingBlocks, b -> b instanceof WallBlock).forEach(wallBlock -> {
 			String name = BuiltInRegistries.BLOCK.getKey(wallBlock).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.WALL_SUFFIX.length());
-			Block base = BuiltInRegistries.BLOCK.get(prefix(baseName));
+			Block base = BuiltInRegistries.BLOCK.get(botaniaRL(baseName));
 			var baseTexture = getBlockTexture(base);
 			wallBlock(new HashSet<>(), wallBlock, baseTexture);
 		});
@@ -779,7 +778,7 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	protected void checkeredStairsBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
-		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(botaniaRL("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
 		var checkeredStairsModel = checkeredTemplate.apply("stairs_checkered", Optional.empty()).create(biomeBrickMesaStairs, checkeredMapping, this.modelOutput);
@@ -893,7 +892,7 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	protected void checkeredSlabBlock(Set<Block> blocks, Block block, ResourceLocation doubleModel, ResourceLocation texture, ResourceLocation mirroredTexture) {
-		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(botaniaRL("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
 		var slabModel = checkeredTemplate.apply("slab_checkered", Optional.empty()).create(biomeBrickMesaSlab, checkeredMapping, this.modelOutput);
@@ -958,7 +957,7 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	protected void checkeredWallBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
-		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(botaniaRL("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
 		var checkeredWallPostModel = checkeredTemplate.apply("wall_post_checkered", Optional.of("_post")).create(biomeBrickMesaWall, checkeredMapping, this.modelOutput);
@@ -1001,11 +1000,11 @@ public class BlockstateProvider implements DataProvider {
 			ResourceLocation modelIdPost = getModelLocation(block, "_post" + suffix);
 			ResourceLocation modelIdLow = getModelLocation(block, "_side" + suffix);
 			ResourceLocation modelIdTall = getModelLocation(block, "_side_tall" + suffix);
-			var postTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/wall_post")), Optional.of("_post"),
+			var postTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/wall_post")), Optional.of("_post"),
 					TextureSlot.WALL, TextureSlot.BOTTOM, TextureSlot.TOP);
-			var sideTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/wall_side")), Optional.of("_side"),
+			var sideTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/wall_side")), Optional.of("_side"),
 					TextureSlot.WALL, TextureSlot.BOTTOM, TextureSlot.TOP);
-			var sideTallTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/wall_side_tall")), Optional.of("_side_tall"),
+			var sideTallTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/wall_side_tall")), Optional.of("_side_tall"),
 					TextureSlot.WALL, TextureSlot.BOTTOM, TextureSlot.TOP);
 			postModels[i] = postTemplate.create(modelIdPost, mapping, this.modelOutput);
 			lowModels[i] = sideTemplate.create(modelIdLow, mapping, this.modelOutput);
@@ -1091,7 +1090,7 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	protected ResourceLocation checkeredBlockWithBlockstate(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
-		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(botaniaRL("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
 		var blockModel = checkeredTemplate.apply("cube_checkered", Optional.empty()).create(block, checkeredMapping, this.modelOutput);
@@ -1243,8 +1242,8 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] topModels = new ResourceLocation[length];
 		ResourceLocation[] horizontalXModels = new ResourceLocation[length];
 		ResourceLocation[] horizontalZModels = new ResourceLocation[length];
-		ModelTemplate horizontalXTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_horizontal_x")), Optional.of("_horizontal_x"), TextureSlot.END, TextureSlot.SIDE);
-		ModelTemplate horizontalZTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_horizontal_z")), Optional.of("_horizontal_z"), TextureSlot.END, TextureSlot.SIDE);
+		ModelTemplate horizontalXTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cube_column_horizontal_x")), Optional.of("_horizontal_x"), TextureSlot.END, TextureSlot.SIDE);
+		ModelTemplate horizontalZTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cube_column_horizontal_z")), Optional.of("_horizontal_z"), TextureSlot.END, TextureSlot.SIDE);
 		for (int i = 0; i < length; i++) {
 			String suffix = i == 0 ? "" : "_" + i;
 			ResourceLocation modelIdTop = getModelLocation(block, suffix);
@@ -1284,8 +1283,8 @@ public class BlockstateProvider implements DataProvider {
 		}
 		ResourceLocation[] topModels = new ResourceLocation[length];
 		ResourceLocation[] horizontalModels = new ResourceLocation[length];
-		ModelTemplate topTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_directional")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.SIDE);
-		ModelTemplate horizontalTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_directional_horizontal")), Optional.of("_horizontal"), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.SIDE);
+		ModelTemplate topTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cube_column_directional")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.SIDE);
+		ModelTemplate horizontalTemplate = new ModelTemplate(Optional.of(botaniaRL("block/shapes/cube_column_directional_horizontal")), Optional.of("_horizontal"), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.SIDE);
 		for (int i = 0; i < length; i++) {
 			TextureMapping mapping = new TextureMapping()
 					.put(TextureSlot.SIDE, sideTextures[i])
@@ -1391,7 +1390,7 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void redStringBlock(Block b) {
 		ResourceLocation selfName = getBlockTexture(b);
-		ResourceLocation front = prefix("block/red_string_sender");
+		ResourceLocation front = botaniaRL("block/red_string_sender");
 		var model = ModelTemplates.CUBE_ORIENTABLE.create(b, new TextureMapping()
 				.put(TextureSlot.TOP, selfName)
 				.put(TextureSlot.FRONT, front)

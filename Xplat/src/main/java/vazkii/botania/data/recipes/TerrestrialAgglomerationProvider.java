@@ -18,7 +18,7 @@ import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 	public TerrestrialAgglomerationProvider(PackOutput packOutput) {
@@ -40,6 +40,6 @@ public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 	}
 
 	private static ResourceLocation idFor(String s) {
-		return prefix("terra_plate/" + s);
+		return botaniaRL("terra_plate/" + s);
 	}
 }

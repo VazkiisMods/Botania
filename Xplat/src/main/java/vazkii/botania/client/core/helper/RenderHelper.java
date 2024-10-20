@@ -177,7 +177,7 @@ public final class RenderHelper extends RenderType {
 				.setLightmapState(LIGHTMAP).createCompositeState(false);
 		ENCHANTER = makeLayer(ResourcesLib.PREFIX_MOD + "enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
 
-		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(new ResourceLocation(ResourcesLib.MISC_BABYLON), false, true);
+		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(ResourceLocation.parse(ResourcesLib.MISC_BABYLON), false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(babylonTexture)
 				.setShaderState(new ShaderStateShard(CoreShaders::halo))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)

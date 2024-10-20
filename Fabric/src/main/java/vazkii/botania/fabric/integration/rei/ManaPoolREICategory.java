@@ -24,12 +24,12 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 
 public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> {
 	private final EntryStack<ItemStack> manaPool = EntryStacks.of(new ItemStack(BotaniaBlocks.manaPool));
-	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+	private final ResourceLocation OVERLAY = BotaniaAPI.botaniaRL("textures/gui/pure_daisy_overlay.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<ManaPoolREIDisplay> getCategoryIdentifier() {

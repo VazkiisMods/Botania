@@ -10,7 +10,7 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaModelLayers {
 	public static final ModelLayerLocation AVATAR = make("avatar");
@@ -40,7 +40,7 @@ public class BotaniaModelLayers {
 	private static ModelLayerLocation make(String name, String layer) {
 		// Don't add to vanilla's ModelLayers. It seems to only be used for error checking
 		// And would be annoying to do under Forge's parallel mod loading
-		return new ModelLayerLocation(prefix(name), layer);
+		return new ModelLayerLocation(botaniaRL(name), layer);
 	}
 
 	public static void init() {}
