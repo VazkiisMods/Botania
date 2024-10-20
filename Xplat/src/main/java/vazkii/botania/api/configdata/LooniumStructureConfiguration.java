@@ -8,16 +8,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
-
-import vazkii.botania.api.BotaniaAPI;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumStructureConfiguration {
 	public static final int DEFAULT_COST = 35000;
@@ -56,7 +53,7 @@ public class LooniumStructureConfiguration {
 		}
 		return DataResult.success(lsc);
 	});
-	public static final ResourceLocation DEFAULT_CONFIG_ID = prefix("default");
+	public static final ResourceLocation DEFAULT_CONFIG_ID = botaniaRL("default");
 
 	public final Integer manaCost;
 	public final Integer maxNearbyMobs;

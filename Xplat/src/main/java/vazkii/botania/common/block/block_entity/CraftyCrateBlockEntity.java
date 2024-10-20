@@ -46,7 +46,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wandable {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
@@ -62,7 +62,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	private int lastRecipeEpoch = recipeEpoch;
 
 	public static void registerListener() {
-		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("craft_crate_epoch_counter"),
+		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, botaniaRL("craft_crate_epoch_counter"),
 				(ResourceManagerReloadListener) mgr -> recipeEpoch++);
 	}
 

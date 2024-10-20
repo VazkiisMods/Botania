@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaBannerPatterns {
 	private static final List<BannerPattern> ALL = new ArrayList<>();
@@ -43,12 +43,12 @@ public final class BotaniaBannerPatterns {
 	private static ResourceKey<BannerPattern> make(String hashName) {
 		BannerPattern pattern = new BannerPattern(LibMisc.MOD_ID + ":" + hashName);
 		ALL.add(pattern);
-		return ResourceKey.create(Registries.BANNER_PATTERN, prefix(hashName));
+		return ResourceKey.create(Registries.BANNER_PATTERN, botaniaRL(hashName));
 	}
 
 	public static void submitRegistrations(BiConsumer<BannerPattern, ResourceLocation> consumer) {
 		for (var pattern : ALL) {
-			consumer.accept(pattern, new ResourceLocation(pattern.getHashname()));
+			consumer.accept(pattern, ResourceLocation.parse(pattern.getHashname()));
 		}
 	}
 }

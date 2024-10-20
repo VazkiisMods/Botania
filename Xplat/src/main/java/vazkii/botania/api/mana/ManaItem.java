@@ -12,13 +12,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * An item that has this capability can contain mana.
  */
 public interface ManaItem {
 
-	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "mana_item");
+	ResourceLocation ID = botaniaRL("mana_item");
 
 	/**
 	 * Gets the amount of mana this item contains

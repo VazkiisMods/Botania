@@ -13,15 +13,15 @@ import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaDamageTypes {
 	public static final ResourceKey<DamageType> PLAYER_ATTACK_ARMOR_PIERCING =
-			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("player_attack_armor_piercing"));
+			ResourceKey.create(Registries.DAMAGE_TYPE, botaniaRL("player_attack_armor_piercing"));
 	public static final ResourceKey<DamageType> RELIC_DAMAGE =
-			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("relic_damage"));
+			ResourceKey.create(Registries.DAMAGE_TYPE, botaniaRL("relic_damage"));
 	public static final ResourceKey<DamageType> KEY_EXPLOSION =
-			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("key_explosion"));
+			ResourceKey.create(Registries.DAMAGE_TYPE, botaniaRL("key_explosion"));
 
 	public static final DamageType PLAYER_AP = new DamageType("player", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1F);
 	public static final DamageType RELIC = new DamageType("botania.relic", DamageScaling.NEVER, 1F, DamageEffects.FREEZING);

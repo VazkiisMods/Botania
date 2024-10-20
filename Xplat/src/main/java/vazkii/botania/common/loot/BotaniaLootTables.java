@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Collections;
 import java.util.Set;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaLootTables {
 	private static final Set<ResourceLocation> LOCATIONS = Sets.newHashSet();
@@ -136,7 +136,7 @@ public class BotaniaLootTables {
 	public static final ResourceLocation LOONIUM_ZOMBIE_TRAIL_RUINS = register("equipment/loonium/zombie_trail_ruins");
 
 	private static ResourceLocation register(String path) {
-		return register(prefix(path));
+		return register(botaniaRL(path));
 	}
 
 	private static ResourceLocation register(ResourceLocation location) {

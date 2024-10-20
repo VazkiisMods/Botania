@@ -23,11 +23,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import java.util.Optional;
 
 public interface PureDaisyRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "pure_daisy");
+	ResourceLocation TYPE_ID = botaniaRL("pure_daisy");
 
 	/**
 	 * This gets called every tick, please be careful with your checks.

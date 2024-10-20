@@ -146,7 +146,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 			var texture = armor.getArmorTexture(stack, entity, slot, "");
 			if (model != null) {
 				contextModel.copyPropertiesTo(model);
-				ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new ResourceLocation(texture));
+				ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, ResourceLocation.parse(texture));
 			}
 		};
 		ArmorRenderer.register(renderer, armors);

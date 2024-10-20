@@ -68,7 +68,7 @@ import java.util.Optional;
 
 public class AssemblyHaloItem extends Item {
 
-	private static final ResourceLocation glowTexture = new ResourceLocation(ResourcesLib.MISC_GLOW_GREEN);
+	private static final ResourceLocation glowTexture = ResourceLocation.parse(ResourcesLib.MISC_GLOW_GREEN);
 	private static final ItemStack craftingTable = new ItemStack(Blocks.CRAFTING_TABLE);
 
 	public static final int SEGMENTS = 12;

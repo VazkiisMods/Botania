@@ -17,7 +17,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 
 public class PlanestridersSashItem extends SojournersSashItem {
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_SPEED_UP_BELT);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_SPEED_UP_BELT);
 
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_OLD_X = "oldX";

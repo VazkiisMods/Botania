@@ -22,7 +22,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.lib.BotaniaTags;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class OrechidProvider extends BotaniaRecipeProvider {
 
@@ -67,15 +67,15 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected ResourceLocation orechidId(Block b) {
-		return prefix("orechid/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
+		return botaniaRL("orechid/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
 	}
 
 	protected ResourceLocation ignemId(Block b) {
-		return prefix("orechid_ignem/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
+		return botaniaRL("orechid_ignem/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
 	}
 
 	protected ResourceLocation marimorphosisId(Block b) {
-		return prefix("marimorphosis/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
+		return botaniaRL("marimorphosis/" + BuiltInRegistries.BLOCK.getKey(b).getPath());
 	}
 
 	protected void stone(RecipeOutput consumer, Block output, int weight) {

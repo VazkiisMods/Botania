@@ -18,10 +18,10 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacket {
-	public static final ResourceLocation ID = prefix("idx");
+	public static final ResourceLocation ID = botaniaRL("idx");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {

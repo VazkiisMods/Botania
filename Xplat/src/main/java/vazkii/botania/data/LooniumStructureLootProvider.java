@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumStructureLootProvider implements DataProvider {
 	// loot collections based on which village type hoses can actually have chests
@@ -48,7 +48,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 	}
 
 	public static ResourceLocation getStructureId(ResourceLocation structureId) {
-		return prefix("%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
+		return botaniaRL("%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
 	}
 
 	@NotNull
@@ -71,7 +71,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 	private void addLootTables(Map<ResourceLocation, LootTable.Builder> tables) {
 		// Note: As far as world generating is concerned, dungeons are "features" (i.e. like trees or geodes),
 		// not "structures" (like everything else the Loonium might care about).
-		tables.put(prefix("default"), buildDelegateLootTable(BuiltInLootTables.SIMPLE_DUNGEON));
+		tables.put(botaniaRL("default"), buildDelegateLootTable(BuiltInLootTables.SIMPLE_DUNGEON));
 
 		/*
 		Note: Be careful about adding individual items instead of loot table references.

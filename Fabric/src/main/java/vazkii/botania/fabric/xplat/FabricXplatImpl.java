@@ -29,7 +29,6 @@ import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -48,7 +47,6 @@ import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -67,12 +65,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -85,7 +81,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
@@ -102,7 +97,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.block.SpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
@@ -119,9 +113,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FabricXplatImpl implements XplatAbstractions {
 	@Override
@@ -539,7 +532,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return StepHeightEntityAttributeMain.STEP_HEIGHT;
 	}
 
-	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "ores"));
+	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores"));
 
 	@Override
 	public TagKey<Block> getOreTag() {
@@ -547,9 +540,9 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	// No standard so we have to check both :wacko:
-	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass"));
-	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_blocks"));
-	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_panes"));
+	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass"));
+	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_blocks"));
+	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_panes"));
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
@@ -629,7 +622,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 				.pressurePlateClickOnSound(pressurePlateClickOn)
 				.buttonClickOffSound(buttonClickOff)
 				.buttonClickOnSound(buttonClickOn)
-				.register(prefix(name));
+				.register(botaniaRL(name));
 	}
 
 	@Override
@@ -639,6 +632,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 				.hangingSignSoundGroup(hangingSignSoundType)
 				.fenceGateCloseSound(fenceGateClose)
 				.fenceGateOpenSound(fenceGateOpen)
-				.register(prefix(name), setType);
+				.register(botaniaRL(name), setType);
 	}
 }

@@ -18,11 +18,11 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class JumpPacket implements BotaniaPacket {
 	public static final JumpPacket INSTANCE = new JumpPacket();
-	public static final ResourceLocation ID = prefix("jmp");
+	public static final ResourceLocation ID = botaniaRL("jmp");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {

@@ -19,9 +19,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface RunicAltarRecipe extends RecipeWithReagent {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "runic_altar");
+	ResourceLocation TYPE_ID = botaniaRL("runic_altar");
 
 	int getMana();
 

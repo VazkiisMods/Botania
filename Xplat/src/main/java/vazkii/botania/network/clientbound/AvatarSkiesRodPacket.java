@@ -15,10 +15,10 @@ import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.common.item.rod.SkiesRodItem;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public record AvatarSkiesRodPacket(boolean elytra) implements BotaniaPacket {
-	public static final ResourceLocation ID = prefix("atr");
+	public static final ResourceLocation ID = botaniaRL("atr");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {

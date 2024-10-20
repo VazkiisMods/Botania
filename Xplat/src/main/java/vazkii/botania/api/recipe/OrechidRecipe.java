@@ -21,13 +21,14 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import java.util.Optional;
 
 public interface OrechidRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "orechid");
-	ResourceLocation IGNEM_TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "orechid_ignem");
-	ResourceLocation MARIMORPHOSIS_TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "marimorphosis");
+	ResourceLocation TYPE_ID = botaniaRL("orechid");
+	ResourceLocation IGNEM_TYPE_ID = botaniaRL("orechid_ignem");
+	ResourceLocation MARIMORPHOSIS_TYPE_ID = botaniaRL("marimorphosis");
 
 	/** Valid inputs for the recipe */
 	StateIngredient getInput();

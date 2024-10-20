@@ -16,7 +16,7 @@ import vazkii.botania.common.lib.LibPotionNames;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaMobEffects {
 
@@ -28,11 +28,11 @@ public class BotaniaMobEffects {
 	public static final MobEffect clear = new AbsolutionMobEffect();
 
 	public static void registerPotions(BiConsumer<MobEffect, ResourceLocation> r) {
-		r.accept(soulCross, prefix(LibPotionNames.SOUL_CROSS));
-		r.accept(featherfeet, prefix(LibPotionNames.FEATHER_FEET));
-		r.accept(emptiness, prefix(LibPotionNames.EMPTINESS));
-		r.accept(bloodthrst, prefix(LibPotionNames.BLOODTHIRST));
-		r.accept(allure, prefix(LibPotionNames.ALLURE));
-		r.accept(clear, prefix(LibPotionNames.CLEAR));
+		r.accept(soulCross, botaniaRL(LibPotionNames.SOUL_CROSS));
+		r.accept(featherfeet, botaniaRL(LibPotionNames.FEATHER_FEET));
+		r.accept(emptiness, botaniaRL(LibPotionNames.EMPTINESS));
+		r.accept(bloodthrst, botaniaRL(LibPotionNames.BLOODTHIRST));
+		r.accept(allure, botaniaRL(LibPotionNames.ALLURE));
+		r.accept(clear, botaniaRL(LibPotionNames.CLEAR));
 	}
 }

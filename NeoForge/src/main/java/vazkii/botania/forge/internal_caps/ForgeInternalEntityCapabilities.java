@@ -27,7 +27,7 @@ import vazkii.botania.forge.CapabilityUtil;
 
 import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class ForgeInternalEntityCapabilities {
 	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, BotaniaAPI.MODID);
@@ -73,25 +73,25 @@ public final class ForgeInternalEntityCapabilities {
 			var entity = evt.getObject();
 
 			if (entity instanceof PrimedTnt tnt) {
-				evt.addCapability(prefix("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new EthicalComponent(tnt)));
+				evt.addCapability(botaniaRL("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new EthicalComponent(tnt)));
 			}
 			if (entity instanceof AbstractMinecart) {
-				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new SpectralRailComponent()));
+				evt.addCapability(botaniaRL("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new SpectralRailComponent()));
 			}
 			if (entity instanceof ItemEntity) {
-				evt.addCapability(prefix("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ItemFlagsComponent()));
+				evt.addCapability(botaniaRL("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ItemFlagsComponent()));
 			}
 			if (entity instanceof Player) {
-				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new KeptItemsComponent()));
+				evt.addCapability(botaniaRL("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new KeptItemsComponent()));
 			}
 			if (entity instanceof Mob) {
-				evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
+				evt.addCapability(botaniaRL("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
 			}
 			if (entity instanceof Slime) {
-				evt.addCapability(prefix("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new NarslimmusComponent()));
+				evt.addCapability(botaniaRL("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new NarslimmusComponent()));
 			}
 			if (entity instanceof Creeper) {
-				evt.addCapability(prefix("tigerseye_pacified"), CapabilityUtil.makeSavedProvider(TIGERSEYE, new TigerseyeComponent()));
+				evt.addCapability(botaniaRL("tigerseye_pacified"), CapabilityUtil.makeSavedProvider(TIGERSEYE, new TigerseyeComponent()));
 			}
 		}
 	}

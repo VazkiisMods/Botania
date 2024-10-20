@@ -26,10 +26,10 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import java.util.List;
 public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDisplay> {
 	private final EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(BotaniaBlocks.runeAltar));
 	private final EntryStack<ItemStack> livingrock = EntryStacks.of(new ItemStack(BotaniaBlocks.livingrock));
-	private final ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
+	private final ResourceLocation PETAL_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/petal_overlay.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {

@@ -20,10 +20,10 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("fire_mana_blaster");
+	public static final ResourceLocation ID = botaniaRL("fire_mana_blaster");
 	public static final ManaBlasterTrigger INSTANCE = new ManaBlasterTrigger();
 
 	private ManaBlasterTrigger() {}

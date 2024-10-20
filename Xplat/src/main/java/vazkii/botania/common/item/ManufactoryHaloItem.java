@@ -35,7 +35,7 @@ import java.util.List;
 public class ManufactoryHaloItem extends AssemblyHaloItem {
 	public static final String TAG_ACTIVE = "active";
 
-	private static final ResourceLocation glowTexture = new ResourceLocation(ResourcesLib.MISC_GLOW_CYAN);
+	private static final ResourceLocation glowTexture = ResourceLocation.parse(ResourcesLib.MISC_GLOW_CYAN);
 
 	public ManufactoryHaloItem(Item.Properties props) {
 		super(props);

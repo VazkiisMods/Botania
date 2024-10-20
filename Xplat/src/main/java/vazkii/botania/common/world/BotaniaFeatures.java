@@ -16,16 +16,16 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaFeatures {
 	public static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_PLACED_FEATURE =
-			ResourceKey.create(Registries.PLACED_FEATURE, prefix("mystical_flowers"));
+			ResourceKey.create(Registries.PLACED_FEATURE, botaniaRL("mystical_flowers"));
 	public static final ResourceKey<PlacedFeature> MYSTICAL_MUSHROOMS_PLACED_FEATURE =
-			ResourceKey.create(Registries.PLACED_FEATURE, prefix("mystical_mushrooms"));
+			ResourceKey.create(Registries.PLACED_FEATURE, botaniaRL("mystical_mushrooms"));
 
 	public static void registerFeatures(BiConsumer<Feature<?>, ResourceLocation> r) {
-		r.accept(new MysticalFlowerFeature(MysticalFlowerConfig.CODEC), prefix("mystical_flower"));
+		r.accept(new MysticalFlowerFeature(MysticalFlowerConfig.CODEC), botaniaRL("mystical_flower"));
 	}
 
 }

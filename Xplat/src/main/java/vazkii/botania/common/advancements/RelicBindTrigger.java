@@ -21,10 +21,10 @@ import net.minecraft.world.level.ItemLike;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RelicBindTrigger extends SimpleCriterionTrigger<RelicBindTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("relic_bind");
+	public static final ResourceLocation ID = botaniaRL("relic_bind");
 	public static final RelicBindTrigger INSTANCE = new RelicBindTrigger();
 
 	private RelicBindTrigger() {}

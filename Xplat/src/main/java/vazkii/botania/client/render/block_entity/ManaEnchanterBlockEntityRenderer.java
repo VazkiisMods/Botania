@@ -29,7 +29,7 @@ import vazkii.botania.mixin.ItemEntityAccessor;
 
 import java.util.Objects;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<ManaEnchanterBlockEntity> {
 
@@ -39,7 +39,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 	public ManaEnchanterBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.overlaySprite = Objects.requireNonNull(
 				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-						.apply(prefix("block/enchanter_overlay"))
+						.apply(botaniaRL("block/enchanter_overlay"))
 		);
 	}
 

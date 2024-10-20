@@ -21,10 +21,10 @@ import net.minecraft.util.ExtraCodecs;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaRequestTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("corporea_index_request");
+	public static final ResourceLocation ID = botaniaRL("corporea_index_request");
 	public static final CorporeaRequestTrigger INSTANCE = new CorporeaRequestTrigger();
 
 	private CorporeaRequestTrigger() {}

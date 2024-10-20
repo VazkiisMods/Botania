@@ -11,6 +11,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaBurst;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A Block or Block Entity with this capability will receive a callback when a burst
@@ -18,7 +19,7 @@ import vazkii.botania.api.internal.ManaBurst;
  */
 public interface ManaTrigger {
 
-	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "mana_trigger");
+	ResourceLocation ID = botaniaRL("mana_trigger");
 
 	void onBurstCollision(ManaBurst burst);
 

@@ -428,7 +428,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 					String[] entryTokens = token.split("=");
 					int lvl = Integer.parseInt(entryTokens[1]);
 					level.holderLookup(Registries.ENCHANTMENT)
-							.get(ResourceKey.create(Registries.ENCHANTMENT, new ResourceLocation(entryTokens[0])))
+							.get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(entryTokens[0])))
 							.ifPresent(ench -> enchants.add(new EnchantmentInstance(ench.value(), lvl)));
 				} catch (ResourceLocationException ignored) {}
 			}

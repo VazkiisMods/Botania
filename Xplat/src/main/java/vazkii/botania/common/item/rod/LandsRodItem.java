@@ -39,7 +39,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class LandsRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_DIRT);
+	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_DIRT);
 
 	static final int COST = 75;
 

@@ -35,15 +35,15 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDisplay> {
 	private final EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(BotaniaBlocks.alfPortal));
-	private final ResourceLocation TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
+	private final ResourceLocation TRADE_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/elven_trade_overlay.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<ElvenTradeREIDisplay> getCategoryIdentifier() {
@@ -88,7 +88,7 @@ public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDispl
 	}
 
 	void drawPortal(PoseStack matrices, Point point) {
-		TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(ResourceLocationHelper.prefix("block/alfheim_portal_swirl"));
+		TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(BotaniaAPI.botaniaRL("block/alfheim_portal_swirl"));
 		MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 		VertexConsumer v = immediate.getBuffer(RenderType.solid());
 		int startX = point.x - 43;

@@ -19,11 +19,11 @@ import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ClientXplatAbstractions {
-	ResourceLocation FLOATING_FLOWER_MODEL_LOADER_ID = prefix("floating_flower");
-	ResourceLocation MANA_GUN_MODEL_LOADER_ID = prefix("mana_gun");
+	ResourceLocation FLOATING_FLOWER_MODEL_LOADER_ID = botaniaRL("floating_flower");
+	ResourceLocation MANA_GUN_MODEL_LOADER_ID = botaniaRL("mana_gun");
 
 	// Event firing
 	void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay);

@@ -25,15 +25,15 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BreweryREICategory implements DisplayCategory<BreweryREIDisplay> {
 	private final EntryStack<ItemStack> brewery = EntryStacks.of(new ItemStack(BotaniaBlocks.brewery));
-	private final ResourceLocation BREWERY_OVERLAY = ResourceLocationHelper.prefix("textures/gui/nei_brewery.png");
+	private final ResourceLocation BREWERY_OVERLAY = BotaniaAPI.botaniaRL("textures/gui/nei_brewery.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<BreweryREIDisplay> getCategoryIdentifier() {

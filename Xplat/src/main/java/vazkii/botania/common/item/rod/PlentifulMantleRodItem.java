@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class PlentifulMantleRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_DIVINING);
+	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_DIVINING);
 
 	static final int COST = 3000;
 
