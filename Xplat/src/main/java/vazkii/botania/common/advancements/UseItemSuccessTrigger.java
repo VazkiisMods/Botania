@@ -22,12 +22,12 @@ import net.minecraft.world.level.ItemLike;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 // Catch-all "used an item and it succeeded" trigger for Botania items, because making a separate
 // trigger for each one is dumb.
 public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccessTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("use_item_success");
+	public static final ResourceLocation ID = botaniaRL("use_item_success");
 	public static final UseItemSuccessTrigger INSTANCE = new UseItemSuccessTrigger();
 
 	private UseItemSuccessTrigger() {}

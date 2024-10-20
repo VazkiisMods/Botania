@@ -35,7 +35,7 @@ import vazkii.botania.common.item.CustomCreativeTabContents;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabContents {
 
@@ -141,7 +141,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		if (brew != null) {
 			id = BotaniaAPI.instance().getBrewRegistry().getKey(brew);
 		} else {
-			id = prefix("fallback");
+			id = botaniaRL("fallback");
 		}
 		setBrew(stack, id);
 	}

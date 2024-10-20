@@ -30,7 +30,7 @@ import java.util.Random;
 
 public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer<HoveringHourglassBlockEntity> {
 
-	final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_HOURGLASS);
+	final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_HOURGLASS);
 	private final HourglassModel model;
 
 	public HoveringHourglassBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {

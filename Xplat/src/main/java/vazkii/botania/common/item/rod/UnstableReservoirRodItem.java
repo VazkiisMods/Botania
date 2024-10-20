@@ -36,7 +36,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class UnstableReservoirRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_MISSILE);
+	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_MISSILE);
 
 	private static final int COST_PER = 120;
 	private static final int COST_AVATAR = 40;

@@ -18,7 +18,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaTags {
 	public static class Items {
@@ -145,7 +145,7 @@ public class BotaniaTags {
 		}
 
 		private static TagKey<Item> tag(String name) {
-			return TagKey.create(Registries.ITEM, prefix(name));
+			return TagKey.create(Registries.ITEM, botaniaRL(name));
 		}
 	}
 
@@ -275,7 +275,7 @@ public class BotaniaTags {
 		public static final TagKey<Block> UNETHICAL_TNT_CHECK = tag("unethical_tnt_check");
 
 		private static TagKey<Block> tag(String name) {
-			return TagKey.create(Registries.BLOCK, prefix(name));
+			return TagKey.create(Registries.BLOCK, botaniaRL(name));
 		}
 	}
 
@@ -306,7 +306,7 @@ public class BotaniaTags {
 		public static final TagKey<EntityType<?>> KEY_IMMUNE = tag("key_immune");
 
 		private static TagKey<EntityType<?>> tag(String name) {
-			return TagKey.create(Registries.ENTITY_TYPE, prefix(name));
+			return TagKey.create(Registries.ENTITY_TYPE, botaniaRL(name));
 		}
 	}
 
@@ -343,7 +343,7 @@ public class BotaniaTags {
 		public static final TagKey<Biome> MYSTICAL_MUSHROOM_BLOCKLIST = tag("mystical_mushroom_blocklist");
 
 		private static TagKey<Biome> tag(String name) {
-			return TagKey.create(Registries.BIOME, prefix(name));
+			return TagKey.create(Registries.BIOME, botaniaRL(name));
 		}
 	}
 
@@ -359,7 +359,7 @@ public class BotaniaTags {
 		public static final TagKey<BannerPattern> PATTERN_ITEM_SPARK_ISOLATED = tag("pattern_item/spark_isolated");
 
 		private static TagKey<BannerPattern> tag(String name) {
-			return TagKey.create(Registries.BANNER_PATTERN, prefix(name));
+			return TagKey.create(Registries.BANNER_PATTERN, botaniaRL(name));
 		}
 	}
 
@@ -367,7 +367,7 @@ public class BotaniaTags {
 		public static final TagKey<DamageType> RING_OF_ODIN_IMMUNE = tag("ring_of_odin_immune");
 
 		private static TagKey<DamageType> tag(String name) {
-			return TagKey.create(Registries.DAMAGE_TYPE, prefix(name));
+			return TagKey.create(Registries.DAMAGE_TYPE, botaniaRL(name));
 		}
 	}
 }

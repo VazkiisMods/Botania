@@ -40,8 +40,8 @@ import vazkii.botania.common.proxy.Proxy;
 
 public class CloakOfVirtueItem extends BaubleItem {
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_HOLY_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(ResourcesLib.MODEL_HOLY_CLOAK_GLOW);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_HOLY_CLOAK);
+	private static final ResourceLocation textureGlow = ResourceLocation.parse(ResourcesLib.MODEL_HOLY_CLOAK_GLOW);
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";

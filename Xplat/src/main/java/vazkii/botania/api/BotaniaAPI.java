@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api;
 
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -48,6 +49,14 @@ public interface BotaniaAPI {
 
 	static BotaniaAPI instance() {
 		return INSTANCE;
+	}
+
+	static ResourceLocation botaniaRL(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MODID, path);
+	}
+
+	static ModelResourceLocation botaniaModelRL(String path, String variant) {
+		return new ModelResourceLocation(botaniaRL(path), variant);
 	}
 
 	/**

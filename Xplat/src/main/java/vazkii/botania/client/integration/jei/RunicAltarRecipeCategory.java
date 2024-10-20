@@ -35,7 +35,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipe> {
 
@@ -50,7 +50,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 104);
 		localizedName = Component.translatable("botania.nei.runicAltar");
-		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.runeAltar));
 	}

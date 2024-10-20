@@ -18,13 +18,13 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class FabricBlockTagProvider extends BlockTagProvider {
-	public static final TagKey<Block> LAPIS_BLOCKS = blockTag(new ResourceLocation("c", "lapis_blocks"));
-	public static final TagKey<Block> QUARTZ_BLOCKS = blockTag(new ResourceLocation("c", "quartz_blocks"));
-	public static final TagKey<Block> MUSHROOMS = blockTag(new ResourceLocation("c", "mushrooms"));
-	public static final TagKey<Block> GLASS = blockTag(new ResourceLocation("c", "glass"));
-	public static final TagKey<Block> GLASS_ALT = blockTag(new ResourceLocation("c", "glass_blocks"));
-	public static final TagKey<Block> GLASS_PANE = blockTag(new ResourceLocation("c", "glass_pane"));
-	public static final TagKey<Block> GLASS_PANE_ALT = blockTag(new ResourceLocation("c", "glass_panes"));
+	public static final TagKey<Block> LAPIS_BLOCKS = blockTag(ResourceLocation.fromNamespaceAndPath("c", "lapis_blocks"));
+	public static final TagKey<Block> QUARTZ_BLOCKS = blockTag(ResourceLocation.fromNamespaceAndPath("c", "quartz_blocks"));
+	public static final TagKey<Block> MUSHROOMS = blockTag(ResourceLocation.fromNamespaceAndPath("c", "mushrooms"));
+	public static final TagKey<Block> GLASS = blockTag(ResourceLocation.fromNamespaceAndPath("c", "glass"));
+	public static final TagKey<Block> GLASS_ALT = blockTag(ResourceLocation.fromNamespaceAndPath("c", "glass_blocks"));
+	public static final TagKey<Block> GLASS_PANE = blockTag(ResourceLocation.fromNamespaceAndPath("c", "glass_pane"));
+	public static final TagKey<Block> GLASS_PANE_ALT = blockTag(ResourceLocation.fromNamespaceAndPath("c", "glass_panes"));
 
 	private static TagKey<Block> blockTag(ResourceLocation location) {
 		return TagKey.create(Registries.BLOCK, location);

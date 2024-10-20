@@ -23,7 +23,7 @@ import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarProvider extends BotaniaRecipeProvider {
 	public RunicAltarProvider(PackOutput packOutput) {
@@ -86,7 +86,7 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 	}
 
 	private static ResourceLocation idFor(String s) {
-		return prefix("runic_altar/" + s);
+		return botaniaRL("runic_altar/" + s);
 	}
 
 	protected static Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaBlocks.livingrock);

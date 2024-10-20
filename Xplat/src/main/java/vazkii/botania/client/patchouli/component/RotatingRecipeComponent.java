@@ -45,7 +45,7 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}
-		Recipe<?> recipe = map.get(new ResourceLocation(recipeName));
+		Recipe<?> recipe = map.get(ResourceLocation.parse(recipeName));
 		if (recipe == null) {
 			return ImmutableList.of();
 		}

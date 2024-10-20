@@ -19,7 +19,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 
 public class PinkWitherRenderer extends WitherBossRenderer {
 
-	private static final ResourceLocation resource = new ResourceLocation(ResourcesLib.MODEL_PINK_WITHER);
+	private static final ResourceLocation resource = ResourceLocation.parse(ResourcesLib.MODEL_PINK_WITHER);
 
 	public PinkWitherRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);

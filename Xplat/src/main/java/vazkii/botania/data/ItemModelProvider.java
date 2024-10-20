@@ -49,7 +49,6 @@ import vazkii.botania.data.util.ModelWithOverrides;
 import vazkii.botania.data.util.OverrideHolder;
 import vazkii.botania.data.util.SimpleModelSupplierWithOverrides;
 import vazkii.botania.mixin.TextureSlotAccessor;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -60,25 +59,25 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static vazkii.botania.common.item.BotaniaItems.*;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ItemModelProvider implements DataProvider {
 	private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");
 	private static final TextureSlot LAYER2 = TextureSlotAccessor.make("layer2");
 	private static final TextureSlot LAYER3 = TextureSlotAccessor.make("layer3");
-	private static final ModelTemplate GENERATED_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
-	private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
-	private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
-	private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
-	private static final ModelTemplate WALL_INVENTORY = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.WALL);
-	private static final ModelTemplate WALL_INVENTORY_CHECKERED = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory_checkered")), Optional.empty(), TextureSlot.NORTH, TextureSlot.SIDE);
+	private static final ModelTemplate GENERATED_1 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
+	private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
+	private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
+	private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
+	private static final ModelTemplate WALL_INVENTORY = new ModelTemplate(Optional.of(botaniaRL("block/shapes/wall_inventory")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.WALL);
+	private static final ModelTemplate WALL_INVENTORY_CHECKERED = new ModelTemplate(Optional.of(botaniaRL("block/shapes/wall_inventory_checkered")), Optional.empty(), TextureSlot.NORTH, TextureSlot.SIDE);
 	private static final TextureSlot OUTSIDE = TextureSlotAccessor.make("outside");
 	private static final TextureSlot CORE = TextureSlotAccessor.make("core");
-	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
-	private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0);
-	private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0, LAYER1);
-	private static final ModelWithOverrides HANDHELD_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/handheld"), TextureSlot.LAYER0);
-	private static final ModelWithOverrides HANDHELD_OVERRIDES_2 = new ModelWithOverrides(new ResourceLocation("item/handheld"), TextureSlot.LAYER0, LAYER1, LAYER2);
+	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(botaniaRL("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
+	private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/generated"), TextureSlot.LAYER0);
+	private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/generated"), TextureSlot.LAYER0, LAYER1);
+	private static final ModelWithOverrides HANDHELD_OVERRIDES = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/handheld"), TextureSlot.LAYER0);
+	private static final ModelWithOverrides HANDHELD_OVERRIDES_2 = new ModelWithOverrides(ResourceLocation.withDefaultNamespace("item/handheld"), TextureSlot.LAYER0, LAYER1, LAYER2);
 
 	private final PackOutput packOutput;
 
@@ -114,9 +113,9 @@ public class ItemModelProvider implements DataProvider {
 			ResourceLocation lens;
 			if (i == lensTime || i == lensWarp || i == lensFire || i == lensTripwire) {
 				// To avoid z-fighting
-				lens = prefix("item/lens_small");
+				lens = botaniaRL("item/lens_small");
 			} else {
-				lens = prefix("item/lens");
+				lens = botaniaRL("item/lens");
 			}
 			GENERATED_1.create(ModelLocationUtils.getModelLocation(i),
 					TextureMapping.layer0(lens).put(LAYER1, TextureMapping.getItemTexture(i)), consumer);
@@ -198,10 +197,10 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(livingwoodBow);
 		items.remove(crystalBow);
 
-		singleGeneratedSuffixOverride(baubleBox, "_open", prefix("open"), 1.0, consumer);
+		singleGeneratedSuffixOverride(baubleBox, "_open", botaniaRL("open"), 1.0, consumer);
 		items.remove(baubleBox);
 
-		singleGeneratedSuffixOverride(blackHoleTalisman, "_active", prefix("active"), 1.0, consumer);
+		singleGeneratedSuffixOverride(blackHoleTalisman, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(blackHoleTalisman);
 
 		OverrideHolder flaskOverrides = new OverrideHolder();
@@ -211,7 +210,7 @@ public class ItemModelProvider implements DataProvider {
 					TextureMapping.layer0(flask).put(LAYER1, overrideModel),
 					consumer);
 
-			flaskOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
+			flaskOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i));
 		}
 		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewFlask),
 				TextureMapping.layer0(flask).put(LAYER1, TextureMapping.getItemTexture(brewFlask, "_0")),
@@ -225,23 +224,23 @@ public class ItemModelProvider implements DataProvider {
 			GENERATED_1.create(overrideModel,
 					TextureMapping.layer0(vial).put(LAYER1, overrideModel),
 					consumer);
-			vialOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
+			vialOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i));
 		}
 		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewVial),
 				TextureMapping.layer0(vial).put(LAYER1, TextureMapping.getItemTexture(brewVial, "_0")),
 				vialOverrides, consumer);
 		items.remove(brewVial);
 
-		singleHandheldOverride(elementiumShears, prefix("item/dammitreddit"), prefix("reddit"), 1, consumer);
+		singleHandheldOverride(elementiumShears, botaniaRL("item/dammitreddit"), botaniaRL("reddit"), 1, consumer);
 		items.remove(elementiumShears);
 
-		ResourceLocation vuvuzela = prefix("item/vuvuzela");
+		ResourceLocation vuvuzela = botaniaRL("item/vuvuzela");
 		ModelTemplates.FLAT_HANDHELD_ITEM.create(vuvuzela, TextureMapping.layer0(vuvuzela), consumer);
 		for (Item i : new Item[] { grassHorn, leavesHorn, snowHorn }) {
 			GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(i),
 					TextureMapping.layer0(i),
 					new OverrideHolder()
-							.add(vuvuzela, Pair.of(prefix("vuvuzela"), 1.0)),
+							.add(vuvuzela, Pair.of(botaniaRL("vuvuzela"), 1.0)),
 					consumer
 			);
 		}
@@ -249,23 +248,23 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(leavesHorn);
 		items.remove(snowHorn);
 
-		singleGeneratedOverride(infiniteFruit, prefix("item/dasboot"), prefix("boot"), 1, consumer);
+		singleGeneratedOverride(infiniteFruit, botaniaRL("item/dasboot"), botaniaRL("boot"), 1, consumer);
 		items.remove(infiniteFruit);
 
-		singleGeneratedSuffixOverride(lexicon, "_elven", prefix("elven"), 1.0, consumer);
+		singleGeneratedSuffixOverride(lexicon, "_elven", botaniaRL("elven"), 1.0, consumer);
 		items.remove(lexicon);
 
-		singleGeneratedSuffixOverride(magnetRing, "_active", prefix("active"), 1.0, consumer);
+		singleGeneratedSuffixOverride(magnetRing, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(magnetRing);
 
-		singleGeneratedSuffixOverride(magnetRingGreater, "_active", prefix("active"), 1.0, consumer);
+		singleGeneratedSuffixOverride(magnetRingGreater, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(magnetRingGreater);
 
 		OverrideHolder bottleOverrides = new OverrideHolder();
 		for (int i = 1; i <= 5; i++) {
 			ResourceLocation overrideModel = ModelLocationUtils.getModelLocation(manaBottle, "_" + i);
 			ModelTemplates.FLAT_ITEM.create(overrideModel, TextureMapping.layer0(overrideModel), consumer);
-			bottleOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
+			bottleOverrides.add(overrideModel, Pair.of(botaniaRL("swigs_taken"), (double) i));
 		}
 		GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(manaBottle),
 				TextureMapping.layer0(manaBottle),
@@ -273,37 +272,37 @@ public class ItemModelProvider implements DataProvider {
 				consumer);
 		items.remove(manaBottle);
 
-		singleGeneratedOverride(manaCookie, prefix("item/totalbiscuit"), prefix("totalbiscuit"), 1.0, consumer);
+		singleGeneratedOverride(manaCookie, botaniaRL("item/totalbiscuit"), botaniaRL("totalbiscuit"), 1.0, consumer);
 		items.remove(manaCookie);
 
-		singleHandheldOverride(manasteelSword, prefix("item/elucidator"), prefix("elucidator"), 1.0, consumer);
+		singleHandheldOverride(manasteelSword, botaniaRL("item/elucidator"), botaniaRL("elucidator"), 1.0, consumer);
 		items.remove(manasteelSword);
 
-		singleGeneratedSuffixOverride(manaweaveHelm, "_holiday", prefix("holiday"), 1.0, consumer);
+		singleGeneratedSuffixOverride(manaweaveHelm, "_holiday", botaniaRL("holiday"), 1.0, consumer);
 		items.remove(manaweaveHelm);
 
-		singleGeneratedSuffixOverride(manaweaveChest, "_holiday", prefix("holiday"), 1.0, consumer);
+		singleGeneratedSuffixOverride(manaweaveChest, "_holiday", botaniaRL("holiday"), 1.0, consumer);
 		items.remove(manaweaveChest);
 
-		singleGeneratedSuffixOverride(manaweaveLegs, "_holiday", prefix("holiday"), 1.0, consumer);
+		singleGeneratedSuffixOverride(manaweaveLegs, "_holiday", botaniaRL("holiday"), 1.0, consumer);
 		items.remove(manaweaveLegs);
 
-		singleGeneratedSuffixOverride(manaweaveBoots, "_holiday", prefix("holiday"), 1.0, consumer);
+		singleGeneratedSuffixOverride(manaweaveBoots, "_holiday", botaniaRL("holiday"), 1.0, consumer);
 		items.remove(manaweaveBoots);
 
-		singleGeneratedSuffixOverride(slimeBottle, "_active", prefix("active"), 1.0, consumer);
+		singleGeneratedSuffixOverride(slimeBottle, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(slimeBottle);
 
-		singleGeneratedSuffixOverride(spawnerMover, "_full", prefix("full"), 1.0, consumer);
+		singleGeneratedSuffixOverride(spawnerMover, "_full", botaniaRL("full"), 1.0, consumer);
 		items.remove(spawnerMover);
 
-		singleGeneratedSuffixOverride(temperanceStone, "_active", prefix("active"), 1.0, consumer);
+		singleGeneratedSuffixOverride(temperanceStone, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(temperanceStone);
 
-		singleHandheldSuffixOverride(terraAxe, "_active", prefix("active"), 1.0, consumer);
+		singleHandheldSuffixOverride(terraAxe, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(terraAxe);
 
-		singleGeneratedSuffixOverride(autocraftingHalo, "_active", prefix("active"), 1.0, consumer);
+		singleGeneratedSuffixOverride(autocraftingHalo, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(autocraftingHalo);
 
 		ResourceLocation enabledModel = ModelLocationUtils.getModelLocation(terraPick, "_active");
@@ -318,13 +317,13 @@ public class ItemModelProvider implements DataProvider {
 		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(terraPick),
 				TextureMapping.layer0(terraPick),
 				new OverrideHolder()
-						.add(enabledModel, Pair.of(prefix("active"), 1.0))
-						.add(tippedModel, Pair.of(prefix("tipped"), 1.0))
-						.add(tippedEnabledModel, Pair.of(prefix("tipped"), 1.0), Pair.of(prefix("active"), 1.0)),
+						.add(enabledModel, Pair.of(botaniaRL("active"), 1.0))
+						.add(tippedModel, Pair.of(botaniaRL("tipped"), 1.0))
+						.add(tippedEnabledModel, Pair.of(botaniaRL("tipped"), 1.0), Pair.of(botaniaRL("active"), 1.0)),
 				consumer);
 		items.remove(terraPick);
 
-		singleHandheldSuffixOverride(tornadoRod, "_active", prefix("active"), 1.0, consumer);
+		singleHandheldSuffixOverride(tornadoRod, "_active", botaniaRL("active"), 1.0, consumer);
 		items.remove(tornadoRod);
 
 		TextureMapping twigWandTextures = TextureMapping.layer0(twigWand)
@@ -337,7 +336,7 @@ public class ItemModelProvider implements DataProvider {
 		HANDHELD_OVERRIDES_2.create(ModelLocationUtils.getModelLocation(twigWand),
 				twigWandTextures,
 				new OverrideHolder()
-						.add(twigWandBind, Pair.of(prefix("bindmode"), 1.0)),
+						.add(twigWandBind, Pair.of(botaniaRL("bindmode"), 1.0)),
 				consumer);
 		items.remove(twigWand);
 
@@ -351,7 +350,7 @@ public class ItemModelProvider implements DataProvider {
 		HANDHELD_OVERRIDES_2.create(ModelLocationUtils.getModelLocation(dreamwoodWand),
 				dreamwoodWandTextures,
 				new OverrideHolder()
-						.add(dreamwoodWandBind, Pair.of(prefix("bindmode"), 1.0)),
+						.add(dreamwoodWandBind, Pair.of(botaniaRL("bindmode"), 1.0)),
 				consumer);
 		items.remove(dreamwoodWand);
 	}
@@ -367,7 +366,7 @@ public class ItemModelProvider implements DataProvider {
 		});
 
 		GENERATED_1.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.animatedTorch.asItem()),
-				TextureMapping.layer0(Blocks.REDSTONE_TORCH).put(LAYER1, prefix("block/animated_torch_glimmer")), consumer);
+				TextureMapping.layer0(Blocks.REDSTONE_TORCH).put(LAYER1, botaniaRL("block/animated_torch_glimmer")), consumer);
 		itemBlocks.remove(BotaniaBlocks.animatedTorch.asItem());
 
 		ModelTemplates.SKULL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.gaiaHead.asItem()), new TextureMapping(), consumer);
@@ -378,23 +377,23 @@ public class ItemModelProvider implements DataProvider {
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof PetalBlock).forEach(i -> {
-			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(prefix("block/petal_block")));
+			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(botaniaRL("block/petal_block")));
 		});
 
 		takeAll(itemBlocks, BotaniaBlocks.livingwoodFramed.asItem(), BotaniaBlocks.dreamwoodFramed.asItem()).forEach(i -> {
 			String name = i == BotaniaBlocks.livingwoodFramed.asItem() ? "livingwood" : "dreamwood";
-			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(prefix("block/framed_" + name + "_horizontal_z")));
+			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(botaniaRL("block/framed_" + name + "_horizontal_z")));
 		});
 
-		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.livingwoodFramed.asItem()), new DelegatedModel(prefix("block/framed_livingwood_horizontal_z")));
-		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.dreamwoodFramed.asItem()), new DelegatedModel(prefix("block/framed_dreamwood_horizontal_z")));
+		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.livingwoodFramed.asItem()), new DelegatedModel(botaniaRL("block/framed_livingwood_horizontal_z")));
+		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.dreamwoodFramed.asItem()), new DelegatedModel(botaniaRL("block/framed_dreamwood_horizontal_z")));
 		itemBlocks.remove(BotaniaBlocks.livingwoodFramed.asItem());
 		itemBlocks.remove(BotaniaBlocks.dreamwoodFramed.asItem());
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof IronBarsBlock).forEach(i -> {
 			String name = BuiltInRegistries.ITEM.getKey(i).getPath();
 			String baseName = name.substring(0, name.length() - "_pane".length());
-			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(prefix("block/" + baseName)), consumer);
+			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(botaniaRL("block/" + baseName)), consumer);
 		});
 
 		Predicate<BlockItem> defaultGenerated = i -> {
@@ -411,13 +410,13 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(itemBlocks, b -> b.getBlock() instanceof FlowerMotifBlock).forEach(i -> {
 			String name = BuiltInRegistries.ITEM.getKey(i).getPath();
-			ResourceLocation texName = prefix("block/" + name.replace("_motif", ""));
+			ResourceLocation texName = botaniaRL("block/" + name.replace("_motif", ""));
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(texName), consumer);
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof ManaPoolBlock).forEach(i -> {
 			ResourceLocation fullModel = ModelLocationUtils.getModelLocation(i.getBlock(), "_full");
-			OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(prefix("full"), 1.0));
+			OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(botaniaRL("full"), 1.0));
 			consumer.accept(ModelLocationUtils.getModelLocation(i),
 					new SimpleModelSupplierWithOverrides(ModelLocationUtils.getModelLocation(i.getBlock()), overrides));
 		});
@@ -429,14 +428,14 @@ public class ItemModelProvider implements DataProvider {
 					String name = BuiltInRegistries.ITEM.getKey(i).getPath();
 					String baseName = name.substring(0, name.length() - "_wall".length()) + "_log";
 					ModelTemplates.WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(i),
-							new TextureMapping().put(TextureSlot.WALL, prefix("block/" + baseName)), consumer);
+							new TextureMapping().put(TextureSlot.WALL, botaniaRL("block/" + baseName)), consumer);
 				});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof WallBlock).forEach(i -> {
 			String name = BuiltInRegistries.ITEM.getKey(i).getPath();
 			String baseName = name.substring(0, name.length() - "_wall".length());
 			ModelTemplates.WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(i),
-					new TextureMapping().put(TextureSlot.WALL, prefix("block/" + baseName)), consumer);
+					new TextureMapping().put(TextureSlot.WALL, botaniaRL("block/" + baseName)), consumer);
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof ManaSpreaderBlock).forEach(i -> {
@@ -460,9 +459,9 @@ public class ItemModelProvider implements DataProvider {
 			SPREADER.create(ModelLocationUtils.getModelLocation(i),
 					new TextureMapping()
 							.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(i.getBlock(), "_side"))
-							.put(OUTSIDE, prefix("block/" + outside))
+							.put(OUTSIDE, botaniaRL("block/" + outside))
 							.put(TextureSlot.BACK, TextureMapping.getBlockTexture(i.getBlock(), "_back"))
-							.put(TextureSlot.INSIDE, prefix("block/" + inside))
+							.put(TextureSlot.INSIDE, botaniaRL("block/" + inside))
 							.put(CORE, TextureMapping.getBlockTexture(i.getBlock(), "_core")),
 					consumer);
 		});
@@ -487,7 +486,7 @@ public class ItemModelProvider implements DataProvider {
 				TextureMapping.defaultTexture(BotaniaBlocks.livingwoodPlanks), consumer);
 		itemBlocks.remove(BotaniaBlocks.livingwoodFence.asItem());
 
-		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.elfGlass.asItem()), new DelegatedModel(prefix("block/elf_glass_0")));
+		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.elfGlass.asItem()), new DelegatedModel(botaniaRL("block/elf_glass_0")));
 		itemBlocks.remove(BotaniaBlocks.elfGlass.asItem());
 
 		WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaBlocks.biomeBrickPlainsWall.asItem()),

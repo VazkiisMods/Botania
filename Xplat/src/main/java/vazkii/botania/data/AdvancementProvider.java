@@ -42,7 +42,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class AdvancementProvider {
 	public static net.minecraft.data.advancements.AdvancementProvider create(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -62,7 +62,7 @@ public class AdvancementProvider {
 			// Main progression line
 			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania",
-							"botania.desc", prefix("textures/block/livingwood_log.png")))
+							"botania.desc", botaniaRL("textures/block/livingwood_log.png")))
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 					.save(consumer, mainId("root"));
 
@@ -350,7 +350,7 @@ public class AdvancementProvider {
 		public void generate(HolderLookup.Provider lookup, Consumer<AdvancementHolder> consumer) {
 			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(rootDisplay(BotaniaItems.dice, "advancement.botania_challenge",
-							"advancement.botania_challenge.desc", prefix("textures/block/livingrock_bricks.png")))
+							"advancement.botania_challenge.desc", botaniaRL("textures/block/livingrock_bricks.png")))
 					.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 					.save(consumer, challengeId("root"));
 
@@ -503,10 +503,10 @@ public class AdvancementProvider {
 	}
 
 	private static String mainId(String name) {
-		return prefix("main/" + name).toString();
+		return botaniaRL("main/" + name).toString();
 	}
 
 	private static String challengeId(String name) {
-		return prefix("challenge/" + name).toString();
+		return botaniaRL("challenge/" + name).toString();
 	}
 }

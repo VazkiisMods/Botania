@@ -14,11 +14,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ForgePacketHandler {
 	public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-			prefix("main"),
+			botaniaRL("main"),
 			// We don't use this
 			() -> "0",
 			"0"::equals,

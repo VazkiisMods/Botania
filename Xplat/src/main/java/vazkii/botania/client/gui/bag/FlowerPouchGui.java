@@ -26,7 +26,7 @@ import vazkii.botania.common.item.FlowerPouchItem;
 
 public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.GUI_FLOWER_BAG);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.GUI_FLOWER_BAG);
 
 	public FlowerPouchGui(FlowerPouchContainer container, Inventory playerInv, Component title) {
 		super(container, playerInv, title);

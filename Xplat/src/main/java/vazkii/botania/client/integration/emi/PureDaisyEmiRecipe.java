@@ -13,10 +13,10 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = prefix("textures/gui/pure_daisy_overlay.png");
+	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/pure_daisy_overlay.png");
 	private static final EmiStack PURE_DAISY = EmiStack.of(BotaniaFlowerBlocks.pureDaisy);
 
 	public PureDaisyEmiRecipe(RecipeHolder<? extends PureDaisyRecipe> recipe) {

@@ -61,7 +61,7 @@ public class RuneAltarRecipeManager implements IRecipeManager<IRuneAltarRecipe>,
 	@ZenCodeType.Method
 	public void addRecipe(String name, IItemStack output, int mana, IIngredient... inputs) {
 		name = fixRecipeName(name);
-		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
+		ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe<>(this,
 				new RecipeRuneAltar(resourceLocation,
 						output.getInternal(),

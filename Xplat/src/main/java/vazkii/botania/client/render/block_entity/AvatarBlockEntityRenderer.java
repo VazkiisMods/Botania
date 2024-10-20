@@ -39,7 +39,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 			180F, 0F, 90F, 270F
 	};
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_AVATAR);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR);
 	private final AvatarModel model;
 
 	public AvatarBlockEntityRenderer(BlockEntityRendererProvider.Context context) {

@@ -15,7 +15,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BotaniaItems;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RingOfThorItem extends RelicBaubleItem {
 
@@ -24,7 +24,7 @@ public class RingOfThorItem extends RelicBaubleItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, prefix("challenge/thor_ring"));
+		return new RelicImpl(stack, botaniaRL("challenge/thor_ring"));
 	}
 
 	public static ItemStack getThorRing(Player player) {

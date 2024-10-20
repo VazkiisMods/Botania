@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker, CustomCreativeTabContents {
 
@@ -209,7 +209,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, canMine);
 
 		if (origLevel == 5) {
-			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("challenge/rank_ss_pick"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("challenge/rank_ss_pick"), "code_triggered");
 		}
 	}
 

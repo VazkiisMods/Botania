@@ -55,10 +55,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity implements Nameable {
-	private static final ResourceLocation BIRTHDAY_ADVANCEMENT = prefix("challenge/tiny_potato_birthday");
+	private static final ResourceLocation BIRTHDAY_ADVANCEMENT = botaniaRL("challenge/tiny_potato_birthday");
 	private static final boolean IS_BIRTHDAY = isTinyPotatoBirthday();
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
@@ -157,7 +157,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 			}
 
 			player.awardStat(BotaniaStats.TINY_POTATOES_PETTED);
-			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/tiny_potato_pet"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("main/tiny_potato_pet"), "code_triggered");
 		}
 	}
 

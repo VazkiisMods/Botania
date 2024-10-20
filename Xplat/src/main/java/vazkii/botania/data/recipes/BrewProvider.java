@@ -20,7 +20,7 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.crafting.BotanicalBreweryRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BrewProvider extends BotaniaRecipeProvider {
 	public BrewProvider(PackOutput packOutput) {
@@ -58,6 +58,6 @@ public class BrewProvider extends BotaniaRecipeProvider {
 	}
 
 	private static ResourceLocation idFor(String s) {
-		return prefix("brew/" + s);
+		return botaniaRL("brew/" + s);
 	}
 }

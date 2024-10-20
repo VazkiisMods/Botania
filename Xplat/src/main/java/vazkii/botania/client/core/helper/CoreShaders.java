@@ -20,7 +20,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.function.Consumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CoreShaders {
 	private static ShaderInstance starfieldShaderInstance;
@@ -37,47 +37,47 @@ public class CoreShaders {
 	// Because Fabric is cute and hides the ResourceProvider from modders (why?)
 	public static void init(TriConsumer<ResourceLocation, VertexFormat, Consumer<ShaderInstance>> registrations) {
 		registrations.accept(
-				prefix("starfield"),
+				botaniaRL("starfield"),
 				DefaultVertexFormat.POSITION,
 				inst -> starfieldShaderInstance = inst
 		);
 		registrations.accept(
-				prefix("doppleganger"),
+				botaniaRL("doppleganger"),
 				DefaultVertexFormat.NEW_ENTITY,
 				inst -> doppleganger = inst
 		);
 		registrations.accept(
-				prefix("mana_pool"),
+				botaniaRL("mana_pool"),
 				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> manaPool = inst
 		);
 		registrations.accept(
-				prefix("terra_plate_rune"),
+				botaniaRL("terra_plate_rune"),
 				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> terraPlate = inst
 		);
 		registrations.accept(
-				prefix("enchanter_rune"),
+				botaniaRL("enchanter_rune"),
 				DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP,
 				inst -> enchanter = inst
 		);
 		registrations.accept(
-				prefix("pylon"),
+				botaniaRL("pylon"),
 				DefaultVertexFormat.NEW_ENTITY,
 				inst -> pylon = inst
 		);
 		registrations.accept(
-				prefix("halo"),
+				botaniaRL("halo"),
 				DefaultVertexFormat.POSITION_COLOR_TEX,
 				inst -> halo = inst
 		);
 		registrations.accept(
-				prefix("film_grain_particle"),
+				botaniaRL("film_grain_particle"),
 				DefaultVertexFormat.PARTICLE,
 				inst -> filmGrainParticle = inst
 		);
 		registrations.accept(
-				prefix("doppleganger_bar"),
+				botaniaRL("doppleganger_bar"),
 				DefaultVertexFormat.POSITION_TEX,
 				inst -> dopplegangerBar = inst
 		);

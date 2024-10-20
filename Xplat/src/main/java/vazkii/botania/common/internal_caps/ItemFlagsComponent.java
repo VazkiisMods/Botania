@@ -11,11 +11,11 @@ package vazkii.botania.common.internal_caps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 // Component for misc internal Botania flags
 public class ItemFlagsComponent extends SerializableComponent {
-	public static final ResourceLocation ID = prefix("iitem");
+	public static final ResourceLocation ID = botaniaRL("iitem");
 	public boolean elvenPortalSpawned = false;
 	public boolean apothecarySpawned = false;
 	public boolean manaInfusionSpawned = false;

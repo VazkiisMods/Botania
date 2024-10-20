@@ -473,7 +473,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public static Block getTargetState(ItemStack stack) {
-		ResourceLocation id = new ResourceLocation(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
+		ResourceLocation id = ResourceLocation.parse(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
 		return BuiltInRegistries.BLOCK.get(id);
 	}
 

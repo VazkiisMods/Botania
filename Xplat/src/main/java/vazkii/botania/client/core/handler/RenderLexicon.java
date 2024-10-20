@@ -39,14 +39,14 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
 	private static BookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
-	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, prefix("item/lexicon_3d"));
-	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, prefix("item/lexicon_elven_3d"));
+	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexicon_3d"));
+	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, botaniaRL("item/lexicon_elven_3d"));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",

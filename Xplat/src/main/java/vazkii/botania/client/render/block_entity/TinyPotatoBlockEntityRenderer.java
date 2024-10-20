@@ -56,7 +56,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPotatoBlockEntity> {
 	public static final String DEFAULT = "default";
@@ -91,7 +91,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 	}
 
 	private static ResourceLocation taterLocation(String name) {
-		return prefix(ResourcesLib.PREFIX_TINY_POTATO + "/" + normalizeName(name));
+		return botaniaRL(ResourcesLib.PREFIX_TINY_POTATO + "/" + normalizeName(name));
 	}
 
 	private static String normalizeName(String name) {

@@ -136,7 +136,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @Mod(LibMisc.MOD_ID)
 public class ForgeCommonInitializer {
@@ -165,7 +165,7 @@ public class ForgeCommonInitializer {
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(botaniaRL("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
 		ConfigDataManagerImpl.registerListener();
@@ -516,40 +516,40 @@ public class ForgeCommonInitializer {
 
 		if (stack.getItem() instanceof BaubleItem
 				&& EquipmentHandler.instance instanceof CurioIntegration ci) {
-			e.addCapability(prefix("curio"), ci.initCapability(stack));
+			e.addCapability(botaniaRL("curio"), ci.initCapability(stack));
 		}
 
 		if (stack.is(BotaniaItems.waterBowl)) {
-			e.addCapability(prefix("water_bowl"), new CapabilityUtil.WaterBowlFluidHandler(stack));
+			e.addCapability(botaniaRL("water_bowl"), new CapabilityUtil.WaterBowlFluidHandler(stack));
 		}
 
 		var makeAvatarWieldable = AVATAR_WIELDABLES.get().get(stack.getItem());
 		if (makeAvatarWieldable != null) {
-			e.addCapability(prefix("avatar_wieldable"),
+			e.addCapability(botaniaRL("avatar_wieldable"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.AVATAR_WIELDABLE, makeAvatarWieldable.apply(stack)));
 		}
 
 		var makeBlockProvider = BLOCK_PROVIDER.get().get(stack.getItem());
 		if (makeBlockProvider != null) {
-			e.addCapability(prefix("block_provider"),
+			e.addCapability(botaniaRL("block_provider"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.BLOCK_PROVIDER, makeBlockProvider.apply(stack)));
 		}
 
 		var makeCoordBoundItem = COORD_BOUND_ITEM.get().get(stack.getItem());
 		if (makeCoordBoundItem != null) {
-			e.addCapability(prefix("coord_bound_item"),
+			e.addCapability(botaniaRL("coord_bound_item"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.COORD_BOUND_ITEM, makeCoordBoundItem.apply(stack)));
 		}
 
 		var makeManaItem = MANA_ITEM.get().get(stack.getItem());
 		if (makeManaItem != null) {
-			e.addCapability(prefix("mana_item"),
+			e.addCapability(botaniaRL("mana_item"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, makeManaItem.apply(stack)));
 		}
 
 		var makeRelic = RELIC.get().get(stack.getItem());
 		if (makeRelic != null) {
-			e.addCapability(prefix("relic"),
+			e.addCapability(botaniaRL("relic"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.RELIC, makeRelic.apply(stack)));
 		}
 	}
@@ -579,13 +579,13 @@ public class ForgeCommonInitializer {
 	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
 		var be = e.getObject();
 		if (be instanceof AbstractFurnaceBlockEntity furnace) {
-			e.addCapability(prefix("exoflame_heatable"),
+			e.addCapability(botaniaRL("exoflame_heatable"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.EXOFLAME_HEATABLE,
 							new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
 		}
 
 		if (be instanceof ExposedSimpleInventoryBlockEntity inv) {
-			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(Capabilities.ITEM_HANDLER, new SidedInvWrapper(inv, null)));
+			e.addCapability(botaniaRL("inv"), CapabilityUtil.makeProvider(Capabilities.ITEM_HANDLER, new SidedInvWrapper(inv, null)));
 		}
 
 		if (be instanceof PowerGeneratorBlockEntity gen) {
@@ -621,33 +621,33 @@ public class ForgeCommonInitializer {
 					return false;
 				}
 			};
-			e.addCapability(prefix("fe"), CapabilityUtil.makeProvider(Capabilities.ENERGY, energyStorage));
+			e.addCapability(botaniaRL("fe"), CapabilityUtil.makeProvider(Capabilities.ENERGY, energyStorage));
 		}
 
 		if (be.getType() == BotaniaBlockEntities.ANIMATED_TORCH) {
-			e.addCapability(prefix("hourglass_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.HOURGLASS_TRIGGER,
+			e.addCapability(botaniaRL("hourglass_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.HOURGLASS_TRIGGER,
 					hourglass -> ((AnimatedTorchBlockEntity) be).toggle()));
 		}
 
 		if (BlockEntityConstants.SELF_WANDADBLE_BES.contains(be.getType())) {
-			e.addCapability(prefix("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
+			e.addCapability(botaniaRL("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
 					(Wandable) be));
 		}
 
 		if (be instanceof RedStringContainerBlockEntity container) {
-			e.addCapability(prefix("red_string"), new RedStringContainerCapProvider(container));
+			e.addCapability(botaniaRL("red_string"), new RedStringContainerCapProvider(container));
 		}
 
 		if (BlockEntityConstants.SELF_MANA_TRIGGER_BES.contains(be.getType())) {
-			e.addCapability(prefix("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (ManaTrigger) be));
+			e.addCapability(botaniaRL("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (ManaTrigger) be));
 		}
 
 		if (BlockEntityConstants.SELF_MANA_RECEIVER_BES.contains(be.getType())) {
-			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (ManaReceiver) be));
+			e.addCapability(botaniaRL("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (ManaReceiver) be));
 		}
 
 		if (BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.contains(be.getType())) {
-			e.addCapability(prefix("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, (SparkAttachable) be));
+			e.addCapability(botaniaRL("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, (SparkAttachable) be));
 		}
 	}
 

@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Bound;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Items with this capability can be bound to a position.
@@ -25,7 +26,7 @@ import vazkii.botania.api.block.Bound;
  */
 public interface CoordBoundItem {
 
-	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "coord_bound_item");
+	ResourceLocation ID = botaniaRL("coord_bound_item");
 
 	@Nullable
 	BlockPos getBinding(Level world);

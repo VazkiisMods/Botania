@@ -36,7 +36,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<OrechidRecipe> {
 
@@ -47,7 +47,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 	private final ItemStack iconStack;
 
 	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, Component localizedName) {
-		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
 		background = guiHelper.createBlankDrawable(96, 44);
 		this.localizedName = localizedName;

@@ -20,12 +20,12 @@ import vazkii.botania.network.BotaniaPacket;
 
 import java.util.UUID;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
 		BlockPos source, UUID bossInfoId) implements BotaniaPacket {
 
-	public static final ResourceLocation ID = prefix("spg");
+	public static final ResourceLocation ID = botaniaRL("spg");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {

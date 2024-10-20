@@ -31,10 +31,10 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.mixin.MobAccessor;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FelPumpkinBlock extends BotaniaBlock {
-	private static final ResourceLocation LOOT_TABLE = prefix("fel_blaze");
+	private static final ResourceLocation LOOT_TABLE = botaniaRL("fel_blaze");
 
 	public FelPumpkinBlock(Properties builder) {
 		super(builder);

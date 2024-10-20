@@ -60,7 +60,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BlockLootProvider implements DataProvider {
 	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
@@ -188,7 +188,7 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = BuiltInRegistries.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = BuiltInRegistries.BLOCK.getOptional(prefix(cobbleName)).get();
+		Block cobble = BuiltInRegistries.BLOCK.getOptional(botaniaRL(cobbleName)).get();
 		return genSilkDrop(b, cobble);
 	}
 
@@ -202,7 +202,7 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genSolidVine(Block b) {
-		LootPoolEntryContainer.Builder<?> entry = LootTableReference.lootTableReference(new ResourceLocation("blocks/vine"));
+		LootPoolEntryContainer.Builder<?> entry = LootTableReference.lootTableReference(ResourceLocation.withDefaultNamespace("blocks/vine"));
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
