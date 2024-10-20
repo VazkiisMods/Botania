@@ -3,6 +3,7 @@ package vazkii.botania.api.configdata;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.effect.MobEffect;
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class LooniumMobEffectToApply {
 	public static final Codec<LooniumMobEffectToApply> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-					BuiltInRegistries.MOB_EFFECT.byNameCodec().fieldOf("effect").forGetter(me -> me.effect),
+					BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(me -> me.effect),
 					ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", MobEffectInstance.INFINITE_DURATION)
 							.forGetter(me -> me.duration),
 					Codec.intRange(0, 255).optionalFieldOf("amplifier", 0)
@@ -23,17 +24,17 @@ public class LooniumMobEffectToApply {
 			).apply(instance, LooniumMobEffectToApply::new)
 	);
 
-	private final MobEffect effect;
+	private final Holder<MobEffect> effect;
 	private final int duration;
 	private final int amplifier;
 
-	private LooniumMobEffectToApply(MobEffect effect, int duration, int amplifier) {
+	private LooniumMobEffectToApply(Holder<MobEffect> effect, int duration, int amplifier) {
 		this.effect = effect;
 		this.duration = duration;
 		this.amplifier = amplifier;
 	}
 
-	public static Builder effect(MobEffect effect) {
+	public static Builder effect(Holder<MobEffect> effect) {
 		return new Builder(effect);
 	}
 
@@ -51,7 +52,7 @@ public class LooniumMobEffectToApply {
 				'}';
 	}
 
-	public MobEffect getEffect() {
+	public Holder<MobEffect> getEffect() {
 		return effect;
 	}
 
@@ -78,11 +79,11 @@ public class LooniumMobEffectToApply {
 	}
 
 	public static class Builder {
-		private final MobEffect effect;
+		private final Holder<MobEffect> effect;
 		private int duration = MobEffectInstance.INFINITE_DURATION;
 		private int amplifier = 0;
 
-		private Builder(MobEffect effect) {
+		private Builder(Holder<MobEffect> effect) {
 			this.effect = effect;
 		}
 

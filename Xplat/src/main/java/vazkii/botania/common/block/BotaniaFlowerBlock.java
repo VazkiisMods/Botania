@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -37,7 +38,7 @@ public class BotaniaFlowerBlock extends FlowerBlock implements BonemealableBlock
 		this.color = color;
 	}
 
-	private static MobEffect effectForFlower(DyeColor color) {
+	private static Holder<MobEffect> effectForFlower(DyeColor color) {
 		return switch (color) {
 			case WHITE -> MobEffects.MOVEMENT_SPEED;
 			case ORANGE -> MobEffects.FIRE_RESISTANCE;

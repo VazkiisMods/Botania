@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.CreativeModeTab;
@@ -27,7 +28,7 @@ import java.util.List;
 public class FlowerMotifBlock extends FlowerBlock implements CustomCreativeTabContents {
 	private final boolean hidden;
 
-	public FlowerMotifBlock(MobEffect effect, int effectDuration, Properties properties, boolean hidden) {
+	public FlowerMotifBlock(Holder<MobEffect> effect, int effectDuration, Properties properties, boolean hidden) {
 		super(effect, effectDuration, properties);
 		this.hidden = hidden;
 	}
