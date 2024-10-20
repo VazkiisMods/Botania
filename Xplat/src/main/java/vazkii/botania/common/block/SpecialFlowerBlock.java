@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.block;
+package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -33,23 +33,19 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.block.BotaniaBlock;
-import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.function.Supplier;
 
-// Note: Keep in sync with ForgeSpecialFlowerBlock. The only reason they are split is
-// because Forge patches the superclass constructor in stupid, incompatible ways.
-public class FabricSpecialFlowerBlock extends FlowerBlock implements EntityBlock {
+public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 	private final boolean hasComparatorOutput;
 
-	public FabricSpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+	public SpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
 		this(stewEffect, stewDuration, props, blockEntityType, false);
 	}
 
-	public FabricSpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType, boolean hasComparatorOutput) {
+	public SpecialFlowerBlock(Holder<MobEffect> stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType, boolean hasComparatorOutput) {
 		super(stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 		this.hasComparatorOutput = hasComparatorOutput;

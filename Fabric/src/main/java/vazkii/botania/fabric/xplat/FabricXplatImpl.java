@@ -103,7 +103,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.fabric.block.FabricSpecialFlowerBlock;
+import vazkii.botania.common.block.SpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
@@ -454,16 +454,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 		if (e instanceof ServerPlayer) {
 			((ServerPlayer) e).connection.send(pkt);
 		}
-	}
-
-	@Override
-	public boolean isSpecialFlowerBlock(Block b) {
-		return b instanceof FabricSpecialFlowerBlock;
-	}
-
-	@Override
-	public FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration, BlockBehaviour.Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType, boolean hasComparatorOutput) {
-		return new FabricSpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
 	}
 
 	@Override

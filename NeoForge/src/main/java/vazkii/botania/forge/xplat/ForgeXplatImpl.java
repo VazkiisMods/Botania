@@ -430,19 +430,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean isSpecialFlowerBlock(Block b) {
-		return b instanceof ForgeSpecialFlowerBlock;
-	}
-
-	@Override
-	public FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration,
-												BlockBehaviour.Properties props,
-												Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
-			boolean hasComparatorOutput) {
-		return new ForgeSpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
-	}
-
-	@Override
 	public <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
 		return BlockEntityType.Builder.of(func::apply, blocks).build(null);
 	}
