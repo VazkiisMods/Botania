@@ -1501,14 +1501,7 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new AbstractProjectileDispenseBehavior() {
-			@NotNull
-			@Override
-			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
-				return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world);
-			}
-		});
-
+		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(BotaniaItems.enderAirBottle));
 		behavior = DispenserBlockAccessor.getDispenserRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
 
@@ -1530,13 +1523,7 @@ public final class BotaniaBlocks {
 
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new AbstractProjectileDispenseBehavior() {
-			@NotNull
-			@Override
-			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
-				return new VineBallEntity(pos.x(), pos.y(), pos.z(), world);
-			}
-		});
+		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior(BotaniaItems.vineBall));
 
 		SeedBehaviors.init();
 	}

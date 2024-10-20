@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -434,9 +435,9 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
-			BlockBehaviour.Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+	public FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration,
+												BlockBehaviour.Properties props,
+												Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
 			boolean hasComparatorOutput) {
 		return new ForgeSpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
 	}

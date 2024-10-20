@@ -8,6 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -16,45 +17,46 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class LooniumStructureConfiguration {
 	public static final int DEFAULT_COST = 35000;
 	public static final int DEFAULT_MAX_NEARBY_MOBS = 10;
-	public static final Codec<LooniumStructureConfiguration> CODEC = ExtraCodecs.validate(
-			RecordCodecBuilder.create(
-					instance -> instance.group(
-							ResourceLocation.CODEC.optionalFieldOf("parent")
-									.forGetter(lsc -> Optional.ofNullable(lsc.parent)),
-							ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("manaCost")
-									.forGetter(lsc -> Optional.ofNullable(lsc.manaCost)),
-							ExtraCodecs.POSITIVE_INT.optionalFieldOf("maxNearbyMobs")
-									.forGetter(lsc -> Optional.ofNullable(lsc.maxNearbyMobs)),
-							StructureSpawnOverride.BoundingBoxType.CODEC
-									.optionalFieldOf("boundingBoxType")
-									.forGetter(lsc -> Optional.ofNullable(lsc.boundingBoxType)),
-							WeightedRandomList.codec(LooniumMobSpawnData.CODEC)
-									.optionalFieldOf("spawnedMobs")
-									.forGetter(lsc -> Optional.ofNullable(lsc.spawnedMobs)),
-							Codec.list(LooniumMobAttributeModifier.CODEC)
-									.optionalFieldOf("attributeModifiers")
-									.forGetter(lsc -> Optional.ofNullable(lsc.attributeModifiers)),
-							Codec.list(LooniumMobEffectToApply.CODEC)
-									.optionalFieldOf("effectsToApply")
-									.forGetter(lsc -> Optional.ofNullable(lsc.effectsToApply))
-					).apply(instance, LooniumStructureConfiguration::create)
-			), lsc -> {
-				if (lsc.parent == null && (lsc.manaCost == null || lsc.boundingBoxType == null || lsc.spawnedMobs == null)) {
-					return DataResult.error(() -> "Mana cost, bounding box type, and spawned mobs must be specified if there is no parent configuration");
-				}
-				if (lsc.spawnedMobs != null && lsc.spawnedMobs.isEmpty()) {
-					return DataResult.error(() -> "Spawned mobs cannot be empty");
-				}
-				if (lsc.manaCost != null && lsc.manaCost > DEFAULT_COST) {
-					return DataResult.error(() -> "Mana costs above %d are currently not supported"
-							.formatted(DEFAULT_COST));
-				}
-				return DataResult.success(lsc);
-			});
-	public static final ResourceLocation DEFAULT_CONFIG_ID = new ResourceLocation(BotaniaAPI.MODID, "default");
+	public static final Codec<LooniumStructureConfiguration> CODEC = RecordCodecBuilder.<LooniumStructureConfiguration>create(
+		instance -> instance.group(
+			ResourceLocation.CODEC.optionalFieldOf("parent")
+					.forGetter(lsc -> Optional.ofNullable(lsc.parent)),
+			ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("manaCost")
+					.forGetter(lsc -> Optional.ofNullable(lsc.manaCost)),
+			ExtraCodecs.POSITIVE_INT.optionalFieldOf("maxNearbyMobs")
+					.forGetter(lsc -> Optional.ofNullable(lsc.maxNearbyMobs)),
+			StructureSpawnOverride.BoundingBoxType.CODEC
+					.optionalFieldOf("boundingBoxType")
+					.forGetter(lsc -> Optional.ofNullable(lsc.boundingBoxType)),
+			WeightedRandomList.codec(LooniumMobSpawnData.CODEC)
+					.optionalFieldOf("spawnedMobs")
+					.forGetter(lsc -> Optional.ofNullable(lsc.spawnedMobs)),
+			Codec.list(LooniumMobAttributeModifier.CODEC)
+					.optionalFieldOf("attributeModifiers")
+					.forGetter(lsc -> Optional.ofNullable(lsc.attributeModifiers)),
+			Codec.list(LooniumMobEffectToApply.CODEC)
+					.optionalFieldOf("effectsToApply")
+					.forGetter(lsc -> Optional.ofNullable(lsc.effectsToApply))
+		).apply(instance, LooniumStructureConfiguration::create)
+	).validate(lsc -> {
+		if (lsc.parent == null && (lsc.manaCost == null || lsc.boundingBoxType == null || lsc.spawnedMobs == null)) {
+			return DataResult.error(() -> "Mana cost, bounding box type, and spawned mobs must be specified if there is no parent configuration");
+		}
+		if (lsc.spawnedMobs != null && lsc.spawnedMobs.isEmpty()) {
+			return DataResult.error(() -> "Spawned mobs cannot be empty");
+		}
+		if (lsc.manaCost != null && lsc.manaCost > DEFAULT_COST) {
+			return DataResult.error(() -> "Mana costs above %d are currently not supported"
+					.formatted(DEFAULT_COST));
+		}
+		return DataResult.success(lsc);
+	});
+	public static final ResourceLocation DEFAULT_CONFIG_ID = prefix("default");
 
 	public final Integer manaCost;
 	public final Integer maxNearbyMobs;

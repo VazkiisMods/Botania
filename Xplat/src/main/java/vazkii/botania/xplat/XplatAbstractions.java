@@ -2,6 +2,7 @@ package vazkii.botania.xplat;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -166,13 +167,13 @@ public interface XplatAbstractions {
 	// Registrations
 	boolean isSpecialFlowerBlock(Block b);
 
-	default FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
-			BlockBehaviour.Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
+	default FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration,
+										 BlockBehaviour.Properties props,
+										 Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
 		return createSpecialFlowerBlock(effect, effectDuration, props, beType, false);
 	}
 
-	FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
+	FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
 			boolean hasComparatorOutput);
