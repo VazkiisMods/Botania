@@ -376,7 +376,7 @@ public class BlockstateProvider implements DataProvider {
 		particleOnly(remainingBlocks, lightRelayToggle, getBlockTexture(lightRelayToggle));
 
 		// Block groups
-		Predicate<Block> flowers = b -> XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
+		Predicate<Block> flowers = b -> b instanceof SpecialFlowerBlock
 				|| b instanceof BotaniaMushroomBlock
 				|| b instanceof BotaniaFlowerBlock;
 		ModelTemplate crossTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);
