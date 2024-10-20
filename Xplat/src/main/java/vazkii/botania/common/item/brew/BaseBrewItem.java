@@ -76,8 +76,8 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		if (!world.isClientSide) {
 			for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
 				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(), true, true);
-				if (effect.getEffect().isInstantenous()) {
-					effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier(), 1F);
+				if (effect.getEffect().value().isInstantenous()) {
+					effect.getEffect().value().applyInstantenousEffect(living, living, living, newEffect.getAmplifier(), 1F);
 				} else {
 					living.addEffect(newEffect);
 				}

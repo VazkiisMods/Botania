@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -311,7 +312,7 @@ public class BotaniaFlowerBlocks {
 	}
 
 	private static FlowerBlock createSpecialFlowerBlock(
-			MobEffect effect, int effectDuration,
+			Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
 		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(

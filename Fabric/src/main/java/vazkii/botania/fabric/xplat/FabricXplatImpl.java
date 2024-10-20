@@ -29,6 +29,7 @@ import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -461,7 +462,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration, BlockBehaviour.Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType, boolean hasComparatorOutput) {
+	public FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration, BlockBehaviour.Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType, boolean hasComparatorOutput) {
 		return new FabricSpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
 	}
 
