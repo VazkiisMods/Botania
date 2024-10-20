@@ -399,7 +399,7 @@ public class ItemModelProvider implements DataProvider {
 
 		Predicate<BlockItem> defaultGenerated = i -> {
 			Block b = i.getBlock();
-			return XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
+			return b instanceof SpecialFlowerBlock
 					|| b instanceof BotaniaMushroomBlock
 					|| b instanceof LuminizerBlock
 					|| b instanceof BotaniaFlowerBlock
