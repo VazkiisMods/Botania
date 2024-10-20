@@ -45,14 +45,14 @@ import vazkii.botania.network.clientbound.GogWorldPacket;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK, new ResourceLocation("gardenofglass:pebble_sources"));
-	private static final ResourceLocation PEBBLES_TABLE = new ResourceLocation(BotaniaAPI.GOG_MODID, "pebbles");
+	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebble_sources"));
+	private static final ResourceLocation PEBBLES_TABLE = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebbles");
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level());
@@ -140,7 +140,7 @@ public final class SkyblockWorldEvents {
 
 	public static void createSkyblock(ServerLevel level, BlockPos pos) {
 		var manager = level.getStructureManager();
-		var template = manager.get(prefix("gog_island")).orElseThrow();
+		var template = manager.get(botaniaRL("gog_island")).orElseThrow();
 		var structureBlockInfos = template.filterBlocks(pos, new StructurePlaceSettings(), Blocks.STRUCTURE_BLOCK, false);
 		structureBlockInfos.removeIf(info -> info.nbt() == null);
 

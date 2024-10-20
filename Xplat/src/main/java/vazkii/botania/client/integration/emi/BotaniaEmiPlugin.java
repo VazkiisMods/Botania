@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @EmiEntrypoint
 public class BotaniaEmiPlugin implements EmiPlugin {
@@ -75,7 +75,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			EmiStack.of(BotaniaFlowerBlocks.marimorphosis), ORECHID_COMPARATOR);
 
 	private static EmiRecipeCategory createCategory(String idPath, EmiRenderable icon, Comparator<EmiRecipe> comp) {
-		return new EmiRecipeCategory(prefix(idPath), icon, icon, comp);
+		return new EmiRecipeCategory(botaniaRL(idPath), icon, icon, comp);
 	}
 
 	private static final Supplier<ItemStack> HOVERED_STACK_GETTER = () -> {

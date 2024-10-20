@@ -15,10 +15,10 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.common.block.BotaniaBlock;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class AlchemyCatalystBlock extends BotaniaBlock implements PoolOverlayProvider {
-	private static final ResourceLocation OVERLAY_ICON = prefix("block/alchemy_catalyst_overlay");
+	private static final ResourceLocation OVERLAY_ICON = botaniaRL("block/alchemy_catalyst_overlay");
 
 	public AlchemyCatalystBlock(Properties builder) {
 		super(builder);

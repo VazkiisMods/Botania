@@ -21,10 +21,10 @@ import net.minecraft.util.ExtraCodecs;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class AlfheimPortalBreadTrigger extends SimpleCriterionTrigger<AlfheimPortalBreadTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("alf_portal_bread");
+	public static final ResourceLocation ID = botaniaRL("alf_portal_bread");
 	public static final AlfheimPortalBreadTrigger INSTANCE = new AlfheimPortalBreadTrigger();
 
 	private AlfheimPortalBreadTrigger() {}

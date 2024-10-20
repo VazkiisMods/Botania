@@ -17,11 +17,11 @@ import net.minecraft.world.entity.item.ItemEntity;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPacket {
 
-	public static final ResourceLocation ID = prefix("ia");
+	public static final ResourceLocation ID = botaniaRL("ia");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {

@@ -23,11 +23,11 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class DodgePacket implements BotaniaPacket {
 	public static final DodgePacket INSTANCE = new DodgePacket();
-	public static final ResourceLocation ID = prefix("do");
+	public static final ResourceLocation ID = botaniaRL("do");
 
 	public static DodgePacket decode(FriendlyByteBuf buf) {
 		return INSTANCE;

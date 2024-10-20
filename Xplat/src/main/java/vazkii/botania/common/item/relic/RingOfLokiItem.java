@@ -49,7 +49,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import java.util.ArrayList;
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordinateListProvider {
 
@@ -307,7 +307,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, prefix("challenge/loki_ring"));
+		return new RelicImpl(stack, botaniaRL("challenge/loki_ring"));
 	}
 
 }

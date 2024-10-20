@@ -45,7 +45,7 @@ public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel> {
 	@Override
 	public ResourceLocation getTextureLocation(@NotNull PixieEntity entity) {
 		return ClientProxy.dootDoot
-				? new ResourceLocation(ResourcesLib.MODEL_PIXIE_HALLOWEEN)
-				: new ResourceLocation(ResourcesLib.MODEL_PIXIE);
+				? ResourceLocation.parse(ResourcesLib.MODEL_PIXIE_HALLOWEEN)
+				: ResourceLocation.parse(ResourcesLib.MODEL_PIXIE);
 	}
 }

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * An Item that has this capability can provide blocks to other items that use them.
@@ -23,7 +24,7 @@ import vazkii.botania.api.BotaniaAPI;
  */
 public interface BlockProvider {
 
-	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "block_provider");
+	ResourceLocation ID = botaniaRL("block_provider");
 
 	/**
 	 * Provides the requested item. The doit paremeter specifies whether this is

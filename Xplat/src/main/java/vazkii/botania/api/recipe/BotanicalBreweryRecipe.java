@@ -20,9 +20,10 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface BotanicalBreweryRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "brew");
+	ResourceLocation TYPE_ID = botaniaRL("brew");
 
 	Brew getBrew();
 

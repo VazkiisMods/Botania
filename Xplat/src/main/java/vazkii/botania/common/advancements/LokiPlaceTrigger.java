@@ -20,10 +20,10 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("loki_placed_blocks");
+	public static final ResourceLocation ID = botaniaRL("loki_placed_blocks");
 	public static final LokiPlaceTrigger INSTANCE = new LokiPlaceTrigger();
 
 	private LokiPlaceTrigger() {}

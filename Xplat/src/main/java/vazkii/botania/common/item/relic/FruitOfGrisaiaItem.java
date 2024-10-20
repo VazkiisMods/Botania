@@ -27,7 +27,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Locale;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FruitOfGrisaiaItem extends RelicItem {
 
@@ -82,7 +82,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, prefix("challenge/infinite_fruit"));
+		return new RelicImpl(stack, botaniaRL("challenge/infinite_fruit"));
 	}
 
 }

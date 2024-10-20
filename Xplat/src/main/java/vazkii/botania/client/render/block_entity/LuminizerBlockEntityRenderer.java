@@ -33,7 +33,7 @@ import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
 import java.util.Objects;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<LuminizerBlockEntity> {
 	private final TextureAtlasSprite luminizerWorldSprite;
@@ -43,10 +43,10 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 
 	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
-		this.luminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/light_relay")));
-		this.detectorLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/detector_light_relay")));
-		this.forkLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/fork_light_relay")));
-		this.toggleLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/toggle_light_relay")));
+		this.luminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/light_relay")));
+		this.detectorLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/detector_light_relay")));
+		this.forkLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/fork_light_relay")));
+		this.toggleLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(botaniaRL("block/toggle_light_relay")));
 	}
 
 	@Override

@@ -296,15 +296,15 @@ public class BotaniaFlowerBlocks {
 	public static final BlockEntityType<OrechidIgnemBlockEntity> ORECHID_IGNEM = XplatAbstractions.INSTANCE.createBlockEntityType(OrechidIgnemBlockEntity::new, orechidIgnem, orechidIgnemFloating);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "floating_" + orig.getPath());
 	}
 
 	private static ResourceLocation potted(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), "potted_" + orig.getPath());
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "potted_" + orig.getPath());
 	}
 
 	private static ResourceLocation chibi(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), orig.getPath() + "_chibi");
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), orig.getPath() + "_chibi");
 	}
 
 	private static ResourceLocation getId(Block b) {
@@ -757,7 +757,7 @@ public class BotaniaFlowerBlocks {
 		registerBlocks((block, resourceLocation) -> {
 			if (block instanceof FlowerPotBlock) {
 				var id = getId(block);
-				consumer.accept(new ResourceLocation(id.getNamespace(), id.getPath().substring(LibBlockNames.POTTED_PREFIX.length())), () -> block);
+				consumer.accept(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().substring(LibBlockNames.POTTED_PREFIX.length())), () -> block);
 			}
 		});
 	}

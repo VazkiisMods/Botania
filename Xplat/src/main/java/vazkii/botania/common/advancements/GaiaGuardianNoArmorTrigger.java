@@ -22,10 +22,10 @@ import vazkii.botania.common.entity.GaiaGuardianEntity;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuardianNoArmorTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("gaia_guardian_no_armor");
+	public static final ResourceLocation ID = botaniaRL("gaia_guardian_no_armor");
 	public static final GaiaGuardianNoArmorTrigger INSTANCE = new GaiaGuardianNoArmorTrigger();
 
 	private GaiaGuardianNoArmorTrigger() {}

@@ -31,8 +31,8 @@ import java.util.List;
 
 public class CloakOfSinItem extends CloakOfVirtueItem {
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_UNHOLY_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(ResourcesLib.MODEL_UNHOLY_CLOAK_GLOW);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_UNHOLY_CLOAK);
+	private static final ResourceLocation textureGlow = ResourceLocation.parse(ResourcesLib.MODEL_UNHOLY_CLOAK_GLOW);
 
 	public CloakOfSinItem(Properties props) {
 		super(props);

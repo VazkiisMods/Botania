@@ -65,7 +65,7 @@ public final class HUDHandler {
 
 	private HUDHandler() {}
 
-	public static final ResourceLocation manaBar = new ResourceLocation(ResourcesLib.GUI_MANA_HUD);
+	public static final ResourceLocation manaBar = ResourceLocation.parse(ResourcesLib.GUI_MANA_HUD);
 
 	private static boolean didOptifineDetection = false;
 

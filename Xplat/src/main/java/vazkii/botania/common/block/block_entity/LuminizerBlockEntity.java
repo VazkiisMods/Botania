@@ -57,7 +57,7 @@ import vazkii.botania.common.helper.VecHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBindable {
 	public static final int MAX_DIST = 20;
@@ -88,7 +88,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			mover.playSound(BotaniaSounds.lightRelay, 1F, (float) Math.random() * 0.3F + 0.7F);
 		}
 		if (e instanceof ServerPlayer serverPlayer) {
-			PlayerHelper.grantCriterion(serverPlayer, prefix("main/luminizer_ride"), "code_triggered");
+			PlayerHelper.grantCriterion(serverPlayer, botaniaRL("main/luminizer_ride"), "code_triggered");
 		}
 	}
 

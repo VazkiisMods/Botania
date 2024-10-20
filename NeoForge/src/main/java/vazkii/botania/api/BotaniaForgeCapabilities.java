@@ -1,10 +1,8 @@
 package vazkii.botania.api;
 
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;
-import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
@@ -50,10 +48,6 @@ public final class BotaniaForgeCapabilities {
 			BlockCapability.createVoid(ManaTrigger.ID, ManaTrigger.class);
 	public static final BlockCapability<Wandable, Void> WANDABLE =
 			BlockCapability.createVoid(Wandable.ID, Wandable.class);
-
-	private static @NotNull ResourceLocation prefix(String path) {
-		return new ResourceLocation(BotaniaAPI.MODID, path);
-	}
 
 	private BotaniaForgeCapabilities() {}
 }

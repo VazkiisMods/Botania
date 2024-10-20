@@ -91,7 +91,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class GaiaGuardianEntity extends Mob {
 	public static final float ARENA_RANGE = 12F;
@@ -173,8 +173,8 @@ public class GaiaGuardianEntity extends Mob {
 	);
 
 	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
-			new ResourceLocation("openblocks", "beartrap"),
-			new ResourceLocation("thaumictinkerer", "magnet")
+			ResourceLocation.fromNamespaceAndPath("openblocks", "beartrap"),
+			ResourceLocation.fromNamespaceAndPath("thaumictinkerer", "magnet")
 	);
 
 	private boolean spawnLandmines = false;
@@ -521,7 +521,7 @@ public class GaiaGuardianEntity extends Mob {
 		if (mobSpawnTicks > 0) {
 			return BuiltInLootTables.EMPTY;
 		}
-		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
+		return botaniaRL(hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override

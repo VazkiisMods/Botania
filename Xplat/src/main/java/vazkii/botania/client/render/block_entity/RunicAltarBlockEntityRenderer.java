@@ -33,11 +33,11 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicAltarBlockEntity> {
 	private final ModelPart spinningCube;
-	private static final ResourceLocation cubeTex = prefix("textures/block/runic_altar_cube.png");
+	private static final ResourceLocation cubeTex = botaniaRL("textures/block/runic_altar_cube.png");
 
 	public RunicAltarBlockEntityRenderer(BlockEntityRendererProvider.Context manager) {
 		var mesh = new MeshDefinition();

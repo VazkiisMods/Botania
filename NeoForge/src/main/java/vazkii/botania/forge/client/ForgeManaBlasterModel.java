@@ -54,8 +54,8 @@ public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterM
 		@Override
 		public ForgeManaBlasterModel read(JsonObject json, JsonDeserializationContext deserializationContext) {
 			return new ForgeManaBlasterModel(
-					new ResourceLocation(GsonHelper.getAsString(json, "gun_noclip")),
-					new ResourceLocation(GsonHelper.getAsString(json, "gun_clip"))
+					ResourceLocation.parse(GsonHelper.getAsString(json, "gun_noclip")),
+					ResourceLocation.parse(GsonHelper.getAsString(json, "gun_clip"))
 			);
 		}
 	}

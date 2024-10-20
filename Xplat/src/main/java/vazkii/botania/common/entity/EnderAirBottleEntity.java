@@ -44,11 +44,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSupplier {
 	public static final int PARTICLE_COLOR = 0x000008;
-	private static final ResourceLocation GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
+	private static final ResourceLocation GHAST_LOOT_TABLE = botaniaRL("ghast_ender_air_crying");
 
 	public EnderAirBottleEntity(EntityType<EnderAirBottleEntity> type, Level world) {
 		super(type, world);

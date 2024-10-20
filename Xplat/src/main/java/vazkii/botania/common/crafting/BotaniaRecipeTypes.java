@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaRecipeTypes {
 	public static final RecipeType<vazkii.botania.api.recipe.ManaInfusionRecipe> MANA_INFUSION_TYPE = new ModRecipeType<>();
@@ -80,7 +80,7 @@ public class BotaniaRecipeTypes {
 		r.accept(BREW_SERIALIZER, vazkii.botania.api.recipe.BotanicalBreweryRecipe.TYPE_ID);
 		r.accept(PETAL_SERIALIZER, vazkii.botania.api.recipe.PetalApothecaryRecipe.TYPE_ID);
 		r.accept(RUNE_SERIALIZER, vazkii.botania.api.recipe.RunicAltarRecipe.TYPE_ID);
-		r.accept(RUNE_HEAD_SERIALIZER, prefix("runic_altar_head"));
+		r.accept(RUNE_HEAD_SERIALIZER, botaniaRL("runic_altar_head"));
 		r.accept(TERRA_PLATE_SERIALIZER, vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe.TYPE_ID);
 		r.accept(ORECHID_SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.TYPE_ID);
 		r.accept(ORECHID_IGNEM_SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.IGNEM_TYPE_ID);

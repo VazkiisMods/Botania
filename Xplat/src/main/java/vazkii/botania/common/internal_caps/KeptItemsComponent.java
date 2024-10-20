@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class KeptItemsComponent extends SerializableComponent {
-	public static final ResourceLocation ID = prefix("kept_items");
+	public static final ResourceLocation ID = botaniaRL("kept_items");
 	private final List<ItemStack> stacks = new ArrayList<>();
 
 	public void addAll(Collection<ItemStack> stack) {

@@ -35,38 +35,38 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.modelResourceLocation;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaModelRL;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class MiscellaneousModels {
-	private static final ResourceLocation goldfishModelId = prefix("icon/goldfish");
-	private static final ResourceLocation phiFlowerModelId = prefix("icon/phiflower");
-	private static final ResourceLocation nerfBatModelId = prefix("icon/nerfbat");
-	private static final ResourceLocation bloodPendantChainId = prefix("icon/blood_pendant_chain");
-	private static final ResourceLocation bloodPendantGemId = prefix("icon/blood_pendant_gem");
+	private static final ResourceLocation goldfishModelId = botaniaRL("icon/goldfish");
+	private static final ResourceLocation phiFlowerModelId = botaniaRL("icon/phiflower");
+	private static final ResourceLocation nerfBatModelId = botaniaRL("icon/nerfbat");
+	private static final ResourceLocation bloodPendantChainId = botaniaRL("icon/blood_pendant_chain");
+	private static final ResourceLocation bloodPendantGemId = botaniaRL("icon/blood_pendant_gem");
 	private static final ResourceLocation[] kingKeyWeaponModelIds = IntStream.range(0, KeyOfTheKingsLawItem.WEAPON_TYPES)
-			.mapToObj(i -> prefix("icon/gate_weapon_" + i)).toArray(ResourceLocation[]::new);
-	private static final ResourceLocation terrasteelHelmWillModelId = prefix("icon/will_flame");
+			.mapToObj(i -> botaniaRL("icon/gate_weapon_" + i)).toArray(ResourceLocation[]::new);
+	private static final ResourceLocation terrasteelHelmWillModelId = botaniaRL("icon/will_flame");
 	private static final ResourceLocation[] thirdEyeLayerIds = IntStream.range(0, ThirdEyeItem.Renderer.NUM_LAYERS)
-			.mapToObj(i -> prefix("icon/third_eye_" + i)).toArray(ResourceLocation[]::new);
-	private static final ResourceLocation pyroclastGemId = prefix("icon/lava_pendant_gem");
-	private static final ResourceLocation crimsonGemId = prefix("icon/super_lava_pendant_gem");
-	private static final ResourceLocation itemFinderGemId = prefix("icon/itemfinder_gem");
-	private static final ResourceLocation cirrusGemId = prefix("icon/cloud_pendant_gem");
-	private static final ResourceLocation nimbusGemId = prefix("icon/super_cloud_pendant_gem");
-	private static final ResourceLocation snowflakePendantGemId = prefix("icon/ice_pendant_gem");
+			.mapToObj(i -> botaniaRL("icon/third_eye_" + i)).toArray(ResourceLocation[]::new);
+	private static final ResourceLocation pyroclastGemId = botaniaRL("icon/lava_pendant_gem");
+	private static final ResourceLocation crimsonGemId = botaniaRL("icon/super_lava_pendant_gem");
+	private static final ResourceLocation itemFinderGemId = botaniaRL("icon/itemfinder_gem");
+	private static final ResourceLocation cirrusGemId = botaniaRL("icon/cloud_pendant_gem");
+	private static final ResourceLocation nimbusGemId = botaniaRL("icon/super_cloud_pendant_gem");
+	private static final ResourceLocation snowflakePendantGemId = botaniaRL("icon/ice_pendant_gem");
 	private static final ResourceLocation[] tiaraWingIconIds = IntStream.range(0, FlugelTiaraItem.WING_TYPES)
-			.mapToObj(i -> prefix("icon/tiara_wing_" + (i + 1))).toArray(ResourceLocation[]::new);
-	private static final ResourceLocation corporeaCrystalCubeGlassId = prefix("block/corporea_crystal_cube_glass");
-	private static final ResourceLocation manaPumpHead = prefix("block/pump_head");
-	private static final ResourceLocation elvenSpreaderCoreId = prefix("block/elven_spreader_core");
-	private static final ResourceLocation gaiaSpreaderCoreId = prefix("block/gaia_spreader_core");
-	private static final ResourceLocation manaSpreaderCoreId = prefix("block/mana_spreader_core");
-	private static final ResourceLocation redstoneSpreaderCoreId = prefix("block/redstone_spreader_core");
-	private static final ResourceLocation manaSpreaderScaffoldingId = prefix("block/mana_spreader_scaffolding");
-	private static final ResourceLocation elvenSpreaderScaffoldingId = prefix("block/elven_spreader_scaffolding");
-	private static final ResourceLocation gaiaSpreaderScaffoldingId = prefix("block/gaia_spreader_scaffolding");
-	private static final Map<DyeColor, ResourceLocation> spreaderPaddingIds = new EnumMap<>(ColorHelper.supportedColors().collect(Collectors.toMap(Function.identity(), color -> prefix("block/" + color.getSerializedName() + "_spreader_padding"))));
+			.mapToObj(i -> botaniaRL("icon/tiara_wing_" + (i + 1))).toArray(ResourceLocation[]::new);
+	private static final ResourceLocation corporeaCrystalCubeGlassId = botaniaRL("block/corporea_crystal_cube_glass");
+	private static final ResourceLocation manaPumpHead = botaniaRL("block/pump_head");
+	private static final ResourceLocation elvenSpreaderCoreId = botaniaRL("block/elven_spreader_core");
+	private static final ResourceLocation gaiaSpreaderCoreId = botaniaRL("block/gaia_spreader_core");
+	private static final ResourceLocation manaSpreaderCoreId = botaniaRL("block/mana_spreader_core");
+	private static final ResourceLocation redstoneSpreaderCoreId = botaniaRL("block/redstone_spreader_core");
+	private static final ResourceLocation manaSpreaderScaffoldingId = botaniaRL("block/mana_spreader_scaffolding");
+	private static final ResourceLocation elvenSpreaderScaffoldingId = botaniaRL("block/elven_spreader_scaffolding");
+	private static final ResourceLocation gaiaSpreaderScaffoldingId = botaniaRL("block/gaia_spreader_scaffolding");
+	private static final Map<DyeColor, ResourceLocation> spreaderPaddingIds = new EnumMap<>(ColorHelper.supportedColors().collect(Collectors.toMap(Function.identity(), color -> botaniaRL("block/" + color.getSerializedName() + "_spreader_padding"))));
 
 	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
 
@@ -114,16 +114,16 @@ public class MiscellaneousModels {
 	}
 
 	private static void registerIslands() {
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.GRASS, prefix("block/islands/island_grass"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.PODZOL, prefix("block/islands/island_podzol"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.MYCEL, prefix("block/islands/island_mycel"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.SNOW, prefix("block/islands/island_snow"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.DRY, prefix("block/islands/island_dry"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.GOLDEN, prefix("block/islands/island_golden"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.VIVID, prefix("block/islands/island_vivid"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.SCORCHED, prefix("block/islands/island_scorched"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.INFUSED, prefix("block/islands/island_infused"));
-		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.MUTATED, prefix("block/islands/island_mutated"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.GRASS, botaniaRL("block/islands/island_grass"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.PODZOL, botaniaRL("block/islands/island_podzol"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.MYCEL, botaniaRL("block/islands/island_mycel"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.SNOW, botaniaRL("block/islands/island_snow"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.DRY, botaniaRL("block/islands/island_dry"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.GOLDEN, botaniaRL("block/islands/island_golden"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.VIVID, botaniaRL("block/islands/island_vivid"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.SCORCHED, botaniaRL("block/islands/island_scorched"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.INFUSED, botaniaRL("block/islands/island_infused"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(FloatingFlower.IslandType.MUTATED, botaniaRL("block/islands/island_mutated"));
 	}
 
 	private static void registerTaters(ResourceManager rm, Consumer<ResourceLocation> consumer) {
@@ -131,7 +131,7 @@ public class MiscellaneousModels {
 			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
 				String path = model.getPath();
 				path = path.substring(ResourcesLib.PREFIX_MODELS.length(), path.length() - ResourcesLib.ENDING_JSON.length());
-				consumer.accept(new ResourceLocation(LibMisc.MOD_ID, path));
+				consumer.accept(botaniaRL(path));
 			}
 		}
 	}
@@ -152,10 +152,10 @@ public class MiscellaneousModels {
 
 	private MiscellaneousModels() {
 		afterBakeModifiers = new HashMap<>();
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_ABSTRUSE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_SPECTRAL, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_INFRANGIBLE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.TINY_POTATO, "inventory"), TinyPotatoModel::new);
+		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.PLATFORM_ABSTRUSE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.PLATFORM_SPECTRAL, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.PLATFORM_INFRANGIBLE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.TINY_POTATO, "inventory"), TinyPotatoModel::new);
 
 		modelConsumers = new HashMap<>();
 		modelConsumers.put(elvenSpreaderCoreId, bakedModel -> this.elvenSpreaderCore = bakedModel);

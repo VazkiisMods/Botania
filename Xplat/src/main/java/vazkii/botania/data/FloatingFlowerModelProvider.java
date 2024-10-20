@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FloatingFlowerModelProvider implements DataProvider {
 	private final PackOutput packOutput;
@@ -66,8 +66,8 @@ public class FloatingFlowerModelProvider implements DataProvider {
 		PackOutput.PathProvider blocks = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/block");
 		PackOutput.PathProvider items = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item");
 		for (Tuple<String, JsonElement> pair : jsons) {
-			output.add(DataProvider.saveStable(cache, pair.getB(), blocks.json(prefix(pair.getA()))));
-			output.add(DataProvider.saveStable(cache, pair.getB(), items.json(prefix(pair.getA()))));
+			output.add(DataProvider.saveStable(cache, pair.getB(), blocks.json(botaniaRL(pair.getA()))));
+			output.add(DataProvider.saveStable(cache, pair.getB(), items.json(botaniaRL(pair.getA()))));
 		}
 
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));

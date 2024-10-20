@@ -47,7 +47,7 @@ import java.util.UUID;
 
 public class SkiesRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_TORNADO);
+	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_TORNADO);
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;

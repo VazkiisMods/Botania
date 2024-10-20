@@ -35,11 +35,11 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 				.add(EntityType.HORSE, EntityType.DONKEY, EntityType.WOLF, EntityType.OCELOT,
 						EntityType.CAT, EntityType.PARROT, EntityType.LLAMA, EntityType.FOX,
 						EntityType.PANDA, EntityType.TURTLE, EntityType.GOAT, EntityType.CAMEL)
-				.addOptional(new ResourceLocation("quark", "frog"));
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "frog"));
 
 		tag(BotaniaTags.Entities.COCOON_COMMON_AQUATIC)
 				.add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID, EntityType.FROG)
-				.addOptional(new ResourceLocation("quark", "crab"));
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "crab"));
 		tag(BotaniaTags.Entities.COCOON_RARE_AQUATIC).add(EntityType.DOLPHIN, EntityType.GLOW_SQUID, EntityType.AXOLOTL);
 
 		tag(BotaniaTags.Entities.DRUM_MILKABLE).add(EntityType.COW, EntityType.MOOSHROOM, EntityType.GOAT);
@@ -54,7 +54,7 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 
 		tag(BotaniaTags.Entities.KEY_IMMUNE).add(EntityType.ITEM, EntityType.ITEM_FRAME, EntityType.PAINTING, EntityType.EXPERIENCE_ORB);
 
-		var bosses = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("c", "bosses"));
+		var bosses = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("c", "bosses"));
 		tag(bosses).add(BotaniaEntities.DOPPLEGANGER);
 	}
 }

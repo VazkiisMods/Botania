@@ -23,10 +23,10 @@ import org.joml.Matrix4f;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = prefix("textures/gui/elven_trade_overlay.png");
+	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/elven_trade_overlay.png");
 
 	public ElvenTradeEmiRecipe(RecipeHolder<? extends ElvenTradeRecipe> recipe) {
 		super(BotaniaEmiPlugin.ELVEN_TRADE, recipe);
@@ -77,7 +77,7 @@ public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
 		public void render(GuiGraphics gui, int mouseX, int mouseY, float delta) {
 			PoseStack matrices = gui.pose();
 			TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-					.apply(prefix("block/alfheim_portal_swirl"));
+					.apply(botaniaRL("block/alfheim_portal_swirl"));
 			MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 			VertexConsumer v = immediate.getBuffer(RenderType.solid());
 			int startX = x;

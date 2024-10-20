@@ -28,6 +28,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
@@ -37,7 +38,6 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.data.recipes.builder.BotaniaSpecialRecipeBuilder;
 import vazkii.botania.data.recipes.builder.GogAlternationRecipeBuilder;
 import vazkii.botania.data.recipes.builder.NbtOutputRecipeBuilder;
@@ -103,7 +103,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 	/** Addons: override this to return your modid */
 	protected ResourceLocation prefix(String path) {
-		return ResourceLocationHelper.prefix(path);
+		return BotaniaAPI.botaniaRL(path);
 	}
 
 	private void registerMain(RecipeOutput recipeOutput) {
@@ -853,7 +853,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(mushrooms, 2)
 				.requires(Items.BOWL)
 				.unlockedBy("has_item", conditionsFromItem(Items.BOWL))
-				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(new ResourceLocation("mushroom_stew")))
+				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(ResourceLocation.withDefaultNamespace("mushroom_stew")))
 				.save(recipeOutput, "botania:mushroom_stew");
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, Items.COBWEB)
@@ -2221,7 +2221,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		// azulejo0 recipe in loader-specific datagen
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
-				.map(ResourceLocationHelper::prefix)
+				.map(BotaniaAPI::botaniaRL)
 				.map(BuiltInRegistries.ITEM::get)
 				.toList();
 		for (int i = 0; i < allAzulejos.size(); i++) {
@@ -2389,7 +2389,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 	protected void createFloatingFlowerRecipe(RecipeOutput recipeOutput, ItemLike input) {
 		ResourceLocation inputName = BuiltInRegistries.ITEM.getKey(input.asItem());
-		Item output = getItemOrThrow(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath()));
+		Item output = getItemOrThrow(ResourceLocation.fromNamespaceAndPath(inputName.getNamespace(), "floating_" + inputName.getPath()));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, output)
 				.requires(BotaniaTags.Items.FLOATING_FLOWERS)
 				.requires(input)

@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 	// [VanillaCopy] NoiseBasedChunkGenerator's codec, but calls our constructor
@@ -39,7 +39,7 @@ public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 					.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 
 	public static void submitRegistration(BiConsumer<Codec<? extends ChunkGenerator>, ResourceLocation> consumer) {
-		consumer.accept(SkyblockChunkGenerator.CODEC, prefix("skyblock"));
+		consumer.accept(SkyblockChunkGenerator.CODEC, botaniaRL("skyblock"));
 	}
 
 	public static boolean isWorldSkyblock(Level world) {

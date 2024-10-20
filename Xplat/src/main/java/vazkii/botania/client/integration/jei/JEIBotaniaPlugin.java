@@ -68,11 +68,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
-	private static final ResourceLocation ID = prefix("main");
+	private static final ResourceLocation ID = botaniaRL("main");
 
 	@Override
 	public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
@@ -217,13 +217,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		}
 
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-		recipeManager.byKey(prefix("petal_apothecary/daybloom_motif"))
+		recipeManager.byKey(botaniaRL("petal_apothecary/daybloom_motif"))
 				.ifPresent(r -> {
 					if (r.value() instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
 					}
 				});
-		recipeManager.byKey(prefix("petal_apothecary/nightshade_motif"))
+		recipeManager.byKey(botaniaRL("petal_apothecary/nightshade_motif"))
 				.ifPresent(r -> {
 					if (r.value() instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));

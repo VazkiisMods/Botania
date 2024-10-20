@@ -44,7 +44,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			builder.addAll(PatchouliUtils.getRecipeGroup(BotaniaRecipeTypes.MANA_INFUSION_TYPE, group));
 		} else {
 			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-				ManaInfusionRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE, new ResourceLocation(s.asString()));
+				ManaInfusionRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE, ResourceLocation.parse(s.asString()));
 				if (recipe != null) {
 					builder.add(recipe);
 				}

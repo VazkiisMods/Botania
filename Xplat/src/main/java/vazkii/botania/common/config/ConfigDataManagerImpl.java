@@ -25,11 +25,11 @@ import java.util.concurrent.Executor;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ConfigDataManagerImpl implements ConfigDataManager {
 	public static void registerListener() {
-		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("configdata"), new ConfigDataManagerImpl());
+		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, botaniaRL("configdata"), new ConfigDataManagerImpl());
 	}
 
 	private final Map<ResourceLocation, LooniumStructureConfiguration> looniumConfigs = new HashMap<>();

@@ -23,7 +23,7 @@ import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElvenTradeProvider extends BotaniaRecipeProvider {
 	public ElvenTradeProvider(PackOutput packOutput) {
@@ -61,7 +61,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 	}
 
 	private static ResourceLocation id(String path) {
-		return prefix("elven_trade/" + path);
+		return botaniaRL("elven_trade/" + path);
 	}
 
 	@Override

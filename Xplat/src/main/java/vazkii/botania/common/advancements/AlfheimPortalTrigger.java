@@ -22,10 +22,10 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class AlfheimPortalTrigger extends SimpleCriterionTrigger<AlfheimPortalTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("open_elf_portal");
+	public static final ResourceLocation ID = botaniaRL("open_elf_portal");
 	public static final AlfheimPortalTrigger INSTANCE = new AlfheimPortalTrigger();
 
 	private AlfheimPortalTrigger() {}

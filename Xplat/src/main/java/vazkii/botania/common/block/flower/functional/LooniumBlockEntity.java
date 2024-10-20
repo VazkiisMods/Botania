@@ -72,7 +72,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
@@ -399,7 +399,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				if (structureId.equals(LooniumStructureConfiguration.DEFAULT_CONFIG_ID)) {
 					continue;
 				}
-				ResourceLocation lootTableId = prefix("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
+				ResourceLocation lootTableId = botaniaRL("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
 				LootTable lootTable = lootData.getLootTable(lootTableId);
 				if (lootTable != LootTable.EMPTY) {
 					lootTables.add(Pair.of(structureId, lootTable));
@@ -513,10 +513,10 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		if (cmp.contains(TAG_LOOT_TABLE)) {
-			lootTableOverride = new ResourceLocation(cmp.getString(TAG_LOOT_TABLE));
+			lootTableOverride = ResourceLocation.parse(cmp.getString(TAG_LOOT_TABLE));
 		}
 		if (cmp.contains(TAG_CONFIG_OVERRIDE)) {
-			configOverride = new ResourceLocation(cmp.getString(TAG_CONFIG_OVERRIDE));
+			configOverride = ResourceLocation.parse(cmp.getString(TAG_CONFIG_OVERRIDE));
 		}
 		if (cmp.contains(TAG_ATTUNE_DISPLAY_OVERRIDE)) {
 			attuneDisplayOverride = cmp.getString(TAG_ATTUNE_DISPLAY_OVERRIDE);
@@ -529,9 +529,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				List<ObjectBooleanPair<ResourceLocation>> structureList = Arrays.stream(rawString.split(",")).map(part -> {
 					if (part.contains("|")) {
 						String[] components = part.split("\\|", 2);
-						return ObjectBooleanPair.of(new ResourceLocation(components[0]), Boolean.parseBoolean(components[1]));
+						return ObjectBooleanPair.of(ResourceLocation.parse(components[0]), Boolean.parseBoolean(components[1]));
 					} else {
-						return ObjectBooleanPair.of(new ResourceLocation(part), false);
+						return ObjectBooleanPair.of(ResourceLocation.parse(part), false);
 					}
 				}).toList();
 				// list should never contain more than a few entries, so array is fine and retains entry order
