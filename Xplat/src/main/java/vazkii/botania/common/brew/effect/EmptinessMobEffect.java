@@ -30,7 +30,7 @@ public class EmptinessMobEffect extends MobEffect {
 			AABB aabb = new AABB(entity.getX() - RANGE, entity.getY() - RANGE, entity.getZ() - RANGE,
 					entity.getX() + RANGE, entity.getY() + RANGE, entity.getZ() + RANGE);
 			for (Player player : entity.level().players()) {
-				if (player.hasEffect(BotaniaMobEffects.emptiness) && player.getBoundingBox().intersects(aabb)) {
+				if (player.hasEffect(BotaniaMobEffects.EMPTINESS) && player.getBoundingBox().intersects(aabb)) {
 					return true;
 				}
 			}
