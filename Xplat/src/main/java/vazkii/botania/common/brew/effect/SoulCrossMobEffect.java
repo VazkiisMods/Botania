@@ -21,7 +21,7 @@ public class SoulCrossMobEffect extends MobEffect {
 	}
 
 	public static void onEntityKill(LivingEntity dying, LivingEntity killer) {
-		if (killer.hasEffect(BotaniaMobEffects.soulCross)) {
+		if (killer.hasEffect(BotaniaMobEffects.SOUL_CROSS)) {
 			killer.heal(dying.getMaxHealth() / 20);
 		}
 	}
