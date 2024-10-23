@@ -38,13 +38,13 @@ public class BotaniaBrews {
 	public static final Brew nightVision = new Brew(0x7C4BEB, 4000, new MobEffectInstance(MobEffects.NIGHT_VISION, 9600, 0));
 	public static final Brew absorption = new Brew(0xF2EB23, 7000, new MobEffectInstance(MobEffects.ABSORPTION, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 
-	public static final Brew allure = make(2000, new MobEffectInstance(BotaniaMobEffects.allure, 4800, 0));
-	public static final Brew soulCross = make(10000, new MobEffectInstance(BotaniaMobEffects.soulCross, 1800, 0));
-	public static final Brew featherfeet = make(7000, new MobEffectInstance(BotaniaMobEffects.featherfeet, 1800, 0));
-	public static final Brew emptiness = make(30000, new MobEffectInstance(BotaniaMobEffects.emptiness, 7200, 0));
-	public static final Brew bloodthirst = make(20000, new MobEffectInstance(BotaniaMobEffects.bloodthrst, 7200, 0));
+	public static final Brew allure = make(2000, new MobEffectInstance(BotaniaMobEffects.ALLURE, 4800, 0));
+	public static final Brew soulCross = make(10000, new MobEffectInstance(BotaniaMobEffects.SOUL_CROSS, 1800, 0));
+	public static final Brew featherfeet = make(7000, new MobEffectInstance(BotaniaMobEffects.FEATHER_FEET, 1800, 0));
+	public static final Brew emptiness = make(30000, new MobEffectInstance(BotaniaMobEffects.EMPTINESS, 7200, 0));
+	public static final Brew bloodthirst = make(20000, new MobEffectInstance(BotaniaMobEffects.BLOODTHRST, 7200, 0));
 	public static final Brew overload = new Brew(0x232323, 12000, new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800, 3), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1800, 2), new MobEffectInstance(MobEffects.WEAKNESS, 3600, 1), new MobEffectInstance(MobEffects.HUNGER, 200, 2));
-	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.clear, 0, 0));
+	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.CLEAR, 0, 0));
 
 	public static void submitRegistrations(BiConsumer<Brew, ResourceLocation> r) {
 		r.accept(fallbackBrew, botaniaRL("fallback"));

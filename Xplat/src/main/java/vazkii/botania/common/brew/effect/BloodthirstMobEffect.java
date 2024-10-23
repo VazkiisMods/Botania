@@ -30,8 +30,8 @@ public class BloodthirstMobEffect extends MobEffect {
 		if (entityClass == MobCategory.MONSTER) {
 			AABB aabb = new AABB(pos).inflate(RANGE);
 			for (Player player : world.players()) {
-				if (player.hasEffect(BotaniaMobEffects.bloodthrst)
-						&& !player.hasEffect(BotaniaMobEffects.emptiness)
+				if (player.hasEffect(BotaniaMobEffects.BLOODTHRST)
+						&& !player.hasEffect(BotaniaMobEffects.EMPTINESS)
 						&& player.getBoundingBox().intersects(aabb)) {
 					return true;
 				}

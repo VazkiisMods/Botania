@@ -234,7 +234,7 @@ public class SkiesRodItem extends Item {
 	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
 		p.level().playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 		p.gameEvent(GameEvent.FLAP);
-		p.addEffect(new MobEffectInstance(BotaniaMobEffects.featherfeet, 100, 0));
+		p.addEffect(new MobEffectInstance(BotaniaMobEffects.FEATHER_FEET, 100, 0));
 		tile.receiveMana(-COST);
 	}
 
