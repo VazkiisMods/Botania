@@ -33,22 +33,6 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 	@Unique
 	private LivingEntity terraWillCritTarget;
 
-	@Shadow
-	public abstract void awardStat(ResourceLocation stat, int i);
-
-	/**
-	 * Updates the distance by luminizer stat
-	 */
-	@Inject(
-		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/entity/player/Player;getVehicle()Lnet/minecraft/world/entity/Entity;"),
-		method = "checkRidingStatistics", locals = LocalCapture.CAPTURE_FAILSOFT
-	)
-	private void trackLuminizerTravel(double dx, double dy, double dz, CallbackInfo ci, int cm, Entity mount) {
-		if (mount.getType() == BotaniaEntities.PLAYER_MOVER) {
-			awardStat(BotaniaStats.LUMINIZER_ONE_CM, cm);
-		}
-	}
-
 	@Override
 	public void botania$setCritTarget(LivingEntity entity) {
 		this.terraWillCritTarget = entity;
