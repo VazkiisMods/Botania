@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRecipe> {
 
@@ -44,7 +44,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRe
 	private final Component localizedName;
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = prefix("textures/gui/nei_brewery.png");
+		ResourceLocation location = botaniaRL("textures/gui/nei_brewery.png");
 		background = guiHelper.createDrawable(location, 28, 6, 131, 55);
 		localizedName = Component.translatable("botania.nei.brewery");
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.brewery));

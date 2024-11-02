@@ -31,7 +31,7 @@ import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 
 public class BotanicalBreweryModel extends Model {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(ResourcesLib.MODEL_BREWERY);
+	private static final ResourceLocation TEXTURE = ResourceLocation.parse(ResourcesLib.MODEL_BREWERY);
 	final ModelPart top;
 	final ModelPart pole;
 	final ModelPart bottom;

@@ -33,7 +33,9 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.LibMisc;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import java.util.ArrayList;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipe> {
 
@@ -48,7 +50,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 104);
 		localizedName = Component.translatable("botania.nei.runicAltar");
-		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.runeAltar));
 	}
@@ -81,13 +83,16 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	public void draw(RunicAltarRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics gui, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(gui, 0, 4);
-		HUDHandler.renderManaBar(gui, 6, 98, 0x0000FF, 0.75F, recipe.getManaUsage(), ManaPoolBlockEntity.MAX_MANA / 10);
+		HUDHandler.renderManaBar(gui, 6, 98, 0x0000FF, 0.75F, recipe.getMana(), ManaPoolBlockEntity.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 	}
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RunicAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
-		PetalApothecaryRecipeCategory.setRecipeLayout(builder, recipe.getIngredients(), BotaniaBlocks.runeAltar,
+		var inputs = new ArrayList<>(recipe.getIngredients());
+		// TODO: visualize that the catalysts (usually runes) are returned
+		inputs.addAll(recipe.getCatalysts());
+		PetalApothecaryRecipeCategory.setRecipeLayout(builder, inputs, BotaniaBlocks.runeAltar,
 				recipe.getResultItem(RegistryAccess.EMPTY), LIVINGROCK);
 	}
 

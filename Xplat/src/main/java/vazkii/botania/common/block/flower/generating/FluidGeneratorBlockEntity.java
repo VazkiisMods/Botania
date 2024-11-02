@@ -89,7 +89,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 							if (waterAround < 2) {
 								if (bstate.getBlock() instanceof BucketPickup bucketPickup) {
-									bucketPickup.pickupBlock(getLevel(), pos, bstate);
+									bucketPickup.pickupBlock(null, getLevel(), pos, bstate);
 								} else {
 									getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 								}

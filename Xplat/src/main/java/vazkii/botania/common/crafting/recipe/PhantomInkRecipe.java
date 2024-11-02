@@ -9,12 +9,12 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -23,10 +23,10 @@ import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.common.item.BotaniaItems;
 
 public class PhantomInkRecipe extends CustomRecipe {
-	public static final NoOpRecipeSerializer<PhantomInkRecipe> SERIALIZER = new NoOpRecipeSerializer<>(PhantomInkRecipe::new);
+	public static final RecipeSerializer<PhantomInkRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(PhantomInkRecipe::new);
 
-	public PhantomInkRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public PhantomInkRecipe(CraftingBookCategory craftingBookCategory) {
+		super(craftingBookCategory);
 	}
 
 	@Override

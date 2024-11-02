@@ -31,7 +31,7 @@ import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Objects;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<AlfheimPortalBlockEntity> {
 	private final TextureAtlasSprite portalSprite;
@@ -39,7 +39,7 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 	public AlfheimPortalBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.portalSprite = Objects.requireNonNull(
 				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-						.apply(prefix("block/alfheim_portal_swirl"))
+						.apply(botaniaRL("block/alfheim_portal_swirl"))
 		);
 	}
 

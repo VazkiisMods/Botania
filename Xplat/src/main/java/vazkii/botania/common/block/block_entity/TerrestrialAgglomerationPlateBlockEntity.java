@@ -22,6 +22,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -69,8 +70,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 			'0', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(
 					XplatAbstractions.INSTANCE.isFabric()
-							? TagKey.create(Registries.BLOCK, new ResourceLocation("c", "lapis_blocks"))
-							: TagKey.create(Registries.BLOCK, new ResourceLocation("forge", "storage_blocks/lapis")))
+							? TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "lapis_blocks"))
+							: TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("forge", "storage_blocks/lapis")))
 	));
 
 	private static final String TAG_MANA = "mana";
@@ -129,7 +130,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	}
 
 	private List<ItemStack> getItems() {
-		List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)), EntitySelector.ENTITY_STILL_ALIVE);
+		List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition), EntitySelector.ENTITY_STILL_ALIVE);
 		List<ItemStack> stacks = new ArrayList<>();
 		for (ItemEntity entity : itemEntities) {
 			if (!entity.getItem().isEmpty()) {
@@ -181,7 +182,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		if (items.isEmpty()) {
 			return null;
 		}
-		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, items, level).orElse(null);
+		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, items, level)
+				.map(RecipeHolder::value).orElse(null);
 	}
 
 	private boolean isActive() {
@@ -241,7 +243,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 
 	@Override
 	public ManaSpark getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(ManaSpark.class));
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above()), Predicates.instanceOf(ManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
 			return (ManaSpark) e;

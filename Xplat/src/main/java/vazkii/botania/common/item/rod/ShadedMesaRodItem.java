@@ -60,7 +60,7 @@ public class ShadedMesaRodItem extends Item {
 		super(props);
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return reequipAnimation(oldStack, newStack);
 	}
@@ -99,7 +99,7 @@ public class ShadedMesaRodItem extends Item {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
 		if (entity instanceof Player player) {
 			leftClick(player);
@@ -108,7 +108,7 @@ public class ShadedMesaRodItem extends Item {
 	}
 
 	// Prevent damaging the entity you just held with the rod
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
 		return ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0;
 	}

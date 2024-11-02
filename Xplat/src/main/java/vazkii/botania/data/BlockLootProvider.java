@@ -22,7 +22,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
@@ -61,7 +60,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BlockLootProvider implements DataProvider {
 	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
@@ -88,7 +87,7 @@ public class BlockLootProvider implements DataProvider {
 			} else if (b instanceof BotaniaGrassBlock) {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
 			} else if (b instanceof FlowerPotBlock flowerPot) {
-				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getContent()));
+				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getPotted()));
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, BlockLootProvider::genMetamorphicStone);
 			}
@@ -144,7 +143,8 @@ public class BlockLootProvider implements DataProvider {
 		List<CompletableFuture<?>> output = new ArrayList<>();
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
-			output.add(DataProvider.saveStable(cache, Deserializers.createLootTableSerializer().create().toJsonTree(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
+			LootTable lootTable = e.getValue().setParamSet(LootContextParamSets.BLOCK).build();
+			output.add(DataProvider.saveStable(cache, LootTable.CODEC, lootTable, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
@@ -188,7 +188,7 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = BuiltInRegistries.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = BuiltInRegistries.BLOCK.getOptional(prefix(cobbleName)).get();
+		Block cobble = BuiltInRegistries.BLOCK.getOptional(botaniaRL(cobbleName)).get();
 		return genSilkDrop(b, cobble);
 	}
 
@@ -202,7 +202,7 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genSolidVine(Block b) {
-		LootPoolEntryContainer.Builder<?> entry = LootTableReference.lootTableReference(new ResourceLocation("blocks/vine"));
+		LootPoolEntryContainer.Builder<?> entry = LootTableReference.lootTableReference(ResourceLocation.withDefaultNamespace("blocks/vine"));
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 

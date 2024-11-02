@@ -134,6 +134,9 @@
   "botaniamisc.rannuncarpus.state_sensitive": "匹配方块状态",
   "botaniamisc.rannuncarpus.state_insensitive": "只匹配方块种类",
   "botaniamisc.lokiRingLimitReached": "已达到选择数量上限",
+  "botaniamisc.pollidisiac.feed_adults": "喂成年动物",
+  "botaniamisc.pollidisiac.feed_babies": "喂动物宝宝",
+  "botaniamisc.pollidisiac.feed_all": "喂所有动物",
   
   "botania.tater_birthday.0": "哇哦，这是给我的吗？",
   "botania.tater_birthday.1": "今天是我的生日，我现在%d岁了！",
@@ -2363,6 +2366,7 @@
   "botania.tagline.pollidisiac": "让他们产仔",
   "botania.page.pollidisiac0": "动物爱吃东西，事实上它们除了这个别的什么也不干。奇怪的是，它们只会吃喂给它们的东西。$(p)$(item)畜牧花$(0)正是为此而生的。消耗一些魔力，它就会利用附近可用的食物类物品（$(item)小麦$(0)、$(item)胡萝卜$(0)，等等）来饲养动物，使它们拥有$(o)好心情$(0)。",
   "botania.page.pollidisiac1": "$(o)地狱厨房$(0)。",
+  "botania.page.pollidisiac2": "在$(l:basics/wand)$(item)工作模式$(0)下，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)潜行右键点击花朵（或$(item)发射器$(0)），可以切换花朵是只喂养成年动物、幼年动物还是喂养所有动物。",
 
   "botania.entry.clayconia": "粘土花",
   "botania.tagline.clayconia": "沙子变粘土",
@@ -2579,6 +2583,7 @@
   "botania.page.manaAlchemy24": "$(item)草类$(0)的转化",
   "botania.page.manaAlchemy40": "花",
   "botania.page.manaAlchemy25": "寻常花的转化",
+  "botania.page.manaAlchemyDripleafShrinking": "缩小$(item)大型垂滴叶$(0)",
   "botania.page.manaAlchemy37": "石头",
   "botania.page.manaAlchemy26": "石头的转化",
   "botania.page.manaAlchemy27": "将$(item)紫颂果$(0)转化为$(item)紫颂花$(0)",
@@ -2701,7 +2706,7 @@
 
   "botania.entry.gatherDrum": "收集之鼓",
   "botania.tagline.gatherDrum": "用魔力剪羊毛挤牛奶",
-  "botania.page.gatherDrum0": "所谓的$(item)收集之鼓$(0)，本质上就是一个为牲畜而准备的$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。$(p)当有$(thing)魔力脉冲$(0)撞上它时，它会给周围长毛的$(thing)羊$(0)剪毛。所有的$(thing)牛$(0)，下方若有$(item)空桶$(0)的话，牛奶就会被装入桶中。",
+  "botania.page.gatherDrum0": "所谓的$(item)收集之鼓$(0)，本质上就是一个为牲畜而准备的$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。$(p)当有$(thing)魔力脉冲$(0)撞上它时，它会给周围长毛的$(thing)羊$(0)剪毛，任何的$(thing)鸡$(0)在下下一个鸡蛋之前都会贴近它。所有的$(thing)牛$(0)，$(thing)哞菇$(0), or $(thing)山羊$(0)下方若有$(item)空桶$(0)的话，牛奶就会被装入桶中。",
   "botania.page.gatherDrum1": "轻叩你的土地",
 
   "botania.entry.craftCrate": "机巧箱",
@@ -2753,6 +2758,7 @@
   "botania.tagline.teruTeruBozu": "过分可爱的天气控制工具",
   "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，众所周知，是一种驱散坏天气的护身符。只要制作一个并将它放在世界上能够减少$(item)雨$(0)或$(item)雷暴$(0)持续的时间。坏天气的时候，拿着$(item)向日葵$(0)右击他或朝他投掷向日葵会让晴天再临。给予一个$(item)红石比较器$(0)能够让他检测坏天气。",
   "botania.page.teruTeruBozu1": "太阳花又有什么特别的？",
+  "botania.page.teruTeruBozu2": "虽然 $(item)晴天娃娃(0) 喜欢$(item)向日葵$(0)，但若向其提供一朵$(item)兰花$(0) 或许会影响它的心情和天气。",
 
   "botania.entry.avatar": "活木化身",
   "botania.tagline.avatar": "替身施法",

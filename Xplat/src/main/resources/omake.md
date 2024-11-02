@@ -1207,11 +1207,12 @@ WARNING: Some songs are 18+ and inappropriate for children.
 | Hand in Hand                               | Place >255 extra blocks at once with Loki Ring | [https://vocadb.net/S/89726](https://vocadb.net/S/89726)   |
 | Innocentia                                 | Obtain Fruit of Grisaia                        | [https://vocadb.net/S/13385](https://vocadb.net/S/13385)   |
 | One Step Layered                           | Obtain Thor Ring                               | [https://vocadb.net/S/365](https://vocadb.net/S/365)       |
-| Angel of Death                             | Obtain Flugel Eye                              | [https://vocadb.net/S/28559](https://vocadb.net/S/28559)   |
+| Angel of Death                             | Obtain Flügel Eye                              | [https://vocadb.net/S/28559](https://vocadb.net/S/28559)   |
 | A Fake, Fake Psychotropic                  | Obtain King Key                                | [https://vocadb.net/S/37948](https://vocadb.net/S/37948)   |
 | Lost Time Memory                           | Obtain Odin Ring                               | [https://vocadb.net/S/25896](https://vocadb.net/S/25896)   |
 | Decorator                                  | Use Pinkinator                                 | [https://vocadb.net/S/45245](https://vocadb.net/S/45245)   |
 | Blessing                                   | Wish Tiny Potato happy birthday                | [https://vocadb.net/S/50703](https://vocadb.net/S/50703)   |
+| King                                       | Kill one of every Loonium-spawned monster      | [https://vocadb.net/S/290384](https://vocadb.net/S/290384) |
 
 ## Favorites
 Hm? You want to know my favorites?

@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.commands.CommandFunction;
+import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -21,11 +21,14 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import java.util.Optional;
 
 public interface OrechidRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "orechid");
-	ResourceLocation IGNEM_TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "orechid_ignem");
-	ResourceLocation MARIMORPHOSIS_TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "marimorphosis");
+	ResourceLocation TYPE_ID = botaniaRL("orechid");
+	ResourceLocation IGNEM_TYPE_ID = botaniaRL("orechid_ignem");
+	ResourceLocation MARIMORPHOSIS_TYPE_ID = botaniaRL("marimorphosis");
 
 	/** Valid inputs for the recipe */
 	StateIngredient getInput();
@@ -53,25 +56,41 @@ public interface OrechidRecipe extends Recipe<Container> {
 		return getWeight();
 	}
 
-	CommandFunction.CacheableFunction getSuccessFunction();
+	Optional<CacheableFunction> getSuccessFunction();
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
-	default boolean matches(Container c, Level l) {
+	@Deprecated
+	default boolean matches(Container container, Level level) {
 		return false;
 	}
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
-	default ItemStack assemble(Container c, @NotNull RegistryAccess registries) {
+	@Deprecated
+	default ItemStack assemble(Container container, @NotNull RegistryAccess registryAccess) {
 		return ItemStack.EMPTY;
 	}
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
+	@Deprecated
 	default boolean canCraftInDimensions(int width, int height) {
 		return false;
 	}
 
+	/**
+	 * @deprecated Not meant to be used for item crafting in a container.
+	 */
 	@Override
-	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	@Deprecated
+	default ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
 		return ItemStack.EMPTY;
 	}
 

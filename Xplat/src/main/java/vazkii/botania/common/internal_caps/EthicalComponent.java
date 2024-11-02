@@ -9,13 +9,21 @@
 package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.PrimedTnt;
 
 import vazkii.botania.common.helper.EthicalTntHelper;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 public class EthicalComponent extends SerializableComponent {
+	public static final ResourceLocation ID = botaniaRL("tnt_ethical");
 	protected static final String TAG_UNETHICAL = "botania:unethical";
 	protected boolean unethical;
+
+	public EthicalComponent() {
+		// for deserialization
+	}
 
 	public EthicalComponent(PrimedTnt entity) {
 		if (!entity.level().isClientSide()) {

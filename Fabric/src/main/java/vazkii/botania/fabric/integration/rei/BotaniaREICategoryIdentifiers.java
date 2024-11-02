@@ -19,10 +19,12 @@ public class BotaniaREICategoryIdentifiers {
 	public static final CategoryIdentifier<OrechidREIDisplay> MARIMORPHOSIS = CategoryIdentifier.of(OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 	public static final CategoryIdentifier<OrechidREIDisplay> ORECHID = CategoryIdentifier.of(OrechidRecipe.TYPE_ID);
 	public static final CategoryIdentifier<OrechidIgnemREIDisplay> ORECHID_IGNEM = CategoryIdentifier.of(OrechidRecipe.IGNEM_TYPE_ID);
-	public static final CategoryIdentifier<PetalApothecaryREIDisplay> PETAL_APOTHECARY = CategoryIdentifier.of(PetalsRecipe.TYPE_ID);
+	public static final CategoryIdentifier<PetalApothecaryREIDisplay> PETAL_APOTHECARY = CategoryIdentifier.of(
+			PetalApothecaryRecipe.TYPE_ID);
 	public static final CategoryIdentifier<PureDaisyREIDisplay> PURE_DAISY = CategoryIdentifier.of(PureDaisyRecipe.TYPE_ID);
 	public static final CategoryIdentifier<RunicAltarREIDisplay> RUNE_ALTAR = CategoryIdentifier.of(RunicAltarRecipe.TYPE_ID);
-	public static final CategoryIdentifier<TerrestrialAgglomerationREIDisplay> TERRA_PLATE = CategoryIdentifier.of(RecipeTerraPlate.TYPE_ID);
+	public static final CategoryIdentifier<TerrestrialAgglomerationREIDisplay> TERRA_PLATE = CategoryIdentifier.of(
+			TerrestrialAgglomerationRecipe.TYPE_ID);
 
 	private BotaniaREICategoryIdentifiers() {
 

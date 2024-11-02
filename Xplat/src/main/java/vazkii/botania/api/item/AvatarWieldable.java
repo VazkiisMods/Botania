@@ -10,12 +10,16 @@ package vazkii.botania.api.item;
 
 import net.minecraft.resources.ResourceLocation;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Avatar;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * An Item that has this capability this can be wielded by an Avatar.
  */
 public interface AvatarWieldable {
+
+	ResourceLocation ID = botaniaRL("avatar_wieldable");
 
 	/**
 	 * Called on update of the avatar tile.

@@ -56,10 +56,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class WorldshaperssSextantItem extends Item {
-	public static final ResourceLocation MULTIBLOCK_ID = prefix("sextant");
+	public static final ResourceLocation MULTIBLOCK_ID = botaniaRL("sextant");
 	private static final int MAX_RADIUS = 256;
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";

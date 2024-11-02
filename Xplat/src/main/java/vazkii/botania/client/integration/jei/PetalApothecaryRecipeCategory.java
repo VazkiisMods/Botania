@@ -38,7 +38,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApothecaryRecipe> {
 
@@ -54,7 +54,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 97);
 		localizedName = Component.translatable("botania.nei.petalApothecary");
-		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.defaultAltar));
 	}

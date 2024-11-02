@@ -23,7 +23,6 @@ import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.ResoluteIvyItem;
-import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {

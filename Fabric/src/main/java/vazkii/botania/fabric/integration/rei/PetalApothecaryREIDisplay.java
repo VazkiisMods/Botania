@@ -12,16 +12,18 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.PetalsRecipe;
+import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 
-public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalsRecipe> {
-	private EntryIngredient reagent;
+public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalApothecaryRecipe> {
+	private final EntryIngredient reagent;
 
-	public PetalApothecaryREIDisplay(PetalsRecipe recipe) {
+	public PetalApothecaryREIDisplay(RecipeHolder<? extends PetalApothecaryRecipe> recipe) {
 		super(recipe);
-		reagent = EntryIngredients.ofIngredient(recipe.getReagent());
+		reagent = EntryIngredients.ofIngredient(recipe.value().getReagent());
 	}
 
 	public EntryIngredient getReagent() {

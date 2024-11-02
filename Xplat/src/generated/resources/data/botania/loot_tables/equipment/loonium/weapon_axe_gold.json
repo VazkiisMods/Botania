@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_axe"
+        }
+      ],
+      "functions": [
+        {
+          "conditions": [
+            {
+              "chance": 0.3,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "function": "minecraft:enchant_randomly"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

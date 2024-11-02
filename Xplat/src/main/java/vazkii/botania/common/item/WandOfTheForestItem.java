@@ -63,7 +63,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class WandOfTheForestItem extends Item implements CustomCreativeTabContents {
 
@@ -107,7 +107,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 			if (!world.isClientSide) {
 				world.setBlockAndUpdate(pos, BotaniaBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
 				world.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
-				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
+				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), botaniaRL("main/enchanter_make"), "code_triggered");
 			} else {
 				for (int i = 0; i < 50; i++) {
 					float red = (float) Math.random();

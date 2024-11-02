@@ -75,7 +75,7 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 		return !player.isShiftKeyDown() && !StoneOfTemperanceItem.hasTemperanceActive(player);
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (raycast.getType() == HitResult.Type.BLOCK) {

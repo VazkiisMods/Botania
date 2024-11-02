@@ -16,21 +16,22 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = prefix("textures/gui/elven_trade_overlay.png");
+	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/elven_trade_overlay.png");
 
-	public ElvenTradeEmiRecipe(ElvenTradeRecipe recipe) {
+	public ElvenTradeEmiRecipe(RecipeHolder<? extends ElvenTradeRecipe> recipe) {
 		super(BotaniaEmiPlugin.ELVEN_TRADE, recipe);
-		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
-		this.output = recipe.getOutputs().stream().map(EmiStack::of).toList();
+		this.input = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
+		this.output = recipe.value().getOutputs().stream().map(EmiStack::of).toList();
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
 		public void render(GuiGraphics gui, int mouseX, int mouseY, float delta) {
 			PoseStack matrices = gui.pose();
 			TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-					.apply(prefix("block/alfheim_portal_swirl"));
+					.apply(botaniaRL("block/alfheim_portal_swirl"));
 			MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 			VertexConsumer v = immediate.getBuffer(RenderType.solid());
 			int startX = x;

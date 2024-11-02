@@ -154,7 +154,7 @@ public class CacophoniumItem extends Item {
 			return BotaniaSounds.doit;
 		} else {
 			try {
-				return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
+				return BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
 			} catch (ResourceLocationException ex) {
 				return null;
 			}

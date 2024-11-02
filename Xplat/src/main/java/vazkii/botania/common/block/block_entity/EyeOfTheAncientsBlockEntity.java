@@ -23,7 +23,7 @@ public class EyeOfTheAncientsBlockEntity extends BotaniaBlockEntity {
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, EyeOfTheAncientsBlockEntity self) {
 		int range = 6;
-		int entityCount = level.getEntitiesOfClass(Animal.class, new AABB(worldPosition.offset(-range, -range, -range), worldPosition.offset(range + 1, range + 1, range + 1))).size();
+		int entityCount = level.getEntitiesOfClass(Animal.class, new AABB(worldPosition).inflate(range)).size();
 		if (entityCount != self.entities) {
 			self.entities = entityCount;
 			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());

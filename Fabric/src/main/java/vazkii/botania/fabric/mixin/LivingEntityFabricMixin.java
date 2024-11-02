@@ -55,7 +55,9 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		var self = (LivingEntity) (Object) this;
 		LooniumBlockEntity.dropLooniumItems(self, stack -> {
-			self.spawnAtLocation(stack);
+			if (!stack.isEmpty()) {
+				self.spawnAtLocation(stack);
+			}
 			ci.cancel();
 		});
 	}

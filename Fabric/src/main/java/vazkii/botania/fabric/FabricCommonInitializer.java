@@ -44,6 +44,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -64,6 +65,7 @@ import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
+import vazkii.botania.api.recipe.StateIngredientType;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.advancements.*;
@@ -81,7 +83,9 @@ import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.command.SkyblockCommand;
+import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
@@ -117,10 +121,11 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.*;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FabricCommonInitializer implements ModInitializer {
-	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, prefix("fallback")).buildAndRegister();
+	private static final Registry<Brew> BREW_REGISTRY = FabricRegistryBuilder.createDefaulted(BotaniaRegistries.BREWS, botaniaRL("fallback")).buildAndRegister();
+	private static final MappedRegistry<StateIngredientType<?>> STATE_INGREDIENT_TYPE_REGISTRY = FabricRegistryBuilder.createSimple(BotaniaRegistries.STATE_INGREDIENT_TYPE).buildAndRegister();
 
 	@Override
 	public void onInitialize() {
@@ -135,9 +140,10 @@ public class FabricCommonInitializer implements ModInitializer {
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(botaniaRL("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
+		ConfigDataManagerImpl.registerListener();
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new FabricTransferCorporeaNodeDetector());
 
@@ -181,6 +187,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBannerPatterns.submitRegistrations(bind(BuiltInRegistries.BANNER_PATTERN));
 		BotaniaRecipeTypes.submitRecipeTypes(bind(BuiltInRegistries.RECIPE_TYPE));
 		BotaniaRecipeTypes.submitRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
+		StateIngredients.submitRegistrations(bind(STATE_INGREDIENT_TYPE_REGISTRY));
 
 		// Entities
 		BotaniaEntities.registerEntities(bind(BuiltInRegistries.ENTITY_TYPE));
@@ -208,7 +215,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaFeatures.MYSTICAL_MUSHROOMS_PLACED_FEATURE);
 
 		// Rest
-		BotaniaCriteriaTriggers.init();
+		BotaniaCriteriaTriggers.init(bind(BuiltInRegistries.TRIGGER_TYPES));
 		BotaniaParticles.registerParticles(bind(BuiltInRegistries.PARTICLE_TYPE));
 		BotaniaLootModifiers.submitLootConditions(bind(BuiltInRegistries.LOOT_CONDITION_TYPE));
 		BotaniaLootModifiers.submitLootFunctions(bind(BuiltInRegistries.LOOT_FUNCTION_TYPE));

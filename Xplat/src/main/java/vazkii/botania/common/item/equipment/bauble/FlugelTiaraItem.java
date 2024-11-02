@@ -58,8 +58,8 @@ import java.util.List;
 
 public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabContents {
 
-	private static final ResourceLocation textureHud = new ResourceLocation(ResourcesLib.GUI_HUD_ICONS);
-	public static final ResourceLocation textureHalo = new ResourceLocation(ResourcesLib.MISC_HALO);
+	private static final ResourceLocation textureHud = ResourceLocation.parse(ResourcesLib.GUI_HUD_ICONS);
+	public static final ResourceLocation textureHalo = ResourceLocation.parse(ResourcesLib.MISC_HALO);
 
 	private static final String TAG_VARIANT = "variant";
 	private static final String TAG_FLYING = "flying";
@@ -533,5 +533,9 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 
 	public static int getVariant(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+	}
+
+	public static void setVariant(ItemStack stack, int variant) {
+		ItemNBTHelper.setInt(stack, TAG_VARIANT, variant);
 	}
 }

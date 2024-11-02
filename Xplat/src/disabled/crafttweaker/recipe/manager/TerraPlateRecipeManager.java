@@ -62,7 +62,7 @@ public class TerraPlateRecipeManager implements IRecipeManager<ITerraPlateRecipe
 	@ZenCodeType.Method
 	public void addRecipe(String name, IItemStack output, int mana, IIngredient... inputs) {
 		name = fixRecipeName(name);
-		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
+		ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath("crafttweaker", name);
 		NonNullList<Ingredient> inputList =
 				NonNullList.of(Ingredient.EMPTY, Arrays.stream(inputs).map(IIngredient::asVanillaIngredient).toArray(
 						Ingredient[]::new));

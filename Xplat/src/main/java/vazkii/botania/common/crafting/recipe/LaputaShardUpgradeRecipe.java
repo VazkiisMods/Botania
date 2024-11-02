@@ -10,13 +10,9 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,10 +21,10 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LaputaShardItem;
 
 public class LaputaShardUpgradeRecipe extends CustomRecipe {
-	public static final NoOpRecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new NoOpRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
+	public static final RecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
 
-	public LaputaShardUpgradeRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.MISC);
+	public LaputaShardUpgradeRecipe(CraftingBookCategory craftingBookCategory) {
+		super(craftingBookCategory);
 	}
 
 	@Override

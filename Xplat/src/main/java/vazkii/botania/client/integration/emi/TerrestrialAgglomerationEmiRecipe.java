@@ -6,6 +6,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -13,21 +14,21 @@ import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = prefix("textures/gui/terrasteel_jei_overlay.png");
+	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/terrasteel_jei_overlay.png");
 	private static final EmiStack PLATE = EmiStack.of(BotaniaBlocks.terraPlate);
 	public static final int CENTER_X = 45;
 	public static final int CENTER_Y = 30;
 	private final int mana;
 
-	public TerrestrialAgglomerationEmiRecipe(TerrestrialAgglomerationRecipe recipe) {
+	public TerrestrialAgglomerationEmiRecipe(RecipeHolder<? extends TerrestrialAgglomerationRecipe> recipe) {
 		super(BotaniaEmiPlugin.TERRESTRIAL_AGGLOMERATION, recipe);
-		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
+		this.input = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
 		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
-		this.mana = recipe.getMana();
+		this.output = List.of(EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)));
+		this.mana = recipe.value().getMana();
 	}
 
 	@Override

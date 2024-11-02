@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.loot;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,10 +23,13 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class BindUuid extends LootItemConditionalFunction {
+import java.util.List;
 
-	protected BindUuid(LootItemCondition[] conditionsIn) {
-		super(conditionsIn);
+public class BindUuid extends LootItemConditionalFunction {
+	public static final Codec<BindUuid> CODEC = RecordCodecBuilder.create(instance -> commonFields(instance).apply(instance, BindUuid::new));
+
+	public BindUuid(List<LootItemCondition> predicates) {
+		super(predicates);
 	}
 
 	@NotNull
@@ -46,13 +49,4 @@ public class BindUuid extends LootItemConditionalFunction {
 	public LootItemFunctionType getType() {
 		return BotaniaLootModifiers.BIND_UUID;
 	}
-
-	public static class Serializer extends LootItemConditionalFunction.Serializer<BindUuid> {
-		@NotNull
-		@Override
-		public BindUuid deserialize(@NotNull JsonObject object, @NotNull JsonDeserializationContext deserializationContext, @NotNull LootItemCondition[] conditionsIn) {
-			return new BindUuid(conditionsIn);
-		}
-	}
-
 }

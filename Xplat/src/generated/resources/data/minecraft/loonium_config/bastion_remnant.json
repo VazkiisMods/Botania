@@ -1,0 +1,90 @@
+{
+  "parent": "botania:default",
+  "spawnedMobs": [
+    {
+      "type": "minecraft:enderman",
+      "weight": 30
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "weight": 99
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "nbt": {
+        "powered": 1
+      },
+      "weight": 1
+    },
+    {
+      "type": "minecraft:piglin",
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "equipmentTable": "botania:equipment/loonium/piglin_bastion_remnant",
+      "nbt": {
+        "Brain": {
+          "memories": {
+            "minecraft:admiring_disabled": {
+              "value": 1
+            },
+            "minecraft:universal_anger": {
+              "value": 1
+            }
+          }
+        }
+      },
+      "spawnAsBaby": false,
+      "weight": 450
+    },
+    {
+      "type": "minecraft:piglin_brute",
+      "attributeModifiers": [
+        {
+          "amount": 1.5,
+          "attribute": "minecraft:generic.max_health",
+          "name": "Loonium Modifier Health",
+          "operation": "multiply_base"
+        },
+        {
+          "amount": 1.5,
+          "attribute": "minecraft:generic.attack_damage",
+          "name": "Loonium Modifier Damage",
+          "operation": "multiply_base"
+        }
+      ],
+      "equipmentTable": "botania:equipment/loonium/weapon_axe_gold",
+      "weight": 50
+    },
+    {
+      "type": "minecraft:hoglin",
+      "spawnAsBaby": false,
+      "weight": 300
+    }
+  ]
+}

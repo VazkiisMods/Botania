@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api;
 
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -30,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.configdata.ConfigDataManager;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.ManaNetwork;
@@ -47,6 +49,14 @@ public interface BotaniaAPI {
 
 	static BotaniaAPI instance() {
 		return INSTANCE;
+	}
+
+	static ResourceLocation botaniaRL(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MODID, path);
+	}
+
+	static ModelResourceLocation botaniaModelRL(String path, String variant) {
+		return new ModelResourceLocation(botaniaRL(path), variant);
 	}
 
 	/**
@@ -214,6 +224,14 @@ public interface BotaniaAPI {
 	default void sparkleFX(Level world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
 	default void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {
+
+	}
+
+	default ConfigDataManager getConfigData() {
+		return null;
+	}
+
+	default void setConfigData(ConfigDataManager configDataManager) {
 
 	}
 }

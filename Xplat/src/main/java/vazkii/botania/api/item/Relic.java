@@ -12,14 +12,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.util.UUID;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * An item that has this capability counts as a Relic item. This is purely for interaction
  * and other mod items should not reuse this capability.
  */
 public interface Relic {
+
+	ResourceLocation ID = botaniaRL("relic");
 
 	/**
 	 * Binds to the UUID passed in.

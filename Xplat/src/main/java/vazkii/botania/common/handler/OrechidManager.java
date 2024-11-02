@@ -30,14 +30,14 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.*;
 import java.util.function.ToIntFunction;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class OrechidManager implements ResourceManagerReloadListener {
 	private static final Map<RecipeType<? extends OrechidRecipe>, Map<BlockState, List<? extends OrechidRecipe>>> BY_TYPE = new IdentityHashMap<>();
 	private static final Map<RecipeType<? extends OrechidRecipe>, Object2IntOpenHashMap<BlockState>> TOTAL_WEIGHTS_WITHOUT_POSITION = new IdentityHashMap<>();
 
 	public static void registerListener() {
-		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("orechid"), new OrechidManager());
+		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, botaniaRL("orechid"), new OrechidManager());
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class OrechidManager implements ResourceManagerReloadListener {
 		final var list = byState.computeIfAbsent(state, s -> {
 			var builder = ImmutableList.<T>builder();
 			for (var recipe : manager.getAllRecipesFor(type)) {
-				if (recipe.getInput().test(state)) {
-					builder.add(recipe);
+				if (recipe.value().getInput().test(state)) {
+					builder.add(recipe.value());
 				}
 			}
 			return builder.build();

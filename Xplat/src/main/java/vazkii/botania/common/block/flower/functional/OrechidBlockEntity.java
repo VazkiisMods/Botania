@@ -101,7 +101,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 
 			var serverLevel = (ServerLevel) this.level;
 			var server = serverLevel.getServer();
-			recipe.getSuccessFunction().get(server.getFunctions()).ifPresent(command -> {
+			recipe.getSuccessFunction().flatMap(cached -> cached.get(server.getFunctions())).ifPresent(command -> {
 				var context = server.getFunctions().getGameLoopSender()
 						.withLevel(serverLevel)
 						.withPosition(Vec3.atBottomCenterOf(coords));

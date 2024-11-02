@@ -1,0 +1,19 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:entities/elder_guardian",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wet_sponge"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

@@ -15,9 +15,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface PetalApothecaryRecipe extends RecipeWithReagent {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "petal_apothecary");
+	ResourceLocation TYPE_ID = botaniaRL("petal_apothecary");
 
 	@NotNull
 	@Override

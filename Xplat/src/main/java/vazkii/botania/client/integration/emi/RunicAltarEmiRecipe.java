@@ -7,6 +7,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -16,10 +17,10 @@ import vazkii.botania.common.item.material.RuneItem;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = prefix("textures/gui/petal_overlay.png");
+	private static final ResourceLocation TEXTURE = botaniaRL("textures/gui/petal_overlay.png");
 	private static final EmiStack LIVINGROCK = EmiStack.of(BotaniaBlocks.livingrock);
 	private static final EmiStack ALTAR = EmiStack.of(BotaniaBlocks.runeAltar);
 	public static final int CENTER_X = 44;
@@ -31,9 +32,9 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	private final List<EmiIngredient> ingredients;
 	private final int mana;
 
-	public RunicAltarEmiRecipe(RunicAltarRecipe recipe) {
+	public RunicAltarEmiRecipe(RecipeHolder<? extends RunicAltarRecipe> recipe) {
 		super(BotaniaEmiPlugin.RUNIC_ALTAR, recipe);
-		this.ingredients = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
+		this.ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
 		this.input = Stream.concat(ingredients.stream(), Stream.of(LIVINGROCK)).toList();
 		// TODO classify these as catalysts instead?
 		for (EmiIngredient ing : input) {
@@ -44,8 +45,8 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 			}
 		}
 		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
-		this.mana = recipe.getManaUsage();
+		this.output = List.of(EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)));
+		this.mana = recipe.value().getMana();
 	}
 
 	@Override

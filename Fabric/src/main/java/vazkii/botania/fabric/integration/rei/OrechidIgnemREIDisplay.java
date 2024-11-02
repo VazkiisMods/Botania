@@ -10,12 +10,14 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
+import net.minecraft.world.item.crafting.RecipeHolder;
+
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.OrechidIgnemRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 
-public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay<OrechidIgnemRecipe> {
-	public OrechidIgnemREIDisplay(OrechidIgnemRecipe recipe) {
+public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
+	public OrechidIgnemREIDisplay(RecipeHolder<? extends OrechidRecipe> recipe) {
 		super(recipe);
 	}
 

@@ -18,12 +18,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface ManaInfusionRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_infusion");
+	ResourceLocation TYPE_ID = botaniaRL("mana_infusion");
 
 	/**
 	 * Attempts to match the recipe.
@@ -60,7 +60,7 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 	 *
 	 * @return The catalyst ingredient.
 	 */
-	@Nullable
+	@NotNull
 	StateIngredient getRecipeCatalyst();
 
 	/**

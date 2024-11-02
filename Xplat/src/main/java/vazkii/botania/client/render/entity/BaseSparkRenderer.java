@@ -31,7 +31,7 @@ import vazkii.botania.common.helper.VecHelper;
 import java.util.Objects;
 import java.util.Random;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends EntityRenderer<T> {
 
@@ -42,10 +42,10 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		super(ctx);
 		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
 		this.starSprite = Objects.requireNonNull(
-				atlas.apply(prefix("item/corporea_spark_star"))
+				atlas.apply(botaniaRL("item/corporea_spark_star"))
 		);
 		this.worldSprite = Objects.requireNonNull(
-				atlas.apply(prefix("item/spark"))
+				atlas.apply(botaniaRL("item/spark"))
 		);
 	}
 

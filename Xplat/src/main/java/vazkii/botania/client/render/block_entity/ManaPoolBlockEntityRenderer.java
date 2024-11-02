@@ -37,7 +37,7 @@ import vazkii.botania.common.helper.VecHelper;
 import java.util.Objects;
 import java.util.Random;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPoolBlockEntity> {
 
@@ -50,7 +50,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 		this.waterSprite = Objects.requireNonNull(
 				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-						.apply(prefix("block/mana_water"))
+						.apply(botaniaRL("block/mana_water"))
 		);
 	}
 

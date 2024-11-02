@@ -6,6 +6,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluids;
 
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
@@ -22,13 +23,13 @@ public class PetalApothecaryEmiRecipe extends BotaniaEmiRecipe {
 	private final List<EmiIngredient> ingredients;
 	private final EmiIngredient reagent;
 
-	public PetalApothecaryEmiRecipe(PetalApothecaryRecipe recipe) {
+	public PetalApothecaryEmiRecipe(RecipeHolder<? extends PetalApothecaryRecipe> recipe) {
 		super(BotaniaEmiPlugin.PETAL_APOTHECARY, recipe);
-		this.ingredients = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
-		this.reagent = EmiIngredient.of(recipe.getReagent());
+		this.ingredients = recipe.value().getIngredients().stream().map(EmiIngredient::of).toList();
+		this.reagent = EmiIngredient.of(recipe.value().getReagent());
 		this.input = Stream.concat(ingredients.stream(), Stream.of(WATER, reagent)).toList();
 		// TODO 1.19.4 figure out the proper way to get a registry access
-		this.output = List.of(EmiStack.of(recipe.getResultItem(RegistryAccess.EMPTY)));
+		this.output = List.of(EmiStack.of(recipe.value().getResultItem(RegistryAccess.EMPTY)));
 	}
 
 	@Override

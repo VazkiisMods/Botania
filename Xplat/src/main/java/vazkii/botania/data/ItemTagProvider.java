@@ -122,10 +122,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 				Items.TUFF, Items.CALCITE, Items.STONE, Items.BASALT, Items.BLACKSTONE,
 				Items.DEEPSLATE, Items.DRIPSTONE_BLOCK, Items.POINTED_DRIPSTONE, Items.MOSS_BLOCK,
 				Items.SANDSTONE, Items.RED_SANDSTONE)
-				.addOptional(new ResourceLocation("quark", "jasper"))
-				.addOptional(new ResourceLocation("quark", "limestone"))
-				.addOptional(new ResourceLocation("quark", "marble"))
-				.addOptional(new ResourceLocation("quark", "slate"));
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "jasper"))
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "limestone"))
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "marble"))
+				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "slate"));
 
 		this.tag(BotaniaTags.Items.RUNES).add(
 				runeWater, runeFire, runeEarth, runeAir,
@@ -141,8 +141,13 @@ public class ItemTagProvider extends ItemTagsProvider {
 			allPetals.addTag(petalTag);
 		}
 
-		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST).add(lexicon, overgrowthSeed,
-				blackLotus, blackerLotus).addTag(ItemTags.MUSIC_DISCS);
+		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
+				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)
+				.addTag(ItemTags.MUSIC_DISCS);
+		this.tag(ItemTags.ARROWS);
+		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
+				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)
+				.addTag(ItemTags.ARROWS);
 		this.tag(BotaniaTags.Items.MAGNET_RING_BLACKLIST);
 		this.tag(BotaniaTags.Items.RODS).add(
 				dirtRod,
@@ -229,6 +234,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
 				.add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
-				.addOptionalTag(new ResourceLocation("forge", "seeds"));
+				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("forge", "seeds"));
 	}
 }

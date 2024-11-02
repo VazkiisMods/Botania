@@ -16,11 +16,11 @@ import net.minecraft.server.level.ServerPlayer;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LeftClickPacket implements BotaniaPacket {
 	public static final LeftClickPacket INSTANCE = new LeftClickPacket();
-	public static final ResourceLocation ID = prefix("lc");
+	public static final ResourceLocation ID = botaniaRL("lc");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {

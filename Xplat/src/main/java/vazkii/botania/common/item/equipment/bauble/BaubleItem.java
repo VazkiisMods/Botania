@@ -33,7 +33,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.List;
 import java.util.UUID;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public abstract class BaubleItem extends Item implements CosmeticAttachable, PhantomInkable {
 
@@ -109,7 +109,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 
 	public void onEquipped(ItemStack stack, LivingEntity entity) {
 		if (!entity.level().isClientSide && entity instanceof ServerPlayer player) {
-			PlayerHelper.grantCriterion(player, prefix("main/bauble_wear"), "code_triggered");
+			PlayerHelper.grantCriterion(player, botaniaRL("main/bauble_wear"), "code_triggered");
 		}
 	}
 

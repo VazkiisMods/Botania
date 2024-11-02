@@ -9,15 +9,20 @@
 package vazkii.botania.api.block;
 
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Any block with this component can be used with the Wand for the Forest for some purpose.
  */
 public interface Wandable {
+
+	ResourceLocation ID = botaniaRL("wandable");
 
 	/**
 	 * Called when the block is used by a wand.

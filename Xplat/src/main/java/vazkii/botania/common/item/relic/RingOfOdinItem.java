@@ -23,7 +23,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class RingOfOdinItem extends RelicBaubleItem {
 
@@ -52,7 +52,7 @@ public class RingOfOdinItem extends RelicBaubleItem {
 	}
 
 	public static Relic makeRelic(ItemStack stack) {
-		return new RelicImpl(stack, prefix("challenge/odin_ring"));
+		return new RelicImpl(stack, botaniaRL("challenge/odin_ring"));
 	}
 
 }

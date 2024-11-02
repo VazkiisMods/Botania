@@ -20,10 +20,10 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Consumer;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class LootHandler {
-	public static final ResourceLocation GOG_SEEDS_TABLE = new ResourceLocation(BotaniaAPI.GOG_MODID, "extra_seeds");
+	public static final ResourceLocation GOG_SEEDS_TABLE = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "extra_seeds");
 
 	public static void lootLoad(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		String prefix = "minecraft:chests/";
@@ -49,7 +49,7 @@ public final class LootHandler {
 					break;
 			}
 		} else if (XplatAbstractions.INSTANCE.gogLoaded()
-				&& (Blocks.GRASS.getLootTable().equals(id) || Blocks.TALL_GRASS.getLootTable().equals(id))) {
+				&& (Blocks.SHORT_GRASS.getLootTable().equals(id) || Blocks.TALL_GRASS.getLootTable().equals(id))) {
 			addPool.accept(LootPool.lootPool().add(LootTableReference.lootTableReference(GOG_SEEDS_TABLE)));
 		}
 	}
@@ -61,7 +61,7 @@ public final class LootHandler {
 	}
 
 	private static LootPoolEntryContainer.Builder<?> getInjectEntry(String name, int weight) {
-		ResourceLocation table = prefix("inject/" + name);
+		ResourceLocation table = botaniaRL("inject/" + name);
 		return LootTableReference.lootTableReference(table)
 				.setWeight(weight);
 	}

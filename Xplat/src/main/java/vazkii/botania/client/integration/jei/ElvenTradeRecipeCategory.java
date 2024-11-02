@@ -35,12 +35,12 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecipe> {
 
@@ -53,7 +53,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
 		localizedName = Component.translatable("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
-		overlay = guiHelper.createDrawable(prefix("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.alfPortal));
 	}
 
@@ -89,7 +89,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 		RenderSystem.disableBlend();
 
 		RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
-		TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(ResourceLocationHelper.prefix("block/alfheim_portal_swirl"));
+		TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(BotaniaAPI.botaniaRL("block/alfheim_portal_swirl"));
 		MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 		VertexConsumer v = immediate.getBuffer(RenderType.solid());
 		int startX = 22;

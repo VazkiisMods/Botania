@@ -81,7 +81,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 
 		tooltip.add(Component.translatable("botaniamisc.brewOf", I18n.get(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
 		for (MobEffectInstance effect : brew.getPotionEffects(stack)) {
-			ChatFormatting format = effect.getEffect().getCategory().getTooltipFormatting();
+			ChatFormatting format = effect.getEffect().value().getCategory().getTooltipFormatting();
 			MutableComponent cmp = Component.translatable(effect.getDescriptionId());
 			if (effect.getAmplifier() > 0) {
 				cmp.append(" ");
@@ -152,7 +152,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if (!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffect().isInstantenous()) {
+		if (!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffect().value().isInstantenous()) {
 			return ItemStack.EMPTY;
 		}
 

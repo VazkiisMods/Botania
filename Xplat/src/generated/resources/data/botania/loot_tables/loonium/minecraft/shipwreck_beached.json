@@ -1,0 +1,22 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/shipwreck_map"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/shipwreck_supply"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/shipwreck_treasure"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

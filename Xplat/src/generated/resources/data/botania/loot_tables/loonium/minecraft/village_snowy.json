@@ -1,0 +1,35 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_snowy_house",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_weaponsmith"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_armorer"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_cartographer"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_shepherd"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_tannery"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

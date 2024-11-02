@@ -47,7 +47,7 @@ import java.util.UUID;
 
 public class SkiesRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_TORNADO);
+	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_TORNADO);
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
@@ -234,7 +234,7 @@ public class SkiesRodItem extends Item {
 	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
 		p.level().playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 		p.gameEvent(GameEvent.FLAP);
-		p.addEffect(new MobEffectInstance(BotaniaMobEffects.featherfeet, 100, 0));
+		p.addEffect(new MobEffectInstance(BotaniaMobEffects.FEATHER_FEET, 100, 0));
 		tile.receiveMana(-COST);
 	}
 
@@ -249,7 +249,7 @@ public class SkiesRodItem extends Item {
 		}
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return reequipAnimation(oldStack, newStack);
 	}

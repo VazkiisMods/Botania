@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker, CustomCreativeTabContents {
 
@@ -142,7 +142,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		return Optional.of(new ManaBarTooltip(percent, level));
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (!player.level().isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
@@ -209,7 +209,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, canMine);
 
 		if (origLevel == 5) {
-			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("challenge/rank_ss_pick"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("challenge/rank_ss_pick"), "code_triggered");
 		}
 	}
 
@@ -300,7 +300,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		}
 	}
 
-	@SoftImplement("IForgeItem")
+	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return reequipAnimation(oldStack, newStack);
 	}

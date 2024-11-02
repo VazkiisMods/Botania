@@ -34,9 +34,9 @@ import java.util.Random;
 
 public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockEntity> {
 
-	public static final ResourceLocation MANA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_MANA);
-	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_NATURA);
-	public static final ResourceLocation GAIA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_GAIA);
+	public static final ResourceLocation MANA_TEXTURE = ResourceLocation.parse(ResourcesLib.MODEL_PYLON_MANA);
+	public static final ResourceLocation NATURA_TEXTURE = ResourceLocation.parse(ResourcesLib.MODEL_PYLON_NATURA);
+	public static final ResourceLocation GAIA_TEXTURE = ResourceLocation.parse(ResourcesLib.MODEL_PYLON_GAIA);
 
 	private final ManaPylonModel manaModel;
 	private final NaturaPylonModel naturaModel;
@@ -120,7 +120,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 		ms.popPose();
 	}
 
-	public static class ItemRenderer extends TEISR {
+	public static class ItemRenderer extends BlockEntityItemRenderer {
 		public ItemRenderer(Block block) {
 			super(block);
 		}

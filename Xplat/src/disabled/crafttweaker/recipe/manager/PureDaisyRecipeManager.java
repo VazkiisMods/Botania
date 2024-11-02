@@ -63,7 +63,7 @@ public class PureDaisyRecipeManager implements IRecipeManager<IPureDaisyRecipe>,
 	@ZenCodeType.Method
 	public void addRecipe(String name, BlockState output, CTBlockIngredient input, @ZenCodeType.OptionalInt(RecipePureDaisy.DEFAULT_TIME) int time) {
 		name = fixRecipeName(name);
-		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
+		ResourceLocation resourceLocation = ResourceLocation.fromNamespaceAndPath("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe<>(this,
 				new RecipePureDaisy(resourceLocation, CTPlugin.blockIngredientToStateIngredient(input), output, time, CommandFunction.CacheableFunction.NONE)));
 	}

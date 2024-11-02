@@ -9,7 +9,7 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,8 +26,8 @@ public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
-		Level world = source.getLevel();
-		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+		Level world = source.level();
+		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		Block blockcarvedpumpkin = BotaniaBlocks.felPumpkin;
 		this.setSuccess(false);
 		if (world.isEmptyBlock(blockpos) && world.getBlockState(blockpos.below()).is(Blocks.IRON_BARS)

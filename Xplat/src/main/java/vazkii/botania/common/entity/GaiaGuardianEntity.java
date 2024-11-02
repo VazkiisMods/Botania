@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -90,7 +91,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class GaiaGuardianEntity extends Mob {
 	public static final float ARENA_RANGE = 12F;
@@ -172,8 +173,8 @@ public class GaiaGuardianEntity extends Mob {
 	);
 
 	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
-			new ResourceLocation("openblocks", "beartrap"),
-			new ResourceLocation("thaumictinkerer", "magnet")
+			ResourceLocation.fromNamespaceAndPath("openblocks", "beartrap"),
+			ResourceLocation.fromNamespaceAndPath("thaumictinkerer", "magnet")
 	);
 
 	private boolean spawnLandmines = false;
@@ -267,7 +268,7 @@ public class GaiaGuardianEntity extends Mob {
 			}
 
 			e.playSound(BotaniaSounds.gaiaSummon, 1F, 1F);
-			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null, null);
+			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
 			world.addFreshEntity(e);
 
 			for (Player nearbyPlayer : playersAround) {
@@ -520,7 +521,7 @@ public class GaiaGuardianEntity extends Mob {
 		if (mobSpawnTicks > 0) {
 			return BuiltInLootTables.EMPTY;
 		}
-		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
+		return botaniaRL(hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override
@@ -661,9 +662,9 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	private void clearPotions(Player player) {
-		Set<MobEffect> effectsToRemove = new HashSet<>();
+		Set<Holder<MobEffect>> effectsToRemove = new HashSet<>();
 		for (var effectInstance : player.getActiveEffects()) {
-			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && effectInstance.getEffect().getCategory() != MobEffectCategory.HARMFUL) {
+			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && effectInstance.getEffect().value().getCategory() != MobEffectCategory.HARMFUL) {
 				effectsToRemove.add(effectInstance.getEffect());
 			}
 		}
@@ -709,7 +710,7 @@ public class GaiaGuardianEntity extends Mob {
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
 								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
-										MobSpawnType.MOB_SUMMONED, null, null);
+										MobSpawnType.MOB_SUMMONED, null);
 								level().addFreshEntity(pixie);
 							}
 						}
@@ -726,7 +727,7 @@ public class GaiaGuardianEntity extends Mob {
 					entity.setPos(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
 							getZ() + 0.5 + Math.random() * range - range / 2);
 					entity.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(entity.blockPosition()),
-							MobSpawnType.MOB_SUMMONED, null, null);
+							MobSpawnType.MOB_SUMMONED, null);
 					if (entity instanceof WitherSkeleton && hardMode) {
 						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.elementiumSword));
 					}
@@ -861,7 +862,7 @@ public class GaiaGuardianEntity extends Mob {
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
 								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
-										MobSpawnType.MOB_SUMMONED, null, null);
+										MobSpawnType.MOB_SUMMONED, null);
 								level().addFreshEntity(pixie);
 							}
 						}

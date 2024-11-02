@@ -15,11 +15,11 @@ import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.client.core.SkyblockWorldInfo;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class GogWorldPacket implements BotaniaPacket {
 	public static final GogWorldPacket INSTANCE = new GogWorldPacket();
-	public static final ResourceLocation ID = prefix("gog");
+	public static final ResourceLocation ID = botaniaRL("gog");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {}

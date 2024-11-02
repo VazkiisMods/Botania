@@ -18,11 +18,11 @@ import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BotaniaBlock;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
 	private static final int SPARKLE_EVENT = 0;
-	private static final ResourceLocation OVERLAY_ICON = prefix("block/mana_void_overlay");
+	private static final ResourceLocation OVERLAY_ICON = botaniaRL("block/mana_void_overlay");
 
 	public ManaVoidBlock(Properties builder) {
 		super(builder);

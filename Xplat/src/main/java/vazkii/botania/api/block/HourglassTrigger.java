@@ -8,13 +8,18 @@
  */
 package vazkii.botania.api.block;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import vazkii.botania.api.BotaniaAPI;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * A block with this capability will receive a custom callback when a Hovering
  * Hourglass adjacent to the block turns.
  */
 public interface HourglassTrigger {
+
+	ResourceLocation ID = botaniaRL("hourglass_trigger");
 
 	void onTriggeredByHourglass(BlockEntity hourglass);
 

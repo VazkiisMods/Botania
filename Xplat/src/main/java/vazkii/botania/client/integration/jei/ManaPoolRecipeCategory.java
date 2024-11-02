@@ -31,10 +31,11 @@ import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecipe> {
 
@@ -49,7 +50,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(142, 55);
 		localizedName = Component.translatable("botania.nei.manaPool");
-		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, renderStack.copy());
@@ -93,7 +94,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 				.addIngredients(recipe.getIngredients().get(0));
 
 		var catalyst = recipe.getRecipeCatalyst();
-		if (catalyst != null) {
+		if (catalyst != StateIngredients.NONE) {
 			builder.addSlot(RecipeIngredientRole.CATALYST, 12, 12)
 					.addItemStacks(catalyst.getDisplayedStacks())
 					.addTooltipCallback((view, tooltip) -> tooltip.addAll(catalyst.descriptionTooltip()));

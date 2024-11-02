@@ -32,7 +32,7 @@ public final class BossBarHandler {
 
 	// Only access on the client thread!
 	public static final Set<GaiaGuardianEntity> bosses = Collections.newSetFromMap(new WeakHashMap<>());
-	private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ResourcesLib.GUI_BOSS_BAR);
+	private static final ResourceLocation BAR_TEXTURE = ResourceLocation.parse(ResourcesLib.GUI_BOSS_BAR);
 
 	public static OptionalInt onBarRender(GuiGraphics gui, int x, int y, BossEvent bossEvent, boolean drawName) {
 		for (GaiaGuardianEntity currentBoss : bosses) {

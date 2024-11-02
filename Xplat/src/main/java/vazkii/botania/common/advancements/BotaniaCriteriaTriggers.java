@@ -8,17 +8,20 @@
  */
 package vazkii.botania.common.advancements;
 
-import vazkii.botania.mixin.CriteriaTriggersAccessor;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.resources.ResourceLocation;
+
+import java.util.function.BiConsumer;
 
 public class BotaniaCriteriaTriggers {
-	public static void init() {
-		CriteriaTriggersAccessor.botania_register(AlfheimPortalTrigger.INSTANCE);
-		CriteriaTriggersAccessor.botania_register(CorporeaRequestTrigger.INSTANCE);
-		CriteriaTriggersAccessor.botania_register(GaiaGuardianNoArmorTrigger.INSTANCE);
-		CriteriaTriggersAccessor.botania_register(RelicBindTrigger.INSTANCE);
-		CriteriaTriggersAccessor.botania_register(UseItemSuccessTrigger.INSTANCE);
-		CriteriaTriggersAccessor.botania_register(ManaBlasterTrigger.INSTANCE);
-		CriteriaTriggersAccessor.botania_register(LokiPlaceTrigger.INSTANCE);
-		CriteriaTriggersAccessor.botania_register(AlfheimPortalBreadTrigger.INSTANCE);
+	public static void init(BiConsumer<CriterionTrigger<?>, ResourceLocation> r) {
+		r.accept(AlfheimPortalTrigger.INSTANCE, AlfheimPortalTrigger.ID);
+		r.accept(CorporeaRequestTrigger.INSTANCE, CorporeaRequestTrigger.ID);
+		r.accept(GaiaGuardianNoArmorTrigger.INSTANCE, GaiaGuardianNoArmorTrigger.ID);
+		r.accept(RelicBindTrigger.INSTANCE, RelicBindTrigger.ID);
+		r.accept(UseItemSuccessTrigger.INSTANCE, UseItemSuccessTrigger.ID);
+		r.accept(ManaBlasterTrigger.INSTANCE, ManaBlasterTrigger.ID);
+		r.accept(LokiPlaceTrigger.INSTANCE, LokiPlaceTrigger.ID);
+		r.accept(AlfheimPortalBreadTrigger.INSTANCE, AlfheimPortalBreadTrigger.ID);
 	}
 }

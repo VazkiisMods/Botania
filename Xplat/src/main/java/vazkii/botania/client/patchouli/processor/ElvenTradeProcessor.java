@@ -33,7 +33,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	public void setup(Level level, IVariableProvider variables) {
 		ImmutableList.Builder<ElvenTradeRecipe> builder = ImmutableList.builder();
 		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE, new ResourceLocation(s.asString()));
+			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE, ResourceLocation.parse(s.asString()));
 			if (recipe != null) {
 				builder.add(recipe);
 			}

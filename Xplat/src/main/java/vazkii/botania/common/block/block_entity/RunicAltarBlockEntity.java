@@ -24,6 +24,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -164,7 +165,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, RunicAltarBlockEntity self) {
 		if (self.manaToGet == 0) {
-			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
+			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
 						&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).runicAltarSpawned) {
@@ -211,10 +212,11 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		int manaToGet = this.manaToGet;
 
 		if (currentRecipe != null) {
-			this.manaToGet = currentRecipe.getManaUsage();
+			this.manaToGet = currentRecipe.getMana();
 		} else {
 			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level)
-					.map(RunicAltarRecipe::getManaUsage)
+					.map(RecipeHolder::value)
+					.map(RunicAltarRecipe::getMana)
 					.orElse(0);
 		}
 
@@ -264,14 +266,14 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
-			Optional<RunicAltarRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level);
+			Optional<RecipeHolder<RunicAltarRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level);
 			if (maybeRecipe.isPresent()) {
-				recipe = maybeRecipe.get();
+				recipe = maybeRecipe.get().value();
 			}
 		}
 
 		if (recipe != null && manaToGet > 0 && mana >= manaToGet) {
-			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
+			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			ItemEntity livingrock = null;
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().is(BotaniaBlocks.livingrock.asItem())) {
@@ -281,7 +283,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			}
 
 			if (livingrock != null) {
-				int mana = recipe.getManaUsage();
+				int mana = recipe.getMana();
 				receiveMana(-mana);
 				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
@@ -425,7 +427,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					}
 
 					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
-							recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
+							recipe.value().assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
 
 					if (progress == 1F) {
 						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);

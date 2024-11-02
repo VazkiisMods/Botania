@@ -9,8 +9,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -46,7 +47,6 @@ import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -62,15 +62,13 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -83,7 +81,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
-import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
@@ -100,7 +97,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.fabric.block.FabricSpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
@@ -117,9 +113,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FabricXplatImpl implements XplatAbstractions {
 	@Override
@@ -135,6 +130,11 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean isDevEnvironment() {
 		return FabricLoader.getInstance().isDevelopmentEnvironment();
+	}
+
+	@Override
+	public boolean isDataGen() {
+		return FabricDataGenHelper.ENABLED;
 	}
 
 	@Override
@@ -449,16 +449,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean isSpecialFlowerBlock(Block b) {
-		return b instanceof FabricSpecialFlowerBlock;
-	}
-
-	@Override
-	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration, BlockBehaviour.Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
-		return new FabricSpecialFlowerBlock(effect, effectDuration, props, beType);
-	}
-
-	@Override
 	public <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
 		return FabricBlockEntityTypeBuilder.create(func::apply, blocks).build();
 	}
@@ -542,7 +532,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return StepHeightEntityAttributeMain.STEP_HEIGHT;
 	}
 
-	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "ores"));
+	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores"));
 
 	@Override
 	public TagKey<Block> getOreTag() {
@@ -550,9 +540,9 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	// No standard so we have to check both :wacko:
-	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass"));
-	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_blocks"));
-	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_panes"));
+	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass"));
+	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_blocks"));
+	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_panes"));
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
@@ -560,8 +550,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
-		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipe, items, maxStackSize);
+	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
+		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);
 	}
 
 	@Override
@@ -620,11 +610,28 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public BlockSetType registerBlockSetType(String name, boolean canOpenByHand, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
-		return BlockSetTypeRegistry.register(prefix(name), canOpenByHand, soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn);
+		return BlockSetTypeBuilder.copyOf(BlockSetType.OAK)
+				.openableByHand(canOpenByHand)
+				.openableByWindCharge(canOpenByHand)
+				.soundGroup(soundType)
+				.doorCloseSound(doorClose)
+				.doorOpenSound(doorOpen)
+				.trapdoorCloseSound(trapdoorClose)
+				.trapdoorOpenSound(trapdoorOpen)
+				.pressurePlateClickOffSound(pressurePlateClickOff)
+				.pressurePlateClickOnSound(pressurePlateClickOn)
+				.buttonClickOffSound(buttonClickOff)
+				.buttonClickOnSound(buttonClickOn)
+				.register(botaniaRL(name));
 	}
 
 	@Override
 	public WoodType registerWoodType(String name, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
-		return WoodTypeRegistry.register(prefix(name), setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen);
+		return WoodTypeBuilder.copyOf(WoodType.OAK)
+				.soundGroup(soundType)
+				.hangingSignSoundGroup(hangingSignSoundType)
+				.fenceGateCloseSound(fenceGateClose)
+				.fenceGateOpenSound(fenceGateOpen)
+				.register(botaniaRL(name), setType);
 	}
 }

@@ -25,7 +25,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,13 +40,13 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.mixin.RecipeManagerAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wandable {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
@@ -62,7 +62,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	private int lastRecipeEpoch = recipeEpoch;
 
 	public static void registerListener() {
-		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("craft_crate_epoch_counter"),
+		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, botaniaRL("craft_crate_epoch_counter"),
 				(ResourceManagerReloadListener) mgr -> recipeEpoch++);
 	}
 
@@ -166,9 +166,9 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 			craft.setItem(i, stack);
 		}
 
-		Optional<CraftingRecipe> matchingRecipe = getMatchingRecipe(craft);
+		Optional<RecipeHolder<CraftingRecipe>> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
-			craftResult = recipe.assemble(craft, this.getLevel().registryAccess());
+			craftResult = recipe.value().assemble(craft, this.getLevel().registryAccess());
 
 			// Given some mods can return air by a bad implementation of their recipe handler,
 			// check for air before continuting on.
@@ -179,7 +179,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 			}
 
 			Container handler = getItemHandler();
-			List<ItemStack> remainders = recipe.getRemainingItems(craft);
+			List<ItemStack> remainders = recipe.value().getRemainingItems(craft);
 
 			for (int i = 0; i < craft.getContainerSize(); i++) {
 				ItemStack s = remainders.get(i);
@@ -191,7 +191,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 				handler.setItem(i, s);
 			}
 		});
-		if (!matchingRecipe.isPresent()) {
+		if (matchingRecipe.isEmpty()) {
 			matchFailed = true;
 		}
 
@@ -200,21 +200,19 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		return matchingRecipe.isPresent() && !craftResult.isEmpty();
 	}
 
-	private Optional<CraftingRecipe> getMatchingRecipe(CraftingContainer craft) {
+	private Optional<RecipeHolder<CraftingRecipe>> getMatchingRecipe(CraftingContainer craft) {
 		for (ResourceLocation currentRecipe : lastRecipes) {
-			Recipe<CraftingContainer> recipe = ((RecipeManagerAccessor) level.getRecipeManager())
-					.botania_getAll(RecipeType.CRAFTING)
-					.get(currentRecipe);
-			if (recipe instanceof CraftingRecipe craftingRecipe && recipe.matches(craft, level)) {
-				return Optional.of(craftingRecipe);
+			var holder = BotaniaRecipeTypes.getRecipe(level, currentRecipe, RecipeType.CRAFTING);
+			if (holder.isPresent() && holder.get().value().matches(craft, level)) {
+				return holder;
 			}
 		}
-		Optional<CraftingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craft, level);
+		Optional<RecipeHolder<CraftingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craft, level);
 		if (recipe.isPresent()) {
 			if (lastRecipes.size() >= 8) {
 				lastRecipes.remove();
 			}
-			lastRecipes.add(recipe.get().getId());
+			lastRecipes.add(recipe.get().id());
 			return recipe;
 		}
 		return Optional.empty();
