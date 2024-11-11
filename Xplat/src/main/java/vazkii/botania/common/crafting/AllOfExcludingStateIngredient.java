@@ -11,7 +11,7 @@ package vazkii.botania.common.crafting;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.NonNullList;
@@ -25,7 +25,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.recipe.StateIngredientType;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -127,7 +132,7 @@ public class AllOfExcludingStateIngredient implements StateIngredient {
 	}
 
 	public static class Type implements StateIngredientType<AllOfExcludingStateIngredient> {
-		public static final Codec<AllOfExcludingStateIngredient> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<AllOfExcludingStateIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				ExtraCodecs.nonEmptyList(StateIngredients.TYPED_CODEC.listOf())
 						.fieldOf("ingredients").forGetter(AllOfExcludingStateIngredient::getIngredients),
 				StateIngredients.TYPED_CODEC.listOf()
@@ -135,7 +140,7 @@ public class AllOfExcludingStateIngredient implements StateIngredient {
 		).apply(instance, AllOfExcludingStateIngredient::new));
 
 		@Override
-		public Codec<AllOfExcludingStateIngredient> codec() {
+		public MapCodec<AllOfExcludingStateIngredient> codec() {
 			return CODEC;
 		}
 

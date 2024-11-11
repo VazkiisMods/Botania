@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.Holder;
@@ -92,12 +92,12 @@ public record BlockTagIngredient(TagKey<Block> tag) implements StateIngredient {
 	}
 
 	public static class Type implements StateIngredientType<BlockTagIngredient> {
-		public static final Codec<BlockTagIngredient> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<BlockTagIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				TagKey.hashedCodec(Registries.BLOCK).fieldOf("tag").forGetter(BlockTagIngredient::tag)
 		).apply(instance, BlockTagIngredient::new));
 
 		@Override
-		public Codec<BlockTagIngredient> codec() {
+		public MapCodec<BlockTagIngredient> codec() {
 			return CODEC;
 		}
 

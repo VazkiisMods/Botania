@@ -8,11 +8,9 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.mojang.serialization.Codec;
-
 import com.mojang.serialization.MapCodec;
+
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +27,6 @@ import vazkii.botania.common.item.LexicaBotaniaItem;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {

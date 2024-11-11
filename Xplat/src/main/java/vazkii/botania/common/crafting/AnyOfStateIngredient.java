@@ -10,7 +10,7 @@ package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.NonNullList;
@@ -103,13 +103,13 @@ public class AnyOfStateIngredient implements StateIngredient {
 	}
 
 	public static class Type implements StateIngredientType<AnyOfStateIngredient> {
-		public static final Codec<AnyOfStateIngredient> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<AnyOfStateIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				ExtraCodecs.nonEmptyList(StateIngredients.TYPED_CODEC.listOf())
 						.fieldOf("ingredients").forGetter(AnyOfStateIngredient::getIngredients)
 		).apply(instance, AnyOfStateIngredient::new));
 
 		@Override
-		public Codec<AnyOfStateIngredient> codec() {
+		public MapCodec<AnyOfStateIngredient> codec() {
 			return CODEC;
 		}
 
