@@ -9,28 +9,20 @@
 package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.StreamCodec;
 
+import io.netty.buffer.ByteBuf;
 import vazkii.botania.client.core.SkyblockWorldInfo;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
-public class GogWorldPacket implements BotaniaPacket {
+public class GogWorldPacket implements BotaniaPacket<ByteBuf, GogWorldPacket> {
 	public static final GogWorldPacket INSTANCE = new GogWorldPacket();
-	public static final ResourceLocation ID = botaniaRL("gog");
+	public static final Type<GogWorldPacket> ID = BotaniaPacket.createType("gog");
+	public static final StreamCodec<ByteBuf, GogWorldPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {}
-
-	@Override
-	public ResourceLocation getFabricId() {
+	public Type<GogWorldPacket> type() {
 		return ID;
-	}
-
-	public static GogWorldPacket decode(FriendlyByteBuf buf) {
-		return INSTANCE;
 	}
 
 	public static class Handler {

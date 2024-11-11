@@ -1,24 +1,12 @@
 package vazkii.botania.network;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
+import io.netty.buffer.ByteBuf;
+import vazkii.botania.api.BotaniaAPI;
 
-import io.netty.buffer.Unpooled;
-
-public interface BotaniaPacket {
-	default FriendlyByteBuf toBuf() {
-		var ret = new FriendlyByteBuf(Unpooled.buffer());
-		encode(ret);
-		return ret;
+public interface BotaniaPacket<B extends ByteBuf, T extends BotaniaPacket<B, T>> extends CustomPacketPayload {
+	static <T extends CustomPacketPayload> Type<T> createType(String path) {
+		return new Type<>(BotaniaAPI.botaniaRL(path));
 	}
-
-	void encode(FriendlyByteBuf buf);
-
-	/**
-	 * Forge auto-assigns incrementing integers, Fabric requires us to declare an ID
-	 * These are sent using vanilla's custom plugin channel system and thus are written to every single packet.
-	 * So this ID tends to be more terse.
-	 */
-	ResourceLocation getFabricId();
 }

@@ -9,33 +9,27 @@
 package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 
+import io.netty.buffer.ByteBuf;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPacket<ByteBuf, ItemAgePacket> {
 
-public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPacket {
-
-	public static final ResourceLocation ID = botaniaRL("ia");
-
-	@Override
-	public void encode(FriendlyByteBuf buf) {
-		buf.writeVarInt(entityId());
-		buf.writeVarInt(timeCounter());
-	}
+	public static final Type<ItemAgePacket> ID = BotaniaPacket.createType("ia");
+	public static final StreamCodec<ByteBuf, ItemAgePacket> STREAM_CODEC = StreamCodec.composite(
+			ByteBufCodecs.VAR_INT, ItemAgePacket::entityId,
+			ByteBufCodecs.VAR_INT, ItemAgePacket::timeCounter,
+			ItemAgePacket::new
+	);
 
 	@Override
-	public ResourceLocation getFabricId() {
+	public Type<ItemAgePacket> type() {
 		return ID;
-	}
-
-	public static ItemAgePacket decode(FriendlyByteBuf buf) {
-		return new ItemAgePacket(buf.readVarInt(), buf.readVarInt());
 	}
 
 	public static class Handler {

@@ -8,14 +8,14 @@
  */
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 
+import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -23,23 +23,13 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
-public class DodgePacket implements BotaniaPacket {
+public class DodgePacket implements BotaniaPacket<ByteBuf, DodgePacket> {
 	public static final DodgePacket INSTANCE = new DodgePacket();
-	public static final ResourceLocation ID = botaniaRL("do");
-
-	public static DodgePacket decode(FriendlyByteBuf buf) {
-		return INSTANCE;
-	}
+	public static final Type<DodgePacket> ID = BotaniaPacket.createType("do");
+	public static final StreamCodec<ByteBuf, DodgePacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
-
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
+	public Type<DodgePacket> type() {
 		return ID;
 	}
 

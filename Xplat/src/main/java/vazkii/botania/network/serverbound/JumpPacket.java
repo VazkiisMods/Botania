@@ -8,34 +8,24 @@
  */
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
+import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
-public class JumpPacket implements BotaniaPacket {
+public class JumpPacket implements BotaniaPacket<ByteBuf, JumpPacket> {
 	public static final JumpPacket INSTANCE = new JumpPacket();
-	public static final ResourceLocation ID = botaniaRL("jmp");
+	public static final Type<JumpPacket> ID = BotaniaPacket.createType("jmp");
+	public static final StreamCodec<ByteBuf, JumpPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
-
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
+	public Type<JumpPacket> type() {
 		return ID;
-	}
-
-	public static JumpPacket decode(FriendlyByteBuf buf) {
-		return INSTANCE;
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {

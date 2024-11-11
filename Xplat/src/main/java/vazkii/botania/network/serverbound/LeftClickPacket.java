@@ -8,32 +8,22 @@
  */
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
+import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
-public class LeftClickPacket implements BotaniaPacket {
+public class LeftClickPacket implements BotaniaPacket<ByteBuf, LeftClickPacket> {
 	public static final LeftClickPacket INSTANCE = new LeftClickPacket();
-	public static final ResourceLocation ID = botaniaRL("lc");
+	public static final Type<LeftClickPacket> ID = BotaniaPacket.createType("lc");
+	public static final StreamCodec<ByteBuf, LeftClickPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
-
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
+	public Type<LeftClickPacket> type() {
 		return ID;
-	}
-
-	public static LeftClickPacket decode(FriendlyByteBuf buf) {
-		return INSTANCE;
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
