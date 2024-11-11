@@ -94,6 +94,7 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.command.SkyblockCommand;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.entity.BotaniaEntities;
@@ -195,6 +196,7 @@ public class ForgeCommonInitializer {
 		bind(Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
 		bindForItems(BotaniaFlowerBlocks::registerItemBlocks);
 		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
+		bind(Registries.DATA_COMPONENT_TYPE, BotaniaDataComponents::registerComponents);
 
 		// GUI and Recipe
 		bind(Registries.MENU, BotaniaItems::registerMenuTypes);
