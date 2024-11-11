@@ -9,6 +9,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -57,7 +58,7 @@ public class PinkWitherEntity extends WitherBoss {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean recentlyHit) {}
 
 	@Override
 	public void customServerAiStep() {

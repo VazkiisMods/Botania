@@ -60,8 +60,8 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(GRAVITY, 0F);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(GRAVITY, 0F);
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	}
 
 	@Override
-	protected float getGravity() {
+	protected double getDefaultGravity() {
 		return entityData.get(GRAVITY);
 	}
 
