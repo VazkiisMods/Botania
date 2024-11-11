@@ -10,9 +10,11 @@ package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 import vazkii.botania.common.entity.GaiaGuardianEntity;
@@ -20,35 +22,22 @@ import vazkii.botania.network.BotaniaPacket;
 
 import java.util.UUID;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
-		BlockPos source, UUID bossInfoId) implements BotaniaPacket {
+		BlockPos source, UUID bossInfoId) implements BotaniaPacket<RegistryFriendlyByteBuf, SpawnGaiaGuardianPacket> {
 
-	public static final ResourceLocation ID = botaniaRL("spg");
+	public static final Type<SpawnGaiaGuardianPacket> ID = BotaniaPacket.createType("spg");
+	public static final StreamCodec<RegistryFriendlyByteBuf, SpawnGaiaGuardianPacket> STREAM_CODEC = StreamCodec.composite(
+			ClientboundAddEntityPacket.STREAM_CODEC, SpawnGaiaGuardianPacket::inner,
+			ByteBufCodecs.VAR_INT, SpawnGaiaGuardianPacket::playerCount,
+			ByteBufCodecs.BOOL, SpawnGaiaGuardianPacket::hardMode,
+			BlockPos.STREAM_CODEC, SpawnGaiaGuardianPacket::source,
+			UUIDUtil.STREAM_CODEC, SpawnGaiaGuardianPacket::bossInfoId,
+			SpawnGaiaGuardianPacket::new
+	);
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
-		inner().write(buf);
-		buf.writeVarInt(playerCount());
-		buf.writeBoolean(hardMode());
-		buf.writeBlockPos(source());
-		buf.writeUUID(bossInfoId());
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
+	public Type<SpawnGaiaGuardianPacket> type() {
 		return ID;
-	}
-
-	public static SpawnGaiaGuardianPacket decode(FriendlyByteBuf buf) {
-		return new SpawnGaiaGuardianPacket(
-				new ClientboundAddEntityPacket(buf),
-				buf.readVarInt(),
-				buf.readBoolean(),
-				buf.readBlockPos(),
-				buf.readUUID()
-		);
 	}
 
 	public static class Handler {
