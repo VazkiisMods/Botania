@@ -23,7 +23,7 @@ import vazkii.botania.network.BotaniaPacket;
 
 import java.util.Optional;
 
-public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements BotaniaPacket<RegistryFriendlyByteBuf, UpdateItemsRemainingPacket> {
+public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements BotaniaPacket {
 
 	public static final Type<UpdateItemsRemainingPacket> ID = BotaniaPacket.createType("rem");
 	public static final StreamCodec<RegistryFriendlyByteBuf, UpdateItemsRemainingPacket> STREAM_CODEC = StreamCodec.composite(

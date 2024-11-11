@@ -15,7 +15,7 @@ import io.netty.buffer.ByteBuf;
 import vazkii.botania.client.core.SkyblockWorldInfo;
 import vazkii.botania.network.BotaniaPacket;
 
-public class GogWorldPacket implements BotaniaPacket<ByteBuf, GogWorldPacket> {
+public class GogWorldPacket implements BotaniaPacket {
 	public static final GogWorldPacket INSTANCE = new GogWorldPacket();
 	public static final Type<GogWorldPacket> ID = BotaniaPacket.createType("gog");
 	public static final StreamCodec<ByteBuf, GogWorldPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
