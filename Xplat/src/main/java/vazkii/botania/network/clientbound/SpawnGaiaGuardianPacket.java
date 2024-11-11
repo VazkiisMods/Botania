@@ -23,7 +23,7 @@ import vazkii.botania.network.BotaniaPacket;
 import java.util.UUID;
 
 public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
-		BlockPos source, UUID bossInfoId) implements BotaniaPacket<RegistryFriendlyByteBuf, SpawnGaiaGuardianPacket> {
+		BlockPos source, UUID bossInfoId) implements BotaniaPacket {
 
 	public static final Type<SpawnGaiaGuardianPacket> ID = BotaniaPacket.createType("spg");
 	public static final StreamCodec<RegistryFriendlyByteBuf, SpawnGaiaGuardianPacket> STREAM_CODEC = StreamCodec.composite(

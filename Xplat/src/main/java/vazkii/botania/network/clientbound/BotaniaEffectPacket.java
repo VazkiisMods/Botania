@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
-public record BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int... args) implements BotaniaPacket<ByteBuf, BotaniaEffectPacket> {
+public record BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int... args) implements BotaniaPacket {
 
 	public static final Type<BotaniaEffectPacket> ID = BotaniaPacket.createType("eff");
 	private static final int MAX_VARIABLE_ARGS = 128;

@@ -9,7 +9,7 @@ import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.BotaniaPacket;
 
-public record IndexStringRequestPacket(String message) implements BotaniaPacket<ByteBuf, IndexStringRequestPacket> {
+public record IndexStringRequestPacket(String message) implements BotaniaPacket {
 	public static final Type<IndexStringRequestPacket> ID = BotaniaPacket.createType("idxs");
 	public static final StreamCodec<ByteBuf, IndexStringRequestPacket> STREAM_CODEC = ByteBufCodecs.STRING_UTF8
 			.map(IndexStringRequestPacket::new, IndexStringRequestPacket::message);

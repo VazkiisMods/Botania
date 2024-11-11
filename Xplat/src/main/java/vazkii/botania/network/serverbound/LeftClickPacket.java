@@ -16,7 +16,7 @@ import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.network.BotaniaPacket;
 
-public class LeftClickPacket implements BotaniaPacket<ByteBuf, LeftClickPacket> {
+public class LeftClickPacket implements BotaniaPacket {
 	public static final LeftClickPacket INSTANCE = new LeftClickPacket();
 	public static final Type<LeftClickPacket> ID = BotaniaPacket.createType("lc");
 	public static final StreamCodec<ByteBuf, LeftClickPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
