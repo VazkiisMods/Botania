@@ -11,6 +11,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -147,7 +148,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	}
 
 	@Override
-	protected void defineSynchedData() {}
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {}
 
 	@NotNull
 	@Override

@@ -58,9 +58,9 @@ public class MagicMissileEntity extends ThrowableProjectile {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(EVIL, false);
-		entityData.define(TARGET, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(EVIL, false);
+		builder.define(TARGET, 0);
 	}
 
 	public void setEvil(boolean evil) {

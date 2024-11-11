@@ -20,6 +20,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -29,8 +30,10 @@ import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -63,6 +66,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -356,9 +360,9 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(INVUL_TIME, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(INVUL_TIME, 0);
 	}
 
 	public int getInvulTime() {
@@ -517,11 +521,11 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public ResourceLocation getDefaultLootTable() {
+	public ResourceKey<LootTable> getDefaultLootTable() {
 		if (mobSpawnTicks > 0) {
 			return BuiltInLootTables.EMPTY;
 		}
-		return botaniaRL(hardMode ? "gaia_guardian_2" : "gaia_guardian");
+		return ResourceKey.create(Registries.LOOT_TABLE, botaniaRL(hardMode ? "gaia_guardian_2" : "gaia_guardian"));
 	}
 
 	@Override
@@ -771,7 +775,7 @@ public class GaiaGuardianEntity extends Mob {
 		} else {
 			for (Player player : players) {
 				for (EquipmentSlot e : EquipmentSlot.values()) {
-					if (e.getType() == EquipmentSlot.Type.ARMOR && !player.getItemBySlot(e).isEmpty()) {
+					if (e.getType() == EquipmentSlot.Type.HUMANOID_ARMOR && !player.getItemBySlot(e).isEmpty()) {
 						anyWithArmor = true;
 						break;
 					}
@@ -884,7 +888,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 
@@ -1014,13 +1018,13 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
 		return XplatAbstractions.INSTANCE.toVanillaClientboundPacket(
-				new SpawnGaiaGuardianPacket(new ClientboundAddEntityPacket(this), playerCount, hardMode, source, bossInfoUUID));
+				new SpawnGaiaGuardianPacket(new ClientboundAddEntityPacket(this, entity), playerCount, hardMode, source, bossInfoUUID));
 	}
 
 	@Override
-	public boolean canBeLeashed(Player player) {
+	public boolean canBeLeashed() {
 		return false;
 	}
 

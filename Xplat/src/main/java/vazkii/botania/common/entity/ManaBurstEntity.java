@@ -106,16 +106,16 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(COLOR, 0);
-		entityData.define(MANA, 0);
-		entityData.define(START_MANA, 0);
-		entityData.define(MIN_MANA_LOSS, 0);
-		entityData.define(MANA_LOSS_PER_TICK, 0F);
-		entityData.define(GRAVITY, 0F);
-		entityData.define(SOURCE_COORDS, ManaBurst.NO_SOURCE);
-		entityData.define(SOURCE_LENS, ItemStack.EMPTY);
-		entityData.define(LEFT_SOURCE_POS, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(COLOR, 0);
+		builder.define(MANA, 0);
+		builder.define(START_MANA, 0);
+		builder.define(MIN_MANA_LOSS, 0);
+		builder.define(MANA_LOSS_PER_TICK, 0F);
+		builder.define(GRAVITY, 0F);
+		builder.define(SOURCE_COORDS, ManaBurst.NO_SOURCE);
+		builder.define(SOURCE_LENS, ItemStack.EMPTY);
+		builder.define(LEFT_SOURCE_POS, false);
 	}
 
 	public static Vec3 calculateBurstVelocity(float xRot, float yRot) {
@@ -234,7 +234,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return !fake;
 	}
 
@@ -605,7 +605,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Override
-	public float getGravity() {
+	public double getDefaultGravity() {
 		return getBurstGravity();
 	}
 
