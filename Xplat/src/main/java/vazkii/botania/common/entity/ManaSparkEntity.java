@@ -74,9 +74,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(UPGRADE, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(UPGRADE, 0);
 	}
 
 	@NotNull

@@ -67,13 +67,13 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(CHARGING, false);
-		entityData.define(VARIETY, 0);
-		entityData.define(CHARGE_TICKS, 0);
-		entityData.define(LIVE_TICKS, 0);
-		entityData.define(DELAY, 0);
-		entityData.define(ROTATION, 0F);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(CHARGING, false);
+		builder.define(VARIETY, 0);
+		builder.define(CHARGE_TICKS, 0);
+		builder.define(LIVE_TICKS, 0);
+		builder.define(DELAY, 0);
+		builder.define(ROTATION, 0F);
 	}
 
 	@Override

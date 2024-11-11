@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,7 +48,7 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 	}
 
 	@Override
-	protected void defineSynchedData() {}
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {}
 
 	@Override
 	public void tick() {

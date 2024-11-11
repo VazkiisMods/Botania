@@ -49,9 +49,9 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(MANA, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(MANA, 0);
 	}
 
 	@NotNull
