@@ -8,17 +8,13 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.common.base.Suppliers;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
@@ -26,8 +22,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
+import com.google.common.base.Suppliers;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Supplier;

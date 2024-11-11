@@ -8,8 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.google.common.collect.ImmutableMap;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.ChatFormatting;
@@ -104,12 +103,12 @@ public record BlockStateIngredient(BlockState state) implements StateIngredient 
 	}
 
 	public static class Type implements StateIngredientType<BlockStateIngredient> {
-		public static final Codec<BlockStateIngredient> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<BlockStateIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				BlockState.CODEC.fieldOf("state").forGetter(BlockStateIngredient::state)
 		).apply(instance, BlockStateIngredient::new));
 
 		@Override
-		public Codec<BlockStateIngredient> codec() {
+		public MapCodec<BlockStateIngredient> codec() {
 			return CODEC;
 		}
 

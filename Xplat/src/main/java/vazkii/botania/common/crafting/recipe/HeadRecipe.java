@@ -8,23 +8,21 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
@@ -42,11 +40,11 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	@Override
-	public boolean matches(Container inv, @NotNull Level world) {
+	public boolean matches(RecipeInput inv, @NotNull Level world) {
 		boolean matches = super.matches(inv, world);
 
 		if (matches) {
-			for (int i = 0; i < inv.getContainerSize(); i++) {
+			for (int i = 0; i < inv.size(); i++) {
 				ItemStack stack = inv.getItem(i);
 				if (stack.isEmpty()) {
 					break;
@@ -66,9 +64,9 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
 		ItemStack stack = getResultItem(registries).copy();
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack ingr = inv.getItem(i);
 			if (ingr.is(Items.NAME_TAG)) {
 				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getHoverName().getString());
@@ -79,24 +77,19 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<HeadRecipe> {
-		public static final Codec<HeadRecipe> CODEC = RunicAltarRecipe.Serializer.CODEC
+		public static final MapCodec<HeadRecipe> CODEC = RunicAltarRecipe.Serializer.CODEC
 				.xmap(HeadRecipe::new, Function.identity());
 		public static final StreamCodec<RegistryFriendlyByteBuf, HeadRecipe> STREAM_CODEC = RunicAltarRecipe.Serializer.STREAM_CODEC
 				.map(HeadRecipe::new, Function.identity());
 
 		@Override
-		public Codec<HeadRecipe> codec() {
+		public MapCodec<HeadRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public HeadRecipe fromNetwork(@NotNull FriendlyByteBuf buf) {
-			return new HeadRecipe(BotaniaRecipeTypes.RUNE_SERIALIZER.fromNetwork(buf));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull HeadRecipe recipe) {
-			BotaniaRecipeTypes.RUNE_SERIALIZER.toNetwork(buf, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, HeadRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 
