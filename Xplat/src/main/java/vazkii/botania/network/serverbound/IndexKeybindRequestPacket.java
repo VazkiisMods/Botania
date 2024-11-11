@@ -8,8 +8,8 @@
  */
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -18,23 +18,14 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
-public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacket {
-	public static final ResourceLocation ID = botaniaRL("idx");
-
-	@Override
-	public void encode(FriendlyByteBuf buf) {
-		buf.writeItem(stack());
-	}
+public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacket<RegistryFriendlyByteBuf, IndexKeybindRequestPacket> {
+	public static final Type<IndexKeybindRequestPacket> ID = BotaniaPacket.createType("idx");
+	public static final StreamCodec<RegistryFriendlyByteBuf, IndexKeybindRequestPacket> STREAM_CODEC = ItemStack.STREAM_CODEC
+			.map(IndexKeybindRequestPacket::new, IndexKeybindRequestPacket::stack);
 
 	@Override
-	public ResourceLocation getFabricId() {
+	public Type<IndexKeybindRequestPacket> type() {
 		return ID;
-	}
-
-	public static IndexKeybindRequestPacket decode(FriendlyByteBuf buf) {
-		return new IndexKeybindRequestPacket(buf.readItem());
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {

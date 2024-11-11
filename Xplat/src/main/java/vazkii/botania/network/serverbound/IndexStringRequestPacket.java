@@ -1,29 +1,21 @@
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
+import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
-public record IndexStringRequestPacket(String message) implements BotaniaPacket {
-	public static final ResourceLocation ID = botaniaRL("idxs");
-
-	public static IndexStringRequestPacket decode(FriendlyByteBuf buf) {
-		return new IndexStringRequestPacket(buf.readUtf());
-	}
+public record IndexStringRequestPacket(String message) implements BotaniaPacket<ByteBuf, IndexStringRequestPacket> {
+	public static final Type<IndexStringRequestPacket> ID = BotaniaPacket.createType("idxs");
+	public static final StreamCodec<ByteBuf, IndexStringRequestPacket> STREAM_CODEC = ByteBufCodecs.STRING_UTF8
+			.map(IndexStringRequestPacket::new, IndexStringRequestPacket::message);
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
-		buf.writeUtf(message);
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
+	public Type<IndexStringRequestPacket> type() {
 		return ID;
 	}
 

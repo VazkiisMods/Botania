@@ -9,9 +9,11 @@
 package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
@@ -19,33 +21,21 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.network.BotaniaPacket;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import java.util.Optional;
 
-public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements BotaniaPacket {
+public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements BotaniaPacket<RegistryFriendlyByteBuf, UpdateItemsRemainingPacket> {
 
-	public static final ResourceLocation ID = botaniaRL("rem");
-
-	@Override
-	public void encode(FriendlyByteBuf buf) {
-		buf.writeItem(stack);
-		buf.writeVarInt(count);
-		buf.writeBoolean(tooltip != null);
-		if (tooltip != null) {
-			buf.writeComponent(tooltip);
-		}
-	}
+	public static final Type<UpdateItemsRemainingPacket> ID = BotaniaPacket.createType("rem");
+	public static final StreamCodec<RegistryFriendlyByteBuf, UpdateItemsRemainingPacket> STREAM_CODEC = StreamCodec.composite(
+			ItemStack.STREAM_CODEC, UpdateItemsRemainingPacket::stack,
+			ByteBufCodecs.VAR_INT, UpdateItemsRemainingPacket::count,
+			ComponentSerialization.OPTIONAL_STREAM_CODEC.map(o -> o.orElse(null), Optional::ofNullable), UpdateItemsRemainingPacket::tooltip,
+			UpdateItemsRemainingPacket::new
+	);
 
 	@Override
-	public ResourceLocation getFabricId() {
+	public Type<UpdateItemsRemainingPacket> type() {
 		return ID;
-	}
-
-	public static UpdateItemsRemainingPacket decode(FriendlyByteBuf buf) {
-		return new UpdateItemsRemainingPacket(
-				buf.readItem(),
-				buf.readVarInt(),
-				buf.readBoolean() ? buf.readComponent() : null
-		);
 	}
 
 	public static class Handler {

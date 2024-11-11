@@ -8,12 +8,14 @@
  */
 package vazkii.botania.network.clientbound;
 
+import com.google.common.primitives.Ints;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
+import io.netty.buffer.ByteBuf;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
@@ -33,68 +36,31 @@ import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.network.EffectType;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import java.util.ArrayList;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
-public record BotaniaEffectPacket(EffectType type, double x, double y, double z, int... args) implements BotaniaPacket {
+public record BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int... args) implements BotaniaPacket<ByteBuf, BotaniaEffectPacket> {
 
-	public static final ResourceLocation ID = botaniaRL("eff");
+	public static final Type<BotaniaEffectPacket> ID = BotaniaPacket.createType("eff");
 	private static final int MAX_VARIABLE_ARGS = 128;
+	public static final StreamCodec<ByteBuf, BotaniaEffectPacket> STREAM_CODEC = StreamCodec.composite(
+			EffectType.STREAM_CODEC, BotaniaEffectPacket::effectType,
+			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::x,
+			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::y,
+			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::z,
+			ByteBufCodecs.collection(ArrayList::new, ByteBufCodecs.VAR_INT).map(Ints::toArray, is -> new ArrayList<>(Ints.asList((int[])is))), BotaniaEffectPacket::args,
+			(type, x, y, z, args) -> new BotaniaEffectPacket(type, x, y, z, (int[])args)
+	);
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
-		buf.writeByte(type().ordinal());
-		buf.writeDouble(x());
-		buf.writeDouble(y());
-		buf.writeDouble(z());
-
-		if (type().argCount != -1 && type().argCount != args().length) {
-			throw new IllegalArgumentException("Argument count mismatch");
-		}
-
-		if (type().argCount == -1) {
-			if (args().length > MAX_VARIABLE_ARGS) {
-				throw new IllegalArgumentException("Too many variable arguments");
-			}
-			buf.writeVarInt(args().length);
-		}
-		for (int arg : args) {
-			buf.writeVarInt(arg);
-		}
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
+	public Type<BotaniaEffectPacket> type() {
 		return ID;
-	}
-
-	public static BotaniaEffectPacket decode(FriendlyByteBuf buf) {
-		EffectType type = EffectType.values()[buf.readByte()];
-		double x = buf.readDouble();
-		double y = buf.readDouble();
-		double z = buf.readDouble();
-		int argCount;
-		if (type.argCount == -1) {
-			argCount = buf.readVarInt();
-			if (argCount > MAX_VARIABLE_ARGS) {
-				throw new IllegalArgumentException("Too many variable arguments");
-			}
-		} else {
-			argCount = type.argCount;
-		}
-		int[] args = new int[argCount];
-
-		for (int i = 0; i < args.length; i++) {
-			args[i] = buf.readVarInt();
-		}
-
-		return new BotaniaEffectPacket(type, x, y, z, args);
 	}
 
 	public static class Handler {
 		public static void handle(BotaniaEffectPacket packet) {
-			var type = packet.type();
+			var type = packet.effectType();
 			var x = packet.x();
 			var y = packet.y();
 			var z = packet.z();

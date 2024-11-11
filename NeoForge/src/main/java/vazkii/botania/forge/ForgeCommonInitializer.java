@@ -36,6 +36,7 @@ import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -148,7 +149,8 @@ public class ForgeCommonInitializer {
 	}
 
 	public void commonSetup(FMLCommonSetupEvent evt) {
-		ForgePacketHandler.init();
+		IEventBus modbus = ModLoadingContext.get().getActiveContainer().getEventBus();
+		modbus.addListener(ForgePacketHandler::registerPayloadHandlers);
 		registerEvents();
 
 		evt.enqueueWork(BotaniaBlocks::addDispenserBehaviours);
