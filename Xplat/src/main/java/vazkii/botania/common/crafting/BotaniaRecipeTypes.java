@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -94,12 +95,12 @@ public class BotaniaRecipeTypes {
 		}
 	}
 
-	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
+	public static <C extends RecipeInput, T extends Recipe<C>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
 		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <C extends Container, T extends Recipe<C>> Optional<RecipeHolder<T>> getRecipe(Level world, ResourceLocation id, RecipeType<T> expectedType) {
+	public static <C extends RecipeInput, T extends Recipe<C>> Optional<RecipeHolder<T>> getRecipe(Level world, ResourceLocation id, RecipeType<T> expectedType) {
 		var holder = world.getRecipeManager().byKey(id);
 		return holder.isPresent() && holder.get().value().getType() == expectedType
 				? holder.map(h -> (RecipeHolder<T>) h)

@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -32,10 +34,10 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
+	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
 		boolean foundAttachable = false;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof CosmeticAttachable attachable && !(stack.getItem() instanceof CosmeticBauble) && !attachable.getCosmeticItem(stack).isEmpty()) {
@@ -51,10 +53,10 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		ItemStack attachableItem = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				attachableItem = stack;
@@ -84,7 +86,7 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
+	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingInput inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() instanceof BaubleItem bauble) {
 				ItemStack stack = bauble.getCosmeticItem(s);

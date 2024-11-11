@@ -8,12 +8,14 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -22,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public interface ManaInfusionRecipe extends Recipe<Container> {
+public interface ManaInfusionRecipe extends Recipe<RecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("mana_infusion");
 
 	/**
@@ -42,7 +44,7 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 	 */
 	@NotNull
 	@Override
-	ItemStack getResultItem(@NotNull RegistryAccess registries);
+	ItemStack getResultItem(@NotNull HolderLookup.Provider registries);
 
 	/**
 	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getResultItem}.
@@ -78,12 +80,12 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	default ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean matches(@NotNull Container inv, @NotNull Level world) {
+	default boolean matches(@NotNull RecipeInput inv, @NotNull Level world) {
 		return false;
 	}
 

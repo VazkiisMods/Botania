@@ -8,10 +8,11 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.mojang.serialization.Codec;
-
+import com.mojang.serialization.MapCodec;
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -47,23 +48,19 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<MarimorphosisRecipe> {
-		public static final Codec<MarimorphosisRecipe> CODEC = BotaniaRecipeTypes.ORECHID_SERIALIZER.codec()
+		public static final MapCodec<MarimorphosisRecipe> CODEC = BotaniaRecipeTypes.ORECHID_SERIALIZER.codec()
 				.xmap(MarimorphosisRecipe::new, Function.identity());
+		public static final StreamCodec<RegistryFriendlyByteBuf, MarimorphosisRecipe> STREAM_CODEC = BotaniaRecipeTypes.ORECHID_SERIALIZER.streamCodec()
+				.map(MarimorphosisRecipe::new, Function.identity());
 
 		@Override
-		public Codec<MarimorphosisRecipe> codec() {
-			return null;
+		public MapCodec<MarimorphosisRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public MarimorphosisRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-			OrechidRecipe base = BotaniaRecipeTypes.ORECHID_SERIALIZER.fromNetwork(buffer);
-			return new MarimorphosisRecipe(base);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull MarimorphosisRecipe recipe) {
-			BotaniaRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, MarimorphosisRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

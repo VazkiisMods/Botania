@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -28,10 +29,10 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level worldIn) {
+	public boolean matches(@NotNull CraftingInput inv, @NotNull Level worldIn) {
 		boolean foundShard = false;
 		boolean foundSpirit = false;
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (stack.isEmpty()) {
 				continue;
@@ -50,7 +51,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	public ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return new ItemStack(BotaniaItems.laputaShard);
 	}
 
@@ -64,8 +65,8 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (stack.is(BotaniaItems.laputaShard)) {
 				ItemStack result = stack.copy();

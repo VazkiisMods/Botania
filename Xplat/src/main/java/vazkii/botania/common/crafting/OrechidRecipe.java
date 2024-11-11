@@ -10,12 +10,15 @@ package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -107,14 +110,15 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	}
 
 	public static class Serializer implements RecipeSerializer<OrechidRecipe> {
-		public static final Codec<OrechidRecipe> CODEC = ExtraCodecs.validate(RecordCodecBuilder.create(instance -> instance.group(
+		private static final MapCodec<OrechidRecipe> RAW_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				StateIngredients.TYPED_CODEC.fieldOf("input").forGetter(OrechidRecipe::getInput),
 				StateIngredients.TYPED_CODEC.fieldOf("output").forGetter(OrechidRecipe::getOutput),
 				ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("weight", 0).forGetter(OrechidRecipe::getWeight),
 				Codec.INT.optionalFieldOf("biome_bonus_weight", 0).forGetter(OrechidRecipe::getWeightBonus),
 				TagKey.codec(Registries.BIOME).optionalFieldOf("biome_bonus_tag").forGetter(OrechidRecipe::getBiomes),
 				CacheableFunction.CODEC.optionalFieldOf("success_function").forGetter(OrechidRecipe::getSuccessFunction)
-		).apply(instance, OrechidRecipe::of)), orechidRecipe -> {
+		).apply(instance, OrechidRecipe::of));
+		public static final MapCodec<OrechidRecipe> CODEC = RAW_CODEC.validate(orechidRecipe -> {
 			if (orechidRecipe.getWeight() == 0 && orechidRecipe.getWeightBonus() == 0) {
 				return DataResult.error(() -> "Weight and bonus weight cannot both be 0");
 			}
@@ -125,12 +129,16 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 		});
 
 		@Override
-		public Codec<OrechidRecipe> codec() {
+		public MapCodec<OrechidRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public OrechidRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+		public StreamCodec<RegistryFriendlyByteBuf, OrechidRecipe> streamCodec() {
+			return StreamCodec.of(this::toNetwork, this::fromNetwork);
+		}
+
+		public OrechidRecipe fromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
 			var input = StateIngredients.fromNetwork(buffer);
 			var output = StateIngredients.fromNetwork(buffer);
 			var weight = buffer.readVarInt();
@@ -146,8 +154,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 			return new OrechidRecipe(input, output, weight, null, biomeWeight, biomeTagKey);
 		}
 
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull OrechidRecipe recipe) {
+		public void toNetwork(@NotNull RegistryFriendlyByteBuf buffer, @NotNull OrechidRecipe recipe) {
 			StateIngredients.toNetwork(buffer, recipe.getInput());
 			StateIngredients.toNetwork(buffer, recipe.getOutput());
 			buffer.writeVarInt(recipe.getWeight());
