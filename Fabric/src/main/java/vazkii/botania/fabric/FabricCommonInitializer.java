@@ -83,6 +83,7 @@ import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.command.SkyblockCommand;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredients;
@@ -178,6 +179,7 @@ public class FabricCommonInitializer implements ModInitializer {
 					Blocks.FARMLAND.defaultBlockState());
 			FlattenableBlockRegistry.register(b, Blocks.DIRT_PATH.defaultBlockState());
 		}
+		BotaniaDataComponents.registerComponents(bind(BuiltInRegistries.DATA_COMPONENT_TYPE));
 
 		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(BotaniaBlocks.blazeBlock.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
