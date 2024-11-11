@@ -18,7 +18,7 @@ import io.netty.buffer.ByteBuf;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPacket<ByteBuf, ItemAgePacket> {
+public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPacket {
 
 	public static final Type<ItemAgePacket> ID = BotaniaPacket.createType("ia");
 	public static final StreamCodec<ByteBuf, ItemAgePacket> STREAM_CODEC = StreamCodec.composite(

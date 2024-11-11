@@ -23,7 +23,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.network.BotaniaPacket;
 
-public class DodgePacket implements BotaniaPacket<ByteBuf, DodgePacket> {
+public class DodgePacket implements BotaniaPacket {
 	public static final DodgePacket INSTANCE = new DodgePacket();
 	public static final Type<DodgePacket> ID = BotaniaPacket.createType("do");
 	public static final StreamCodec<ByteBuf, DodgePacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
