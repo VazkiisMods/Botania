@@ -1,5 +1,10 @@
 package vazkii.botania.network;
 
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+
+import io.netty.buffer.ByteBuf;
+
 public enum EffectType {
 	PAINT_LENS(1), // Arg: EnumDyeColor
 	ARENA_INDICATOR(0),
@@ -21,6 +26,9 @@ public enum EffectType {
 
 	// If -1, then variable length and the number of arguments is also sent over the network
 	public final int argCount;
+
+	public static final StreamCodec<ByteBuf, EffectType> STREAM_CODEC = ByteBufCodecs.VAR_INT
+			.map(i -> EffectType.values()[i], EffectType::ordinal);
 
 	EffectType(int argCount) {
 		this.argCount = argCount;
