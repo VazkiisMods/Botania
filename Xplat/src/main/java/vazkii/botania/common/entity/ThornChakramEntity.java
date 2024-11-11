@@ -58,10 +58,10 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(BOUNCES, 0);
-		entityData.define(FLARE, false);
-		entityData.define(RETURN_TO, -1);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(BOUNCES, 0);
+		builder.define(FLARE, false);
+		builder.define(RETURN_TO, -1);
 	}
 
 	@Override
