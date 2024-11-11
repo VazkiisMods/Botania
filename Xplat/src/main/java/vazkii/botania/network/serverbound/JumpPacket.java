@@ -18,7 +18,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
 import vazkii.botania.network.BotaniaPacket;
 
-public class JumpPacket implements BotaniaPacket<ByteBuf, JumpPacket> {
+public class JumpPacket implements BotaniaPacket {
 	public static final JumpPacket INSTANCE = new JumpPacket();
 	public static final Type<JumpPacket> ID = BotaniaPacket.createType("jmp");
 	public static final StreamCodec<ByteBuf, JumpPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);

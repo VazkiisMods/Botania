@@ -18,7 +18,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.BotaniaPacket;
 
-public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacket<RegistryFriendlyByteBuf, IndexKeybindRequestPacket> {
+public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacket {
 	public static final Type<IndexKeybindRequestPacket> ID = BotaniaPacket.createType("idx");
 	public static final StreamCodec<RegistryFriendlyByteBuf, IndexKeybindRequestPacket> STREAM_CODEC = ItemStack.STREAM_CODEC
 			.map(IndexKeybindRequestPacket::new, IndexKeybindRequestPacket::stack);
