@@ -10,12 +10,14 @@ package vazkii.botania.api.recipe;
 
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +29,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import java.util.Optional;
 
-public interface PureDaisyRecipe extends Recipe<Container> {
+public interface PureDaisyRecipe extends Recipe<RecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("pure_daisy");
 
 	/**
@@ -75,7 +77,7 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	 */
 	@Override
 	@Deprecated
-	default boolean matches(Container container, Level level) {
+	default boolean matches(RecipeInput container, Level level) {
 		return false;
 	}
 
@@ -84,7 +86,7 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	 */
 	@Override
 	@Deprecated
-	default ItemStack assemble(Container container, @NotNull RegistryAccess registryAccess) {
+	default ItemStack assemble(RecipeInput container, @NotNull HolderLookup.Provider registryAccess) {
 		return ItemStack.EMPTY;
 	}
 
@@ -102,7 +104,7 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	 */
 	@Override
 	@Deprecated
-	default ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
+	default ItemStack getResultItem(@NotNull HolderLookup.Provider registryAccess) {
 		return ItemStack.EMPTY;
 	}
 

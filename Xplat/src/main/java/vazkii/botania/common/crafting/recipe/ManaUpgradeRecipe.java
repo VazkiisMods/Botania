@@ -8,12 +8,11 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.mojang.serialization.Codec;
-
-import net.minecraft.core.RegistryAccess;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 
@@ -32,13 +31,13 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 				((ShapedRecipeAccessor) recipe).botania_getResult(), recipe.showNotification());
 	}
 
-	public static ItemStack output(ItemStack output, Container inv) {
+	public static ItemStack output(ItemStack output, CraftingInput inv) {
 		ItemStack out = output.copy();
 		var outItem = XplatAbstractions.INSTANCE.findManaItem(out);
 		if (outItem == null) {
 			return out;
 		}
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			var item = XplatAbstractions.INSTANCE.findManaItem(stack);
 			if (!stack.isEmpty() && item != null) {
@@ -50,7 +49,7 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		return output(super.assemble(inv, registries), inv);
 	}
 
@@ -61,8 +60,10 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 	}
 
 	private static class Serializer implements WrappingRecipeSerializer<ManaUpgradeRecipe> {
-		public static final Codec<ManaUpgradeRecipe> CODEC = SHAPED_RECIPE.codec()
+		public static final MapCodec<ManaUpgradeRecipe> CODEC = SHAPED_RECIPE.codec()
 				.xmap(ManaUpgradeRecipe::new, Function.identity());
+		public static final StreamCodec<RegistryFriendlyByteBuf, ManaUpgradeRecipe> STREAM_CODEC = SHAPED_RECIPE.streamCodec()
+				.map(ManaUpgradeRecipe::new, Function.identity());
 
 		@Override
 		public ManaUpgradeRecipe wrap(Recipe<?> recipe) {
@@ -73,18 +74,13 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 		}
 
 		@Override
-		public Codec<ManaUpgradeRecipe> codec() {
+		public MapCodec<ManaUpgradeRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public ManaUpgradeRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromNetwork(buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ManaUpgradeRecipe recipe) {
-			SHAPED_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, ManaUpgradeRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

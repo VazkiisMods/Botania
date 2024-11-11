@@ -8,17 +8,21 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
@@ -45,10 +49,10 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 	}
 
 	@Override
-	public boolean matches(Container inv, @NotNull Level world) {
+	public boolean matches(RecipeInput inv, @NotNull Level world) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(ingredients);
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack input = inv.getItem(i);
 			if (input.isEmpty()) {
 				break;
@@ -76,13 +80,13 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 
 	@NotNull
 	@Override
-	public final ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	public final ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return output;
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
 		return getResultItem(registries).copy();
 	}
 
@@ -114,41 +118,26 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 	}
 
 	public static class Serializer implements RecipeSerializer<PetalApothecaryRecipe> {
-		public final Codec<PetalApothecaryRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public final MapCodec<PetalApothecaryRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				ItemStack.CODEC.fieldOf("output").forGetter(PetalApothecaryRecipe::getOutput),
 				Ingredient.CODEC_NONEMPTY.fieldOf("reagent").forGetter(PetalApothecaryRecipe::getReagent),
-				ExtraCodecs.validate(ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()), ingredients -> {
-					if (ingredients.size() > 16) {
-						return DataResult.error(() -> "Cannot have more than 16 ingredients");
-					}
-					return DataResult.success(ingredients);
-				}).fieldOf("ingredients").forGetter(PetalApothecaryRecipe::getIngredients)
+				Ingredient.CODEC_NONEMPTY.listOf(1, 16).fieldOf("ingredients").forGetter(PetalApothecaryRecipe::getIngredients)
 		).apply(instance, PetalApothecaryRecipe::of));
+		public static final StreamCodec<RegistryFriendlyByteBuf, PetalApothecaryRecipe> STREAM_CODEC = StreamCodec.composite(
+				ItemStack.STREAM_CODEC, PetalApothecaryRecipe::getOutput,
+				Ingredient.CONTENTS_STREAM_CODEC, PetalApothecaryRecipe::getReagent,
+				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), PetalApothecaryRecipe::getIngredients,
+				PetalApothecaryRecipe::of
+		);
 
 		@Override
-		public Codec<PetalApothecaryRecipe> codec() {
+		public MapCodec<PetalApothecaryRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public PetalApothecaryRecipe fromNetwork(@NotNull FriendlyByteBuf buf) {
-			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
-			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.fromNetwork(buf);
-			}
-			Ingredient reagent = Ingredient.fromNetwork(buf);
-			ItemStack output = buf.readItem();
-			return new PetalApothecaryRecipe(output, reagent, inputs);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull PetalApothecaryRecipe recipe) {
-			buf.writeVarInt(recipe.getIngredients().size());
-			for (Ingredient input : recipe.getIngredients()) {
-				input.toNetwork(buf);
-			}
-			recipe.getReagent().toNetwork(buf);
-			buf.writeItem(recipe.getOutput());
+		public StreamCodec<RegistryFriendlyByteBuf, PetalApothecaryRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

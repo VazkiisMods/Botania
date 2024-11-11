@@ -9,17 +9,21 @@
 package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
@@ -27,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe {
@@ -54,9 +59,9 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 	}
 
 	@Override
-	public boolean matches(Container inv, @NotNull Level world) {
+	public boolean matches(RecipeInput inv, @NotNull Level world) {
 		int nonEmptySlots = 0;
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			if (!inv.getItem(i).isEmpty()) {
 				if (inv.getItem(i).getCount() > 1) {
 					return false;
@@ -65,19 +70,19 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 			}
 		}
 
-		IntOpenHashSet usedSlots = new IntOpenHashSet(inv.getContainerSize());
+		IntOpenHashSet usedSlots = new IntOpenHashSet(inv.size());
 		return RecipeUtils.matches(ingredients, inv, usedSlots) && usedSlots.size() == nonEmptySlots;
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
 		return output.copy();
 	}
 
 	@NotNull
 	@Override
-	public ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	public ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return output;
 	}
 
@@ -94,37 +99,27 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 	}
 
 	public static class Serializer implements RecipeSerializer<TerrestrialAgglomerationRecipe> {
-		public static final Codec<TerrestrialAgglomerationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<TerrestrialAgglomerationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()).fieldOf("ingredients")
 						.forGetter(TerrestrialAgglomerationRecipe::getIngredients),
 				ExtraCodecs.POSITIVE_INT.fieldOf("mana").forGetter(TerrestrialAgglomerationRecipe::getMana),
-				ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(TerrestrialAgglomerationRecipe::getOutput)
+				ItemStack.CODEC.fieldOf("result").forGetter(TerrestrialAgglomerationRecipe::getOutput)
 		).apply(instance, TerrestrialAgglomerationRecipe::of));
+		public static final StreamCodec<RegistryFriendlyByteBuf, TerrestrialAgglomerationRecipe> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), TerrestrialAgglomerationRecipe::getIngredients,
+				ByteBufCodecs.VAR_INT, TerrestrialAgglomerationRecipe::getMana,
+				ItemStack.STREAM_CODEC, TerrestrialAgglomerationRecipe::getOutput,
+				TerrestrialAgglomerationRecipe::of
+		);
 
 		@Override
-		public Codec<TerrestrialAgglomerationRecipe> codec() {
+		public MapCodec<TerrestrialAgglomerationRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public TerrestrialAgglomerationRecipe fromNetwork(FriendlyByteBuf buffer) {
-			int mana = buffer.readVarInt();
-			Ingredient[] ingredients = new Ingredient[buffer.readVarInt()];
-			for (int i = 0; i < ingredients.length; i++) {
-				ingredients[i] = Ingredient.fromNetwork(buffer);
-			}
-			ItemStack output = buffer.readItem();
-			return new TerrestrialAgglomerationRecipe(mana, output, ingredients);
-		}
-
-		@Override
-		public void toNetwork(FriendlyByteBuf buffer, TerrestrialAgglomerationRecipe recipe) {
-			buffer.writeVarInt(recipe.getMana());
-			buffer.writeVarInt(recipe.getIngredients().size());
-			for (Ingredient ingr : recipe.getIngredients()) {
-				ingr.toNetwork(buffer);
-			}
-			buffer.writeItem(recipe.getOutput());
+		public StreamCodec<RegistryFriendlyByteBuf, TerrestrialAgglomerationRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.mojang.serialization.Codec;
-
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -47,11 +47,11 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer craftingContainer, @NotNull Level level) {
+	public boolean matches(@NotNull CraftingInput craftingContainer, @NotNull Level level) {
 		if (!super.matches(craftingContainer, level)) {
 			return false;
 		}
-		for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
+		for (int i = 0; i < craftingContainer.size(); i++) {
 			var item = craftingContainer.getItem(i);
 			if (item.is(Items.POTION) && !(PotionUtils.getPotion(item) == Potions.WATER)) {
 				return false;
@@ -66,8 +66,11 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	private static class Serializer implements WrappingRecipeSerializer<WaterBottleMatchingRecipe> {
-		public static final Codec<WaterBottleMatchingRecipe> CODEC = SHAPED_RECIPE.codec()
+		public static final MapCodec<WaterBottleMatchingRecipe> CODEC = SHAPED_RECIPE.codec()
 				.xmap(WaterBottleMatchingRecipe::new, Function.identity());
+		public static final StreamCodec<RegistryFriendlyByteBuf, WaterBottleMatchingRecipe> STREAM_CODEC = SHAPED_RECIPE.streamCodec()
+				.map(WaterBottleMatchingRecipe::new, Function.identity());
+
 
 		@Override
 		public WaterBottleMatchingRecipe wrap(Recipe<?> recipe) {
@@ -78,18 +81,13 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 		}
 
 		@Override
-		public Codec<WaterBottleMatchingRecipe> codec() {
+		public MapCodec<WaterBottleMatchingRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public WaterBottleMatchingRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-			return new WaterBottleMatchingRecipe(SHAPED_RECIPE.fromNetwork(buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull WaterBottleMatchingRecipe recipe) {
-			SHAPED_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, WaterBottleMatchingRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

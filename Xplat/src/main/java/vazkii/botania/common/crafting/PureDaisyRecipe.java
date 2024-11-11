@@ -9,11 +9,14 @@
 package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -25,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecipe {
 
@@ -87,7 +91,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 	}
 
 	public static class Serializer implements RecipeSerializer<PureDaisyRecipe> {
-		public static final Codec<PureDaisyRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<PureDaisyRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				StateIngredients.TYPED_CODEC.fieldOf("input").forGetter(PureDaisyRecipe::getInput),
 				StateIngredients.TYPED_CODEC.fieldOf("output").forGetter(PureDaisyRecipe::getOutput),
 				ExtraCodecs.POSITIVE_INT.optionalFieldOf("time", 0).forGetter(PureDaisyRecipe::getTime),
@@ -96,12 +100,16 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 		).apply(instance, PureDaisyRecipe::of));
 
 		@Override
-		public Codec<PureDaisyRecipe> codec() {
+		public MapCodec<PureDaisyRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, PureDaisyRecipe recipe) {
+		public StreamCodec<RegistryFriendlyByteBuf, PureDaisyRecipe> streamCodec() {
+			return StreamCodec.of(this::toNetwork, this::fromNetwork);
+		}
+
+		public void toNetwork(@NotNull RegistryFriendlyByteBuf buffer, PureDaisyRecipe recipe) {
 			StateIngredients.toNetwork(buffer, recipe.getInput());
 			StateIngredients.toNetwork(buffer, recipe.getOutput());
 			buffer.writeVarInt(recipe.getTime());
@@ -109,8 +117,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 		}
 
 		@NotNull
-		@Override
-		public PureDaisyRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+		public PureDaisyRecipe fromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
 			var input = StateIngredients.fromNetwork(buffer);
 			var output = StateIngredients.fromNetwork(buffer);
 			var time = buffer.readVarInt();
