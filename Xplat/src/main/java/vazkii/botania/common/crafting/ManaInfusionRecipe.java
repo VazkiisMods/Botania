@@ -9,11 +9,14 @@
 package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -64,7 +67,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 
 	@NotNull
 	@Override
-	public ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	public ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return output;
 	}
 
@@ -95,8 +98,8 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 	}
 
 	public static class Serializer implements RecipeSerializer<ManaInfusionRecipe> {
-		public static final Codec<ManaInfusionRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output").forGetter(ManaInfusionRecipe::getOutput),
+		public static final MapCodec<ManaInfusionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+				ItemStack.CODEC.fieldOf("output").forGetter(ManaInfusionRecipe::getOutput),
 				Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(ManaInfusionRecipe::getInput),
 				// Leaving wiggle room for a certain modpack having creative-pool-only recipes
 				ExtraCodecs.intRange(1, ManaPoolBlockEntity.MAX_MANA + 1).fieldOf("mana")
@@ -105,38 +108,23 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 				StateIngredients.TYPED_CODEC.optionalFieldOf("catalyst", StateIngredients.NONE)
 						.forGetter(ManaInfusionRecipe::getRecipeCatalyst)
 		).apply(instance, ManaInfusionRecipe::new));
+		public static final StreamCodec<RegistryFriendlyByteBuf, ManaInfusionRecipe> STREAM_CODEC = StreamCodec.composite(
+				ItemStack.STREAM_CODEC, ManaInfusionRecipe::getOutput,
+				Ingredient.CONTENTS_STREAM_CODEC, ManaInfusionRecipe::getInput,
+				ByteBufCodecs.VAR_INT, ManaInfusionRecipe::getManaToConsume,
+				ByteBufCodecs.STRING_UTF8, ManaInfusionRecipe::getGroup,
+				ByteBufCodecs.fromCodec(StateIngredients.TYPED_CODEC), ManaInfusionRecipe::getRecipeCatalyst,
+				ManaInfusionRecipe::new
+		);
 
 		@Override
-		public Codec<ManaInfusionRecipe> codec() {
+		public MapCodec<ManaInfusionRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public ManaInfusionRecipe fromNetwork(@NotNull FriendlyByteBuf buf) {
-			Ingredient input = Ingredient.fromNetwork(buf);
-			ItemStack output = buf.readItem();
-			int mana = buf.readVarInt();
-			StateIngredient catalyst = StateIngredients.NONE;
-			if (buf.readBoolean()) {
-				catalyst = StateIngredients.fromNetwork(buf);
-			}
-			String group = buf.readUtf();
-			return new ManaInfusionRecipe(output, input, mana, group, catalyst);
+		public StreamCodec<RegistryFriendlyByteBuf, ManaInfusionRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull ManaInfusionRecipe recipe) {
-			recipe.getIngredients().get(0).toNetwork(buf);
-			buf.writeItem(recipe.output);
-			buf.writeVarInt(recipe.getManaToConsume());
-			StateIngredient recipeCatalyst = recipe.getRecipeCatalyst();
-			boolean hasCatalyst = recipeCatalyst != StateIngredients.NONE;
-			buf.writeBoolean(hasCatalyst);
-			if (hasCatalyst) {
-				StateIngredients.toNetwork(buf, recipeCatalyst);
-			}
-			buf.writeUtf(recipe.getGroup());
-		}
-
 	}
 }

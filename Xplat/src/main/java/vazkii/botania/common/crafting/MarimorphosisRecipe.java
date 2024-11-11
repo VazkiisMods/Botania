@@ -9,8 +9,8 @@
 package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.MapCodec;
+
 import net.minecraft.commands.CacheableFunction;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
