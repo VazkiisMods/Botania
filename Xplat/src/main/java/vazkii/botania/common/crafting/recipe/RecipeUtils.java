@@ -13,11 +13,14 @@ import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,10 +35,10 @@ public class RecipeUtils {
 	 * Check if every ingredient in {@code inputs} is satisfied by {@code inv}.
 	 * Optionally, the slots from the inventory used to fulfill the inputs are placed into {@code usedSlots}.
 	 */
-	public static boolean matches(List<Ingredient> inputs, Container inv, @Nullable IntSet usedSlots) {
+	public static boolean matches(List<Ingredient> inputs, RecipeInput inv, @Nullable IntSet usedSlots) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack input = inv.getItem(i);
 			if (input.isEmpty()) {
 				break;
@@ -68,8 +71,8 @@ public class RecipeUtils {
 	 * Like the vanilla method on recipe interface, but specialHandler is called first, and if it returns
 	 * nonnull, that result is used instead of vanilla's
 	 */
-	public static NonNullList<ItemStack> getRemainingItemsSub(Container inv, Function<ItemStack, ItemStack> specialHandler) {
-		NonNullList<ItemStack> ret = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
+	public static NonNullList<ItemStack> getRemainingItemsSub(RecipeInput inv, Function<ItemStack, ItemStack> specialHandler) {
+		NonNullList<ItemStack> ret = NonNullList.withSize(inv.size(), ItemStack.EMPTY);
 
 		for (int i = 0; i < ret.size(); ++i) {
 			ItemStack item = inv.getItem(i);
@@ -84,19 +87,19 @@ public class RecipeUtils {
 		return ret;
 	}
 
-	public static @NotNull Recipe<?> recipeFromNetwork(@NotNull FriendlyByteBuf buffer) {
+	public static @NotNull Recipe<?> recipeFromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
 		ResourceLocation serializerId = buffer.readResourceLocation();
 		return BuiltInRegistries.RECIPE_SERIALIZER.getOptional(serializerId)
 				.orElseThrow(() -> new IllegalArgumentException("Unknown recipe serializer: " + serializerId))
-				.fromNetwork(buffer);
+				.streamCodec().decode(buffer);
 	}
 
-	public static void recipeToNetwork(@NotNull FriendlyByteBuf buffer, Recipe<?> recipe) {
+	public static void recipeToNetwork(@NotNull RegistryFriendlyByteBuf buffer, Recipe<?> recipe) {
 		@SuppressWarnings("unchecked")
 		RecipeSerializer<Recipe<?>> recipeSerializer = (RecipeSerializer<Recipe<?>>) recipe.getSerializer();
 		buffer.writeResourceLocation(BuiltInRegistries.RECIPE_SERIALIZER.getResourceKey(recipeSerializer)
 				.orElseThrow(() -> new IllegalArgumentException("Unregistered recipe serializer: " + recipeSerializer))
 				.location());
-		recipeSerializer.toNetwork(buffer, recipe);
+		recipeSerializer.streamCodec().encode(buffer, recipe);
 	}
 }

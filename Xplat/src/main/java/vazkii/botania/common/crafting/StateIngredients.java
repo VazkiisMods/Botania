@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class StateIngredients {
-	public static final Codec<StateIngredient> TYPED_CODEC = ExtraCodecs.lazyInitializedCodec(() -> RegistryHelper
+	public static final Codec<StateIngredient> TYPED_CODEC = Codec.lazyInitialized(() -> RegistryHelper
 			.getRegistry(BotaniaRegistries.STATE_INGREDIENT_TYPE)
 			.byNameCodec()
 			.dispatch("type", StateIngredient::getType, StateIngredientType::codec));

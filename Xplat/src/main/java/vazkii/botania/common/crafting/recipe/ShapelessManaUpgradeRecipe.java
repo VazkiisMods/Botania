@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.mojang.serialization.Codec;
-
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -31,7 +33,7 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		return ManaUpgradeRecipe.output(super.assemble(inv, registries), inv);
 	}
 
@@ -42,8 +44,10 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	}
 
 	private static class Serializer implements WrappingRecipeSerializer<ShapelessManaUpgradeRecipe> {
-		public static final Codec<ShapelessManaUpgradeRecipe> CODEC = SHAPELESS_RECIPE.codec()
+		public static final MapCodec<ShapelessManaUpgradeRecipe> CODEC = SHAPELESS_RECIPE.codec()
 				.xmap(ShapelessManaUpgradeRecipe::new, Function.identity());
+		public static final StreamCodec<RegistryFriendlyByteBuf, ShapelessManaUpgradeRecipe> STREAM_CODEC = SHAPELESS_RECIPE.streamCodec()
+				.map(ShapelessManaUpgradeRecipe::new, Function.identity());
 
 		@Override
 		public ShapelessManaUpgradeRecipe wrap(Recipe<?> recipe) {
@@ -54,19 +58,13 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 		}
 
 		@Override
-		public Codec<ShapelessManaUpgradeRecipe> codec() {
+		public MapCodec<ShapelessManaUpgradeRecipe> codec() {
 			return CODEC;
 		}
 
-		@NotNull
 		@Override
-		public ShapelessManaUpgradeRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromNetwork(buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ShapelessManaUpgradeRecipe recipe) {
-			SHAPELESS_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, ShapelessManaUpgradeRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

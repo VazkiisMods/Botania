@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +32,7 @@ public interface RunicAltarRecipe extends RecipeWithReagent {
 
 	@NotNull
 	@Override
-	NonNullList<ItemStack> getRemainingItems(Container container);
+	NonNullList<ItemStack> getRemainingItems(RecipeInput container);
 
 	@NotNull
 	@Override
