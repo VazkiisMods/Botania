@@ -16,8 +16,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
@@ -127,6 +127,15 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 			}
 			return DataResult.success(orechidRecipe);
 		});
+		public static final StreamCodec<RegistryFriendlyByteBuf, OrechidRecipe> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.fromCodec(StateIngredients.TYPED_CODEC), OrechidRecipe::getInput,
+				ByteBufCodecs.fromCodec(StateIngredients.TYPED_CODEC), OrechidRecipe::getOutput,
+				ByteBufCodecs.VAR_INT, OrechidRecipe::getWeight,
+				ByteBufCodecs.VAR_INT, OrechidRecipe::getWeightBonus,
+				ByteBufCodecs.optional(ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME))), OrechidRecipe::getBiomes,
+				(in, out, weight, weightBonus, biomes) ->
+						new OrechidRecipe(in, out, weight, null, weightBonus, biomes.orElse(null))
+		);
 
 		@Override
 		public MapCodec<OrechidRecipe> codec() {
@@ -135,35 +144,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 
 		@Override
 		public StreamCodec<RegistryFriendlyByteBuf, OrechidRecipe> streamCodec() {
-			return StreamCodec.of(this::toNetwork, this::fromNetwork);
-		}
-
-		public OrechidRecipe fromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
-			var input = StateIngredients.fromNetwork(buffer);
-			var output = StateIngredients.fromNetwork(buffer);
-			var weight = buffer.readVarInt();
-			var biomeWeight = buffer.readVarInt();
-			TagKey<Biome> biomeTagKey;
-			if (buffer.readBoolean()) {
-				var biomeTagId = buffer.readResourceLocation();
-				biomeTagKey = TagKey.create(Registries.BIOME, biomeTagId);
-			} else {
-				biomeTagKey = null;
-			}
-			// the client has no use for the success function
-			return new OrechidRecipe(input, output, weight, null, biomeWeight, biomeTagKey);
-		}
-
-		public void toNetwork(@NotNull RegistryFriendlyByteBuf buffer, @NotNull OrechidRecipe recipe) {
-			StateIngredients.toNetwork(buffer, recipe.getInput());
-			StateIngredients.toNetwork(buffer, recipe.getOutput());
-			buffer.writeVarInt(recipe.getWeight());
-			buffer.writeVarInt(recipe.getWeightBonus());
-			boolean hasBiomeTag = recipe.getBiomes().isPresent();
-			buffer.writeBoolean(hasBiomeTag);
-			if (hasBiomeTag) {
-				buffer.writeResourceLocation(recipe.getBiomes().get().location());
-			}
+			return STREAM_CODEC;
 		}
 	}
 }

@@ -13,7 +13,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +25,8 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.recipe.StateIngredientType;
 import vazkii.botania.common.helper.RegistryHelper;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
