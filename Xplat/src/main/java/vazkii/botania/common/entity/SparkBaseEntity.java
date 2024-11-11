@@ -16,6 +16,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -34,8 +35,8 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(NETWORK, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(NETWORK, 0);
 	}
 
 	@Override
@@ -74,7 +75,7 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return new ClientboundAddEntityPacket(this);
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+		return new ClientboundAddEntityPacket(this, entity);
 	}
 }
