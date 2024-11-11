@@ -10,7 +10,6 @@ package vazkii.botania.common.crafting;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
@@ -21,7 +20,7 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.mixin.RecipeManagerAccessor;
 
-import java.util.Map;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
@@ -95,7 +94,7 @@ public class BotaniaRecipeTypes {
 		}
 	}
 
-	public static <C extends RecipeInput, T extends Recipe<C>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
+	public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getRecipes(Level world, RecipeType<T> type) {
 		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
 	}
 
