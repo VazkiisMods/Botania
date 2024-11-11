@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,6 +17,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -27,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public interface ElvenTradeRecipe extends Recipe<Container> {
+public interface ElvenTradeRecipe extends Recipe<RecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("elven_trade");
 	ResourceLocation TYPE_ID_LEXICON = botaniaRL("elven_trade_lexicon");
 
@@ -71,13 +73,13 @@ public interface ElvenTradeRecipe extends Recipe<Container> {
 	// Ignored IRecipe boilerplate
 
 	@Override
-	default boolean matches(@NotNull Container inv, @NotNull Level world) {
+	default boolean matches(@NotNull RecipeInput inv, @NotNull Level world) {
 		return false;
 	}
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	default ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
@@ -87,7 +89,7 @@ public interface ElvenTradeRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	default ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

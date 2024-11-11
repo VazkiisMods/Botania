@@ -11,18 +11,25 @@ package vazkii.botania.common.crafting;
 import com.google.common.base.Preconditions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -63,18 +70,18 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	}
 
 	@Override
-	public boolean matches(Container container, @NotNull Level world) {
+	public boolean matches(RecipeInput container, @NotNull Level world) {
 		return RecipeUtils.matches(allInputs, container, null);
 	}
 
 	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(Container container) {
+	public NonNullList<ItemStack> getRemainingItems(RecipeInput container) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(ingredients);
 		List<Ingredient> catalystsMissing = new ArrayList<>(catalysts);
 		NonNullList<ItemStack> foundCatalysts = NonNullList.of(ItemStack.EMPTY);
 
-		containerLoop: for (int i = 0; i < container.getContainerSize(); i++) {
+		containerLoop: for (int i = 0; i < container.size(); i++) {
 			ItemStack input = container.getItem(i);
 			if (input.isEmpty()) {
 				break;
@@ -103,13 +110,13 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 
 	@NotNull
 	@Override
-	public final ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	public final ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return output;
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
 		return getResultItem(registries).copy();
 	}
 
@@ -152,55 +159,38 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	}
 
 	public static class Serializer implements RecipeSerializer<RunicAltarRecipe> {
-		public static final Codec<RunicAltarRecipe> CODEC = ExtraCodecs.validate(RecordCodecBuilder.create(instance -> instance.group(
+		private static final MapCodec<RunicAltarRecipe> RAW_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()).fieldOf("ingredients")
 						.forGetter(RunicAltarRecipe::getIngredients),
 				ExtraCodecs.nonEmptyList(Ingredient.CODEC_NONEMPTY.listOf()).fieldOf("catalysts")
 						.forGetter(RunicAltarRecipe::getCatalysts),
 				Ingredient.CODEC_NONEMPTY.fieldOf("reagent").forGetter(RunicAltarRecipe::getReagent),
 				ExtraCodecs.POSITIVE_INT.fieldOf("mana").forGetter(RunicAltarRecipe::getMana),
-				ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output").forGetter(RunicAltarRecipe::getOutput)
-		).apply(instance, RunicAltarRecipe::of)), recipe -> {
+				ItemStack.SIMPLE_ITEM_CODEC.fieldOf("output").forGetter(RunicAltarRecipe::getOutput)
+		).apply(instance, RunicAltarRecipe::of));
+		public static final MapCodec<RunicAltarRecipe> CODEC = RAW_CODEC.validate(recipe -> {
 			if (recipe.getIngredients().size() + recipe.getCatalysts().size() > 16) {
 				return DataResult.error(() -> "Cannot have more than 16 ingredients and catalysts in total");
 			}
 			return DataResult.success(recipe);
 		});
+		public static final StreamCodec<RegistryFriendlyByteBuf, RunicAltarRecipe> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), RunicAltarRecipe::getIngredients,
+				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), RunicAltarRecipe::getCatalysts,
+				Ingredient.CONTENTS_STREAM_CODEC, RunicAltarRecipe::getReagent,
+				ByteBufCodecs.VAR_INT, RunicAltarRecipe::getMana,
+				ItemStack.STREAM_CODEC, RunicAltarRecipe::getOutput,
+				RunicAltarRecipe::of
+		);
 
 		@Override
-		public Codec<RunicAltarRecipe> codec() {
+		public MapCodec<RunicAltarRecipe> codec() {
 			return CODEC;
 		}
 
 		@Override
-		public RunicAltarRecipe fromNetwork(@NotNull FriendlyByteBuf buf) {
-			Ingredient[] ingredients = new Ingredient[buf.readVarInt()];
-			for (int i = 0; i < ingredients.length; i++) {
-				ingredients[i] = Ingredient.fromNetwork(buf);
-			}
-			Ingredient[] catalysts = new Ingredient[buf.readVarInt()];
-			for (int i = 0; i < catalysts.length; i++) {
-				catalysts[i] = Ingredient.fromNetwork(buf);
-			}
-			Ingredient reagent = Ingredient.fromNetwork(buf);
-			int mana = buf.readVarInt();
-			ItemStack output = buf.readItem();
-			return new RunicAltarRecipe(output, reagent, mana, ingredients, catalysts);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RunicAltarRecipe recipe) {
-			buf.writeVarInt(recipe.getIngredients().size());
-			for (Ingredient ingredient : recipe.getIngredients()) {
-				ingredient.toNetwork(buf);
-			}
-			buf.writeVarInt(recipe.getCatalysts().size());
-			for (Ingredient catalyst : recipe.getCatalysts()) {
-				catalyst.toNetwork(buf);
-			}
-			recipe.getReagent().toNetwork(buf);
-			buf.writeVarInt(recipe.getMana());
-			buf.writeItem(recipe.getOutput());
+		public StreamCodec<RegistryFriendlyByteBuf, RunicAltarRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

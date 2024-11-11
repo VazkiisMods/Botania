@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.mojang.serialization.Codec;
-
-import net.minecraft.core.RegistryAccess;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,9 +37,9 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		int first = -1;
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			Item item = stack.getItem();
 
@@ -67,8 +67,10 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 	}
 
 	private static class Serializer implements WrappingRecipeSerializer<WandOfTheForestRecipe> {
-		public static final Codec<WandOfTheForestRecipe> CODEC = SHAPED_RECIPE.codec()
+		public static final MapCodec<WandOfTheForestRecipe> CODEC = SHAPED_RECIPE.codec()
 				.xmap(WandOfTheForestRecipe::new, Function.identity());
+		public static final StreamCodec<RegistryFriendlyByteBuf, WandOfTheForestRecipe> STREAM_CODEC = SHAPED_RECIPE.streamCodec()
+				.map(WandOfTheForestRecipe::new, Function.identity());
 
 		@Override
 		public WandOfTheForestRecipe wrap(Recipe<?> recipe) {
@@ -79,19 +81,13 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 		}
 
 		@Override
-		public Codec<WandOfTheForestRecipe> codec() {
+		public MapCodec<WandOfTheForestRecipe> codec() {
 			return CODEC;
 		}
 
-		@NotNull
 		@Override
-		public WandOfTheForestRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-			return new WandOfTheForestRecipe(SHAPED_RECIPE.fromNetwork(buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull WandOfTheForestRecipe recipe) {
-			SHAPED_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, WandOfTheForestRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

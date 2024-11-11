@@ -9,21 +9,26 @@
 package vazkii.botania.common.crafting.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-public class NbtOutputRecipe<C extends Container> implements Recipe<C> {
+public class NbtOutputRecipe<C extends RecipeInput> implements Recipe<C> {
 	public static final RecipeSerializer<NbtOutputRecipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
 
 	private final Recipe<C> recipe;
@@ -40,7 +45,7 @@ public class NbtOutputRecipe<C extends Container> implements Recipe<C> {
 	}
 
 	@Override
-	public ItemStack assemble(C container, RegistryAccess registryAccess) {
+	public ItemStack assemble(C container, HolderLookup.Provider registryAccess) {
 		ItemStack result = recipe.assemble(container, registryAccess);
 		result.setTag(nbt);
 		return result;
@@ -52,7 +57,7 @@ public class NbtOutputRecipe<C extends Container> implements Recipe<C> {
 	}
 
 	@Override
-	public ItemStack getResultItem(RegistryAccess registryAccess) {
+	public ItemStack getResultItem(HolderLookup.Provider registryAccess) {
 		return recipe.getResultItem(registryAccess);
 	}
 
@@ -67,28 +72,24 @@ public class NbtOutputRecipe<C extends Container> implements Recipe<C> {
 	}
 
 	private static class Serializer implements RecipeSerializer<NbtOutputRecipe<?>> {
-		public static final Codec<NbtOutputRecipe<?>> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<NbtOutputRecipe<?>> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				Recipe.CODEC.fieldOf("recipe").forGetter(r -> r.recipe),
 				CompoundTag.CODEC.fieldOf("nbt").forGetter(r -> r.nbt)
 		).apply(instance, NbtOutputRecipe::new));
+		public static final StreamCodec<RegistryFriendlyByteBuf, NbtOutputRecipe<?>> STREAM_CODEC = StreamCodec.composite(
+				Recipe.STREAM_CODEC, r -> r.recipe,
+				CompoundTag.STREAM_CODEC, r -> r.nbt,
+				NbtOutputRecipe::new
+		);
 
 		@Override
-		public Codec<NbtOutputRecipe<?>> codec() {
+		public MapCodec<NbtOutputRecipe<?>> codec() {
 			return CODEC;
 		}
 
-		@NotNull
 		@Override
-		public NbtOutputRecipe<?> fromNetwork(@NotNull FriendlyByteBuf buffer) {
-			var recipe = RecipeUtils.recipeFromNetwork(buffer);
-			var nbt = buffer.readNbt();
-			return new NbtOutputRecipe<>(recipe, nbt);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull NbtOutputRecipe<?> recipe) {
-			RecipeUtils.recipeToNetwork(buffer, recipe.recipe);
-			buffer.writeNbt(recipe.nbt);
+		public StreamCodec<RegistryFriendlyByteBuf, NbtOutputRecipe<?>> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }
