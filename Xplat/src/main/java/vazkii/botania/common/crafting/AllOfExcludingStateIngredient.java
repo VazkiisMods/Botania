@@ -14,8 +14,9 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -138,6 +139,11 @@ public class AllOfExcludingStateIngredient implements StateIngredient {
 				StateIngredients.TYPED_CODEC.listOf()
 						.optionalFieldOf("excluding", List.of()).forGetter(AllOfExcludingStateIngredient::getExclusions)
 		).apply(instance, AllOfExcludingStateIngredient::new));
+		public static final StreamCodec<RegistryFriendlyByteBuf, AllOfExcludingStateIngredient> STREAM_CODEC = StreamCodec.composite(
+				StateIngredients.TYPED_STREAM_CODEC.apply(ByteBufCodecs.list()), AllOfExcludingStateIngredient::getIngredients,
+				StateIngredients.TYPED_STREAM_CODEC.apply(ByteBufCodecs.list()), AllOfExcludingStateIngredient::getExclusions,
+				AllOfExcludingStateIngredient::new
+		);
 
 		@Override
 		public MapCodec<AllOfExcludingStateIngredient> codec() {
@@ -145,30 +151,8 @@ public class AllOfExcludingStateIngredient implements StateIngredient {
 		}
 
 		@Override
-		public AllOfExcludingStateIngredient fromNetwork(FriendlyByteBuf buffer) {
-			int numIngredients = buffer.readInt();
-			NonNullList<StateIngredient> ingredients = NonNullList.withSize(numIngredients, StateIngredients.NONE);
-			for (int i = 0; i < numIngredients; i++) {
-				ingredients.set(i, StateIngredients.fromNetwork(buffer));
-			}
-			int numExclusions = buffer.readInt();
-			NonNullList<StateIngredient> exclusions = NonNullList.withSize(numExclusions, StateIngredients.NONE);
-			for (int i = 0; i < numExclusions; i++) {
-				exclusions.set(i, StateIngredients.fromNetwork(buffer));
-			}
-			return new AllOfExcludingStateIngredient(ingredients, exclusions);
-		}
-
-		@Override
-		public void toNetwork(FriendlyByteBuf buffer, AllOfExcludingStateIngredient allOfExcludingStateIngredient) {
-			buffer.writeInt(allOfExcludingStateIngredient.getIngredients().size());
-			for (var ingredient : allOfExcludingStateIngredient.getIngredients()) {
-				StateIngredients.toNetwork(buffer, ingredient);
-			}
-			buffer.writeInt(allOfExcludingStateIngredient.getExclusions().size());
-			for (var ingredient : allOfExcludingStateIngredient.getExclusions()) {
-				StateIngredients.toNetwork(buffer, ingredient);
-			}
+		public StreamCodec<RegistryFriendlyByteBuf, AllOfExcludingStateIngredient> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

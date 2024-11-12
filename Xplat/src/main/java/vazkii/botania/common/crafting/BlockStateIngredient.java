@@ -12,8 +12,10 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -106,6 +108,10 @@ public record BlockStateIngredient(BlockState state) implements StateIngredient 
 		public static final MapCodec<BlockStateIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				BlockState.CODEC.fieldOf("state").forGetter(BlockStateIngredient::state)
 		).apply(instance, BlockStateIngredient::new));
+		public static final StreamCodec<RegistryFriendlyByteBuf, BlockStateIngredient> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.VAR_INT.map(Block::stateById, Block::getId), BlockStateIngredient::state,
+				BlockStateIngredient::new
+		);
 
 		@Override
 		public MapCodec<BlockStateIngredient> codec() {
@@ -113,18 +119,8 @@ public record BlockStateIngredient(BlockState state) implements StateIngredient 
 		}
 
 		@Override
-		public BlockStateIngredient fromNetwork(FriendlyByteBuf buffer) {
-			int blockStateId = buffer.readInt();
-			BlockState state = Block.BLOCK_STATE_REGISTRY.byId(blockStateId);
-			if (state == null) {
-				throw new IllegalArgumentException("Unknown block state ID: " + blockStateId);
-			}
-			return new BlockStateIngredient(state);
-		}
-
-		@Override
-		public void toNetwork(FriendlyByteBuf buffer, BlockStateIngredient ingredient) {
-			buffer.writeInt(Block.getId(ingredient.state()));
+		public StreamCodec<RegistryFriendlyByteBuf, BlockStateIngredient> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

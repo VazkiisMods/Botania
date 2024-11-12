@@ -10,15 +10,15 @@ package vazkii.botania.common.crafting;
 
 import com.mojang.serialization.Codec;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.recipe.StateIngredient;
@@ -37,6 +37,9 @@ public class StateIngredients {
 			.getRegistry(BotaniaRegistries.STATE_INGREDIENT_TYPE)
 			.byNameCodec()
 			.dispatch("type", StateIngredient::getType, StateIngredientType::codec));
+	public static final StreamCodec<RegistryFriendlyByteBuf, StateIngredient> TYPED_STREAM_CODEC = ByteBufCodecs
+			.registry(BotaniaRegistries.STATE_INGREDIENT_TYPE)
+			.dispatch(StateIngredient::getType, StateIngredientType::streamCodec);
 
 	public static final StateIngredientType<BlockTypeIngredient> BLOCK_TYPE = new BlockTypeIngredient.Type();
 	public static final StateIngredientType<BlockStateIngredient> BLOCK_STATE = new BlockStateIngredient.Type();
@@ -110,22 +113,5 @@ public class StateIngredients {
 
 	public static StateIngredient anyOf(StateIngredient... ingredients) {
 		return new AnyOfStateIngredient(List.of(ingredients));
-	}
-
-	public static StateIngredient fromNetwork(@NotNull FriendlyByteBuf buf) {
-		ResourceLocation typeId = buf.readResourceLocation();
-		return RegistryHelper.getRegistry(BotaniaRegistries.STATE_INGREDIENT_TYPE).getOptional(typeId)
-				.orElseThrow(() -> new IllegalArgumentException("Unknown state ingredient type: " + typeId))
-				.fromNetwork(buf);
-	}
-
-	public static void toNetwork(@NotNull FriendlyByteBuf buffer, StateIngredient recipeCatalyst) {
-		@SuppressWarnings("unchecked")
-		StateIngredientType<StateIngredient> type = (StateIngredientType<StateIngredient>) recipeCatalyst.getType();
-		buffer.writeResourceLocation(RegistryHelper.getRegistry(BotaniaRegistries.STATE_INGREDIENT_TYPE)
-				.getResourceKey(type)
-				.orElseThrow(() -> new IllegalArgumentException("Unregistered state ingredient type: " + type))
-				.location());
-		type.toNetwork(buffer, recipeCatalyst);
 	}
 }
