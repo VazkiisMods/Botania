@@ -9,6 +9,7 @@
 package vazkii.botania.network.serverbound;
 
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -16,11 +17,12 @@ import net.minecraft.world.item.ItemStack;
 import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
-import vazkii.botania.network.BotaniaPacket;
 
-public class JumpPacket implements BotaniaPacket {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+public class JumpPacket implements CustomPacketPayload {
 	public static final JumpPacket INSTANCE = new JumpPacket();
-	public static final Type<JumpPacket> ID = BotaniaPacket.createType("jmp");
+	public static final Type<JumpPacket> ID = new Type<>(botaniaRL("jmp"));
 	public static final StreamCodec<ByteBuf, JumpPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override

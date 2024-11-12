@@ -12,12 +12,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.StreamCodec;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import vazkii.botania.client.core.SkyblockWorldInfo;
-import vazkii.botania.network.BotaniaPacket;
 
-public class GogWorldPacket implements BotaniaPacket {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+public class GogWorldPacket implements CustomPacketPayload {
 	public static final GogWorldPacket INSTANCE = new GogWorldPacket();
-	public static final Type<GogWorldPacket> ID = BotaniaPacket.createType("gog");
+	public static final Type<GogWorldPacket> ID = new Type<>(botaniaRL("gog"));
 	public static final StreamCodec<ByteBuf, GogWorldPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override

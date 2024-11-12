@@ -9,16 +9,18 @@
 package vazkii.botania.network.serverbound;
 
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
-import vazkii.botania.network.BotaniaPacket;
 
-public class LeftClickPacket implements BotaniaPacket {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+public class LeftClickPacket implements CustomPacketPayload {
 	public static final LeftClickPacket INSTANCE = new LeftClickPacket();
-	public static final Type<LeftClickPacket> ID = BotaniaPacket.createType("lc");
+	public static final Type<LeftClickPacket> ID = new Type<>(botaniaRL("lc"));
 	public static final StreamCodec<ByteBuf, LeftClickPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override

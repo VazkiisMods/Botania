@@ -34,6 +34,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -103,7 +104,6 @@ import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
 import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
-import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
@@ -418,19 +418,19 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet) {
+	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet) {
 		return ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
 	}
 
 	@Override
-	public void sendToPlayer(Player player, BotaniaPacket packet) {
+	public void sendToPlayer(Player player, CustomPacketPayload packet) {
 		if (player instanceof ServerPlayer serverPlayer) {
 			ServerPlayNetworking.send(serverPlayer, packet.getFabricId(), packet.toBuf());
 		}
 	}
 
 	@Override
-	public void sendToNear(Level level, BlockPos pos, BotaniaPacket packet) {
+	public void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet) {
 		var pkt = ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
 		for (var player : PlayerLookup.tracking((ServerLevel) level, pos)) {
 			if (player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64) {
@@ -440,7 +440,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public void sendToTracking(Entity e, BotaniaPacket packet) {
+	public void sendToTracking(Entity e, CustomPacketPayload packet) {
 		var pkt = ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
 		PlayerLookup.tracking(e).forEach(p -> p.connection.send(pkt));
 		if (e instanceof ServerPlayer) {
