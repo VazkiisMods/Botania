@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -35,7 +36,7 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 
 	@Override
 	public void sendToServer(CustomPacketPayload packet) {
-		ForgePacketHandler.CHANNEL.sendToServer(packet);
+		PacketDistributor.sendToServer(packet);
 	}
 
 	@Nullable
