@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.SlotAccess;
@@ -64,9 +65,9 @@ public class BaubleBoxItem extends Item {
 
 				@Override
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-					return new BaubleBoxContainer(syncId, inv, stack);
+					return new BaubleBoxContainer(syncId, inv, hand == InteractionHand.MAIN_HAND);
 				}
-			}, buf -> buf.writeBoolean(hand == InteractionHand.MAIN_HAND));
+			}, hand == InteractionHand.MAIN_HAND, ByteBufCodecs.BOOL);
 		}
 		return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), world.isClientSide());
 	}
