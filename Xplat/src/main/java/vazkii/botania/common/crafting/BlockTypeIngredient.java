@@ -12,8 +12,10 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -77,8 +79,12 @@ public record BlockTypeIngredient(Block block) implements StateIngredient {
 
 	public static class Type implements StateIngredientType<BlockTypeIngredient> {
 		public static final MapCodec<BlockTypeIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-				ResourceLocation.CODEC.fieldOf("block").forGetter(bi -> BuiltInRegistries.BLOCK.getKey(bi.block()))
-		).apply(instance, id -> new BlockTypeIngredient(BuiltInRegistries.BLOCK.get(id))));
+				BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block").forGetter(BlockTypeIngredient::block)
+		).apply(instance, BlockTypeIngredient::new));
+		public static final StreamCodec<RegistryFriendlyByteBuf, BlockTypeIngredient> STREAM_CODEC = StreamCodec.composite(
+				ByteBufCodecs.registry(Registries.BLOCK), BlockTypeIngredient::block,
+				BlockTypeIngredient::new
+		);
 
 		@Override
 		public MapCodec<BlockTypeIngredient> codec() {
@@ -86,15 +92,8 @@ public record BlockTypeIngredient(Block block) implements StateIngredient {
 		}
 
 		@Override
-		public BlockTypeIngredient fromNetwork(FriendlyByteBuf buffer) {
-			ResourceLocation blockId = buffer.readResourceLocation();
-			Block block = BuiltInRegistries.BLOCK.get(blockId);
-			return new BlockTypeIngredient(block);
-		}
-
-		@Override
-		public void toNetwork(FriendlyByteBuf buffer, BlockTypeIngredient ingredient) {
-			buffer.writeResourceLocation(BuiltInRegistries.BLOCK.getKey(ingredient.block()));
+		public StreamCodec<RegistryFriendlyByteBuf, BlockTypeIngredient> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

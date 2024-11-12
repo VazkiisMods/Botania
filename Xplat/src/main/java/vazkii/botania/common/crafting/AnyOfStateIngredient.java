@@ -13,8 +13,9 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -107,6 +108,10 @@ public class AnyOfStateIngredient implements StateIngredient {
 				ExtraCodecs.nonEmptyList(StateIngredients.TYPED_CODEC.listOf())
 						.fieldOf("ingredients").forGetter(AnyOfStateIngredient::getIngredients)
 		).apply(instance, AnyOfStateIngredient::new));
+		public static final StreamCodec<RegistryFriendlyByteBuf, AnyOfStateIngredient> STREAM_CODEC = StreamCodec.composite(
+				StateIngredients.TYPED_STREAM_CODEC.apply(ByteBufCodecs.list()), AnyOfStateIngredient::getIngredients,
+				AnyOfStateIngredient::new
+		);
 
 		@Override
 		public MapCodec<AnyOfStateIngredient> codec() {
@@ -114,21 +119,8 @@ public class AnyOfStateIngredient implements StateIngredient {
 		}
 
 		@Override
-		public AnyOfStateIngredient fromNetwork(FriendlyByteBuf buffer) {
-			int numIngredients = buffer.readInt();
-			NonNullList<StateIngredient> ingredients = NonNullList.withSize(numIngredients, StateIngredients.NONE);
-			for (int i = 0; i < numIngredients; i++) {
-				ingredients.set(i, StateIngredients.fromNetwork(buffer));
-			}
-			return new AnyOfStateIngredient(ingredients);
-		}
-
-		@Override
-		public void toNetwork(FriendlyByteBuf buffer, AnyOfStateIngredient anyOfStateIngredient) {
-			buffer.writeInt(anyOfStateIngredient.getIngredients().size());
-			for (var ingredient : anyOfStateIngredient.getIngredients()) {
-				StateIngredients.toNetwork(buffer, ingredient);
-			}
+		public StreamCodec<RegistryFriendlyByteBuf, AnyOfStateIngredient> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

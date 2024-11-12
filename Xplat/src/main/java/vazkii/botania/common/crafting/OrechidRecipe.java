@@ -19,6 +19,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -128,11 +129,13 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 			return DataResult.success(orechidRecipe);
 		});
 		public static final StreamCodec<RegistryFriendlyByteBuf, OrechidRecipe> STREAM_CODEC = StreamCodec.composite(
-				ByteBufCodecs.fromCodec(StateIngredients.TYPED_CODEC), OrechidRecipe::getInput,
-				ByteBufCodecs.fromCodec(StateIngredients.TYPED_CODEC), OrechidRecipe::getOutput,
+				StateIngredients.TYPED_STREAM_CODEC, OrechidRecipe::getInput,
+				StateIngredients.TYPED_STREAM_CODEC, OrechidRecipe::getOutput,
 				ByteBufCodecs.VAR_INT, OrechidRecipe::getWeight,
 				ByteBufCodecs.VAR_INT, OrechidRecipe::getWeightBonus,
-				ByteBufCodecs.optional(ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME))), OrechidRecipe::getBiomes,
+				ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC.map(
+						id -> TagKey.create(Registries.BIOME, id), TagKey::location
+				)), OrechidRecipe::getBiomes,
 				(in, out, weight, weightBonus, biomes) ->
 						new OrechidRecipe(in, out, weight, null, weightBonus, biomes.orElse(null))
 		);
