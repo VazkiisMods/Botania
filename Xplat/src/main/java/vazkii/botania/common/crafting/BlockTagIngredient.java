@@ -14,7 +14,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -95,6 +96,10 @@ public record BlockTagIngredient(TagKey<Block> tag) implements StateIngredient {
 		public static final MapCodec<BlockTagIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				TagKey.hashedCodec(Registries.BLOCK).fieldOf("tag").forGetter(BlockTagIngredient::tag)
 		).apply(instance, BlockTagIngredient::new));
+		public static final StreamCodec<RegistryFriendlyByteBuf, BlockTagIngredient> STREAM_CODEC = StreamCodec.composite(
+				ResourceLocation.STREAM_CODEC.map(id -> TagKey.create(Registries.BLOCK, id), TagKey::location), BlockTagIngredient::tag,
+				BlockTagIngredient::new
+		);
 
 		@Override
 		public MapCodec<BlockTagIngredient> codec() {
@@ -102,15 +107,8 @@ public record BlockTagIngredient(TagKey<Block> tag) implements StateIngredient {
 		}
 
 		@Override
-		public BlockTagIngredient fromNetwork(FriendlyByteBuf buffer) {
-			ResourceLocation tagId = buffer.readResourceLocation();
-			TagKey<Block> blockTagKey = TagKey.create(BuiltInRegistries.BLOCK.key(), tagId);
-			return new BlockTagIngredient(blockTagKey);
-		}
-
-		@Override
-		public void toNetwork(FriendlyByteBuf buffer, BlockTagIngredient ingredient) {
-			buffer.writeResourceLocation(ingredient.tag().location());
+		public StreamCodec<RegistryFriendlyByteBuf, BlockTagIngredient> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }
