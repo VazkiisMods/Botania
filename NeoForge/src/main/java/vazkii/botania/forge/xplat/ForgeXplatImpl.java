@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
@@ -102,7 +103,6 @@ import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
 import vazkii.botania.forge.network.ForgePacketHandler;
-import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.HashMap;
@@ -385,12 +385,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet) {
+	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet) {
 		return (Packet<ClientGamePacketListener>) ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
 	}
 
 	@Override
-	public void sendToPlayer(Player player, BotaniaPacket packet) {
+	public void sendToPlayer(Player player, CustomPacketPayload packet) {
 		if (!player.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
 			ForgePacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
 		}
@@ -416,14 +416,14 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	);
 
 	@Override
-	public void sendToNear(Level level, BlockPos pos, BotaniaPacket packet) {
+	public void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet) {
 		if (!level.isClientSide) {
 			ForgePacketHandler.CHANNEL.send(TRACKING_CHUNK_AND_NEAR.with(() -> Pair.of(level, pos)), packet);
 		}
 	}
 
 	@Override
-	public void sendToTracking(Entity e, BotaniaPacket packet) {
+	public void sendToTracking(Entity e, CustomPacketPayload packet) {
 		if (!e.level().isClientSide) {
 			ForgePacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), packet);
 		}

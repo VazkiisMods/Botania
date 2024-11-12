@@ -6,6 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -69,7 +70,6 @@ import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
-import vazkii.botania.network.BotaniaPacket;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -159,10 +159,10 @@ public interface XplatAbstractions {
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 
 	// Networking
-	Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet);
-	void sendToPlayer(Player player, BotaniaPacket packet);
-	void sendToNear(Level level, BlockPos pos, BotaniaPacket packet);
-	void sendToTracking(Entity e, BotaniaPacket packet);
+	Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet);
+	void sendToPlayer(Player player, CustomPacketPayload packet);
+	void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet);
+	void sendToTracking(Entity e, CustomPacketPayload packet);
 
 	// Registrations
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);

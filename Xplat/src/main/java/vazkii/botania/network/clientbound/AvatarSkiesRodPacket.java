@@ -13,11 +13,13 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import vazkii.botania.common.item.rod.SkiesRodItem;
-import vazkii.botania.network.BotaniaPacket;
 
-public record AvatarSkiesRodPacket(boolean elytra) implements BotaniaPacket {
-	public static final Type<AvatarSkiesRodPacket> ID = BotaniaPacket.createType("atr");
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+public record AvatarSkiesRodPacket(boolean elytra) implements CustomPacketPayload {
+	public static final Type<AvatarSkiesRodPacket> ID = new Type<>(botaniaRL("atr"));
 	public static final StreamCodec<ByteBuf, AvatarSkiesRodPacket> STREAM_CODEC = ByteBufCodecs.BOOL
 			.map(AvatarSkiesRodPacket::new, AvatarSkiesRodPacket::elytra);
 
