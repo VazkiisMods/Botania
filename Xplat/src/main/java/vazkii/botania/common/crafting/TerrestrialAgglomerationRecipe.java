@@ -29,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe {
@@ -104,7 +103,7 @@ public class TerrestrialAgglomerationRecipe implements vazkii.botania.api.recipe
 				ItemStack.CODEC.fieldOf("result").forGetter(TerrestrialAgglomerationRecipe::getOutput)
 		).apply(instance, TerrestrialAgglomerationRecipe::of));
 		public static final StreamCodec<RegistryFriendlyByteBuf, TerrestrialAgglomerationRecipe> STREAM_CODEC = StreamCodec.composite(
-				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), TerrestrialAgglomerationRecipe::getIngredients,
+				Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), TerrestrialAgglomerationRecipe::getIngredients,
 				ByteBufCodecs.VAR_INT, TerrestrialAgglomerationRecipe::getMana,
 				ItemStack.STREAM_CODEC, TerrestrialAgglomerationRecipe::getOutput,
 				TerrestrialAgglomerationRecipe::of

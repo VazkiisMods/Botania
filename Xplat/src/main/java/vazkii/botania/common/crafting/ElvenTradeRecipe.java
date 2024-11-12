@@ -122,7 +122,7 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 		).apply(instance, ElvenTradeRecipe::new));
 		public static final StreamCodec<RegistryFriendlyByteBuf, ElvenTradeRecipe> STREAM_CODEC = StreamCodec.composite(
 				ItemStack.LIST_STREAM_CODEC, ElvenTradeRecipe::getOutputs,
-				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), ElvenTradeRecipe::getIngredients,
+				Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ElvenTradeRecipe::getIngredients,
 				ElvenTradeRecipe::new
 		);
 
