@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.gui.bag;
 
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
@@ -28,18 +27,13 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.FlowerPouchItem;
 
 public class FlowerPouchContainer extends AbstractContainerMenu {
-	public static FlowerPouchContainer fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
-		InteractionHand hand = buf.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-		return new FlowerPouchContainer(windowId, inv, inv.player.getItemInHand(hand));
-	}
-
 	private final ItemStack bag;
 	public final Container flowerBagInv;
 
-	public FlowerPouchContainer(int windowId, Inventory playerInv, ItemStack bag) {
+	public FlowerPouchContainer(int windowId, Inventory playerInv, boolean isMainHand) {
 		super(BotaniaItems.FLOWER_BAG_CONTAINER, windowId);
 
-		this.bag = bag;
+		this.bag = playerInv.player.getItemInHand(isMainHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
 		if (!playerInv.player.level().isClientSide) {
 			flowerBagInv = FlowerPouchItem.getInventory(bag);
 		} else {

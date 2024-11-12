@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -137,9 +138,9 @@ public class FlowerPouchItem extends Item {
 
 				@Override
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-					return new FlowerPouchContainer(syncId, inv, stack);
+					return new FlowerPouchContainer(syncId, inv, hand == InteractionHand.MAIN_HAND);
 				}
-			}, buf -> buf.writeBoolean(hand == InteractionHand.MAIN_HAND));
+			}, hand == InteractionHand.MAIN_HAND, ByteBufCodecs.BOOL);
 		}
 		return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), world.isClientSide());
 	}
