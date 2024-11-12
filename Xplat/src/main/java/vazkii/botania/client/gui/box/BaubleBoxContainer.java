@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.gui.box;
 
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
@@ -27,19 +26,14 @@ import vazkii.botania.common.item.BaubleBoxItem;
 import vazkii.botania.common.item.BotaniaItems;
 
 public class BaubleBoxContainer extends AbstractContainerMenu {
-	public static BaubleBoxContainer fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
-		InteractionHand hand = buf.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-		return new BaubleBoxContainer(windowId, inv, inv.player.getItemInHand(hand));
-	}
-
 	private final ItemStack box;
 
-	public BaubleBoxContainer(int windowId, Inventory playerInv, ItemStack box) {
+	public BaubleBoxContainer(int windowId, Inventory playerInv, boolean isMainHand) {
 		super(BotaniaItems.BAUBLE_BOX_CONTAINER, windowId);
 		int i;
 		int j;
 
-		this.box = box;
+		this.box = playerInv.player.getItemInHand(isMainHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
 		Container baubleBoxInv;
 		if (!playerInv.player.level().isClientSide) {
 			baubleBoxInv = BaubleBoxItem.getInventory(box);
