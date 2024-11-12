@@ -13,6 +13,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -392,40 +393,21 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public void sendToPlayer(Player player, CustomPacketPayload packet) {
 		if (!player.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
-			ForgePacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+			PacketDistributor.sendToPlayer(serverPlayer, packet);
 		}
 	}
-
-	private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(
-			(_d, pairSupplier) -> {
-				var pair = pairSupplier.get();
-				var level = pair.getFirst();
-				var blockpos = pair.getSecond();
-				var chunkpos = new ChunkPos(blockpos);
-				return packet -> {
-					var players = ((ServerChunkCache) level.getChunkSource()).chunkMap
-							.getPlayers(chunkpos, false);
-					for (var player : players) {
-						if (player.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) < 64 * 64) {
-							player.connection.send(packet);
-						}
-					}
-				};
-			},
-			NetworkDirection.PLAY_TO_CLIENT
-	);
 
 	@Override
 	public void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet) {
 		if (!level.isClientSide) {
-			ForgePacketHandler.CHANNEL.send(TRACKING_CHUNK_AND_NEAR.with(() -> Pair.of(level, pos)), packet);
+			PacketDistributor.sendToPlayersNear((ServerLevel) level, null, pos.getX(), pos.getY(), pos.getZ(), 64, packet);
 		}
 	}
 
 	@Override
 	public void sendToTracking(Entity e, CustomPacketPayload packet) {
 		if (!e.level().isClientSide) {
-			ForgePacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), packet);
+			PacketDistributor.sendToPlayersTrackingEntityAndSelf(e, packet);
 		}
 	}
 

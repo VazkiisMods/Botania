@@ -427,13 +427,13 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public void sendToPlayer(Player player, CustomPacketPayload packet) {
 		if (player instanceof ServerPlayer serverPlayer) {
-			ServerPlayNetworking.send(serverPlayer, packet.getFabricId(), packet.toBuf());
+			ServerPlayNetworking.send(serverPlayer, packet);
 		}
 	}
 
 	@Override
 	public void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet) {
-		var pkt = ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
+		var pkt = ServerPlayNetworking.createS2CPacket(packet);
 		for (var player : PlayerLookup.tracking((ServerLevel) level, pos)) {
 			if (player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64) {
 				player.connection.send(pkt);
@@ -443,7 +443,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void sendToTracking(Entity e, CustomPacketPayload packet) {
-		var pkt = ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
+		var pkt = ServerPlayNetworking.createS2CPacket(packet);
 		PlayerLookup.tracking(e).forEach(p -> p.connection.send(pkt));
 		if (e instanceof ServerPlayer) {
 			((ServerPlayer) e).connection.send(pkt);
