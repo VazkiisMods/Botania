@@ -8,25 +8,32 @@
  */
 package vazkii.botania.client.fx;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 import org.jetbrains.annotations.NotNull;
 
 public class WispParticleType extends ParticleType<WispParticleData> {
 	public WispParticleType() {
-		super(false, WispParticleData.DESERIALIZER);
+		super(false);
 	}
 
 	@NotNull
 	@Override
-	public Codec<WispParticleData> codec() {
+	public MapCodec<WispParticleData> codec() {
 		return WispParticleData.CODEC;
+	}
+
+	@Override
+	public StreamCodec<? super RegistryFriendlyByteBuf, WispParticleData> streamCodec() {
+		return WispParticleData.STREAM_CODEC;
 	}
 
 	public static class Factory implements ParticleProvider<WispParticleData> {
