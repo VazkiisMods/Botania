@@ -31,8 +31,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -487,8 +488,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
-		return new ExtendedScreenHandlerType<>(constructor::apply);
+	public <T extends AbstractContainerMenu, D> MenuType<T> createMenuType(TriFunction<Integer, Inventory, D, T> constructor, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec) {
+		return new ExtendedScreenHandlerType<>(constructor::apply, streamCodec);
 	}
 
 	@Nullable
@@ -502,8 +503,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> writeInitialData) {
-		var menuProvider = new ExtendedScreenHandlerFactory() {
+	public <D> void openMenu(ServerPlayer player, MenuProvider menu, D initialData, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec) {
+		var menuProvider = new ExtendedScreenHandlerFactory<D>() {
 			@Nullable
 			@Override
 			public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
@@ -516,8 +517,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 			}
 
 			@Override
-			public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-				writeInitialData.accept(buf);
+			public D getScreenOpeningData(ServerPlayer player) {
+				return initialData;
 			}
 		};
 		player.openMenu(menuProvider);

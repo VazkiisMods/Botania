@@ -6,7 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -71,7 +72,6 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.network.NetworkDirection;
-import net.neoforged.neoforge.network.NetworkHooks;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
@@ -455,8 +455,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
-		return IMenuTypeExtension.create(constructor::apply);
+	public <T extends AbstractContainerMenu, D> MenuType<T> createMenuType(TriFunction<Integer, Inventory, D, T> constructor, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec) {
+		return IMenuTypeExtension.create((windowId, inv, data) -> constructor.apply(windowId, inv, streamCodec.decode(data)));
 	}
 
 	@Nullable
@@ -470,8 +470,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> writeInitialData) {
-		NetworkHooks.openScreen(player, menu, writeInitialData);
+	public <D> void openMenu(ServerPlayer player, MenuProvider menu, D initialData, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec) {
+		player.openMenu(menu, buf -> streamCodec.encode(buf, initialData));
 	}
 
 	@Override
