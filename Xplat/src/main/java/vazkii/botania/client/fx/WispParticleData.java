@@ -8,22 +8,20 @@
  */
 package vazkii.botania.client.fx;
 
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
+import io.netty.buffer.ByteBuf;
 
 public class WispParticleData implements ParticleOptions {
-	public static final Codec<WispParticleData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public static final MapCodec<WispParticleData> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Codec.FLOAT.fieldOf("size").forGetter(d -> d.size),
 			Codec.FLOAT.fieldOf("r").forGetter(d -> d.r),
 			Codec.FLOAT.fieldOf("g").forGetter(d -> d.g),
@@ -34,6 +32,28 @@ public class WispParticleData implements ParticleOptions {
 			Codec.FLOAT.optionalFieldOf("gravity", 0.0f).forGetter(d -> d.gravity)
 	)
 			.apply(instance, WispParticleData::new));
+	public static final StreamCodec<ByteBuf, WispParticleData> STREAM_CODEC = StreamCodec.of(
+			(buf, d) -> {
+				buf.writeFloat(d.size);
+				buf.writeFloat(d.r);
+				buf.writeFloat(d.g);
+				buf.writeFloat(d.b);
+				buf.writeFloat(d.maxAgeMul);
+				buf.writeBoolean(d.depthTest);
+				buf.writeBoolean(d.noClip);
+				buf.writeFloat(d.gravity);
+			},
+			buf -> new WispParticleData(
+					buf.readFloat(),
+					buf.readFloat(),
+					buf.readFloat(),
+					buf.readFloat(),
+					buf.readFloat(),
+					buf.readBoolean(),
+					buf.readBoolean(),
+					buf.readFloat()
+			)
+	);
 	public final float size;
 	public final float r, g, b;
 	public final float maxAgeMul;
@@ -89,61 +109,4 @@ public class WispParticleData implements ParticleOptions {
 	public ParticleType<WispParticleData> getType() {
 		return BotaniaParticles.WISP;
 	}
-
-	@Override
-	public void writeToNetwork(FriendlyByteBuf buf) {
-		buf.writeFloat(size);
-		buf.writeFloat(r);
-		buf.writeFloat(g);
-		buf.writeFloat(b);
-		buf.writeFloat(maxAgeMul);
-		buf.writeBoolean(depthTest);
-		buf.writeBoolean(noClip);
-		buf.writeFloat(gravity);
-	}
-
-	@NotNull
-	@Override
-	public String writeToString() {
-		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %s",
-				BuiltInRegistries.PARTICLE_TYPE.getKey(getType()), this.size, this.r, this.g, this.b, this.maxAgeMul, this.depthTest);
-	}
-
-	public static final Deserializer<WispParticleData> DESERIALIZER = new Deserializer<>() {
-		@NotNull
-		@Override
-		public WispParticleData fromCommand(@NotNull ParticleType<WispParticleData> type, @NotNull StringReader reader) throws CommandSyntaxException {
-			reader.expect(' ');
-			float size = reader.readFloat();
-			reader.expect(' ');
-			float r = reader.readFloat();
-			reader.expect(' ');
-			float g = reader.readFloat();
-			reader.expect(' ');
-			float b = reader.readFloat();
-			reader.expect(' ');
-			float mam = reader.readFloat();
-			boolean depth = true;
-			if (reader.canRead()) {
-				reader.expect(' ');
-				depth = reader.readBoolean();
-			}
-			boolean noClip = false;
-			if (reader.canRead()) {
-				reader.expect(' ');
-				noClip = reader.readBoolean();
-			}
-			float gravity = 0;
-			if (reader.canRead()) {
-				reader.expect(' ');
-				gravity = reader.readFloat();
-			}
-			return new WispParticleData(size, r, g, b, mam, depth, noClip, gravity);
-		}
-
-		@Override
-		public WispParticleData fromNetwork(@NotNull ParticleType<WispParticleData> type, FriendlyByteBuf buf) {
-			return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean(), buf.readBoolean(), buf.readFloat());
-		}
-	};
 }
