@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -388,8 +389,8 @@ public final class BotaniaItems {
 	public static final Item questgiverMark = make(botaniaRL(LibItemNames.COSMETIC_PREFIX + "questgiver_mark"), new CosmeticBaubleItem(CosmeticBaubleItem.Variant.QUESTGIVER_MARK, unstackable()));
 	public static final Item thinkingHand = make(botaniaRL(LibItemNames.COSMETIC_PREFIX + "thinking_hand"), new CosmeticBaubleItem(CosmeticBaubleItem.Variant.THINKING_HAND, unstackable()));
 
-	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::fromNetwork);
-	public static final MenuType<FlowerPouchContainer> FLOWER_BAG_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(FlowerPouchContainer::fromNetwork);
+	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::new, ByteBufCodecs.BOOL);
+	public static final MenuType<FlowerPouchContainer> FLOWER_BAG_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(FlowerPouchContainer::new, ByteBufCodecs.BOOL);
 
 	private static <T extends Item> T make(ResourceLocation id, T item) {
 		var old = ALL.put(id, item);
