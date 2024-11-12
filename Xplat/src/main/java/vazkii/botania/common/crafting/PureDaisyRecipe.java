@@ -15,13 +15,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
@@ -96,6 +96,13 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 				Codec.BOOL.optionalFieldOf("copy_properties", false).forGetter(PureDaisyRecipe::isCopyInputProperties),
 				CacheableFunction.CODEC.optionalFieldOf("success_function").forGetter(PureDaisyRecipe::getSuccessFunction)
 		).apply(instance, PureDaisyRecipe::of));
+		public static final StreamCodec<RegistryFriendlyByteBuf, PureDaisyRecipe> STREAM_CODEC = StreamCodec.composite(
+				StateIngredients.TYPED_STREAM_CODEC, PureDaisyRecipe::getInput,
+				StateIngredients.TYPED_STREAM_CODEC, PureDaisyRecipe::getOutput,
+				ByteBufCodecs.VAR_INT, PureDaisyRecipe::getTime,
+				ByteBufCodecs.BOOL, PureDaisyRecipe::isCopyInputProperties,
+				(input, output, time, copyInputProperties) -> new PureDaisyRecipe(input, output, time, copyInputProperties, null)
+		);
 
 		@Override
 		public MapCodec<PureDaisyRecipe> codec() {
@@ -104,23 +111,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 
 		@Override
 		public StreamCodec<RegistryFriendlyByteBuf, PureDaisyRecipe> streamCodec() {
-			return StreamCodec.of(this::toNetwork, this::fromNetwork);
-		}
-
-		public void toNetwork(@NotNull RegistryFriendlyByteBuf buffer, PureDaisyRecipe recipe) {
-			StateIngredients.toNetwork(buffer, recipe.getInput());
-			StateIngredients.toNetwork(buffer, recipe.getOutput());
-			buffer.writeVarInt(recipe.getTime());
-			buffer.writeBoolean(recipe.isCopyInputProperties());
-		}
-
-		@NotNull
-		public PureDaisyRecipe fromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
-			var input = StateIngredients.fromNetwork(buffer);
-			var output = StateIngredients.fromNetwork(buffer);
-			var time = buffer.readVarInt();
-			var copyInputProperties = buffer.readBoolean();
-			return new PureDaisyRecipe(input, output, time, copyInputProperties, null);
+			return STREAM_CODEC;
 		}
 	}
 }

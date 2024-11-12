@@ -113,7 +113,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 				Ingredient.CONTENTS_STREAM_CODEC, ManaInfusionRecipe::getInput,
 				ByteBufCodecs.VAR_INT, ManaInfusionRecipe::getManaToConsume,
 				ByteBufCodecs.STRING_UTF8, ManaInfusionRecipe::getGroup,
-				ByteBufCodecs.fromCodec(StateIngredients.TYPED_CODEC), ManaInfusionRecipe::getRecipeCatalyst,
+				StateIngredients.TYPED_STREAM_CODEC, ManaInfusionRecipe::getRecipeCatalyst,
 				ManaInfusionRecipe::new
 		);
 
