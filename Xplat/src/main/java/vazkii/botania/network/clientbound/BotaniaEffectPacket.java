@@ -16,6 +16,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
@@ -33,16 +34,17 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.GrassSeedsItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.network.EffectType;
 
 import java.util.ArrayList;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
-public record BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int... args) implements BotaniaPacket {
+public record BotaniaEffectPacket(EffectType effectType, double x, double y, double z, int... args) implements CustomPacketPayload {
 
-	public static final Type<BotaniaEffectPacket> ID = BotaniaPacket.createType("eff");
+	public static final Type<BotaniaEffectPacket> ID = new Type<>(botaniaRL("eff"));
 	private static final int MAX_VARIABLE_ARGS = 128;
 	public static final StreamCodec<ByteBuf, BotaniaEffectPacket> STREAM_CODEC = StreamCodec.composite(
 			EffectType.STREAM_CODEC, BotaniaEffectPacket::effectType,

@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -24,7 +25,6 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.network.ForgePacketHandler;
-import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class ForgeClientXplatImpl implements ClientXplatAbstractions {
@@ -34,7 +34,7 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	}
 
 	@Override
-	public void sendToServer(BotaniaPacket packet) {
+	public void sendToServer(CustomPacketPayload packet) {
 		ForgePacketHandler.CHANNEL.sendToServer(packet);
 	}
 

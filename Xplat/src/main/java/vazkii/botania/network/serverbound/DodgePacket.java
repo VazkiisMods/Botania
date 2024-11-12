@@ -10,6 +10,7 @@ package vazkii.botania.network.serverbound;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -21,11 +22,12 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.network.BotaniaPacket;
 
-public class DodgePacket implements BotaniaPacket {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+public class DodgePacket implements CustomPacketPayload {
 	public static final DodgePacket INSTANCE = new DodgePacket();
-	public static final Type<DodgePacket> ID = BotaniaPacket.createType("do");
+	public static final Type<DodgePacket> ID = new Type<>(botaniaRL("do"));
 	public static final StreamCodec<ByteBuf, DodgePacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override

@@ -11,16 +11,18 @@ package vazkii.botania.network.clientbound;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 
 import io.netty.buffer.ByteBuf;
-import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPacket {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-	public static final Type<ItemAgePacket> ID = BotaniaPacket.createType("ia");
+public record ItemAgePacket(int entityId, int timeCounter) implements CustomPacketPayload {
+
+	public static final Type<ItemAgePacket> ID = new Type<>(botaniaRL("ia"));
 	public static final StreamCodec<ByteBuf, ItemAgePacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.VAR_INT, ItemAgePacket::entityId,
 			ByteBufCodecs.VAR_INT, ItemAgePacket::timeCounter,
