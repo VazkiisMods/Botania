@@ -10,16 +10,18 @@ package vazkii.botania.network.serverbound;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.network.BotaniaPacket;
 
-public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacket {
-	public static final Type<IndexKeybindRequestPacket> ID = BotaniaPacket.createType("idx");
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+public record IndexKeybindRequestPacket(ItemStack stack) implements CustomPacketPayload {
+	public static final Type<IndexKeybindRequestPacket> ID = new Type<>(botaniaRL("idx"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, IndexKeybindRequestPacket> STREAM_CODEC = ItemStack.STREAM_CODEC
 			.map(IndexKeybindRequestPacket::new, IndexKeybindRequestPacket::stack);
 

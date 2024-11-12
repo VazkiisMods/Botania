@@ -14,18 +14,20 @@ import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 
 import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.network.BotaniaPacket;
 
 import java.util.UUID;
 
-public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
-		BlockPos source, UUID bossInfoId) implements BotaniaPacket {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-	public static final Type<SpawnGaiaGuardianPacket> ID = BotaniaPacket.createType("spg");
+public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
+		BlockPos source, UUID bossInfoId) implements CustomPacketPayload {
+
+	public static final Type<SpawnGaiaGuardianPacket> ID = new Type<>(botaniaRL("spg"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, SpawnGaiaGuardianPacket> STREAM_CODEC = StreamCodec.composite(
 			ClientboundAddEntityPacket.STREAM_CODEC, SpawnGaiaGuardianPacket::inner,
 			ByteBufCodecs.VAR_INT, SpawnGaiaGuardianPacket::playerCount,

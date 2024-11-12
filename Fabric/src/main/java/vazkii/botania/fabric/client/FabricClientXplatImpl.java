@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
@@ -22,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
-import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class FabricClientXplatImpl implements ClientXplatAbstractions {
@@ -32,7 +32,7 @@ public class FabricClientXplatImpl implements ClientXplatAbstractions {
 	}
 
 	@Override
-	public void sendToServer(BotaniaPacket packet) {
+	public void sendToServer(CustomPacketPayload packet) {
 		ClientPlayNetworking.send(packet.getFabricId(), packet.toBuf());
 	}
 

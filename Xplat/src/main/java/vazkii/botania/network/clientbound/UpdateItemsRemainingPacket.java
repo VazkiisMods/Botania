@@ -14,18 +14,20 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.network.BotaniaPacket;
 
 import java.util.Optional;
 
-public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements BotaniaPacket {
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-	public static final Type<UpdateItemsRemainingPacket> ID = BotaniaPacket.createType("rem");
+public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements CustomPacketPayload {
+
+	public static final Type<UpdateItemsRemainingPacket> ID = new Type<>(botaniaRL("rem"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, UpdateItemsRemainingPacket> STREAM_CODEC = StreamCodec.composite(
 			ItemStack.STREAM_CODEC, UpdateItemsRemainingPacket::stack,
 			ByteBufCodecs.VAR_INT, UpdateItemsRemainingPacket::count,
