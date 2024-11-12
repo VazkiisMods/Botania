@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -17,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -29,7 +29,7 @@ public interface ClientXplatAbstractions {
 	void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay);
 
 	// Networking
-	void sendToServer(BotaniaPacket packet);
+	void sendToServer(CustomPacketPayload packet);
 
 	// Capability access
 	@Nullable
