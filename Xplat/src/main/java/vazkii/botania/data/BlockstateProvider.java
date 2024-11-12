@@ -446,7 +446,7 @@ public class BlockstateProvider implements DataProvider {
 						.put(TextureSlot.BOTTOM, getBlockTexture(b, "_scaffolding_bottom")), this.modelOutput);
 			}
 		});
-		for (DyeColor color : DyeColor.values()) {
+		ColorHelper.supportedColors().forEach(color -> {
 			Block wool = ColorHelper.WOOL_MAP.apply(color);
 			spreaderPaddingTemplate.create(prefix("block/" + color.getName() + "_spreader_padding"),
 					new TextureMapping()
@@ -454,7 +454,7 @@ public class BlockstateProvider implements DataProvider {
 							.put(TextureSlot.BACK, getBlockTexture(wool))
 							.put(TextureSlot.SIDE, getBlockTexture(wool)),
 					this.modelOutput);
-		}
+		});
 
 		var manaSlot = TextureSlotAccessor.make("mana");
 		TextureSlot[] manaPoolSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE };

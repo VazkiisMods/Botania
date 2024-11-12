@@ -7,13 +7,13 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.relic.DiceOfFateItem;
 import vazkii.botania.data.ItemTagProvider;
 
@@ -40,9 +40,9 @@ public class FabricItemTagProvider extends ItemTagProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		for (var color : DyeColor.values()) {
+		ColorHelper.supportedColors().forEach(color -> {
 			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color).asItem());
-		}
+		});
 		this.copy(FabricBlockTagProvider.MUSHROOMS, MUSHROOMS);
 		this.copy(FabricBlockTagProvider.QUARTZ_BLOCKS, QUARTZ_BLOCKS);
 		this.copy(FabricBlockTagProvider.GLASS, GLASS);

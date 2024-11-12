@@ -6,12 +6,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -40,9 +40,9 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.lavenderQuartz, BotaniaBlocks.redQuartz, BotaniaBlocks.elfQuartz, BotaniaBlocks.sunnyQuartz
 		);
 
-		for (DyeColor color : DyeColor.values()) {
+		ColorHelper.supportedColors().forEach(color -> {
 			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color));
-		}
+		});
 
 		tag(TagKey.create(Registries.BLOCK, new ResourceLocation("buzzier_bees", "flower_blacklist")))
 				.addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)

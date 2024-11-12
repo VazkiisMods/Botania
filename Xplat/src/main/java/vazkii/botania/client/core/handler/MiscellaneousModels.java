@@ -21,6 +21,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.bauble.ThirdEyeItem;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
@@ -33,7 +34,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.modelResourceLocation;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -66,7 +66,7 @@ public class MiscellaneousModels {
 	private static final ResourceLocation manaSpreaderScaffoldingId = prefix("block/mana_spreader_scaffolding");
 	private static final ResourceLocation elvenSpreaderScaffoldingId = prefix("block/elven_spreader_scaffolding");
 	private static final ResourceLocation gaiaSpreaderScaffoldingId = prefix("block/gaia_spreader_scaffolding");
-	private static final Map<DyeColor, ResourceLocation> spreaderPaddingIds = new EnumMap<>(Stream.of(DyeColor.values()).collect(Collectors.toMap(Function.identity(), color -> prefix("block/" + color.getSerializedName() + "_spreader_padding"))));
+	private static final Map<DyeColor, ResourceLocation> spreaderPaddingIds = new EnumMap<>(ColorHelper.supportedColors().collect(Collectors.toMap(Function.identity(), color -> prefix("block/" + color.getSerializedName() + "_spreader_padding"))));
 
 	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
 

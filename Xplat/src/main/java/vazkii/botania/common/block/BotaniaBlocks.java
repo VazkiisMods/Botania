@@ -50,6 +50,7 @@ import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.red_string.*;
 import vazkii.botania.common.entity.EnderAirBottleEntity;
 import vazkii.botania.common.entity.VineBallEntity;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.BlockItemWithSpecialRenderer;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
@@ -683,10 +684,10 @@ public final class BotaniaBlocks {
 				Triple.of(BotaniaBlocks::getPottedShinyFlower, LibBlockNames.POTTED_PREFIX, LibBlockNames.SHINY_FLOWER_SUFFIX),
 				Triple.of(BotaniaBlocks::getPottedMushroom, LibBlockNames.POTTED_PREFIX, LibBlockNames.MUSHROOM_SUFFIX)
 		).forEach(coloredBlockRegistration -> {
-			for (DyeColor dyeColor : DyeColor.values()) {
+			ColorHelper.supportedColors().forEach(dyeColor -> {
 				r.accept(coloredBlockRegistration.getLeft().apply(dyeColor),
 						prefix(coloredBlockRegistration.getMiddle() + dyeColor.getName() + coloredBlockRegistration.getRight()));
-			}
+			});
 		});
 
 		r.accept(defaultAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.DEFAULT.name().toLowerCase(Locale.ROOT)));
@@ -1850,7 +1851,7 @@ public final class BotaniaBlocks {
 	}
 
 	public static void registerFlowerPotPlants(BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer) {
-		Stream.of(DyeColor.values()).forEach(dyeColor -> {
+		ColorHelper.supportedColors().forEach(dyeColor -> {
 			consumer.accept(prefix(dyeColor.getName() + MYSTICAL_FLOWER_SUFFIX), () -> getPottedFlower(dyeColor));
 			consumer.accept(prefix(dyeColor.getName() + SHINY_FLOWER_SUFFIX), () -> getPottedShinyFlower(dyeColor));
 			consumer.accept(prefix(dyeColor.getName() + MUSHROOM_SUFFIX), () -> getPottedMushroom(dyeColor));

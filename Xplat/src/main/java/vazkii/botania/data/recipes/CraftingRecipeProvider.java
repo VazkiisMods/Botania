@@ -35,6 +35,7 @@ import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.recipe.*;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -42,7 +43,6 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.mixin.RecipeProviderAccessor;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -107,7 +107,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 	private void registerMain(Consumer<FinishedRecipe> consumer) {
 		InventoryChangeTrigger.TriggerInstance hasAnyDye = conditionsFromItems(
-				Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemLike[]::new)
+				ColorHelper.supportedColors().map(DyeItem::byColor).toArray(ItemLike[]::new)
 		);
 		MutableObject<FinishedRecipe> base = new MutableObject<>();
 		MutableObject<FinishedRecipe> gog = new MutableObject<>();
@@ -827,7 +827,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.phantomInk, 4)
 				.requires(BotaniaItems.manaPearl)
 				.requires(Ingredient.of(
-						Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemLike[]::new)
+						ColorHelper.supportedColors().map(DyeItem::byColor).toArray(ItemLike[]::new)
 				))
 				.requires(Ingredient.of(Items.GLASS, Items.WHITE_STAINED_GLASS, Items.ORANGE_STAINED_GLASS,
 						Items.MAGENTA_STAINED_GLASS, Items.LIGHT_BLUE_STAINED_GLASS, Items.YELLOW_STAINED_GLASS,
@@ -890,7 +890,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.unlockedBy("has_flower_item", conditionsFromItem(BotaniaFlowerBlocks.marimorphosis))
 					.save(consumer);
 		}
-		for (DyeColor color : DyeColor.values()) {
+		ColorHelper.supportedColors().forEach(color -> {
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getShinyFlower(color))
 					.requires(Items.GLOWSTONE_DUST)
 					.requires(Items.GLOWSTONE_DUST)
@@ -940,7 +940,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.group("botania:dye")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.getPetal(color)))
 					.save(consumer, "botania:dye_" + color.getName());
-		}
+		});
 	}
 
 	private void registerTools(Consumer<FinishedRecipe> consumer) {

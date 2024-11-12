@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public final class ColorHelper {
 	public static final Function<DyeColor, Block> STAINED_GLASS_MAP = color -> BuiltInRegistries.BLOCK.get(new ResourceLocation(color.getSerializedName() + "_stained_glass"));
@@ -60,6 +61,27 @@ public final class ColorHelper {
 			case BROWN -> 0x8B6543;
 			default -> color.getTextColor();
 		};
+	}
+
+	public static Stream<DyeColor> supportedColors() {
+		return Stream.of(
+				DyeColor.WHITE,
+				DyeColor.ORANGE,
+				DyeColor.MAGENTA,
+				DyeColor.LIGHT_BLUE,
+				DyeColor.YELLOW,
+				DyeColor.LIME,
+				DyeColor.PINK,
+				DyeColor.GRAY,
+				DyeColor.LIGHT_GRAY,
+				DyeColor.CYAN,
+				DyeColor.PURPLE,
+				DyeColor.BLUE,
+				DyeColor.BROWN,
+				DyeColor.GREEN,
+				DyeColor.RED,
+				DyeColor.BLACK
+		);
 	}
 
 	private ColorHelper() {}
