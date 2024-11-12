@@ -170,8 +170,8 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 			return DataResult.success(recipe);
 		});
 		public static final StreamCodec<RegistryFriendlyByteBuf, RunicAltarRecipe> STREAM_CODEC = StreamCodec.composite(
-				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), RunicAltarRecipe::getIngredients,
-				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), RunicAltarRecipe::getCatalysts,
+				Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), RunicAltarRecipe::getIngredients,
+				Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), RunicAltarRecipe::getCatalysts,
 				Ingredient.CONTENTS_STREAM_CODEC, RunicAltarRecipe::getReagent,
 				ByteBufCodecs.VAR_INT, RunicAltarRecipe::getMana,
 				ItemStack.STREAM_CODEC, RunicAltarRecipe::getOutput,

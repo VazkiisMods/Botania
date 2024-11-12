@@ -122,7 +122,7 @@ public class PetalApothecaryRecipe implements vazkii.botania.api.recipe.PetalApo
 		public static final StreamCodec<RegistryFriendlyByteBuf, PetalApothecaryRecipe> STREAM_CODEC = StreamCodec.composite(
 				ItemStack.STREAM_CODEC, PetalApothecaryRecipe::getOutput,
 				Ingredient.CONTENTS_STREAM_CODEC, PetalApothecaryRecipe::getReagent,
-				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), PetalApothecaryRecipe::getIngredients,
+				Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), PetalApothecaryRecipe::getIngredients,
 				PetalApothecaryRecipe::of
 		);
 
