@@ -138,7 +138,7 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 		).apply(instance, BotanicalBreweryRecipe::new));
 		public static final StreamCodec<RegistryFriendlyByteBuf, BotanicalBreweryRecipe> STREAM_CODEC = StreamCodec.composite(
 				ByteBufCodecs.registry(BotaniaRegistries.BREWS), BotanicalBreweryRecipe::getBrew,
-				ByteBufCodecs.collection(ArrayList::new, Ingredient.CONTENTS_STREAM_CODEC), BotanicalBreweryRecipe::getIngredients,
+				Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), BotanicalBreweryRecipe::getIngredients,
 				BotanicalBreweryRecipe::new
 		);
 

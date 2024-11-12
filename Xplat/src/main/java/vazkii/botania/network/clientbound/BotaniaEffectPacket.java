@@ -51,7 +51,7 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::x,
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::y,
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::z,
-			ByteBufCodecs.collection(ArrayList::new, ByteBufCodecs.VAR_INT).map(Ints::toArray, is -> new ArrayList<>(Ints.asList((int[])is))), BotaniaEffectPacket::args,
+			ByteBufCodecs.VAR_INT.apply(ByteBufCodecs.list()).map(Ints::toArray, is -> Ints.asList((int[])is)), BotaniaEffectPacket::args,
 			(type, x, y, z, args) -> new BotaniaEffectPacket(type, x, y, z, (int[])args)
 	);
 
