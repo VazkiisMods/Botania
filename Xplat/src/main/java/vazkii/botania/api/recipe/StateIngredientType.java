@@ -10,11 +10,11 @@ package vazkii.botania.api.recipe;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public interface StateIngredientType<T extends StateIngredient> {
 	MapCodec<T> codec();
 
-	T fromNetwork(FriendlyByteBuf buffer);
-
-	void toNetwork(FriendlyByteBuf buffer, T ingredient);
+	StreamCodec<RegistryFriendlyByteBuf, T> streamCodec();
 }
