@@ -78,10 +78,10 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 		VertexConsumer buffer = buffers.getBuffer(Sheets.translucentItemSheet());
 		Matrix4f model = ms.last().pose();
 		Matrix3f normal = ms.last().normal();
-		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV1()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.vertex(model, x + width, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV1()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.vertex(model, x + width, y, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV0()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.vertex(model, x, y, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV0()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		buffer.addVertex(model, x, y + height, 0).setColor(1, 1, 1, alpha).setUv(icon.getU0(), icon.getV1()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
+		buffer.addVertex(model, x + width, y + height, 0).setColor(1, 1, 1, alpha).setUv(icon.getU1(), icon.getV1()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
+		buffer.addVertex(model, x + width, y, 0).setColor(1, 1, 1, alpha).setUv(icon.getU1(), icon.getV0()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
+		buffer.addVertex(model, x, y, 0).setColor(1, 1, 1, alpha).setUv(icon.getU0(), icon.getV0()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
 	}
 
 }

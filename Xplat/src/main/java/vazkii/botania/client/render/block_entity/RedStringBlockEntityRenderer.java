@@ -110,12 +110,11 @@ public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implem
 		int r = (color >> 16) & 0xFF;
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
-		buffer.vertex(ms.last().pose(), x, y, z).color(r, g, b, a);
+		buffer.addVertex(ms.last().pose(), x, y, z).setColor(r, g, b, a);
 		switch (dir.getAxis().getPlane()) {
-			case HORIZONTAL -> buffer.normal(ms.last().normal(), 0, 1, 0);
-			case VERTICAL -> buffer.normal(ms.last().normal(), 1, 0, 0);
+			case HORIZONTAL -> buffer.setNormal(ms.last(), 0, 1, 0);
+			case VERTICAL -> buffer.setNormal(ms.last(), 1, 0, 0);
 		}
-		buffer.endVertex();
 	}
 
 	private static int killNonZero(int diff) {
