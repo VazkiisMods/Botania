@@ -110,7 +110,7 @@ public class BottledManaItem extends Item {
 
 	private static void effectSetOnFire(Level level, LivingEntity living) {
 		if (!level.isClientSide) {
-			living.setSecondsOnFire(4);
+			living.setRemainingFireTicks(4 * 20);
 		}
 	}
 

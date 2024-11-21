@@ -92,7 +92,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 						}
 
 						if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FLAMING_ARROWS, stack) > 0) {
-							arrow.setSecondsOnFire(100);
+							arrow.setRemainingFireTicks(100 * 20);
 						}
 
 						stack.hurtAndBreak(1, player, (p) -> {

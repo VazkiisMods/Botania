@@ -172,7 +172,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 			}
 			hitEntity.hurt(src, 12);
 			if (isFire()) {
-				hitEntity.setSecondsOnFire(5);
+				hitEntity.setRemainingFireTicks(5 * 20);
 			} else if (level().random.nextInt(3) == 0) {
 				hitEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
 			}
