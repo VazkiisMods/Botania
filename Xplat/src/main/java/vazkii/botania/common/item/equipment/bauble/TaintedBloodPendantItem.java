@@ -70,8 +70,8 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag adv) {
-		super.appendHoverText(stack, world, tooltip, adv);
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag adv) {
+		super.appendHoverText(stack, context, tooltip, adv);
 
 		Brew brew = getBrew(stack);
 		if (brew == BotaniaBrews.fallbackBrew) {

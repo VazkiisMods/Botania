@@ -56,7 +56,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
 		tooltip.add(getEdition().copy().withStyle(ChatFormatting.GRAY));
 	}
 

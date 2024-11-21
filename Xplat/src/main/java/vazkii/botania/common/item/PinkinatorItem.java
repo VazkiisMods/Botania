@@ -71,7 +71,7 @@ public class PinkinatorItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		tooltip.add(Component.translatable("botaniamisc.pinkinatorDesc").withStyle(ChatFormatting.GRAY));
 	}
 
