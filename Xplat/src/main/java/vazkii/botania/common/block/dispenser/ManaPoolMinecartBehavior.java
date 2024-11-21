@@ -10,6 +10,7 @@ package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.tags.BlockTags;
@@ -63,7 +64,7 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 		}
 
 		AbstractMinecart entityminecart = new ManaPoolMinecartEntity(world, d0, d1 + d3, d2);
-		if (stack.hasCustomHoverName()) {
+		if (stack.has(DataComponents.CUSTOM_NAME)) {
 			entityminecart.setCustomName(stack.getHoverName());
 		}
 
