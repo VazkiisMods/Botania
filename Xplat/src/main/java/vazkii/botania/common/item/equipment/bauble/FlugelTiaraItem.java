@@ -239,19 +239,18 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 						&& !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false)) {
 					newTime--;
 				}
-				final int maxCd = 80;
-				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-				if (!wasSprting && isSprinting && cooldown == 0) {
+				final int maxCd = 40;
+				boolean isOnCooldown = player.getCooldowns().isOnCooldown(this);
+				if (!wasSprting && isSprinting && !isOnCooldown) {
 					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
 					player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
-					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
+					player.getCooldowns().addCooldown(this, maxCd);
 					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
-				} else if (cooldown > 0) {
+				} else if (isOnCooldown) {
 					if (ItemNBTHelper.getBoolean(stack, TAG_BOOST_PENDING, false)) {
 						living.moveRelative(5F, new Vec3(0F, 0F, 1F));
 						ItemNBTHelper.removeEntry(stack, TAG_BOOST_PENDING);
 					}
-					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
 				}
 			} else {
 				boolean wasGliding = ItemNBTHelper.getBoolean(stack, TAG_GLIDING, false);
@@ -493,7 +492,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			return 0;
 		}
 
-		public static void renderHUD(GuiGraphics gui, Player player, ItemStack stack) {
+		public static void renderHUD(GuiGraphics gui, float partialTicks, Player player, ItemStack stack) {
 			int u = Math.max(1, getVariant(stack)) * 9 - 9;
 			int v = 0;
 
@@ -520,7 +519,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			}
 
 			if (player.getAbilities().flying) {
-				int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
+				int width = (int)(player.getCooldowns().getCooldownPercent(stack.getItem(), partialTicks) * 80);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				if (width > 0) {
 					gui.fill(xo, y - 2, xo + 80, y - 1, 0x88000000);
