@@ -523,16 +523,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 		player.openMenu(menuProvider);
 	}
 
-	@Override
-	public Attribute getReachDistanceAttribute() {
-		return ReachEntityAttributes.REACH;
-	}
-
-	@Override
-	public Attribute getStepHeightAttribute() {
-		return StepHeightEntityAttributeMain.STEP_HEIGHT;
-	}
-
 	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores"));
 
 	@Override

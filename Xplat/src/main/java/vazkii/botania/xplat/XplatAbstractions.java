@@ -187,8 +187,7 @@ public interface XplatAbstractions {
 
 	// Misc
 	<D> void openMenu(ServerPlayer player, MenuProvider menu, D initialData, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec);
-	Attribute getReachDistanceAttribute();
-	Attribute getStepHeightAttribute();
+
 	TagKey<Block> getOreTag();
 	boolean isInGlassTag(BlockState state);
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it

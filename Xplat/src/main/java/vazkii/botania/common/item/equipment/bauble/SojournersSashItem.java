@@ -20,10 +20,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
@@ -31,7 +33,6 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.UUID;
 
@@ -39,9 +40,8 @@ public class SojournersSashItem extends BaubleItem {
 
 	private static final UUID STEP_BOOST_UUID = UUID.fromString("8511cd62-2650-4078-8d69-9ebe80b21eb5");
 	private static final AttributeModifier STEP_BOOST = new AttributeModifier(
-			STEP_BOOST_UUID,
-			"botania:travel_belt",
-			0.65, AttributeModifier.Operation.ADDITION);
+			BotaniaAPI.botaniaRL("travel_belt"),
+			0.65, AttributeModifier.Operation.ADD_VALUE);
 
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_TRAVEL_BELT);
 
@@ -86,9 +86,8 @@ public class SojournersSashItem extends BaubleItem {
 	public static void tickBelt(Player player) {
 		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof SojournersSashItem, player);
 
-		var stepHeight = XplatAbstractions.INSTANCE.getStepHeightAttribute();
-		AttributeInstance attrib = player.getAttribute(stepHeight);
-		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
+		AttributeInstance attrib = player.getAttribute(Attributes.STEP_HEIGHT);
+		boolean hasBoost = attrib.hasModifier(STEP_BOOST.id());
 
 		if (tryConsumeMana(player)) {
 			if (player.level().isClientSide) {
@@ -107,7 +106,7 @@ public class SojournersSashItem extends BaubleItem {
 			} else {
 				if (player.isShiftKeyDown()) {
 					if (hasBoost) {
-						attrib.removeModifier(STEP_BOOST_UUID);
+						attrib.removeModifier(STEP_BOOST);
 					}
 				} else {
 					if (!hasBoost) {
@@ -116,7 +115,7 @@ public class SojournersSashItem extends BaubleItem {
 				}
 			}
 		} else if (!player.level().isClientSide && hasBoost) {
-			attrib.removeModifier(STEP_BOOST_UUID);
+			attrib.removeModifier(STEP_BOOST);
 		}
 	}
 
