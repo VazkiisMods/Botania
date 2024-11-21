@@ -95,7 +95,7 @@ public final class HUDHandler {
 			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, mc.player);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
-				FlugelTiaraItem.ClientLogic.renderHUD(gui, mc.player, tiara);
+				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTicks, mc.player, tiara);
 				profiler.pop();
 			}
 
