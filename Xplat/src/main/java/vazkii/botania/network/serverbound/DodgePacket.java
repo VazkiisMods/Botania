@@ -46,7 +46,7 @@ public class DodgePacket implements CustomPacketPayload {
 			}
 
 			player.causeFoodExhaustion(0.3F);
-			ItemNBTHelper.setInt(ringStack, RingOfDexterousMotionItem.TAG_DODGE_COOLDOWN, RingOfDexterousMotionItem.MAX_CD);
+			player.getCooldowns().addCooldown(ringStack.getItem(), RingOfDexterousMotionItem.MAX_CD);
 		});
 	}
 }

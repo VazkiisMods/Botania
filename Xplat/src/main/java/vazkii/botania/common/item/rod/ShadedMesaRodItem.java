@@ -52,7 +52,6 @@ public class ShadedMesaRodItem extends Item {
 	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !e.getType().is(BLACKLIST);
 
 	private static final String TAG_TICKS_TILL_EXPIRE = "ticksTillExpire";
-	private static final String TAG_TICKS_COOLDOWN = "ticksCooldown";
 	private static final String TAG_TARGET = "target";
 	private static final String TAG_DIST = "dist";
 
@@ -81,22 +80,16 @@ public class ShadedMesaRodItem extends Item {
 		}
 
 		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);
-		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 
 		if (ticksTillExpire == 0) {
 			ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
 		}
 
-		if (ticksCooldown > 0) {
-			ticksCooldown--;
-		}
-
 		if (ticksTillExpire >= 0) {
 			ticksTillExpire--;
 		}
 		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
-		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 	}
 
 	@SoftImplement("IItemExtension")
@@ -127,10 +120,9 @@ public class ShadedMesaRodItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
-		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 
-		if (ticksCooldown == 0) {
+		if (!player.getCooldowns().isOnCooldown(this)) {
 			Entity target = null;
 			if (targetID != -1 && player.level().getEntity(targetID) != null) {
 				Entity taritem = player.level().getEntity(targetID);
@@ -268,7 +260,7 @@ public class ShadedMesaRodItem extends Item {
 						}
 						target.setDeltaMovement(moveVector.multiply(3, 1.5, 3));
 					}
-					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
+					player.getCooldowns().addCooldown(stack.getItem(), 10);
 				}
 			}
 		}
