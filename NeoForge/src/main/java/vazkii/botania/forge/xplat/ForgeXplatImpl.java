@@ -458,16 +458,6 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Attribute getReachDistanceAttribute() {
-		return NeoForgeMod.BLOCK_REACH.value();
-	}
-
-	@Override
-	public Attribute getStepHeightAttribute() {
-		return NeoForgeMod.STEP_HEIGHT.value();
-	}
-
-	@Override
 	public TagKey<Block> getOreTag() {
 		return Tags.Blocks.ORES;
 	}
