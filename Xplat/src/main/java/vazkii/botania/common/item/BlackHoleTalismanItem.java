@@ -194,7 +194,7 @@ public class BlackHoleTalismanItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		Block block = getBlock(stack);
 		if (block != null) {
 			int count = getBlockCount(stack);

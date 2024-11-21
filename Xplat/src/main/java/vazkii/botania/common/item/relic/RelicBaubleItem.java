@@ -38,8 +38,8 @@ public abstract class RelicBaubleItem extends BaubleItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		RelicImpl.addDefaultTooltip(stack, tooltip);
 	}
 

@@ -49,9 +49,9 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		tooltip.add(Component.translatable("botaniamisc.cosmeticBauble").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-		super.appendHoverText(stack, world, tooltip, flags);
+		super.appendHoverText(stack, context, tooltip, flags);
 	}
 
 	public static class Renderer implements AccessoryRenderer {

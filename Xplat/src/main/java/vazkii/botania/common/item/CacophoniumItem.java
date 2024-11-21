@@ -104,7 +104,7 @@ public class CacophoniumItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
 		if (isDOIT(stack)) {
 			list.add(Component.translatable("botaniamisc.justDoIt").withStyle(ChatFormatting.GRAY));
 		} else if (getSound(stack) != null) {

@@ -85,11 +85,11 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		TooltipHandler.addOnShift(list, () -> addInformationAfterShift(stack, world, list, flags));
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
+		TooltipHandler.addOnShift(list, () -> addInformationAfterShift(stack, context, list, flags));
 	}
 
-	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void addInformationAfterShift(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
 		Player player = Proxy.INSTANCE.getClientPlayer();
 		list.add(getArmorSetTitle(player));
 		addArmorSetDescription(stack, list);
