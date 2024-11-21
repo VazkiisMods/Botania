@@ -39,17 +39,15 @@ public class SpecialFlowerBlockItem extends BlockItem {
 	}
 
 	@Override
-	public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+	public void appendHoverText(@NotNull ItemStack stack, TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load
 		if (BotaniaConfig.client() != null) {
-			if (world != null) {
-				if (stack.is(GENERATING)) {
-					tooltip.add(Component.translatable("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
-				} else if (stack.is(FUNCTIONAL)) {
-					tooltip.add(Component.translatable("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
-				} else if (stack.is(MISC)) {
-					tooltip.add(Component.translatable("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
-				}
+			if (stack.is(GENERATING)) {
+				tooltip.add(Component.translatable("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+			} else if (stack.is(FUNCTIONAL)) {
+				tooltip.add(Component.translatable("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+			} else if (stack.is(MISC)) {
+				tooltip.add(Component.translatable("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 			}
 
 			if (BotaniaConfig.client().referencesEnabled()) {

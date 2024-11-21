@@ -52,7 +52,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
 			var colorName = Component.translatable(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));

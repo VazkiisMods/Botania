@@ -220,7 +220,7 @@ public class BottledManaItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		stacks.add(Component.translatable("botaniamisc.bottleTooltip"));
 	}
 

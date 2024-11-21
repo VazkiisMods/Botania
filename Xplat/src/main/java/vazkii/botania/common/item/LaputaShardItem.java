@@ -86,7 +86,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
 		int level = getShardLevel(stack);
 		Component levelLoc = Component.translatable("botania.roman" + (level + 1));
 		list.add(Component.translatable("botaniamisc.shardLevel", levelLoc).withStyle(ChatFormatting.GRAY));

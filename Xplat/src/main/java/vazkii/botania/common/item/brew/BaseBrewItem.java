@@ -126,8 +126,8 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		PotionUtils.addPotionTooltip(getBrew(stack).getPotionEffects(stack), list, 1, world == null ? 20 : world.tickRateManager().tickrate());
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
+		PotionContents.addPotionTooltip(getBrew(stack).getPotionEffects(stack), list::add, 1, context.tickRate());
 	}
 
 	@Override

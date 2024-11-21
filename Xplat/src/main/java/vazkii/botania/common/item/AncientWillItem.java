@@ -29,7 +29,7 @@ public class AncientWillItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
 		list.add(Component.translatable("botaniamisc.craftToAddWill").withStyle(ChatFormatting.GREEN));
 		list.add(Component.translatable("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc").withStyle(ChatFormatting.GRAY));
 	}
