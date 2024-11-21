@@ -135,7 +135,7 @@ public class ManaBlasterItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		boolean clip = hasClip(stack);
 		if (clip) {
 			TooltipHandler.addOnShift(tooltip, () -> appendHoverTextImpl(stack, tooltip));

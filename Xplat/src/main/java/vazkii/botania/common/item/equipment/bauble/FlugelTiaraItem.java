@@ -96,8 +96,8 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		tooltip.add(Component.translatable("botania.wings" + getVariant(stack)));
 	}
 

@@ -108,8 +108,8 @@ public class DiceOfFateItem extends RelicItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, @Nullable TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, tooltipContext, tooltip, flags);
 		tooltip.add(Component.literal(""));
 		TooltipHandler.addOnShift(tooltip, () -> {
 			String name = stack.getDescriptionId() + ".poem";

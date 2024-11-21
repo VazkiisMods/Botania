@@ -59,7 +59,7 @@ public class ManufactoryHaloItem extends AssemblyHaloItem {
 	}
 
 	@Override
-	public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> stacks, @NotNull TooltipFlag flags) {
+	public void appendHoverText(@NotNull ItemStack stack, TooltipContext context, @NotNull List<Component> stacks, @NotNull TooltipFlag flags) {
 		if (isActive(stack)) {
 			stacks.add(Component.translatable("botaniamisc.active"));
 		} else {

@@ -49,7 +49,7 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer, C
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		if (brew == BotaniaBrews.fallbackBrew) {
 			list.add(Component.translatable("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -57,7 +57,7 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer, C
 		}
 
 		list.add(Component.translatable("botaniamisc.brewOf", Component.translatable(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
-		PotionUtils.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER, world == null ? 20 : world.tickRateManager().tickrate());
+		PotionContents.addPotionTooltip(brew.getPotionEffects(stack), list::add, TIME_MULTIPLIER, context.tickRate());
 	}
 
 	@Override
