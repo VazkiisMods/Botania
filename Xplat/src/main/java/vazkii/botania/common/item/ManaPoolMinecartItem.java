@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -49,7 +50,7 @@ public class ManaPoolMinecartItem extends Item {
 				}
 
 				AbstractMinecart abstractMinecartEntity = new ManaPoolMinecartEntity(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
-				if (itemStack.hasCustomHoverName()) {
+				if (itemStack.has(DataComponents.CUSTOM_NAME)) {
 					abstractMinecartEntity.setCustomName(itemStack.getHoverName());
 				}
 

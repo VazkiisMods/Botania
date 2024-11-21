@@ -24,6 +24,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -265,7 +266,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				case WEST -> {
 					if (mySon) {
 						ms.translate(0.95F, -0.29F, 0.9F);
-						if (stack.hasCustomHoverName()) {
+						if (stack.has(DataComponents.CUSTOM_NAME)) {
 							var childNameBuilder = new StringBuilder();
 							TinyPotatoBlockItem.isEnchantedName(stack.getHoverName(), childNameBuilder);
 							if (childNameBuilder.toString().equals("kingdaddydmac")) {
@@ -329,8 +330,10 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(VecHelper.rotateZ(180F));
 					ms.translate(-0.3F, -2.7F, -1.2F);
 					ms.mulPose(VecHelper.rotateZ(15F));
+					ItemStack stack = new ItemStack(BotaniaItems.infiniteFruit);
+					stack.set(DataComponents.CUSTOM_NAME, Component.literal("das boot"));
 					renderItem(ms, buffers, potato.getLevel(),
-							light, overlay, new ItemStack(BotaniaItems.infiniteFruit).setHoverName(Component.literal("das boot")));
+							light, overlay, stack);
 				}
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);
