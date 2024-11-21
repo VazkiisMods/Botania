@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ServerLevelAccessor;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.mixin.AbstractHorseAccessor;
 
@@ -72,17 +74,19 @@ public class EquestrianVirusItem extends Item {
 					newInv.setItem(0, saddle);
 				}
 
+				ResourceLocation virusId = BotaniaAPI.botaniaRL("ermergerd_virus");
+
 				AttributeInstance movementSpeed = newHorse.getAttribute(Attributes.MOVEMENT_SPEED);
 				movementSpeed.setBaseValue(horse.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue());
-				movementSpeed.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), AttributeModifier.Operation.ADDITION));
+				movementSpeed.addPermanentModifier(new AttributeModifier(virusId, movementSpeed.getBaseValue(), AttributeModifier.Operation.ADD_VALUE));
 
 				AttributeInstance health = newHorse.getAttribute(Attributes.MAX_HEALTH);
 				health.setBaseValue(horse.getAttribute(Attributes.MAX_HEALTH).getBaseValue());
-				health.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), AttributeModifier.Operation.ADDITION));
+				health.addPermanentModifier(new AttributeModifier(virusId, health.getBaseValue(), AttributeModifier.Operation.ADD_VALUE));
 
 				AttributeInstance jumpHeight = newHorse.getAttribute(Attributes.JUMP_STRENGTH);
 				jumpHeight.setBaseValue(horse.getAttribute(Attributes.JUMP_STRENGTH).getBaseValue());
-				jumpHeight.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
+				jumpHeight.addPermanentModifier(new AttributeModifier(virusId, jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADD_VALUE));
 
 				newHorse.playSound(BotaniaSounds.virusInfect, 1.0F + living.level().random.nextFloat(), living.level().random.nextFloat() * 0.7F + 1.3F);
 				newHorse.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
