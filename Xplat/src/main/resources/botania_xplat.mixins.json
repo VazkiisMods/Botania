@@ -46,7 +46,6 @@
     "PlacementContextMixin",
     "PlayerMixin",
     "PollinateGoalMixin",
-    "ProtectionEnchantmentMixin",
     "RandomizableContainerBlockEntityAccessor",
     "RecipeManagerAccessor",
     "RecipeProviderAccessor",

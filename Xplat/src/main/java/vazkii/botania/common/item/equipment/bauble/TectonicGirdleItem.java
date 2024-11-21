@@ -18,6 +18,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -25,12 +26,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.Proxy;
 
 public class TectonicGirdleItem extends BaubleItem {
@@ -43,15 +43,11 @@ public class TectonicGirdleItem extends BaubleItem {
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, AttributeModifier.Operation.ADDITION));
+	public Multimap<Holder<Attribute>, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<Holder<Attribute>, AttributeModifier> attributes = HashMultimap.create();
+		attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(BotaniaAPI.botaniaRL("knockback_belt"), 1, AttributeModifier.Operation.ADD_VALUE));
+		attributes.put(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, new AttributeModifier(BotaniaAPI.botaniaRL("explosion_knockback_belt"), 1, AttributeModifier.Operation.ADD_VALUE));
 		return attributes;
-	}
-
-	public static boolean negateExplosionKnockback(LivingEntity living) {
-		// TODO 1.21: replace with explosion knockback resistance attribute
-		return !EquipmentHandler.findOrEmpty(BotaniaItems.knockbackBelt, living).isEmpty();
 	}
 
 	public static class Renderer implements AccessoryRenderer {
