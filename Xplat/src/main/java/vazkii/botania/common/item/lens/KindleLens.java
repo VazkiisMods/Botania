@@ -25,7 +25,7 @@ public class KindleLens extends Lens {
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!entity.level().isClientSide) {
-			entity.setSecondsOnFire(3);
+			entity.setRemainingFireTicks(3 * 20);
 		}
 	}
 
