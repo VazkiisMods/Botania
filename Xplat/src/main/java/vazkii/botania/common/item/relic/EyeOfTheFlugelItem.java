@@ -170,10 +170,10 @@ public class EyeOfTheFlugelItem extends RelicItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 
-		if (world == null) {
+		if (context.registries() == null) {
 			return;
 		}
 

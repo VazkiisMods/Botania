@@ -36,7 +36,7 @@ public class RelicItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		RelicImpl.addDefaultTooltip(stack, tooltip);
 	}
 }

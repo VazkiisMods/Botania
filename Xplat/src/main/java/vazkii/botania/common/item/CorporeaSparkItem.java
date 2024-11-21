@@ -69,7 +69,7 @@ public class CorporeaSparkItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		if (stack.is(BotaniaItems.corporeaSparkCreative)) {
 			tooltip.add(Component.translatable("botaniamisc.creativeSpark").withStyle(ChatFormatting.GRAY));
 		}

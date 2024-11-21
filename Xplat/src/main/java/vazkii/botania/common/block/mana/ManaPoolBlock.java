@@ -92,8 +92,8 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable BlockGetter world, List<Component> tooltip, TooltipFlag flag) {
-		super.appendHoverText(stack, world, tooltip, flag);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+		super.appendHoverText(stack, context, tooltip, flag);
 		if (variant == ManaPoolBlock.Variant.CREATIVE) {
 			for (int i = 0; i < 2; i++) {
 				tooltip.add(Component.translatable("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
