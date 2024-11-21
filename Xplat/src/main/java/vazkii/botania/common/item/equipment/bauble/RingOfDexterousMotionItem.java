@@ -28,7 +28,6 @@ import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class RingOfDexterousMotionItem extends BaubleItem {
 
-	public static final String TAG_DODGE_COOLDOWN = "dodgeCooldown";
 	public static final int MAX_CD = 20;
 
 	private static boolean oldLeftDown, oldRightDown, oldForwardDown, oldBackDown;
@@ -46,7 +45,7 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 			}
 
 			ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, mc.player);
-			if (ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0) {
+			if (ringStack.isEmpty() || mc.player.getCooldowns().isOnCooldown(ringStack.getItem())) {
 				return;
 			}
 
@@ -92,8 +91,7 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 20;
 
 			if (!player.getAbilities().flying) {
-				int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
-				int width = Math.min((int) ((cd - pticks) * 2), 40);
+				int width = (int) (player.getCooldowns().getCooldownPercent(stack.getItem(), pticks) * 40);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				if (width > 0) {
 					gui.fill(xo, y - 2, xo + 40, y - 1, 0x88000000);
@@ -102,14 +100,6 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 			}
 
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		}
-	}
-
-	@Override
-	public void onWornTick(ItemStack stack, LivingEntity living) {
-		int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
-		if (cd > 0) {
-			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
 		}
 	}
 

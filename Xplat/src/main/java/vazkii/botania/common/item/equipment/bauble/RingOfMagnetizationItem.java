@@ -30,8 +30,6 @@ import java.util.List;
 
 public class RingOfMagnetizationItem extends BaubleItem {
 
-	private static final String TAG_COOLDOWN = "cooldown";
-
 	private final int range;
 
 	public RingOfMagnetizationItem(Properties props) {
@@ -46,7 +44,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 	public static void onTossItem(Player player) {
 		ItemStack ring = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof RingOfMagnetizationItem, player);
 		if (!ring.isEmpty()) {
-			setCooldown(ring, 100);
+			player.getCooldowns().addCooldown(ring.getItem(), 100);
 		}
 	}
 
@@ -58,44 +56,43 @@ public class RingOfMagnetizationItem extends BaubleItem {
 			return;
 		}
 
-		int cooldown = getCooldown(stack);
-
-		if (BotaniaAPI.instance().hasSolegnoliaAround(living)) {
-			if (cooldown < 0) {
-				setCooldown(stack, 2);
+		if (living instanceof Player player) {
+			boolean isOnCooldown = player.getCooldowns().isOnCooldown(this);
+			if (BotaniaAPI.instance().hasSolegnoliaAround(living)) {
+				if (!isOnCooldown) {
+					player.getCooldowns().addCooldown(this, 2);
+				}
+				return;
 			}
-			return;
-		}
 
-		if (cooldown <= 0) {
-			if (living.isShiftKeyDown() == BotaniaConfig.common().invertMagnetRing()) {
-				double x = living.getX();
-				double y = living.getY() + 0.75;
-				double z = living.getZ();
+			if (!isOnCooldown) {
+				if (living.isShiftKeyDown() == BotaniaConfig.common().invertMagnetRing()) {
+					double x = living.getX();
+					double y = living.getY() + 0.75;
+					double z = living.getZ();
 
-				int range = ((RingOfMagnetizationItem) stack.getItem()).range;
-				List<ItemEntity> items = living.level().getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
-				int pulled = 0;
-				for (ItemEntity item : items) {
-					if (((RingOfMagnetizationItem) stack.getItem()).canPullItem(item)) {
-						if (pulled > 200) {
-							break;
+					int range = ((RingOfMagnetizationItem) stack.getItem()).range;
+					List<ItemEntity> items = living.level().getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+					int pulled = 0;
+					for (ItemEntity item : items) {
+						if (((RingOfMagnetizationItem) stack.getItem()).canPullItem(item)) {
+							if (pulled > 200) {
+								break;
+							}
+
+							MathHelper.setEntityMotionFromVector(item, new Vec3(x, y, z), 0.45F);
+							if (living.level().isClientSide) {
+								boolean red = living.level().random.nextBoolean();
+								float r = red ? 1F : 0F;
+								float b = red ? 0F : 1F;
+								SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
+								living.level().addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
+							}
+							pulled++;
 						}
-
-						MathHelper.setEntityMotionFromVector(item, new Vec3(x, y, z), 0.45F);
-						if (living.level().isClientSide) {
-							boolean red = living.level().random.nextBoolean();
-							float r = red ? 1F : 0F;
-							float b = red ? 0F : 1F;
-							SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
-							living.level().addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
-						}
-						pulled++;
 					}
 				}
 			}
-		} else {
-			setCooldown(stack, cooldown - 1);
 		}
 	}
 
@@ -128,11 +125,4 @@ public class RingOfMagnetizationItem extends BaubleItem {
 		return true;
 	}
 
-	public static int getCooldown(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
-	}
-
-	public static void setCooldown(ItemStack stack, int cooldown) {
-		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
-	}
 }
