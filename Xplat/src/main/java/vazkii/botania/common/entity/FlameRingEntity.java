@@ -94,7 +94,7 @@ public class FlameRingEntity extends Entity {
 					continue;
 				}
 
-				entity.setSecondsOnFire(4);
+				entity.setRemainingFireTicks(4 * 20);
 			}
 		}
 	}

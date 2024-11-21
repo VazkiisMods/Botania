@@ -95,7 +95,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		}
 
 		if (getFluid() == State.LAVA) {
-			item.setSecondsOnFire(100);
+			item.setRemainingFireTicks(100 * 20);
 			return true;
 		}
 
