@@ -81,7 +81,17 @@ public final class BotaniaItemProperties {
 		consumer.accept(BotaniaItems.manaweaveBoots, holidayId, holidayGetter);
 		consumer.accept(BotaniaItems.manaweaveLegs, holidayId, holidayGetter);
 
-		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> RingOfMagnetizationItem.getCooldown(stack) <= 0 ? 1 : 0;
+		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> {
+			if (entityIn instanceof Player player) {
+				if (player.getCooldowns().isOnCooldown(stack.getItem())) {
+					return 0;
+				} else {
+					return 1;
+				}
+			} else {
+				return 0;
+			}
+		};
 		consumer.accept(BotaniaItems.magnetRing, botaniaRL("active"), ringOnGetter);
 		consumer.accept(BotaniaItems.magnetRingGreater, botaniaRL("active"), ringOnGetter);
 

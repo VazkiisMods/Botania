@@ -43,7 +43,6 @@ public class CloakOfVirtueItem extends BaubleItem {
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_HOLY_CLOAK);
 	private static final ResourceLocation textureGlow = ResourceLocation.parse(ResourcesLib.MODEL_HOLY_CLOAK_GLOW);
 
-	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";
 
 	public CloakOfVirtueItem(Properties props) {
@@ -57,27 +56,19 @@ public class CloakOfVirtueItem extends BaubleItem {
 
 			if (!stack.isEmpty() && !isInEffect(stack)) {
 				CloakOfVirtueItem cloak = (CloakOfVirtueItem) stack.getItem();
-				int cooldown = getCooldown(stack);
+				boolean isOnCooldown = player.getCooldowns().isOnCooldown(this);
 
 				// Used to prevent StackOverflows with mobs that deal damage when damaged
 				setInEffect(stack, true);
 				MutableFloat mutAmount = new MutableFloat(amount);
-				if (cooldown == 0 && cloak.effectOnDamage(src, mutAmount, player, stack)) {
-					setCooldown(stack, cloak.getCooldownTime(stack));
+				if (!isOnCooldown && cloak.effectOnDamage(src, mutAmount, player, stack)) {
+					player.getCooldowns().addCooldown(cloak, cloak.getCooldownTime(stack));
 				}
 				setInEffect(stack, false);
 				return mutAmount.getValue();
 			}
 		}
 		return amount;
-	}
-
-	@Override
-	public void onWornTick(ItemStack stack, LivingEntity living) {
-		int cooldown = getCooldown(stack);
-		if (cooldown > 0) {
-			setCooldown(stack, cooldown - 1);
-		}
 	}
 
 	public static class Renderer implements AccessoryRenderer {
@@ -125,14 +116,6 @@ public class CloakOfVirtueItem extends BaubleItem {
 
 	public int getCooldownTime(ItemStack stack) {
 		return 200;
-	}
-
-	public static int getCooldown(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
-	}
-
-	public static void setCooldown(ItemStack stack, int cooldown) {
-		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
 	}
 
 	public static boolean isInEffect(ItemStack stack) {
