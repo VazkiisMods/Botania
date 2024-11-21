@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.functional;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -71,7 +72,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 				}
 
 				ItemStack nameTag = nameTagEnt.getItem();
-				if (nameTag.is(Items.NAME_TAG) && nameTag.hasCustomHoverName()) {
+				if (nameTag.is(Items.NAME_TAG) && nameTag.has(DataComponents.CUSTOM_NAME)) {
 					AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
 					Component name = nameTag.getHoverName();
 					List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,
@@ -91,7 +92,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 							}
 						}
 						for (ItemEntity i : nameableItems) {
-							i.getItem().setHoverName(name);
+							i.getItem().set(DataComponents.CUSTOM_NAME, name);
 							EntityHelper.syncItem(i);
 							((ServerLevel) level).sendParticles(ParticleTypes.INSTANT_EFFECT,
 									i.getX(), i.getY(), i.getZ(),

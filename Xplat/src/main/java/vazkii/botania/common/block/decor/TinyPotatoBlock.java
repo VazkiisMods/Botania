@@ -10,6 +10,7 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
@@ -127,7 +128,7 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
-		if (stack.hasCustomHoverName() && world.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater) {
+		if (stack.has(DataComponents.CUSTOM_NAME) && world.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater) {
 			tater.name = stack.getHoverName();
 		}
 	}

@@ -12,6 +12,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrays;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -146,7 +147,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 			}
 			if (!tater.isEmpty()) {
 				String taterGender = manyTater ? "children" : "son";
-				if (!manyTater && tater.hasCustomHoverName()) {
+				if (!manyTater && tater.has(DataComponents.CUSTOM_NAME)) {
 					StringBuilder childNameBuilder = new StringBuilder();
 					TinyPotatoBlockItem.isEnchantedName(tater.getHoverName(), childNameBuilder);
 					taterGender = GENDER.getOrDefault(childNameBuilder.toString(), taterGender);

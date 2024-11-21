@@ -18,6 +18,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -214,7 +215,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 		int variant = getVariant(stack);
 		if (variant != WING_TYPES && StringObfuscator.matchesHash(stack.getHoverName().getString(), SUPER_AWESOME_HASH)) {
 			ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
-			stack.resetHoverName();
+			stack.remove(DataComponents.CUSTOM_NAME);
 		}
 	}
 
