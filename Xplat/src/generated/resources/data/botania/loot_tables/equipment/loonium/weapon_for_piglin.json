@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/weapon_sword_gold"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/weapon_crossbow"
+        }
+      ],
+      "functions": [
+        {
+          "conditions": [
+            {
+              "chance": 0.3,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "function": "minecraft:enchant_randomly"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

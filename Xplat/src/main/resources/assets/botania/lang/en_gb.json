@@ -82,49 +82,49 @@
 
   "botania.brew.regen": "Revitalisation",
 
-  "block.minecraft.banner.botania.flower.silver": "Light Grey Mystical Flower",
+  "block.minecraft.banner.botania.flower.light_gray": "Light Grey Mystical Flower",
   "block.minecraft.banner.botania.flower.gray": "Grey Mystical Flower",
 
-  "block.minecraft.banner.botania.lexicon.silver": "Light Grey Lexicon",
+  "block.minecraft.banner.botania.lexicon.light_gray": "Light Grey Lexicon",
   "block.minecraft.banner.botania.lexicon.gray": "Grey Lexicon",
 
-  "block.minecraft.banner.botania.logo.silver": "Light Grey Botania",
+  "block.minecraft.banner.botania.logo.light_gray": "Light Grey Botania",
   "block.minecraft.banner.botania.logo.gray": "Grey Botania",
 
-  "block.minecraft.banner.botania.sapling.silver": "Light Grey Tree",
+  "block.minecraft.banner.botania.sapling.light_gray": "Light Grey Tree",
   "block.minecraft.banner.botania.sapling.gray": "Grey Tree",
 
-  "block.minecraft.banner.botania.tiny_potato.silver": "Light Grey Potato Face",
+  "block.minecraft.banner.botania.tiny_potato.light_gray": "Light Grey Potato Face",
   "block.minecraft.banner.botania.tiny_potato.gray": "Grey Potato Face",
 
-  "block.minecraft.banner.botania.spark_dispersive.silver": "Light Grey Dispersive Symbol",
+  "block.minecraft.banner.botania.spark_dispersive.light_gray": "Light Grey Dispersive Symbol",
   "block.minecraft.banner.botania.spark_dispersive.gray": "Grey Dispersive Symbol",
 
-  "block.minecraft.banner.botania.spark_dominant.silver": "Light Grey Dominant Symbol",
+  "block.minecraft.banner.botania.spark_dominant.light_gray": "Light Grey Dominant Symbol",
   "block.minecraft.banner.botania.spark_dominant.gray": "Grey Dominant Symbol",
 
-  "block.minecraft.banner.botania.spark_isolated.silver": "Light Grey Isolated Symbol",
+  "block.minecraft.banner.botania.spark_isolated.light_gray": "Light Grey Isolated Symbol",
   "block.minecraft.banner.botania.spark_isolated.gray": "Grey Isolated Symbol",
 
-  "block.minecraft.banner.botania.spark_recessive.silver": "Light Grey Recessive Symbol",
+  "block.minecraft.banner.botania.spark_recessive.light_gray": "Light Grey Recessive Symbol",
   "block.minecraft.banner.botania.spark_recessive.gray": "Grey Recessive Symbol",
 
-  "block.minecraft.banner.botania.fish.silver": "Light Grey Fish",
+  "block.minecraft.banner.botania.fish.light_gray": "Light Grey Fish",
   "block.minecraft.banner.botania.fish.gray": "Grey Fish",
 
-  "block.minecraft.banner.botania.axe.silver": "Light Grey Axe",
+  "block.minecraft.banner.botania.axe.light_gray": "Light Grey Axe",
   "block.minecraft.banner.botania.axe.gray": "Grey Axe",
 
-  "block.minecraft.banner.botania.hoe.silver": "Light Grey Hoe",
+  "block.minecraft.banner.botania.hoe.light_gray": "Light Grey Hoe",
   "block.minecraft.banner.botania.hoe.gray": "Grey Hoe",
 
-  "block.minecraft.banner.botania.pickaxe.silver": "Light Grey Pickaxe",
+  "block.minecraft.banner.botania.pickaxe.light_gray": "Light Grey Pickaxe",
   "block.minecraft.banner.botania.pickaxe.gray": "Grey Pickaxe",
 
-  "block.minecraft.banner.botania.shovel.silver": "Light Grey Shovel",
+  "block.minecraft.banner.botania.shovel.light_gray": "Light Grey Shovel",
   "block.minecraft.banner.botania.shovel.gray": "Grey Shovel",
 
-  "block.minecraft.banner.botania.sword.silver": "Light Grey Sword",
+  "block.minecraft.banner.botania.sword.light_gray": "Light Grey Sword",
   "block.minecraft.banner.botania.sword.gray": "Grey Sword",
 
   "botania.page.welcome3": "$(o)If you happen to find yourself feeling lost, try checking out the mod's Advancements or Challenges, both of which can be found on the left-hand side of this book's main page.$(p)$(o)The book is laid out in a user-friendly way with a fair number of helpful features, so before you jump in and start playing, take a bit of time to familiarise yourself with those.",

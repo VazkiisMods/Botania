@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:trident"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

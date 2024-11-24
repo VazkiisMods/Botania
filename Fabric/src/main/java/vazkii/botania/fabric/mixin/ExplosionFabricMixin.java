@@ -42,8 +42,8 @@ public abstract class ExplosionFabricMixin {
 	@Shadow
 	public abstract void clearToBlow();
 
-	@Inject(method = "finalizeExplosion", at = @At("HEAD"))
-	private void onAffectWorld(boolean particles, CallbackInfo ci) {
+	@Inject(method = "explode", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"))
+	private void onAffectWorld(CallbackInfo ci) {
 		if (BenevolentGoddessCharmItem.shouldProtectExplosion(level, new Vec3(x, y, z))) {
 			clearToBlow();
 		}

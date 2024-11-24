@@ -1,6 +1,7 @@
 package vazkii.botania.forge.internal_caps;
 
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.Creeper;
@@ -12,7 +13,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.CapabilityUtil;
@@ -60,11 +60,8 @@ public final class ForgeInternalEntityCapabilities {
 			if (entity instanceof Player) {
 				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new KeptItemsComponent()));
 			}
-			for (Class<?> clz : LooniumBlockEntity.VALID_MOBS) {
-				if (clz.isInstance(entity)) {
-					evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
-					break;
-				}
+			if (entity instanceof Mob) {
+				evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
 			}
 			if (entity instanceof Slime) {
 				evt.addCapability(prefix("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new NarslimmusComponent()));

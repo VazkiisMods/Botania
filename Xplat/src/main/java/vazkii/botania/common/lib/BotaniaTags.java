@@ -68,6 +68,11 @@ public class BotaniaTags {
 		 * Items in this tag cannot be rolled by Looniums
 		 */
 		public static final TagKey<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
+		/**
+		 * Items that should be equipped in the offhand slot if rolled as Loonium mob equipment,
+		 * instead of the default slot for the item.
+		 */
+		public static final TagKey<Item> LOONIUM_OFFHAND_EQUIPMENT = tag("loonium_offhand_equipment");
 
 		/**
 		 * Items in this tag are voided by the Elementium Pick

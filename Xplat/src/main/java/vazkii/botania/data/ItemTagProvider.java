@@ -141,8 +141,13 @@ public class ItemTagProvider extends ItemTagsProvider {
 			allPetals.addTag(petalTag);
 		}
 
-		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST).add(lexicon, overgrowthSeed,
-				blackLotus, blackerLotus).addTag(ItemTags.MUSIC_DISCS);
+		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
+				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)
+				.addTag(ItemTags.MUSIC_DISCS);
+		this.tag(ItemTags.ARROWS);
+		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
+				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)
+				.addTag(ItemTags.ARROWS);
 		this.tag(BotaniaTags.Items.MAGNET_RING_BLACKLIST);
 		this.tag(BotaniaTags.Items.RODS).add(
 				dirtRod,

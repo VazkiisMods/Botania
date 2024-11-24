@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/snout_gold",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/snout_netherite"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

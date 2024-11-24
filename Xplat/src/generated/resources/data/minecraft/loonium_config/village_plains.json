@@ -1,0 +1,68 @@
+{
+  "parent": "botania:village",
+  "spawnedMobs": [
+    {
+      "type": "minecraft:enderman",
+      "weight": 40
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "weight": 195
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "nbt": {
+        "powered": 1
+      },
+      "weight": 1
+    },
+    {
+      "type": "minecraft:drowned",
+      "equipmentTable": "botania:equipment/loonium/weapon_trident",
+      "weight": 59
+    },
+    {
+      "type": "minecraft:zombie",
+      "equipmentTable": "botania:equipment/loonium/weapon_sword",
+      "weight": 423
+    },
+    {
+      "type": "minecraft:zombie_villager",
+      "equipmentTable": "botania:equipment/loonium/weapon_by_profession",
+      "weight": 106
+    },
+    {
+      "type": "minecraft:skeleton",
+      "equipmentTable": "botania:equipment/loonium/weapon_bow",
+      "weight": 600
+    },
+    {
+      "type": "minecraft:cave_spider",
+      "weight": 59
+    },
+    {
+      "type": "minecraft:spider",
+      "weight": 529
+    }
+  ]
+}

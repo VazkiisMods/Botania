@@ -1,0 +1,131 @@
+{
+  "parent": "botania:default",
+  "spawnedMobs": [
+    {
+      "type": "minecraft:zoglin",
+      "effectsToApply": [
+        {
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "weight": 25
+    },
+    {
+      "type": "minecraft:piglin",
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "effect": "minecraft:regeneration"
+        },
+        {
+          "effect": "minecraft:water_breathing"
+        }
+      ],
+      "equipmentTable": "botania:equipment/loonium/piglin_ruined_portal",
+      "nbt": {
+        "Brain": {
+          "memories": {
+            "minecraft:admiring_disabled": {
+              "value": 1
+            },
+            "minecraft:universal_anger": {
+              "value": 1
+            }
+          }
+        },
+        "IsImmuneToZombification": 1
+      },
+      "spawnAsBaby": false,
+      "weight": 50
+    },
+    {
+      "type": "minecraft:zombified_piglin",
+      "equipmentTable": "botania:equipment/loonium/zombie_portal",
+      "weight": 50
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        },
+        {
+          "effect": "minecraft:water_breathing"
+        }
+      ],
+      "weight": 199
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        },
+        {
+          "effect": "minecraft:water_breathing"
+        }
+      ],
+      "nbt": {
+        "powered": 1
+      },
+      "weight": 1
+    },
+    {
+      "type": "minecraft:drowned",
+      "equipmentTable": "botania:equipment/loonium/drowned_portal",
+      "weight": 540
+    },
+    {
+      "type": "minecraft:zombie",
+      "equipmentTable": "botania:equipment/loonium/zombie_portal",
+      "weight": 60
+    },
+    {
+      "type": "minecraft:skeleton",
+      "equipmentTable": "botania:equipment/loonium/skeleton_portal",
+      "weight": 400
+    },
+    {
+      "type": "minecraft:cave_spider",
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "effect": "minecraft:regeneration"
+        },
+        {
+          "effect": "minecraft:water_breathing"
+        }
+      ],
+      "weight": 30
+    },
+    {
+      "type": "minecraft:spider",
+      "effectsToApply": [
+        {
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "effect": "minecraft:regeneration"
+        },
+        {
+          "effect": "minecraft:water_breathing"
+        }
+      ],
+      "weight": 270
+    }
+  ]
+}

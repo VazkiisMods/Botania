@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/wild_chain",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/wild_gold",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/wild_diamond"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

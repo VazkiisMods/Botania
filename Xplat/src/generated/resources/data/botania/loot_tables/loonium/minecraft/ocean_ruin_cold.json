@@ -1,0 +1,23 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/underwater_ruin_big"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/underwater_ruin_small",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:archaeology/ocean_ruin_cold"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

@@ -18,6 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -28,6 +29,7 @@ import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
@@ -320,6 +322,31 @@ public class AdvancementProvider {
 
 	public static class BotaniaChallengeAdvancements implements AdvancementSubProvider {
 
+		private static final EntityType<?>[] LOONIUM_MOBS_TO_KILL = {
+				EntityType.BLAZE,
+				EntityType.CAVE_SPIDER,
+				EntityType.CREEPER,
+				EntityType.DROWNED,
+				EntityType.ENDERMAN,
+				EntityType.EVOKER,
+				EntityType.GUARDIAN,
+				EntityType.HOGLIN,
+				EntityType.HUSK,
+				EntityType.PIGLIN,
+				EntityType.PIGLIN_BRUTE,
+				EntityType.PILLAGER,
+				EntityType.SHULKER,
+				EntityType.SILVERFISH,
+				EntityType.SKELETON,
+				EntityType.STRAY,
+				EntityType.VINDICATOR,
+				EntityType.WITHER_SKELETON,
+				EntityType.ZOGLIN,
+				EntityType.ZOMBIE_VILLAGER,
+				EntityType.ZOMBIE,
+				EntityType.ZOMBIFIED_PIGLIN
+		};
+
 		@Override
 		public void generate(HolderLookup.Provider lookup, Consumer<Advancement> consumer) {
 			Advancement root = Advancement.Builder.advancement()
@@ -413,6 +440,23 @@ public class AdvancementProvider {
 					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 					.save(consumer, challengeId("tiny_potato_birthday"));
+			addLooniumMobsToKill(Advancement.Builder.advancement())
+					.display(simple(BotaniaFlowerBlocks.loonium, "allLooniumMobs", FrameType.CHALLENGE))
+					.parent(root)
+					.requirements(RequirementsStrategy.AND)
+					.save(consumer, challengeId("all_loonium_mobs"));
+		}
+
+		private static Advancement.Builder addLooniumMobsToKill(Advancement.Builder builder) {
+			for (EntityType<?> entityType : LOONIUM_MOBS_TO_KILL) {
+				builder.addCriterion(
+						BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString(),
+						KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity()
+								.of(entityType).team(LooniumBlockEntity.LOONIUM_TEAM_NAME))
+				);
+			}
+
+			return builder;
 		}
 	}
 

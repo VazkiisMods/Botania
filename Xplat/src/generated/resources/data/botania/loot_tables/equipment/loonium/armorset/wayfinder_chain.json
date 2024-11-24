@@ -1,0 +1,85 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Trim:{material:\"minecraft:redstone\",pattern:\"minecraft:wayfinder\"}}"
+            }
+          ],
+          "name": "minecraft:chainmail_helmet"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 0.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Trim:{material:\"minecraft:redstone\",pattern:\"minecraft:wayfinder\"}}"
+            }
+          ],
+          "name": "minecraft:chainmail_chestplate"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 0.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Trim:{material:\"minecraft:redstone\",pattern:\"minecraft:wayfinder\"}}"
+            }
+          ],
+          "name": "minecraft:chainmail_leggings"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 0.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Trim:{material:\"minecraft:redstone\",pattern:\"minecraft:wayfinder\"}}"
+            }
+          ],
+          "name": "minecraft:chainmail_boots"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 0.0
+      }
+    }
+  ]
+}

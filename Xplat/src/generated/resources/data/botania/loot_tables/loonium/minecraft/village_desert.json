@@ -1,0 +1,27 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_desert_house",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_weaponsmith"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_toolsmith"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_temple"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

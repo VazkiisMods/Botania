@@ -1,0 +1,65 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/ward_iron",
+          "weight": 11
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/ward_diamond",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/silence_gold",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/silence_diamond"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "equipment": {
+              "mainhand": {
+                "items": [
+                  "minecraft:bow"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "chance": 0.9,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomPotionColor:2696993,CustomPotionEffects:[{Ambient:0b,Amplifier:0b,Duration:200,FactorCalculationData:{factor_current:0.0f,factor_previous_frame:0.0f,factor_start:0.0f,factor_target:1.0f,had_effect_last_tick:0b,padding_duration:22,ticks_active:0},Id:33,ShowIcon:1b,ShowParticles:1b}]}"
+            }
+          ],
+          "name": "minecraft:tipped_arrow"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

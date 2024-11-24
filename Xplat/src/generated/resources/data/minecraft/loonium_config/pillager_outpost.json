@@ -1,0 +1,69 @@
+{
+  "parent": "botania:default",
+  "boundingBoxType": "full",
+  "spawnedMobs": [
+    {
+      "type": "minecraft:enderman",
+      "weight": 40
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "weight": 199
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "nbt": {
+        "powered": 1
+      },
+      "weight": 1
+    },
+    {
+      "type": "minecraft:pillager",
+      "equipmentTable": "botania:equipment/loonium/weapon_crossbow",
+      "weight": 900
+    },
+    {
+      "type": "minecraft:vindicator",
+      "equipmentTable": "botania:equipment/loonium/weapon_axe",
+      "weight": 175
+    },
+    {
+      "type": "minecraft:evoker",
+      "weight": 25
+    },
+    {
+      "type": "minecraft:skeleton",
+      "equipmentTable": "botania:equipment/loonium/skeleton_outpost",
+      "weight": 200
+    },
+    {
+      "type": "minecraft:zombie",
+      "equipmentTable": "botania:equipment/loonium/zombie_outpost",
+      "weight": 200
+    },
+    {
+      "type": "minecraft:spider",
+      "weight": 200
+    }
+  ]
+}

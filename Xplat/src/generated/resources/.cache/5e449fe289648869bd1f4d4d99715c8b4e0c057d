@@ -17,6 +17,7 @@ ac3888e68025d31c8c109b225689e7d69ad7f603 data/botania/tags/items/lens.json
 dfbc18cbf412594282532933002d270b34b3f16f data/botania/tags/items/lens_glue.json
 bbb827430199d1a6f3b27fc25e2df941f22dc660 data/botania/tags/items/livingwood_logs.json
 0f00c4dbb7edb499acbc720f3191a146183c01e7 data/botania/tags/items/loonium_blacklist.json
+80976d0e035f6163de9d5c190a3061a5fb95591f data/botania/tags/items/loonium_offhand_equipment.json
 8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/botania/tags/items/magnet_ring_blacklist.json
 bebd5a92d011c3a431c16f368557850a1e108530 data/botania/tags/items/mana_diamond_gems.json
 6cf780dc321928fdae9feeacae1c6689c815f40e data/botania/tags/items/mana_dusts.json
@@ -55,6 +56,7 @@ f01c4f9608fc5e20c33e12d6862b6d8cee41cdd0 data/botania/tags/items/semi_disposable
 2ead7838be1f063018e6e13e8300f3a183adf5f5 data/botania/tags/items/terrasteel_blocks.json
 70a32077a4c06e2fc3ed8783037d4b6c659216be data/botania/tags/items/terrasteel_ingots.json
 de5556cc02036175ac731ce76827076c6b834d25 data/botania/tags/items/terrasteel_nuggets.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/items/arrows.json
 43bfa13de3ebc0be372fc48b0e4be56a25cb1893 data/minecraft/tags/items/axes.json
 65c35efa8dfbdc9f5a8c05624c492fba8408e3b2 data/minecraft/tags/items/bookshelf_books.json
 a101ef4ecfece48f1cdff62f34f30f9f25b3dbd3 data/minecraft/tags/items/cluster_max_harvestables.json

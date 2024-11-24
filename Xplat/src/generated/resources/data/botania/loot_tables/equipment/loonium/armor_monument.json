@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/tide_leather",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/tide_iron",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/tide_diamond"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

@@ -81,6 +81,7 @@ import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.command.SkyblockCommand;
+import vazkii.botania.common.config.ConfigDataManagerImpl;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
@@ -138,6 +139,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
+		ConfigDataManagerImpl.registerListener();
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new FabricTransferCorporeaNodeDetector());
 

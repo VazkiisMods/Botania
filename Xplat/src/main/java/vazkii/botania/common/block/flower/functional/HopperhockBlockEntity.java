@@ -83,7 +83,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 			// Flat 5 tick delay for newly infused items
 			if (flags.spawnedByInWorldRecipe()) {
-				return flags.timeCounter >= 5;
+				return flags.timeCounter >= 5 + getModulatedDelay();
 			}
 			return DelayHelper.canInteractWith(this, item);
 		};

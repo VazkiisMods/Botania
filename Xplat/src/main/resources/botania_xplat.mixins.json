@@ -37,6 +37,7 @@
     "LoomMenuPatternSlotMixin",
     "LootTableMixin",
     "MobAccessor",
+    "MobMixin",
     "MushroomCowAccessor",
     "NaturalSpawnerMixin",
     "NearestAttackableTargetGoalAccessor",

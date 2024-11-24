@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/rib_iron",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/rib_gold",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/rib_diamond",
+          "weight": 2
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

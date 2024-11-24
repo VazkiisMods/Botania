@@ -1,0 +1,77 @@
+{
+  "parent": "botania:default",
+  "spawnedMobs": [
+    {
+      "type": "minecraft:enderman",
+      "weight": 80
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "weight": 149
+    },
+    {
+      "type": "minecraft:creeper",
+      "effectsToApply": [
+        {
+          "duration": 100,
+          "effect": "minecraft:fire_resistance"
+        },
+        {
+          "duration": 100,
+          "effect": "minecraft:regeneration"
+        }
+      ],
+      "nbt": {
+        "powered": 1
+      },
+      "weight": 1
+    },
+    {
+      "type": "minecraft:husk",
+      "equipmentTable": "botania:equipment/loonium/zombie_stronghold",
+      "weight": 40
+    },
+    {
+      "type": "minecraft:drowned",
+      "equipmentTable": "botania:equipment/loonium/drowned_stronghold",
+      "weight": 40
+    },
+    {
+      "type": "minecraft:zombie",
+      "equipmentTable": "botania:equipment/loonium/zombie_stronghold",
+      "weight": 410
+    },
+    {
+      "type": "minecraft:stray",
+      "equipmentTable": "botania:equipment/loonium/skeleton_stronghold",
+      "weight": 60
+    },
+    {
+      "type": "minecraft:skeleton",
+      "equipmentTable": "botania:equipment/loonium/skeleton_stronghold",
+      "weight": 440
+    },
+    {
+      "type": "minecraft:cave_spider",
+      "weight": 100
+    },
+    {
+      "type": "minecraft:silverfish",
+      "weight": 100
+    },
+    {
+      "type": "minecraft:spider",
+      "weight": 400
+    }
+  ]
+}

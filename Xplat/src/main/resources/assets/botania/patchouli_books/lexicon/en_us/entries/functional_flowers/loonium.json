@@ -10,12 +10,16 @@
       "text": "botania.page.loonium0"
     },
     {
+      "type": "text",
+      "text": "botania.page.looniumStructures"
+    },
+    {
       "type": "botania:petal_apothecary",
       "text": "botania.page.loonium1",
       "recipe": "botania:petal_apothecary/loonium"
     }
   ],
   "extra_recipe_mappings": {
-    "botania:floating_loonium": 1
+    "botania:floating_loonium": 2
   }
 }

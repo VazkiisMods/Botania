@@ -15,12 +15,12 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
-import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.internal_caps.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -36,10 +36,7 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		for (Class<? extends Monster> clz : LooniumBlockEntity.VALID_MOBS) {
-			registry.registerFor(clz, LOONIUM_DROP, e -> new CCALooniumComponent());
-		}
-
+		registry.registerFor(Mob.class, LOONIUM_DROP, e -> new CCALooniumComponent());
 		registry.registerFor(PrimedTnt.class, TNT_ETHICAL, CCAEthicalComponent::new);
 		registry.registerFor(Slime.class, NARSLIMMUS, e -> new CCANarslimmusComponent());
 		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new CCAItemFlagsComponent());

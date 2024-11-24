@@ -41,6 +41,9 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
 		pack.addProvider((PackOutput output) -> new BlockLootProvider(output));
+		pack.addProvider((PackOutput output) -> new LooniumStructureLootProvider(output));
+		pack.addProvider((PackOutput output) -> new LooniumStructureConfigurationProvider(output));
+		pack.addProvider(LooniumEquipmentLootProvider::new);
 		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
 		pack.addProvider(EntityTagProvider::new);

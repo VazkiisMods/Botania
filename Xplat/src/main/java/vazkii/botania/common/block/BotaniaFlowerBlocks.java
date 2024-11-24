@@ -733,11 +733,12 @@ public class BotaniaFlowerBlocks {
 		consumer.accept(be -> new HopperhockBlockEntity.WandHud((HopperhockBlockEntity) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
 		consumer.accept(be -> new PollidisiacBlockEntity.WandHud((PollidisiacBlockEntity) be), POLLIDISIAC);
 		consumer.accept(be -> new RannuncarpusBlockEntity.WandHud((RannuncarpusBlockEntity) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
+		consumer.accept(be -> new LooniumBlockEntity.WandHud((LooniumBlockEntity) be), LOONIUM);
 		consumer.accept(be -> new BindableSpecialFlowerBlockEntity.BindableFlowerWandHud<>((FunctionalFlowerBlockEntity) be),
 				BELLETHORNE, BELLETHORNE_CHIBI, DREADTHORN, HEISEI_DREAM, TIGERSEYE,
 				JADED_AMARANTHUS, ORECHID, FALLEN_KANADE, EXOFLAME, AGRICARNATION, AGRICARNATION_CHIBI,
 				TANGLEBERRIE, TANGLEBERRIE_CHIBI, JIYUULIA, JIYUULIA_CHIBI, HYACIDUS,
-				CLAYCONIA, CLAYCONIA_CHIBI, LOONIUM, DAFFOMILL, VINCULOTUS, SPECTRANTHEMUM, MEDUMONE,
+				CLAYCONIA, CLAYCONIA_CHIBI, DAFFOMILL, VINCULOTUS, SPECTRANTHEMUM, MEDUMONE,
 				MARIMORPHOSIS, MARIMORPHOSIS_CHIBI, BUBBELL, BUBBELL_CHIBI, SOLEGNOLIA, SOLEGNOLIA_CHIBI,
 				ORECHID_IGNEM, LABELLIA);
 	}

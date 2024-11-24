@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/coast_chain",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/coast_iron",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:equipment/loonium/armorset/coast_diamond"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

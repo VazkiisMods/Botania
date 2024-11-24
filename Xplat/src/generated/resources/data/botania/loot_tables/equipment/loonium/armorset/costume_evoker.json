@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:selector",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Trim:{material:\"minecraft:gold\",pattern:\"minecraft:vex\"},display:{color:3290681}}"
+            }
+          ],
+          "name": "minecraft:leather_chestplate"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Trim:{material:\"minecraft:gold\",pattern:\"minecraft:vex\"},display:{color:3290681}}"
+            }
+          ],
+          "name": "minecraft:leather_leggings"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.2,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:totem_of_undying"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
