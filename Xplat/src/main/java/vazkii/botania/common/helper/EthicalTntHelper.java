@@ -118,7 +118,7 @@ public class EthicalTntHelper {
 				final var blockEntity = entity.level().getBlockEntity(blockPos);
 				if (blockEntity instanceof PistonMovingBlockEntity movingBlockEntity
 						&& movingBlockEntity.getMovementDirection() == dir
-						&& movingBlockEntity.getMovedState().getBlock() instanceof TntBlock) {
+						&& ((movingBlockEntity.getMovedState().getBlock() instanceof TntBlock) || movingBlockEntity.getMovedState().getBlock().getName().toString().contains("tnt"))) {
 					// found a moving block that marks the destination of a TNT block moving away from the TNT entity
 					XplatAbstractions.INSTANCE.ethicalComponent(entity).markUnethical();
 					break;
