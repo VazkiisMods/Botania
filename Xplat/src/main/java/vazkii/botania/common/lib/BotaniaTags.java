@@ -268,6 +268,12 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> PASTURE_SEED_REPLACEABLE = tag("pasture_seed_replaceable");
 
+		/**
+		 * Blocks in this tag are considered when checking for unethical TNT sources. Blocks only need to be added
+		 * to this tag if their implementation does not extend {@link net.minecraft.world.level.block.TntBlock}.
+		 */
+		public static final TagKey<Block> UNETHICAL_TNT_CHECK = tag("unethical_tnt_check");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registries.BLOCK, prefix(name));
 		}

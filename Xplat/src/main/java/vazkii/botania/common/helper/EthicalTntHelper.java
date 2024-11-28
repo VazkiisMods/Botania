@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.WeakHashMap;
@@ -118,7 +119,8 @@ public class EthicalTntHelper {
 				final var blockEntity = entity.level().getBlockEntity(blockPos);
 				if (blockEntity instanceof PistonMovingBlockEntity movingBlockEntity
 						&& movingBlockEntity.getMovementDirection() == dir
-						&& movingBlockEntity.getMovedState().getBlock() instanceof TntBlock) {
+						&& (movingBlockEntity.getMovedState().getBlock() instanceof TntBlock
+								|| movingBlockEntity.getMovedState().is(BotaniaTags.Blocks.UNETHICAL_TNT_CHECK))) {
 					// found a moving block that marks the destination of a TNT block moving away from the TNT entity
 					XplatAbstractions.INSTANCE.ethicalComponent(entity).markUnethical();
 					break;
