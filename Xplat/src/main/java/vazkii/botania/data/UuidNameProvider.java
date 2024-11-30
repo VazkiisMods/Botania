@@ -15,11 +15,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UuidNameProvider {
 
 	private static final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
+	private static final Map<String, FailureEntry> failureTimes = new ConcurrentHashMap<>();
 	private static final Duration CACHE_DURATION = Duration.ofMinutes(15);
+	private static final int MAX_FAILURES = 5;
 
 	public static String getPlayerNameFromUUID(String uuid) {
 		CacheEntry entry = cache.get(uuid);
-		if (entry != null && !entry.isExpired()) {
+		boolean isCacheExpired = entry == null || entry.isExpired();
+
+		if (!isCacheExpired) {
 			return entry.name;
 		}
 
@@ -38,15 +42,43 @@ public class UuidNameProvider {
 			in.close();
 
 			JsonObject jsonObject = JsonParser.parseString(content.toString()).getAsJsonObject();
-			String name = jsonObject.get("name").getAsString();
+			if (jsonObject.has("name")) {
+				String name = jsonObject.get("name").getAsString();
 
-			cache.put(uuid, new CacheEntry(name));
+				cache.put(uuid, new CacheEntry(name));
+				failureTimes.remove(uuid); // Reset failure count on success
 
-			return name;
+				return name;
+			} else {
+				recordFailureTime(uuid);
+				FailureEntry failureEntry = failureTimes.getOrDefault(uuid, new FailureEntry());
+				if (failureEntry.failures >= MAX_FAILURES) {
+					if (isCacheExpired) {
+						cache.remove(uuid);
+					}
+					return uuid;
+				}
+				return null;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			recordFailureTime(uuid);
+
+			FailureEntry failureEntry = failureTimes.getOrDefault(uuid, new FailureEntry());
+			if (failureEntry.failures >= MAX_FAILURES) {
+				if (isCacheExpired) {
+					cache.remove(uuid);
+				}
+				return uuid;
+			}
 			return null;
 		}
+	}
+
+	private static void recordFailureTime(String uuid) {
+		FailureEntry failureEntry = failureTimes.computeIfAbsent(uuid, k -> new FailureEntry());
+		failureEntry.failures++;
+		failureEntry.lastFailureTime = Instant.now();
 	}
 
 	private static class CacheEntry {
@@ -61,5 +93,10 @@ public class UuidNameProvider {
 		boolean isExpired() {
 			return Instant.now().isAfter(creationTime.plus(CACHE_DURATION));
 		}
+	}
+
+	private static class FailureEntry {
+		int failures = 0;
+		Instant lastFailureTime = Instant.now();
 	}
 }
