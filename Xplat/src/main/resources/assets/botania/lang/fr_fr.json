@@ -409,7 +409,7 @@
   "item.botania.dice.poem3": "Les chiffres et leur danse: irrévocable.",
   "_comment.poem.info": "Oui putain, décasyllabe qui rime",
 
-  "death.attack.botania.relic": "%s a été puni en utilisant une relique qui n'était pas la sienne",
+  "death.attack.botania-relic": "%s a été puni en utilisant une relique qui n'était pas la sienne",
   "death.attack.botania.key_explosion": "%2$s a noyé %1$s de trésors",
 
   "_comment.mana_burst.alt": "Décharge de mana",

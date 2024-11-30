@@ -390,7 +390,7 @@
 	"item.botania.dice.poem2": "出る目は定めが決めたのか",
 	"item.botania.dice.poem3": "数字は踊る あなたと共に",
 
-	"death.attack.botania.relic": "%s は他人の遺物を使ったために処罰された。",
+	"death.attack.botania-relic": "%s は他人の遺物を使ったために処罰された。",
 
 	"entity.botania.mana_burst": "マナバースト",
 	"entity.botania.pixie": "ピクシー",

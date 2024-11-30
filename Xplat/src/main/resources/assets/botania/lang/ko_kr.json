@@ -338,7 +338,7 @@
   "item.botania.dice.poem2": "그럴 듯한 결과의 숨겨진 규칙,",
   "item.botania.dice.poem3": "숫자들은 춤을 추는 군요.",
 
-  "death.attack.botania.relic": "%s은(는) 타인 소유의 유물에 욕심을 내 천벌이 내려졌습니다.",
+  "death.attack.botania-relic": "%s은(는) 타인 소유의 유물에 욕심을 내 천벌이 내려졌습니다.",
 
   "effect.botania.allure.description": "낚시 속도 두 배",
   "effect.botania.bloodthirst.description": "스폰 조건에 관계없이 64블록 반경에 적대적인 몹이 스폰되도록 허용합니다. 공허의 효과를 받고 있으면 효과가 없습니다.",

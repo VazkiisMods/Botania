@@ -207,7 +207,7 @@
   "item.botania.dice.poem2": "Ocultas leyes de un resultado probable,",
   "item.botania.dice.poem3": "los números no dejan de danzar.",
 
-  "death.attack.botania.relic": "%s ha sido castigado por usar una reliquia que no es suya",
+  "death.attack.botania-relic": "%s ha sido castigado por usar una reliquia que no es suya",
 
   "entity.botania.mana_burst": "Pulso de maná",
   "entity.botania.pixie": "Hada",

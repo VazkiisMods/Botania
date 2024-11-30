@@ -444,7 +444,7 @@
   "item.botania.dice.poem2": "可能的结果中，暗藏着规则，",
   "item.botania.dice.poem3": "数字将引领一切起舞。",
 
-  "death.attack.botania.relic": "%s 因使用不属于他的遗物而被惩罚致死",
+  "death.attack.botania-relic": "%s 因使用不属于他的遗物而被惩罚致死",
   "death.attack.botania.key_explosion": "%2$s 用宝藏淹没了 %1$s",
 
   "effect.botania.allure.description": "双倍钓鱼速度",

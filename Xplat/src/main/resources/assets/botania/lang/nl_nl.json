@@ -201,7 +201,7 @@
   "item.botania.dice.poem2": "De verborgen wetten van waarschijnlijkheid",
   "item.botania.dice.poem3": "De nummers leiden de dans",
 
-  "death.attack.botania.relic": "%s werd gestraft voor gebruik van een reliek van een ander",
+  "death.attack.botania-relic": "%s werd gestraft voor gebruik van een reliek van een ander",
 
   "entity.botania.mana_burst": "Mana Burst",
   "entity.botania.pixie": "Elfje",

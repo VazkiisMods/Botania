@@ -243,7 +243,7 @@
   "item.botania.dice.poem2": "Leis ocultas de um resultado provável,",
   "item.botania.dice.poem3": "Os números regem uma dança.",
 
-  "death.attack.botania.relic": "%s foi punido por usar uma relíquia que não lhe pertencia",
+  "death.attack.botania-relic": "%s foi punido por usar uma relíquia que não lhe pertencia",
 
   "entity.botania.mana_burst": "Pulso de Mana",
   "entity.botania.pixie": "Fada",

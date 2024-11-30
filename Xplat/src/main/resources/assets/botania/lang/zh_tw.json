@@ -214,7 +214,7 @@
   "item.botania.dice.poem2": "可能的結果中暗藏著規則,",
   "item.botania.dice.poem3": "數字將引領一切起舞.",
 
-  "death.attack.botania.relic": "%s 因使用不屬於他的遺物而受天譴致死",
+  "death.attack.botania-relic": "%s 因使用不屬於他的遺物而受天譴致死",
 
   "entity.botania.mana_burst": "瑪那脈衝",
   "entity.botania.pixie": "小精靈",
