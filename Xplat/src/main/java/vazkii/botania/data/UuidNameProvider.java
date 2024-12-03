@@ -3,6 +3,8 @@ package vazkii.botania.data;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -50,29 +52,24 @@ public class UuidNameProvider {
 
 				return name;
 			} else {
-				recordFailureTime(uuid);
-				FailureEntry failureEntry = failureTimes.getOrDefault(uuid, new FailureEntry());
-				if (failureEntry.failures >= MAX_FAILURES) {
-					if (isCacheExpired) {
-						cache.remove(uuid);
-					}
-					return uuid;
-				}
-				return null;
+				return SaveFailureData(uuid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			recordFailureTime(uuid);
-
-			FailureEntry failureEntry = failureTimes.getOrDefault(uuid, new FailureEntry());
-			if (failureEntry.failures >= MAX_FAILURES) {
-				if (isCacheExpired) {
-					cache.remove(uuid);
-				}
-				return uuid;
-			}
-			return null;
+			return SaveFailureData(uuid);
 		}
+	}
+
+	@Nullable
+	private static String SaveFailureData(String uuid) {
+		recordFailureTime(uuid);
+		FailureEntry failureEntry = failureTimes.getOrDefault(uuid, new FailureEntry());
+		if (failureEntry.failures >= MAX_FAILURES) {
+			cache.put(uuid, new CacheEntry(uuid)); // Store UUID as Name
+			failureTimes.remove(uuid); // Reset failure count after storing UUID as Name
+			return uuid;
+		}
+		return null;
 	}
 
 	private static void recordFailureTime(String uuid) {
