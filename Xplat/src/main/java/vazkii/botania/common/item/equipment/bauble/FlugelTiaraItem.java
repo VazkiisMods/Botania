@@ -471,10 +471,10 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 			ms.scale(0.75F, -0.75F, -0.75F);
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.HALO);
 			Matrix4f mat = ms.last().pose();
-			buffer.vertex(mat, -1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 0).endVertex();
-			buffer.vertex(mat, 1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 0).endVertex();
-			buffer.vertex(mat, 1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 1).endVertex();
-			buffer.vertex(mat, -1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 1).endVertex();
+			buffer.addVertex(mat, -1F, 0, -1F).setColor(1.0F, 1.0F, 1.0F, 1.0F).setUv(0, 0);
+			buffer.addVertex(mat, 1F, 0, -1F).setColor(1.0F, 1.0F, 1.0F, 1.0F).setUv(1, 0);
+			buffer.addVertex(mat, 1F, 0, 1F).setColor(1.0F, 1.0F, 1.0F, 1.0F).setUv(1, 1);
+			buffer.addVertex(mat, -1F, 0, 1F).setColor(1.0F, 1.0F, 1.0F, 1.0F).setUv(0, 1);
 		}
 
 		private static int estimateAdditionalNumRowsRendered(Player player) {

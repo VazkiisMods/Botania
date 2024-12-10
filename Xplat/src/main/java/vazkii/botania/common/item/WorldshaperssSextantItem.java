@@ -320,13 +320,13 @@ public class WorldshaperssSextantItem extends Item {
 				if (inRange) {
 					radius += 4;
 					RenderSystem.lineWidth(3F);
-					Tesselator.getInstance().getBuilder().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
+					Tesselator.getInstance().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
 					RenderSystem.setShaderColor(0F, 1F, 1F, 1F);
 					for (int i = 0; i < 361; i++) {
 						float radian = (float) (i * Math.PI / 180);
 						float xp = x + net.minecraft.util.Mth.cos(radian) * (float) radius;
 						float yp = y + net.minecraft.util.Mth.sin(radian) * (float) radius;
-						Tesselator.getInstance().getBuilder().vertex(ms.last().pose(), xp, yp, 0).endVertex();
+						Tesselator.getInstance().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION).addVertex(ms.last().pose(), xp, yp, 0);
 					}
 					Tesselator.getInstance().end();
 				}

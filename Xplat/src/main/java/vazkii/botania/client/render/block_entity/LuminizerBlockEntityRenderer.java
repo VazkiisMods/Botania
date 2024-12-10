@@ -103,10 +103,10 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 		float f6 = 0.25F;
 
 		Matrix4f mat = ms.last().pose();
-		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f3).endVertex();
-		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f3).endVertex();
-		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f2).endVertex();
-		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f2).endVertex();
+		buffer.addVertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).setColor(1F, 1F, 1F, 1F).setUv(f, f3);
+		buffer.addVertex(mat, f4 - f5, 0.0F - f6, 0.0F).setColor(1F, 1F, 1F, 1F).setUv(f1, f3);
+		buffer.addVertex(mat, f4 - f5, f4 - f6, 0.0F).setColor(1F, 1F, 1F, 1F).setUv(f1, f2);
+		buffer.addVertex(mat, 0.0F - f5, f4 - f6, 0.0F).setColor(1F, 1F, 1F, 1F).setUv(f, f2);
 
 	}
 
