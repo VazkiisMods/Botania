@@ -41,6 +41,7 @@ public class SpecialFlowerBlockItem extends BlockItem {
 	@Override
 	public void appendHoverText(@NotNull ItemStack stack, TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load
+		// TODO: This should be moved to being builtin tooltip text components on the relevant items
 		if (BotaniaConfig.client() != null) {
 			if (stack.is(GENERATING)) {
 				tooltip.add(Component.translatable("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
