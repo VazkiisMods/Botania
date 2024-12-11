@@ -11,7 +11,8 @@ c3d9bfa84d88ef5deea5ad1f9b37fafb31297dad data/c/tags/items/wooden_chests.json
 94f96c69b63e660269e97982b78d7e6f54374c08 data/modern_industrialization/tags/items/replicator_blacklist.json
 bb7e6831696137af69ce475bbf164dd0cd8babf3 data/trinkets/tags/items/all.json
 eea867f5a1dcf993821e804195af53f5789ce613 data/trinkets/tags/items/chest/cape.json
-97a18698d3d4e04638d4787a638e33b77b450f25 data/trinkets/tags/items/chest/necklace.json
+20e51fa1c09698356074d3b37a61e3f8cb5eb8ff data/trinkets/tags/items/chest/necklace.json
+378361e248d598a38b7dfcc70a91e4a73898e129 data/trinkets/tags/items/hand/charm.json
 256e381daa579a2e6c23cc0897ac161120b2d936 data/trinkets/tags/items/hand/ring.json
 b1f83cb846b4c3d1578aba6ed515b5ad08aaa126 data/trinkets/tags/items/head/face.json
 bf5357b621fdcc974b60e76c82ec467fc0023268 data/trinkets/tags/items/head/hat.json
