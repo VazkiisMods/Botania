@@ -39,7 +39,7 @@ public class AncientWillEmiRecipe extends EmiPatternCraftingRecipe {
 		return new GeneratedSlotWidget(r -> {
 			ItemStack stack = container.getItemStack().copy();
 			ItemStack will = wills.get(r.nextInt(wills.size())).getItemStack().copy();
-			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((AncientWillItem) will.getItem()).type);
+			AncientWillContainer.addAncientWill(stack, ((AncientWillItem) will.getItem()).type);
 			return EmiStack.of(stack);
 		}, unique, x, y);
 	}

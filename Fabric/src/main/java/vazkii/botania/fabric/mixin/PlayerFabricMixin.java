@@ -33,6 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
+import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
@@ -123,7 +124,7 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 	private float onCritMul(float f, Entity target) {
 		if (target instanceof LivingEntity living) {
 			((PlayerAccess) this).botania$setCritTarget(living);
-			return f * TerrasteelHelmItem.getCritDamageMult((Player) (Object) this);
+			return f * AncientWillContainer.getCritDamageMult((Player) (Object) this);
 		}
 		return f;
 	}

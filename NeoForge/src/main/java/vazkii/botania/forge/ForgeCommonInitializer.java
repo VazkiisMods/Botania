@@ -20,6 +20,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -66,10 +67,7 @@ import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.item.BlockProvider;
-import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.item.*;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.client.fx.BotaniaParticles;
@@ -454,11 +452,11 @@ public class ForgeCommonInitializer {
 				if (e.getEntity().level().isClientSide
 						|| result == Event.Result.DENY
 						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
-						|| !TerrasteelHelmItem.hasTerraArmorSet(e.getEntity())
+						|| !(e.getEntity().getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof AncientWillContainer awc && awc.hasFullArmorSet(e.getEntity()))
 						|| !(e.getTarget() instanceof LivingEntity target)) {
 					return;
 				}
-				e.setDamageModifier(e.getDamageModifier() * TerrasteelHelmItem.getCritDamageMult(e.getEntity()));
+				e.setDamageModifier(e.getDamageModifier() * AncientWillContainer.getCritDamageMult(e.getEntity()));
 				((PlayerAccess) e.getEntity()).botania$setCritTarget(target);
 			});
 

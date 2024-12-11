@@ -34,8 +34,6 @@ import java.util.Locale;
 
 public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDiscountArmor, AncientWillContainer {
 
-	public static final String TAG_ANCIENT_WILL = "AncientWill";
-
 	public TerrasteelHelmItem(Properties props) {
 		super(Type.HELMET, props);
 	}
@@ -43,17 +41,7 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
-		if (!world.isClientSide && entity instanceof Player player
-				&& player.getInventory().armor.contains(stack)
-				&& hasArmorSet(player)) {
-			int food = player.getFoodData().getFoodLevel();
-			if (food > 0 && food < 18 && player.isHurt() && player.tickCount % 80 == 0) {
-				player.heal(1F);
-			}
-			if (player.tickCount % 10 == 0) {
-				ManaItemHandler.instance().dispatchManaExact(stack, player, 10, true);
-			}
-		}
+		AncientWillContainer.ancientWillInventoryTick(stack, world, entity);
 	}
 
 	@Override
@@ -62,76 +50,13 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 	}
 
 	@Override
-	public void addAncientWill(ItemStack stack, AncientWillType will) {
-		ItemNBTHelper.setBoolean(stack, TAG_ANCIENT_WILL + "_" + will.name().toLowerCase(Locale.ROOT), true);
-	}
-
-	@Override
-	public boolean hasAncientWill(ItemStack stack, AncientWillType will) {
-		return hasAncientWill_(stack, will);
-	}
-
-	private static boolean hasAncientWill_(ItemStack stack, AncientWillType will) {
-		return ItemNBTHelper.getBoolean(stack, TAG_ANCIENT_WILL + "_" + will.name().toLowerCase(Locale.ROOT), false);
-	}
-
-	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		super.addArmorSetDescription(stack, list);
-		for (AncientWillType type : AncientWillType.values()) {
-			if (hasAncientWill(stack, type)) {
-				list.add(Component.translatable("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").withStyle(ChatFormatting.GRAY));
-			}
-		}
+		AncientWillContainer.addAncientWillDescription(stack, list);
 	}
 
-	public static boolean hasAnyWill(ItemStack stack) {
-		for (AncientWillType type : AncientWillType.values()) {
-			if (hasAncientWill_(stack, type)) {
-				return true;
-			}
-		}
-
-		return false;
+	@Override
+	public boolean hasFullArmorSet(Player player) {
+		return hasArmorSet(player);
 	}
-
-	public static boolean hasTerraArmorSet(Player player) {
-		return ((TerrasteelHelmItem) BotaniaItems.terrasteelHelm).hasArmorSet(player);
-	}
-
-	public static float getCritDamageMult(Player player) {
-		if (hasTerraArmorSet(player)) {
-			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
-			if (!stack.isEmpty() && stack.getItem() instanceof TerrasteelHelmItem
-					&& hasAncientWill_(stack, AncientWillType.DHAROK)) {
-				return 1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F;
-			}
-		}
-		return 1.0F;
-	}
-
-	public static DamageSource onEntityAttacked(DamageSource source, float amount, Player player, LivingEntity entity) {
-		if (hasTerraArmorSet(player)) {
-			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
-			if (!stack.isEmpty() && stack.getItem() instanceof TerrasteelHelmItem) {
-				if (hasAncientWill_(stack, AncientWillType.AHRIM)) {
-					entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1));
-				}
-				if (hasAncientWill_(stack, AncientWillType.GUTHAN)) {
-					player.heal(amount * 0.25F);
-				}
-				if (hasAncientWill_(stack, AncientWillType.TORAG)) {
-					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1));
-				}
-				if (hasAncientWill_(stack, AncientWillType.VERAC)) {
-					source = BotaniaDamageTypes.Sources.playerAttackArmorPiercing(player.level().registryAccess(), player);
-				}
-				if (hasAncientWill_(stack, AncientWillType.KARIL)) {
-					entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1));
-				}
-			}
-		}
-		return source;
-	}
-
 }

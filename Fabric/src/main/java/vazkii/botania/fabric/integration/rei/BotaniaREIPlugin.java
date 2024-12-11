@@ -152,14 +152,13 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		ImmutableList.Builder<EntryIngredient> input = ImmutableList.builder();
 		ImmutableList.Builder<EntryStack<ItemStack>> output = ImmutableList.builder();
 		Set<ItemStack> wills = ImmutableSet.of(new ItemStack(BotaniaItems.ancientWillAhrim), new ItemStack(BotaniaItems.ancientWillDharok), new ItemStack(BotaniaItems.ancientWillGuthan), new ItemStack(BotaniaItems.ancientWillKaril), new ItemStack(BotaniaItems.ancientWillTorag), new ItemStack(BotaniaItems.ancientWillVerac));
-		AncientWillContainer container = (AncientWillContainer) BotaniaItems.terrasteelHelm;
 
 		ItemStack helmet = new ItemStack(BotaniaItems.terrasteelHelm);
 		input.add(EntryIngredients.of(helmet));
 		input.add(EntryIngredients.ofItemStacks(wills));
 		for (ItemStack will : wills) {
 			ItemStack copy = helmet.copy();
-			container.addAncientWill(copy, ((AncientWillItem) will.getItem()).type);
+			AncientWillContainer.addAncientWill(copy, ((AncientWillItem) will.getItem()).type);
 			output.add(EntryStacks.of(copy));
 		}
 		helper.add(new DefaultCustomDisplay(null, input.build(), Collections.singletonList(EntryIngredient.of(output.build()))));
