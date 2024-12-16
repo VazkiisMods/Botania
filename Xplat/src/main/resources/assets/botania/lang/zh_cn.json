@@ -582,10 +582,10 @@
   "advancement.botania:allLooniumMobs": "King",
   "advancement.botania:allLooniumMobs.desc": "杀死每一种聚宝花生成的怪物",
 
-  "botania.challengelevel.easy": "Easy",
-  "botania.challengelevel.normal": "Normal",
-  "botania.challengelevel.hard": "Hard",
-  "botania.challengelevel.lunatic": "Lunatic",
+  "botania.challengelevel.easy": "简单",
+  "botania.challengelevel.normal": "普通",
+  "botania.challengelevel.hard": "困难",
+  "botania.challengelevel.lunatic": "疯狂",
 
   "botania.challenge.flowerFarm": "花卉农场",
   "botania.challenge.flowerFarm.desc": "创建一个有着十六种颜色的植物魔法花的自动化农场，如果花朵分类分布奖励积分。",
