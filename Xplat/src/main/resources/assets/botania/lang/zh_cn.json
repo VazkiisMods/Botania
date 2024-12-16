@@ -2130,7 +2130,7 @@
   "botania.entry.pool": "魔力池",
   "botania.tagline.pool": "魔力存储区",
   "botania.page.pool0": "$(item)魔力池$(0)简单说就是储存$(thing)魔力$(0)的地方。$(p)魔力能通过使用$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)输入，而与之相邻的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)会自动从中抽取魔力增加内部缓存。$(p)大部分$(thing)功能花$(0)都需要一个相邻的$(item)魔力池$(0)提供能量。",
-  "botania.page.pool9": "$(item)魔力池$(0)有两种，较弱的一个，$(item)稀释的$(0)只能储存极少量的$(thing)魔力$(0)，此外还有一个$(item)普通的$(0)，可储存百倍魔力于稀释的那种。$(p)这本辞典中其他地方所提及的\"魔力池\"都是指普通的那一个。",
+  "botania.page.pool9": "$(item)魔力池$(0)有两种，较弱的一个，$(item)稀释的$(0)只能储存极少量的$(thing)魔力$(0)，此外还有一个$(item)普通的$(0)，可储存百倍魔力于稀释的那种。$(p)这本辞典中其他地方所提及的“魔力池”都是指普通的那一个。",
   "botania.page.pool1": "普通的$(item)魔力池$(0)",
   "botania.page.pool10": "制作$(item)稀释魔力池$(0)。",
   "botania.page.pool14": "$(item)稀释魔力池$(0)在某些系统中可作为一个小型缓冲区，特别是那些不太消耗的$(thing)魔力$(0)的功能花或系统。普通的魔力池容量实在是太大了，所以试图通过观测刻度来检视普通魔力池中的$(thing)魔力$(0)变化的方法并不是那么准确。",
@@ -2993,7 +2993,7 @@
 
   "botania.entry.craftingHalo": "合成环",
   "botania.tagline.craftingHalo": "快捷合成，附带网格哦",
-  "botania.page.craftingHalo0": "带着$(item)工作台$(0)到处跑太麻烦了。$(item)合成环$(0)不仅仅是一个便携的$(item)工作台$(0)更是一个快捷的合成工具。手持它时就会显示出一\"圈\"的配方。$(p)直接右击$(item)工作台$(0)的图标就会打开一个合成界面。",
+  "botania.page.craftingHalo0": "带着$(item)工作台$(0)到处跑太麻烦了。$(item)合成环$(0)不仅仅是一个便携的$(item)工作台$(0)更是一个快捷的合成工具。手持它时就会显示出一“圈”的配方。$(p)直接右击$(item)工作台$(0)的图标就会打开一个合成界面。",
   "botania.page.craftingHalo1": "只要物品还在背包里它就会储存最近一次合成的配方。$(p)右击环上的空位即可添加最近一次的配方。右击配方则会使用背包中的物品进行合成。Shift左击就能移除配方。",
   "botania.page.craftingHalo2": "只会遵循菜单的料理是无味的",
 
@@ -3093,7 +3093,7 @@
 
   "botania.entry.sextant": "盖世六分仪",
   "botania.tagline.sextant": "帮助制作圆的工具",
-  "botania.page.sextant0": "在这个方块世界，创造一个圆形或球体几乎成了一门失传的手艺。以至于为了达成目的，他们不得不使用一种\"切换窗口\"的奇技淫巧弄一个圆出来。$(p)$(item)盖世六分仪$(0)作为一个制造圆的工具，为这种行为提供了一个简单的替代方案。",
+  "botania.page.sextant0": "在这个方块世界，创造一个圆形或球体几乎成了一门失传的手艺。以至于为了达成目的，他们不得不使用一种“切换窗口”的奇技淫巧弄一个圆出来。$(p)$(item)盖世六分仪$(0)作为一个制造圆的工具，为这种行为提供了一个简单的替代方案。",
   "botania.page.sextant1": "手持这个工具时，潜行右键来选择模式。对准一个方块并长按右键来确定绘制的圆心或球心，然后望向远方来确定它的半径。此时会出现一个蓝圈，作为将要绘制的形状的简单预览。一旦设定好，一个虚拟的$(item)圆石$(0)圈会显现出来作为建筑参考。$(p)最后，潜行右键能够重设工具并移除虚拟圆石",
   "botania.page.sextant2": "你画了一个圆，使你充满了决心",
   "botania.page.sextant_modes": "通常来讲，对于一个指定的正方形，有多种方法可以在内部绘制出与之相切的圆。对于一个指定的圆心，也可以尝试斜向拉至某一点，来创建出一个非整数半径的圆。$(p)如果二维形状还不能满足要求，当没有显示形状时，潜行右键可以切换形状模式。",
@@ -3161,7 +3161,7 @@
   "botania.entry.flightTiara": "天翼族之冠",
   "botania.tagline.flightTiara": "飞行的能力……暂时的",
   "botania.page.flightTiara0": "$(thing)天翼族$(0)一度支配着这片土地，现在却是濒临灭绝的种族，作为弑神者而被创造出来，拥有着飞行的能力。$(p)使用$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)能复制出一点她们的力量，那就是以$(item)天翼族$(0)$(item)之冠$(0)的形式，消耗$(thing)魔力$(0)就能飞行。",
-  "botania.page.flightTiara4": "然而并不能彻底完美地再现这项技术，这顶头冠有着缺陷，这意味着它不能持续的飞行。如果你持续飞行30秒而没有让其再充能，它就会停止提供飞行的力量。$(p)一个\"飞行槽\"会出现在HUD上以方便查看。",
+  "botania.page.flightTiara4": "然而并不能彻底完美地再现这项技术，这顶头冠有着缺陷，这意味着它不能持续的飞行。如果你持续飞行30秒而没有让其再充能，它就会停止提供飞行的力量。$(p)一个“飞行槽”会出现在HUD上以方便查看。",
   "botania.page.flightTiara5": "除了简单的飞行，天翼族之冠给了穿戴者$(thing)冲刺$(0)和$(thing)滑翔$(0)的能力。没有在疾跑时按下[$(k:sprint)]，使用者将会快速往前冲刺一段距离。$(p)冲刺每两秒只能使用一次。",
   "botania.page.flightTiara6": "滑翔允许你轻轻地着陆，它有着不错的水平飞行距离，同时防止掉落伤害。要滑翔，只需在掉落的时候按住潜行键。$(p)滑翔即使在飞行槽空时也能使用，但会使飞行槽的回复速度变慢。",
   "botania.page.flightTiara1": "异世界的四万本书",
@@ -3187,12 +3187,12 @@
   "botania.entry.corporeaIndex": "多媒体索引",
   "botania.tagline.corporeaIndex": "说话请求网络物品",
   "botania.page.corporeaIndex0": "$(thing)多媒体网络$(0)的强大能力在于可以通过说出物品名发出请求。$(p)$(item)多媒体索引$(0)是一个类似末影水晶的方块，它属于放置于其上的$(l:ender/corporea)$(item)多媒体火花$(0)$(/l)所属的$(thing)多媒体网络$(0)的一部分。$(p)只要靠近它就能激活。激活时，它会显示作用半径。",
-  "botania.page.corporeaIndex1": "当激活时，索引会拦截附近玩家发送的$(thing)聊天信息$(0)，将其作为$(thing)请求$(0)处理并防止其发送到聊天栏。然后，它会在网络内搜索匹配请求的物品。例如，输入\"铁锭\"就会在网络里搜索一个$(item)铁锭$(0)并把它传送过来，并在世界里物质化为一叠掉落物。",
+  "botania.page.corporeaIndex1": "当激活时，索引会拦截附近玩家发送的$(thing)聊天信息$(0)，将其作为$(thing)请求$(0)处理并防止其发送到聊天栏。然后，它会在网络内搜索匹配请求的物品。例如，输入“铁锭”就会在网络里搜索一个$(item)铁锭$(0)并把它传送过来，并在世界里物质化为一叠掉落物。",
   "botania.page.corporeaIndex2": "可以指定一次请求几个物品：比如输入“10苹果”就会一次性从网络中抽取10个苹果。使用关键词“this”则会匹配玩家手中的物品。在请求关键词前后附加“...”、“~”、“+”、或“?”字符则会匹配任何名字中$(o)含有$()该关键词的物品。比如，输入“...铁”则会提取任何名字中含有“铁”字的物品。",
   "botania.page.corporeaIndex3": "请求关键词中插入的“*”字符可以代表任意数量的汉字。比如输入“去皮*木”就能匹配$(item)去皮橡木原木$(0)、$(item)去皮云杉原木$(0)、$(item)去皮金合欢木$(0)、甚至是被重命名为“去皮abcd木”的一组什么玩意儿。$(p)备注：输入“*铁*”和“铁...”的作用是一模一样的；输入“*”则可以匹配任何东西。",
-  "botania.page.corporeaIndex4": "（游戏语言为英语时）索引只能识别一些简单的复数形式（后缀\"-s\"、\"-es\"或\"-ies\"）。不过一次性请求复数个物品时依然可以使用单数形式（\"10apple\"是可以的）。$(p)\"10ofthis\"则不出所料会请求10个手里拿着的物品。",
-  "botania.page.corporeaIndex5": "（游戏语言为英语时）可以使用一些量词：比如\"astackofapples\"、\"2stacksofapples\"、\"2stacksand20apples\"、\"halfastackofapples\"、和\"adozenapples\"都是可以的。$(p)索引还可以处理一些简单的自然语言，比如\"2xstacksand20xofapples\"、\"2stack2apple\"、以及\"2stacks+2apples\"都是相等的",
-  "botania.page.corporeaIndex6": "使用关键词\"all\"或关键词\"every\"则可以请求网络中的所有匹配搜索条件的物品。比如，输入“all苹果”就能取出所有苹果（以及所有被重命名为“苹果”的物品）。$(p)关键词“count”、“show”、“display”、和“tell”不会取出任何物品，但会显示物品库存。",
+  "botania.page.corporeaIndex4": "（游戏语言为英语时）索引只能识别一些简单的复数形式（后缀“-s”、“-es”或“-ies”）。不过一次性请求复数个物品时依然可以使用单数形式（“10apple”是可以的）。$(p)“10ofthis”则不出所料会请求10个手里拿着的物品。",
+  "botania.page.corporeaIndex5": "（游戏语言为英语时）可以使用一些量词：比如“astackofapples”、“2stacksofapples”、“2stacksand20apples”、“halfastackofapples”、和“adozenapples”都是可以的。$(p)索引还可以处理一些简单的自然语言，比如“2xstacksand20xofapples”、“2stack2apple”、以及“2stacks+2apples”都是相等的",
+  "botania.page.corporeaIndex6": "使用关键词“all”或关键词“every”则可以请求网络中的所有匹配搜索条件的物品。比如，输入“all苹果”就能取出所有苹果（以及所有被重命名为“苹果”的物品）。$(p)关键词“count”、“show”、“display”、和“tell”不会取出任何物品，但会显示物品库存。",
   "botania.page.corporeaIndex7": "站在$(item)多媒体索引$(0)旁检视物品栏或翻阅合成表时，可以在鼠标悬浮在某个物品上时按[$(k:botania_corporea_request)]键来提取一个那个物品。$(p)按住shift则会提取一整组物品，按住ctrl则是半组，同时按住两个键则只会提取四分之一组。",
   "botania.page.corporeaIndex8": "某魔法的多媒体索引",
 
@@ -3259,7 +3259,7 @@
 
   "botania.entry.starSword": "召星者",
   "botania.tagline.starSword": "一把召唤流星的剑",
-  "botania.page.starSword0": "$(item)召星者$(0)是一把有着召唤群星之怒能力的剑，在挥动它的时候，剑会从天上召唤一颗流星落到持有者所看的位置，对所有接触到的实体造成伤害。制作这把剑可不是一个简单的任务，它需要$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)以及一把$(l:tools/terra_sword)$(item)泰拉之刃$(0)$(/l)。注意：这么做会将泰拉之刃上的附魔消去。",
+  "botania.page.starSword0": "$(item)召星者$(0)是一把有着召唤群星之怒能力的剑，在挥动它的时候，剑会从天上召唤一颗流星落到持有者所看的位置，对所有接触到的实体造成伤害。制作这把剑可不是一个简单的任务，它需要$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)以及一把$(l:tools/terra_sword)$(item)泰拉之刃$(0)$(/l)。注意：这么做会祛除泰拉之刃上的附魔。",
   "botania.page.starSword1": "召星者、星怒……管他呢",
 
   "botania.entry.thunderSword": "召雷者",
@@ -3516,7 +3516,7 @@
 
   "botania.entry.relics": "诸神的遗物",
   "botania.tagline.relics": "是神话？还是真实？",
-  "botania.page.relics0": "关于艾尔夫海姆的高阶种族有着这样一个传说:\"转动命运之骰的人将会得到神的恩赐\"。这些恩赐之物被称作$(item)诸$(0)$(item)神的遗物$(0)，传言它们独一无二并且会与持有者的灵魂相绑定，也就是说仅有被恩赐其物之人才能将其使用。$(p)但或许，那只是一个传说而已。",
+  "botania.page.relics0": "关于艾尔夫海姆的高阶种族有着这样一个传说:“转动命运之骰的人将会得到神的恩赐”。这些恩赐之物被称作$(item)诸$(0)$(item)神的遗物$(0)，传言它们独一无二并且会与持有者的灵魂相绑定，也就是说仅有被恩赐其物之人才能将其使用。$(p)但或许，那只是一个传说而已。",
 
   "botania.entry.relicInfo": "诸神的遗物II",
   "botania.tagline.relicInfo": "他们终究是真实的",
@@ -3525,7 +3525,7 @@
 
   "botania.entry.infiniteFruit": "禁忌之果",
   "botania.tagline.infiniteFruit": "无穷无尽的营养供应",
-  "botania.page.infiniteFruit0": "被称为$(item)禁忌之果$(0)的遗物赋予那些得到它的勇敢灵魂永垂不朽的营养。它可以像普通的食物一样食用，但不像一般食物那样消耗自身，它利用背包里的魔力填满你的饥饿度。$(p)希望你喜欢苹果的味道。。。",
+  "botania.page.infiniteFruit0": "被称为$(item)禁忌之果$(0)的遗物赋予那些得到它的勇敢灵魂永垂不朽的营养。它可以像普通的食物一样食用，但不像一般食物那样消耗自身，它利用背包里的魔力填满你的饥饿度。$(p)希望你喜欢苹果的味道……",
 
   "botania.entry.kingKey": "王之宝钥",
   "botania.tagline.kingKey": "打开宝物库",
@@ -3590,7 +3590,7 @@
   "botania.entry.shinyFlowers": "荧光花",
   "botania.tagline.shinyFlowers": "浮空的发光花",
   "botania.page.shinyFlowers0": "给你的$(item)神秘花$(0)加上点$(item)萤石粉$(0)，就能让她们更闪耀，发出相当于$(item)萤石块$(0)亮度的物理光。$(p)加上一些$(item)泥土$(0)和$(item)草地之种$(0)就能将它们变为一块小型空岛，它不仅能发光，而且还很炫酷。",
-  "botania.page.shinyFlowers3": "将任何颜色的$(item)浮空花朵$(0)与任何有效果的花朵，(任何$(thing)功能性或产能花朵$(0)等)在合成台里相互结合，会得到拥有双方属性，效果及外观的$(item)浮空花$(0)。",
+  "botania.page.shinyFlowers3": "将任何颜色的$(item)浮空花朵$(0)与任何有效果的花朵，（任何$(thing)功能性或产能花朵$(0)等）在合成台里相互结合，会得到拥有双方属性，效果及外观的$(item)浮空花$(0)。",
   "botania.page.shinyFlowers4": "荧光花",
   "botania.page.shinyFlowers1": "一闪一闪",
   "botania.page.shinyFlowers5": "浮空花",
@@ -3644,7 +3644,7 @@
 
   "botania.entry.cacophonium": "不和谐之音",
   "botania.tagline.cacophonium": "模仿生物的声音",
-  "botania.page.cacophonium0": "这是个有趣的设备，$(item)不和谐之音$(0)有着能模仿任何活着的生物声音的能力，为使其\"模仿\"一个生物。你需要拿着它右击一个生物。然后按住右键它就会开始模仿。$(p)为什么有人会想要做这个，这玩意超越了我的伦理观。",
+  "botania.page.cacophonium0": "这是个有趣的设备，$(item)不和谐之音$(0)有着能模仿任何活着的生物声音的能力，为使其“模仿”一个生物。你需要拿着它右击一个生物。然后按住右键它就会开始模仿。$(p)为什么有人会想要做这个，这玩意超越了我的伦理观。",
   "botania.page.cacophonium1": "自行车！不和谐之音",
   "botania.page.cacophonium2": "为了最大化这种不和谐，$(item)不和谐之音$(0)潜行右击$(item)音符盒$(0)来使其记录这种声音。$(p)你个怪物。",
   
