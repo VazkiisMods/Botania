@@ -59,8 +59,8 @@ public class BotaniaFlowerBlocks {
 	public static final Block endoflameFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.ENDOFLAME);
 	public static final Block endoflamePotted = BotaniaBlocks.flowerPot(endoflame, 0);
 
-	public static final Block thermalily = createSpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.THERMALILY);
-	public static final Block thermalilyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.THERMALILY);
+	public static final Block thermalily = createSpecialFlowerBlock(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.THERMALILY, true);
+	public static final Block thermalilyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.THERMALILY, true);
 	public static final Block thermalilyPotted = BotaniaBlocks.flowerPot(thermalily, 0);
 
 	public static final Block rosaArcana = createSpecialFlowerBlock(MobEffects.LUCK, 64, FLOWER_PROPS, () -> BotaniaFlowerBlocks.ROSA_ARCANA);
@@ -315,7 +315,16 @@ public class BotaniaFlowerBlocks {
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
 		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(
-				effect, effectDuration, props, beType
+				effect, effectDuration, props, beType);
+	}
+
+	private static FlowerBlock createSpecialFlowerBlock(
+			MobEffect effect, int effectDuration,
+			BlockBehaviour.Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+			boolean hasComparatorOutput) {
+		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(
+				effect, effectDuration, props, beType, hasComparatorOutput
 		);
 	}
 

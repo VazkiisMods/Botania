@@ -33,10 +33,19 @@ import java.util.function.Supplier;
 
 public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
+	private final boolean hasComparatorOutput;
 
-	public FloatingSpecialFlowerBlock(Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+	public FloatingSpecialFlowerBlock(Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+		this(props, blockEntityType, false);
+	}
+
+	public FloatingSpecialFlowerBlock(Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType,
+			boolean hasComparatorOutput) {
 		super(DyeColor.WHITE, props);
 		this.blockEntityType = blockEntityType;
+		this.hasComparatorOutput = hasComparatorOutput;
 	}
 
 	@Override
@@ -65,6 +74,14 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 		((SpecialFlowerBlockEntity) world.getBlockEntity(pos)).setPlacedBy(world, pos, state, entity, stack);
 	}
 
+	@Override
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		if (hasComparatorOutput && !newState.hasAnalogOutputSignal()) {
+			level.updateNeighbourForOutputSignal(pos, newState.getBlock());
+		}
+		super.onRemove(state, level, pos, newState, movedByPiston);
+	}
+
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
@@ -81,7 +98,7 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 
 	@Override
 	public boolean hasAnalogOutputSignal(BlockState bs) {
-		return true;
+		return hasComparatorOutput;
 	}
 
 	@Override

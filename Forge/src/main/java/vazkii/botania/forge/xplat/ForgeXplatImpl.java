@@ -457,8 +457,9 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
 			BlockBehaviour.Properties props,
-			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
-		return new ForgeSpecialFlowerBlock(effect, effectDuration, props, beType);
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
+			boolean hasComparatorOutput) {
+		return new ForgeSpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ and start a new "Upcoming" section.
 * Add: Looniums can now give different loot and mob spawns based on which
 structure it's placed in, also further customizable with datapacks. Huuuuge
 thanks to Wormbo for a lot of work on this feature!
+* Add: Dispenser planting supports torchflower seeds and pitcher pods
 * Change: More readable color in Loonium tooltip
 * Change: Pasture seed spread is no longer restricted to a single Y-level, and replacing existing dirt-like blocks is handled by block tag `botania:pasture_seed_replaceable`
 * Change: Hopperhocks now also apply delay from being planted on podzol or mycelium to picking up recipe outputs, such as from mana infusion
@@ -29,8 +30,11 @@ thanks to Wormbo for a lot of work on this feature!
 * Fix: Halloween Easter egg on Tiny Potato also works in item form
 * Fix: Dandelifeon no longer sometimes consumes blocks that aren't cellular blocks
 * Fix: Protection effect of the Benevolent Goddess Charm also works on Fabric when the player dies from the explosion
+* Fix: Redstone comparators no longer read signal strength 0 from special flowers other than the Thermalily
+* Fix: A comparator reading from a Thermalily through a solid block no longer keeps outputting a value after breaking the Thermalily
 * Language update:
   * de_de completed (thanks to Kartabass and PssbleTrngle for reviewing)
+  * ko_kr updated (UnineVesiKass)
   * ru_ru updated (krumplerban)
   * zh_cn updated (Dawnwalker666)
 

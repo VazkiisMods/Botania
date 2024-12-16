@@ -25,6 +25,8 @@ public class SeedBehaviors {
 		DispenserBlock.registerBehavior(Items.PUMPKIN_SEEDS, new SeedsBehavior(Blocks.PUMPKIN_STEM));
 		DispenserBlock.registerBehavior(Items.MELON_SEEDS, new SeedsBehavior(Blocks.MELON_STEM));
 		DispenserBlock.registerBehavior(Items.BEETROOT_SEEDS, new SeedsBehavior(Blocks.BEETROOTS));
+		DispenserBlock.registerBehavior(Items.TORCHFLOWER_SEEDS, new SeedsBehavior(Blocks.TORCHFLOWER_CROP));
+		DispenserBlock.registerBehavior(Items.PITCHER_POD, new SeedsBehavior(Blocks.PITCHER_CROP));
 		DispenserBlock.registerBehavior(Blocks.CHORUS_FLOWER, new SeedsBehavior(Blocks.CHORUS_FLOWER));
 
 		DispenserBlock.registerBehavior(Items.COCOA_BEANS, new CocoaBeansBehavior());

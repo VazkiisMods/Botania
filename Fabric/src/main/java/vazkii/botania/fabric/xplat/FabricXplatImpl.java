@@ -454,8 +454,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration, BlockBehaviour.Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
-		return new FabricSpecialFlowerBlock(effect, effectDuration, props, beType);
+	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration, BlockBehaviour.Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType, boolean hasComparatorOutput) {
+		return new FabricSpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
 	}
 
 	@Override

@@ -32,12 +32,18 @@ import java.util.function.Supplier;
 public class ForgeSpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
+	private final boolean hasComparatorOutput;
 
 	public ForgeSpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+		this(stewEffect, stewDuration, props, blockEntityType, false);
+	}
+
+	public ForgeSpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType, boolean hasComparatorOutput) {
 		super(/* the only godforsaken reason why this class needs to be duplicated for each loader
 				is so that we can add a "() ->" here. Amazing. */
 				() -> stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
+		this.hasComparatorOutput = hasComparatorOutput;
 	}
 
 	@NotNull
@@ -78,13 +84,21 @@ public class ForgeSpecialFlowerBlock extends FlowerBlock implements EntityBlock 
 	}
 
 	@Override
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		if (hasComparatorOutput && !newState.hasAnalogOutputSignal()) {
+			level.updateNeighbourForOutputSignal(pos, newState.getBlock());
+		}
+		super.onRemove(state, level, pos, newState, movedByPiston);
+	}
+
+	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		FloatingSpecialFlowerBlock.redstoneParticlesIfPowered(state, world, pos, rand);
 	}
 
 	@Override
 	public boolean hasAnalogOutputSignal(BlockState bs) {
-		return true;
+		return hasComparatorOutput;
 	}
 
 	@Override
