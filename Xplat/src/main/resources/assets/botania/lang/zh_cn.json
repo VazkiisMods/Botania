@@ -478,13 +478,13 @@
   "advancement.botania_challenge.desc": "为高阶植物魔法师准备的挑战",
   "advancement.botania:flowerPickup": "Sky of Beginning",
   "advancement.botania:flowerPickup.desc": "拾取一朵神秘花",
-  "advancement.botania:lexiconUse": "現実的論理主義者",
+  "advancement.botania:lexiconUse": "现实的理论主义者",
   "advancement.botania:lexiconUse.desc": "打开一本植物魔法辞典并浏览目录",
   "advancement.botania:generatingFlower": "Electric Magic",
   "advancement.botania:generatingFlower.desc": "在花药台制作一朵产能花",
   "advancement.botania:manaPoolPickup": "Vivid Wave",
   "advancement.botania:manaPoolPickup.desc": "将稀释魔力池升级为普通的魔力池",
-  "advancement.botania:functionalFlower": "有頂天Vivace",
+  "advancement.botania:functionalFlower": "有顶天Vivace",
   "advancement.botania:functionalFlower.desc": "做出一朵火红莲来加速魔力生产",
   "advancement.botania:tinyPotatoPet": "Just Be Friends",
   "advancement.botania:tinyPotatoPet.desc": "做出一个小土豆再爱抚它",
@@ -1384,7 +1384,7 @@
   "item.botania.red_petal": "红色神秘花瓣",
   "item.botania.black_petal": "黑色神秘花瓣",
   "item.botania.twig_wand": "森林法杖",
-   "item.botania.dreamwood_wand": "精灵森林法杖",
+  "item.botania.dreamwood_wand": "精灵森林法杖",
   "item.botania.manasteel_ingot": "魔力钢锭",
   "item.botania.mana_pearl": "魔力珍珠",
   "item.botania.mana_diamond": "魔力钻石",
@@ -3087,7 +3087,7 @@
   "botania.page.manaweave6": "制作长靴",
 
   "botania.entry.autocraftingHalo": "工厂环",
-  "botania.tagline.autocraftingHalo": "为你制作的合成环" ,
+  "botania.tagline.autocraftingHalo": "为你制作的合成环",
   "botania.page.autocraftingHalo0": "$(item)工厂环$(0)作为$(item)合成环$(0)的变体型。除了有$(item)合成环$(0)的全部功能以外，$(item)工厂环$(0)会自动合成所有你给它的配方(只要有材料)，只要你不是手持着它。$(p)这有这一些潜在的用途，比如在采矿的时候自动压缩矿物。",
   "botania.page.autocraftingHalo1": "正在发射光环$(p)通过右键点击你物品栏中的$(item)工厂环$(0)，或在潜行时右键点击它的$(item)工作台$(0)面板，可以切换是否开启自动合成。",
 
@@ -3682,7 +3682,6 @@
   "botania.subtitle.ding": "森林法杖：叮当作响",
   "botania.subtitle.divaCharm": "女王项链的回声",
   "botania.subtitle.divinationRod": "占矿法杖：嗡嗡作响",
-  "botania.subtitle.doit": "DO IT!!",
   "botania.subtitle.drum": "鼓声隆隆",
   "botania.subtitle.enchanterEnchant": "魔力附魔结束",
   "botania.subtitle.enchanterForm": "魔力附魔台：成型",
@@ -3750,7 +3749,5 @@
   "botania.subtitle.unholyCloak": "罪恶斗篷：激活",
   "botania.subtitle.vineBallThrow": "藤蔓球：飞出",
   "botania.subtitle.virusInfect": "病毒：感染",
-  "botania.subtitle.worldSeedTeleport": "世界之种：传送",
-
-  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
+  "botania.subtitle.worldSeedTeleport": "世界之种：传送"
 }
