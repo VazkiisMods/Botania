@@ -40,7 +40,6 @@ import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.XplatAbstractions;
