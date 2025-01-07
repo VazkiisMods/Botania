@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -25,6 +26,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class FXWisp extends TextureSheetParticle {
@@ -104,14 +106,22 @@ public class FXWisp extends TextureSheetParticle {
 
 	private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
 		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
-		RenderSystem.depthMask(false);
-		RenderSystem.enableBlend();
-		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+		if (BotaniaConfig.client().opaqueParticles()) {
+			RenderSystem.disableBlend();
+			RenderSystem.depthMask(true);
+			RenderSystem.setShader(GameRenderer::getParticleShader);
+		} else {
+			RenderSystem.depthMask(false);
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+			RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 0.7f);
+		}
 
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+
 	}
 
 	private static void endRenderCommon() {
