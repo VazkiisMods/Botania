@@ -66,7 +66,7 @@
   "botaniamisc.cantCraft": "材料不足！",
   "botaniamisc.lotusDesc": "它散发着强烈的魔法气息",
   "botaniamisc.hasClip": "\u00a76已安装透镜夹",
-  "botaniamisc.clipEmpty": "(空)",
+  "botaniamisc.clipEmpty": "（空）",
   "botaniamisc.armorset": "\u00a7b套装\u00a7r:",
   "botaniamisc.craftToAddWill": "与泰拉钢头盔合成添加以下效果:",
   "botaniamisc.requestMsg": "请求 %d x %s 总数 %d。 取出 %d。",
@@ -125,7 +125,7 @@
   "botaniamisc.changes4": "\u00a7fShift左击\u00a77以阅读更新内容",
   "botaniamisc.changes5": "\u00a7f左击\u00a77以忽略它",
   "botaniamisc.badArena": "尽管你不断尝试，信标仍不接受你的祭品。你感觉到仪式的场地似乎有点问题。确认周围没有障碍物或深沟也许是个好主意",
-  "botaniamisc.shiftToStopSpin": "(按下SHIFT以停止动画)",
+  "botaniamisc.shiftToStopSpin": "（按下SHIFT以停止动画）",
   "botaniamisc.altarRefill0": "用空手右击",
   "botaniamisc.altarRefill1": "返回最后一个合成",
   "botaniamisc.santaweaveInfo": "魔源套，因\u00a7c季\u00a7f节\u00a7c物\u00a7f转\u00a7c星\u00a7f移",
@@ -444,7 +444,7 @@
   "item.botania.dice.poem2": "可能的结果中，暗藏着规则，",
   "item.botania.dice.poem3": "数字将引领一切起舞。",
 
-  "death.attack.botania.relic": "%s 因使用不属于他的遗物而被惩罚致死",
+  "death.attack.botania-relic": "%s 因使用不属于他的遗物而被惩罚致死",
   "death.attack.botania.key_explosion": "%2$s 用宝藏淹没了 %1$s",
 
   "effect.botania.allure.description": "双倍钓鱼速度",
@@ -513,7 +513,7 @@
   "advancement.botania:heiseiDreamPickup": "ヘイセイカタクリズム",
   "advancement.botania:heiseiDreamPickup.desc": "制作一朵平成之梦让怪物们窝里斗",
   "advancement.botania:dirtRodCraft": "Rockbell",
-  "advancement.botania:dirtRodCraft.desc": "制作一根泥棍子...哦不，是大地法杖",
+  "advancement.botania:dirtRodCraft.desc": "制作一根泥棍子……哦不，是大地法杖",
   "advancement.botania:spawnerMoverUse": "◯◯◯脱げるもん！",
   "advancement.botania:spawnerMoverUse.desc": "用一个生命聚合器来转移刷怪笼",
   "advancement.botania:enderAirMake": "Imitation Air",
@@ -582,10 +582,10 @@
   "advancement.botania:allLooniumMobs": "King",
   "advancement.botania:allLooniumMobs.desc": "杀死每一种聚宝花生成的怪物",
 
-  "botania.challengelevel.easy": "Easy",
-  "botania.challengelevel.normal": "Normal",
-  "botania.challengelevel.hard": "Hard",
-  "botania.challengelevel.lunatic": "Lunatic",
+  "botania.challengelevel.easy": "简单",
+  "botania.challengelevel.normal": "普通",
+  "botania.challengelevel.hard": "困难",
+  "botania.challengelevel.lunatic": "疯狂",
 
   "botania.challenge.flowerFarm": "花卉农场",
   "botania.challenge.flowerFarm.desc": "创建一个有着十六种颜色的植物魔法花的自动化农场，如果花朵分类分布奖励积分。",
@@ -1203,7 +1203,7 @@
   "block.botania.potted_rafflowsia": "噬草花盆栽",
   "block.botania.floating_rafflowsia": "浮空噬草花",
   "block.botania.shulk_me_not": "勿落草",
-  "block.botania.shulk_me_not.reference": "哦，这感觉...",
+  "block.botania.shulk_me_not.reference": "哦，这感觉……",
   "block.botania.potted_shulk_me_not": "勿落草盆栽",
   "block.botania.floating_shulk_me_not": "浮空勿落草",
 
@@ -1220,7 +1220,7 @@
   "block.botania.potted_dreadthorn": "恐惧之刺盆栽",
   "block.botania.floating_dreadthorn": "浮空恐惧之刺",
   "block.botania.heisei_dream": "平成之梦",
-  "block.botania.heisei_dream.reference": "平成，平成，崩坏...",
+  "block.botania.heisei_dream.reference": "平成，平成，崩坏……",
   "block.botania.potted_heisei_dream": "平成之梦盆栽",
   "block.botania.floating_heisei_dream": "浮空平成之梦",
   "block.botania.tigerseye": "虎之眼",
@@ -1384,7 +1384,7 @@
   "item.botania.red_petal": "红色神秘花瓣",
   "item.botania.black_petal": "黑色神秘花瓣",
   "item.botania.twig_wand": "森林法杖",
-   "item.botania.dreamwood_wand": "精灵森林法杖",
+  "item.botania.dreamwood_wand": "精灵森林法杖",
   "item.botania.manasteel_ingot": "魔力钢锭",
   "item.botania.mana_pearl": "魔力珍珠",
   "item.botania.mana_diamond": "魔力钻石",
@@ -1671,11 +1671,11 @@
   "item.botania.manaweave_cloth": "魔源布匹",
   "item.botania.manaweave_helmet": "魔源头蓬",
   "item.botania.manaweave_chestplate": "魔源长袍",
-  "item.botania.manaweave_leggings": "魔源长袍(下半身)",
+  "item.botania.manaweave_leggings": "魔源长袍（下半身）",
   "item.botania.manaweave_boots": "魔源长靴",
   "item.botania.santaweave_helmet": "圣诞编织斗篷",
   "item.botania.santaweave_chestplate": "圣诞编织长袍",
-  "item.botania.santaweave_leggings": "圣诞编织长袍(下半身)",
+  "item.botania.santaweave_leggings": "圣诞编织长袍（下半身）",
   "item.botania.santaweave_boots": "圣诞编织长靴",
   "item.botania.gaiahead": "盖亚守护者的头",
   "item.botania.sextant": "盖世六分仪",
@@ -2025,7 +2025,7 @@
   "botania.entry.flowers": "神秘花",
   "botania.tagline.flowers": "研究的根源",
   "botania.page.flowers0": "世界各地，你都能遇到大量的神秘花。找到它们并不困难，因为它们总是闪烁着亮光。$(p)它们有着共计$(thing)16$(0)种不同的颜色.$(p)也可以使用$(item)花肥$(0)（继续读）种出这些花。",
-  "botania.page.flowers1": "它们看起来是这样的...",
+  "botania.page.flowers1": "它们看起来是这样的……",
   "botania.page.flowers2": "这些花可以采摘用于获取$(item)神秘花瓣$(0)，可以用来制成魔法工具或是魔法植物。对着地面右击花瓣会将其埋在地面之下，令其产生一点微光。使用$(item)杵和臼$(0)，$(p)这些花瓣也能磨成对应的$(item)染料$(0)。",
   "botania.page.flowers17": "这些花瓣也可以被粉碎成相应的$(item)染料$(0).",
   "botania.page.flowers14": "神秘花瓣",
@@ -2053,7 +2053,7 @@
   "botania.entry.pureDaisy": "白雏菊",
   "botania.tagline.pureDaisy": "活木，活石与其他的创造者",
   "botania.page.pureDaisy0": "$(item)白雏菊$(0)不仅是最基础的，也是一个植物魔法师所有的最重要的花。$(p)这种花会将任何相邻的$(item)木头$(0)和$(item)石头$(0)方块净化为$(item)活木$(0)和$(item)活石$(0)（如下一页所示）。这两种材料都是植物魔法师生涯中不可或缺的素材。",
-  "botania.page.pureDaisy1": "给它$(thing)一分钟$(0)就会...",
+  "botania.page.pureDaisy1": "给它$(thing)一分钟$(0)就会……",
   "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
   "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)烈焰网$(0)变为$(item)黑曜石$(0)，$(item)水源$(0)变为$(item)雪$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，$(item)浮冰$(0)变为$(item)蓝冰$(0)，以及$(item)末地石$(0)变为$(item)深板岩圆石$(0)（在此过程中释放一小朵$(l:ender/ender_air)末地空气云团$(/l)）。",
   "botania.page.pureDaisy3": "一张空白画卷，绘出冒险之旅",
@@ -2130,7 +2130,7 @@
   "botania.entry.pool": "魔力池",
   "botania.tagline.pool": "魔力存储区",
   "botania.page.pool0": "$(item)魔力池$(0)简单说就是储存$(thing)魔力$(0)的地方。$(p)魔力能通过使用$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)输入，而与之相邻的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)会自动从中抽取魔力增加内部缓存。$(p)大部分$(thing)功能花$(0)都需要一个相邻的$(item)魔力池$(0)提供能量。",
-  "botania.page.pool9": "$(item)魔力池$(0)有两种，较弱的一个，$(item)稀释的$(0)只能储存极少量的$(thing)魔力$(0)，此外还有一个$(item)普通的$(0)，可储存百倍魔力于稀释的那种。$(p)这本辞典中其他地方所提及的\"魔力池\"都是指普通的那一个。",
+  "botania.page.pool9": "$(item)魔力池$(0)有两种，较弱的一个，$(item)稀释的$(0)只能储存极少量的$(thing)魔力$(0)，此外还有一个$(item)普通的$(0)，可储存百倍魔力于稀释的那种。$(p)这本辞典中其他地方所提及的“魔力池”都是指普通的那一个。",
   "botania.page.pool1": "普通的$(item)魔力池$(0)",
   "botania.page.pool10": "制作$(item)稀释魔力池$(0)。",
   "botania.page.pool14": "$(item)稀释魔力池$(0)在某些系统中可作为一个小型缓冲区，特别是那些不太消耗的$(thing)魔力$(0)的功能花或系统。普通的魔力池容量实在是太大了，所以试图通过观测刻度来检视普通魔力池中的$(thing)魔力$(0)变化的方法并不是那么准确。",
@@ -2230,7 +2230,7 @@
   "botania.entry.manaMirror": "魔力手镜",
   "botania.tagline.manaMirror": "便携式远程魔力链接",
   "botania.page.manaMirror0": "$(item)魔力手镜$(0)就是类似于$(l:mana/mana_tablet)$(item)魔力石板$(0)$(/l)的$(thing)魔力$(0)储存物品。它能绑定至一个$(l:mana/pool)$(item)魔力池$(0)$(/l)并且能让其他物品从中抽取$(thing)魔力$(0)。$(p)要将镜子与魔力池绑定，只需要用手镜$(thing)shift右击$(0)魔力池便可。此外，手镜不能以其他方式向魔力池输入或输出魔力。",
-  "botania.page.manaMirror1": "魔镜啊魔镜...",
+  "botania.page.manaMirror1": "魔镜啊魔镜……",
 
   "botania.entry.manaDetector": "魔力检测器",
   "botania.tagline.manaDetector": "检测脉冲并发射红石信号",
@@ -2256,8 +2256,8 @@
 
   "botania.entry.elvenLenses": "精灵魔力透镜",
   "botania.tagline.elvenLenses": "新能力！高级魔力透镜",
-  "botania.page.elvenLenses0": "是时候利用来自艾尔夫海姆的知识了。运用精灵的工艺，我们可以制作许多全新的$(item)魔力透镜$(0)。$(p)不像那些主世界里这些普通的透镜，这些透镜有更独特的功能...",
-  "botania.page.elvenLenses1": "首先是$(item)涂色透镜$(0)。$(item)涂色透镜$(0)需要染成十六种颜色之一才能工作。当它碰到了一个可染色的方块（$(item)羊毛、硬化粘土、或是玻璃$(0)...）它会将任何方块染成与$(thing)魔力脉冲$(0)本身相同的颜色。看起来对$(thing)羊$(0)同样有效。",
+  "botania.page.elvenLenses0": "是时候利用来自艾尔夫海姆的知识了。运用精灵的工艺，我们可以制作许多全新的$(item)魔力透镜$(0)。$(p)不像那些主世界里这些普通的透镜，这些透镜有更独特的功能……",
+  "botania.page.elvenLenses1": "首先是$(item)涂色透镜$(0)。$(item)涂色透镜$(0)需要染成十六种颜色之一才能工作。当它碰到了一个可染色的方块（$(item)羊毛、硬化粘土、或是玻璃$(0)……）它会将任何方块染成与$(thing)魔力脉冲$(0)本身相同的颜色。看起来对$(thing)羊$(0)同样有效。",
   "botania.page.elvenLenses2": "涂色透镜",
   "botania.page.elvenLenses3": "$(item)传送透镜$(0)是个有趣的透镜。其发出的脉冲，在接触到$(l:ender/piston_relay)$(item)力量传递器$(0)$(/l)时将会传送到$(item)力量传递器$(0)绑定的方块处且保持其动能，但该魔力不能再回收用于其他地方。其次，将其与$(item)挖掘透镜$(0)组合成复合透镜（$(item)挖掘透镜$(0)必须是合成中的第一种）则能让脉冲不再破坏$(l:ender/piston_relay)$(item)力量传递器$(0)$(/l)或$(item)活塞$(0)，并且会将被破坏的方块传送至脉冲起点。",
   "botania.page.elvenLenses4": "传送透镜",
@@ -2366,7 +2366,7 @@
   "botania.entry.agricarnation": "田园康乃馨",
   "botania.tagline.agricarnation": "让作物长得更快",
   "botania.page.agricarnation0": "作物长得这么慢怎么能喂饱这么一大群人？$(item)田园康乃馨$(0)是种能将$(thing)魔力$(0)变为一种天然肥料的花，让附近的植物快速生长。",
-  "botania.page.agricarnation1": "$(o)高山的颂歌$(0)...",
+  "botania.page.agricarnation1": "$(o)高山的颂歌$(0)……",
 
   "botania.entry.hopperhock": "漏斗花",
   "botania.tagline.hopperhock": "捡起物品",
@@ -2437,7 +2437,7 @@
   "botania.entry.medumone": "石化草",
   "botania.tagline.medumone": "冻住怪物",
   "botania.page.medumone0": "$(item)石化草$(0)能完全抑制周围生物的移动。$(p)当它接收到$(thing)魔力$(0)时，会用强力的减速效果抑制附近任何实体的移动，除了玩家。",
-  "botania.page.medumone1": "$(o)他们看上去像是石像一般$(0)...",
+  "botania.page.medumone1": "$(o)他们看上去像是石像一般$(0)……",
 
   "botania.entry.marimorphosis": "异构花",
   "botania.tagline.marimorphosis": "创造新的石头",
@@ -2530,7 +2530,7 @@
   "botania.tagline.spectrolus": "五彩斑斓的魔力",
   "botania.page.spectrolus0": "$(item)斑斓花$(0)是一朵特别喜欢各种颜色$(item)羊毛$(0)的花。它会吸收任何丢在旁边的$(item)羊毛$(0)并利用它们制造$(thing)魔力$(0)。$(p)提醒一下，它对于颜色十分挑剔：一开始是白色，在吸收一块$(item)羊毛$(0)后，它就会按照顺序索求下一个颜色的羊毛。",
   "botania.page.spectrolus1": "虽然它会消耗周围任何$(item)羊毛$(0)，但它只会根据想要的颜色来产生魔力，所以胡乱拿$(item)羊毛$(0)给它是一种极其浪费的做法。$(p)需求的下一个羊毛颜色可以通过手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)将鼠标悬停在花上查看。",
-  "botania.page.spectrolus1.5": "这朵花大部分时候都只吃处理过的羊毛，但你就不好奇如果你让它直接从“源头”吃点儿会发生什么吗...？",
+  "botania.page.spectrolus1.5": "这朵花大部分时候都只吃处理过的羊毛，但你就不好奇如果你让它直接从“源头”吃点儿会发生什么吗……？",
   "botania.page.spectrolus2": "$(o)彩虹的味道$(0)。",
 
   "botania.entry.rafflowsia": "噬草花",
@@ -2702,7 +2702,7 @@
   "botania.tagline.forestEye": "动物检测",
   "botania.page.forestEye0": "就像在世上寻找生命的古人一样，这个方块，$(item)远古之眼$(0)，会那么做。$(p)紧邻放置一个$(item)红石比较器$(0)，会根据他能找到的动物数量输出一定强度的红石信号。",
   "botania.page.forestEye1": "计数值从2开始，因此，若是两只动物，就会输出强度为1的信号，三只的话，就会是强度2以此类推。$(p)最后，时间的长河黯淡了它的视力，所以这个方块只能看见任何方向6格以内的动物。",
-  "botania.page.forestEye2": "现在你看见我了...",
+  "botania.page.forestEye2": "现在你看见我了……",
 
   "botania.entry.openCrate": "花格箱",
   "botania.tagline.openCrate": "物品掉落的简易方式",
@@ -2714,7 +2714,7 @@
   "botania.tagline.forestDrum": "用魔力脉冲将植物连根拔起",
   "botania.page.forestDrum0": "$(item)狂野之鼓$(0)通俗说，就是打击乐器版的$(l:tools/grass_horn)$(item)狂野号角$(0)$(/l)。它与手持的号角有相同的功能，但是放置在地上的。$(p)要击响它破坏附近的花草，需要向它发射一道$(thing)魔力脉冲$(0)。",
   "botania.page.forestDrum1": "注意鼓本身并不存储魔力，为了触发它，就需要使用$(l:mana/redstone_spreader)$(item)红石魔力发射器$(0)$(/l)或是$(l:tools/mana_blaster)$(item)魔力脉冲枪$(0)$(/l)之类的东西。",
-  "botania.page.forestDrum2": "但如果你闭上了眼睛...",
+  "botania.page.forestDrum2": "但如果你闭上了眼睛……",
 
   "botania.entry.platform": "奥秘平台",
   "botania.tagline.platform": "可以穿过的伪装平台",
@@ -2751,7 +2751,7 @@
   "botania.entry.craftCrate": "机巧箱",
   "botania.tagline.craftCrate": "自动合成法",
   "botania.page.craftCrate0": "就如它的名字所示，$(item)机巧箱$(0)对应着$(item)花格箱$(0)但它能像$(item)工作台$(0)那样将物品组装成其他物品。$(p)就像$(item)工作台$(0)那样它有9个物品栏，可以将物品在其中摆成指定合成配方。",
-  "botania.page.craftCrate1": "物品排序遵循由左到右由上至下的原则（过会儿会进一步说明），有一个特殊的物品，叫做$(item)合成占位符$(0)，放入时，会算作合成中的空位。用于有空槽的合成（比如熔炉，箱子，镐...）。",
+  "botania.page.craftCrate1": "物品排序遵循由左到右由上至下的原则（过会儿会进一步说明），有一个特殊的物品，叫做$(item)合成占位符$(0)，放入时，会算作合成中的空位。用于有空槽的合成（比如熔炉，箱子，镐……）。",
   "botania.page.craftCrate2": "制作合成占位符",
   "botania.page.craftCrate3": "完成合成，一共需要两步。$(p)首先，在9个栏中填满合成所需的物品或占位符就会显示出合成结果，占位符和任何副产物(比如制作蛋糕时的桶)，这就是最简单的方法。",
   "botania.page.craftCrate4": "用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右击这个箱子(注意:$(item)发射器$(0)也能做到)就会开始用其中的物品合成并喷出产物。$(p)如果该过程失败就会直接喷出其中所有的物品。",
@@ -2791,7 +2791,7 @@
   "botania.entry.manaBomb": "魔力风暴",
   "botania.tagline.manaBomb": "魔力风暴充能~~砰。砰~砰砰~砰砰砰砰砰！",
   "botania.page.manaBomb0": "将$(item)TNT$(0)放在一起再加上$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)来制作一个$(item)魔力风暴$(0)，它是爆炸的化身，毫不夸张的说。让他接受一个$(item)魔力脉冲$(0)，充能器会产生一个不稳定的$(item)魔力风暴震荡$(0)，这会造成一场长时间的$(item)魔力爆发$(0)，并摧毁附近所有方块。$(p)不用说，只有疯子才会在家里附近释放这只摧毁一切的力量。",
-  "botania.page.manaBomb1": "准备面对伟大的存在...",
+  "botania.page.manaBomb1": "准备面对伟大的存在……",
 
   "botania.entry.teruTeruBozu": "晴天娃娃",
   "botania.tagline.teruTeruBozu": "过分可爱的天气控制工具",
@@ -2947,8 +2947,8 @@
   "botania.tagline.vineBall": "帮助你如梯子搬攀登的可投掷藤蔓",
   "botania.page.vineBall0": "$(item)梯子$(0)不能独立存在，它们需要有依附的东西。$(item)藤蔓$(0)不需要，但$(item)藤蔓$(0)没有坚韧能让人向前走时即可向上攀爬，你只会穿过去。$(p)通过糅合一些$(item)藤蔓$(0)，能做出一种可以投掷的球，在撞击之处长出一条可供攀爬的强劲$(item)藤蔓$(0)。",
   "botania.page.vineBall1": "也可以用一些类似$(item)活木$(0)和$(item)风之符文$(0)的材料制作一把能忽视重力发射$(item)藤蔓球$(0)的弹弓。",
-  "botania.page.vineBall2": "即将加入Vineacraft...",
-  "botania.page.vineBall3": "...如果真的有这种东西的话。",
+  "botania.page.vineBall2": "即将加入Vineacraft……",
+  "botania.page.vineBall3": "……如果真的有这种东西的话。",
 
   "botania.entry.laputaShard": "拉普达碎片",
   "botania.tagline.laputaShard": "将大地抬升为浮空岛",
@@ -2993,13 +2993,13 @@
 
   "botania.entry.craftingHalo": "合成环",
   "botania.tagline.craftingHalo": "快捷合成，附带网格哦",
-  "botania.page.craftingHalo0": "带着$(item)工作台$(0)到处跑太麻烦了。$(item)合成环$(0)不仅仅是一个便携的$(item)工作台$(0)更是一个快捷的合成工具。手持它时就会显示出一\"圈\"的配方。$(p)直接右击$(item)工作台$(0)的图标就会打开一个合成界面。",
+  "botania.page.craftingHalo0": "带着$(item)工作台$(0)到处跑太麻烦了。$(item)合成环$(0)不仅仅是一个便携的$(item)工作台$(0)更是一个快捷的合成工具。手持它时就会显示出一“圈”的配方。$(p)直接右击$(item)工作台$(0)的图标就会打开一个合成界面。",
   "botania.page.craftingHalo1": "只要物品还在背包里它就会储存最近一次合成的配方。$(p)右击环上的空位即可添加最近一次的配方。右击配方则会使用背包中的物品进行合成。Shift左击就能移除配方。",
   "botania.page.craftingHalo2": "只会遵循菜单的料理是无味的",
 
   "botania.entry.clip": "透镜夹",
   "botania.tagline.clip": "魔力脉冲枪的多透镜升级",
-  "botania.page.clip0": "$(item)魔力脉冲枪$(0)作为一个强大而万能的工具，它的缺陷就在于每次最多只能储存一个$(item)透镜$(0)。将$(item)透镜夹$(0)和$(item)魔力脉冲枪$(0)在合成栏合成后，就能让它储存最多6个透镜。$(p)就像他们常说的，没有枪的俄罗斯轮盘可不算赌博...",
+  "botania.page.clip0": "$(item)魔力脉冲枪$(0)作为一个强大而万能的工具，它的缺陷就在于每次最多只能储存一个$(item)透镜$(0)。将$(item)透镜夹$(0)和$(item)魔力脉冲枪$(0)在合成栏合成后，就能让它储存最多6个透镜。$(p)就像他们常说的，没有枪的俄罗斯轮盘可不算赌博……",
   "botania.page.clip1": "添加和取出$(item)透镜$(0)就像之前做的那样，要注意的是，只会按照脉冲枪当前的槽取出或装入透镜。$(p)Shift右击$(item)魔力脉冲枪$(0)即可切换槽位。同时也会改变所选的透镜，前提是槽内装了透镜。",
   "botania.page.clip2": "脉冲枪扩展",
 
@@ -3087,13 +3087,13 @@
   "botania.page.manaweave6": "制作长靴",
 
   "botania.entry.autocraftingHalo": "工厂环",
-  "botania.tagline.autocraftingHalo": "为你制作的合成环" ,
+  "botania.tagline.autocraftingHalo": "为你制作的合成环",
   "botania.page.autocraftingHalo0": "$(item)工厂环$(0)作为$(item)合成环$(0)的变体型。除了有$(item)合成环$(0)的全部功能以外，$(item)工厂环$(0)会自动合成所有你给它的配方(只要有材料)，只要你不是手持着它。$(p)这有这一些潜在的用途，比如在采矿的时候自动压缩矿物。",
   "botania.page.autocraftingHalo1": "正在发射光环$(p)通过右键点击你物品栏中的$(item)工厂环$(0)，或在潜行时右键点击它的$(item)工作台$(0)面板，可以切换是否开启自动合成。",
 
   "botania.entry.sextant": "盖世六分仪",
   "botania.tagline.sextant": "帮助制作圆的工具",
-  "botania.page.sextant0": "在这个方块世界，创造一个圆形或球体几乎成了一门失传的手艺。以至于为了达成目的，他们不得不使用一种\"切换窗口\"的奇技淫巧弄一个圆出来。$(p)$(item)盖世六分仪$(0)作为一个制造圆的工具，为这种行为提供了一个简单的替代方案。",
+  "botania.page.sextant0": "在这个方块世界，创造一个圆形或球体几乎成了一门失传的手艺。以至于为了达成目的，他们不得不使用一种“切换窗口”的奇技淫巧弄一个圆出来。$(p)$(item)盖世六分仪$(0)作为一个制造圆的工具，为这种行为提供了一个简单的替代方案。",
   "botania.page.sextant1": "手持这个工具时，潜行右键来选择模式。对准一个方块并长按右键来确定绘制的圆心或球心，然后望向远方来确定它的半径。此时会出现一个蓝圈，作为将要绘制的形状的简单预览。一旦设定好，一个虚拟的$(item)圆石$(0)圈会显现出来作为建筑参考。$(p)最后，潜行右键能够重设工具并移除虚拟圆石",
   "botania.page.sextant2": "你画了一个圆，使你充满了决心",
   "botania.page.sextant_modes": "通常来讲，对于一个指定的正方形，有多种方法可以在内部绘制出与之相切的圆。对于一个指定的圆心，也可以尝试斜向拉至某一点，来创建出一个非整数半径的圆。$(p)如果二维形状还不能满足要求，当没有显示形状时，潜行右键可以切换形状模式。",
@@ -3159,9 +3159,9 @@
   "botania.page.redString14": "$(item)红线拦截器$(0)。",
 
   "botania.entry.flightTiara": "天翼族之冠",
-  "botania.tagline.flightTiara": "飞行的能力...暂时的",
+  "botania.tagline.flightTiara": "飞行的能力……暂时的",
   "botania.page.flightTiara0": "$(thing)天翼族$(0)一度支配着这片土地，现在却是濒临灭绝的种族，作为弑神者而被创造出来，拥有着飞行的能力。$(p)使用$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)能复制出一点她们的力量，那就是以$(item)天翼族$(0)$(item)之冠$(0)的形式，消耗$(thing)魔力$(0)就能飞行。",
-  "botania.page.flightTiara4": "然而并不能彻底完美地再现这项技术，这顶头冠有着缺陷，这意味着它不能持续的飞行。如果你持续飞行30秒而没有让其再充能，它就会停止提供飞行的力量。$(p)一个\"飞行槽\"会出现在HUD上以方便查看。",
+  "botania.page.flightTiara4": "然而并不能彻底完美地再现这项技术，这顶头冠有着缺陷，这意味着它不能持续的飞行。如果你持续飞行30秒而没有让其再充能，它就会停止提供飞行的力量。$(p)一个“飞行槽”会出现在HUD上以方便查看。",
   "botania.page.flightTiara5": "除了简单的飞行，天翼族之冠给了穿戴者$(thing)冲刺$(0)和$(thing)滑翔$(0)的能力。没有在疾跑时按下[$(k:sprint)]，使用者将会快速往前冲刺一段距离。$(p)冲刺每两秒只能使用一次。",
   "botania.page.flightTiara6": "滑翔允许你轻轻地着陆，它有着不错的水平飞行距离，同时防止掉落伤害。要滑翔，只需在掉落的时候按住潜行键。$(p)滑翔即使在飞行槽空时也能使用，但会使飞行槽的回复速度变慢。",
   "botania.page.flightTiara1": "异世界的四万本书",
@@ -3187,12 +3187,12 @@
   "botania.entry.corporeaIndex": "多媒体索引",
   "botania.tagline.corporeaIndex": "说话请求网络物品",
   "botania.page.corporeaIndex0": "$(thing)多媒体网络$(0)的强大能力在于可以通过说出物品名发出请求。$(p)$(item)多媒体索引$(0)是一个类似末影水晶的方块，它属于放置于其上的$(l:ender/corporea)$(item)多媒体火花$(0)$(/l)所属的$(thing)多媒体网络$(0)的一部分。$(p)只要靠近它就能激活。激活时，它会显示作用半径。",
-  "botania.page.corporeaIndex1": "当激活时，索引会拦截附近玩家发送的$(thing)聊天信息$(0)，将其作为$(thing)请求$(0)处理并防止其发送到聊天栏。然后，它会在网络内搜索匹配请求的物品。例如，输入\"铁锭\"就会在网络里搜索一个$(item)铁锭$(0)并把它传送过来，并在世界里物质化为一叠掉落物。",
+  "botania.page.corporeaIndex1": "当激活时，索引会拦截附近玩家发送的$(thing)聊天信息$(0)，将其作为$(thing)请求$(0)处理并防止其发送到聊天栏。然后，它会在网络内搜索匹配请求的物品。例如，输入“铁锭”就会在网络里搜索一个$(item)铁锭$(0)并把它传送过来，并在世界里物质化为一叠掉落物。",
   "botania.page.corporeaIndex2": "可以指定一次请求几个物品：比如输入“10苹果”就会一次性从网络中抽取10个苹果。使用关键词“this”则会匹配玩家手中的物品。在请求关键词前后附加“...”、“~”、“+”、或“?”字符则会匹配任何名字中$(o)含有$()该关键词的物品。比如，输入“...铁”则会提取任何名字中含有“铁”字的物品。",
   "botania.page.corporeaIndex3": "请求关键词中插入的“*”字符可以代表任意数量的汉字。比如输入“去皮*木”就能匹配$(item)去皮橡木原木$(0)、$(item)去皮云杉原木$(0)、$(item)去皮金合欢木$(0)、甚至是被重命名为“去皮abcd木”的一组什么玩意儿。$(p)备注：输入“*铁*”和“铁...”的作用是一模一样的；输入“*”则可以匹配任何东西。",
-  "botania.page.corporeaIndex4": "（游戏语言为英语时）索引只能识别一些简单的复数形式（后缀\"-s\"、\"-es\"或\"-ies\"）。不过一次性请求复数个物品时依然可以使用单数形式（\"10apple\"是可以的）。$(p)\"10ofthis\"则不出所料会请求10个手里拿着的物品。",
-  "botania.page.corporeaIndex5": "（游戏语言为英语时）可以使用一些量词：比如\"astackofapples\"、\"2stacksofapples\"、\"2stacksand20apples\"、\"halfastackofapples\"、和\"adozenapples\"都是可以的。$(p)索引还可以处理一些简单的自然语言，比如\"2xstacksand20xofapples\"、\"2stack2apple\"、以及\"2stacks+2apples\"都是相等的",
-  "botania.page.corporeaIndex6": "使用关键词\"all\"或关键词\"every\"则可以请求网络中的所有匹配搜索条件的物品。比如，输入“all苹果”就能取出所有苹果（以及所有被重命名为“苹果”的物品）。$(p)关键词“count”、“show”、“display”、和“tell”不会取出任何物品，但会显示物品库存。",
+  "botania.page.corporeaIndex4": "（游戏语言为英语时）索引只能识别一些简单的复数形式（后缀“-s”、“-es”或“-ies”）。不过一次性请求复数个物品时依然可以使用单数形式（“10apple”是可以的）。$(p)“10ofthis”则不出所料会请求10个手里拿着的物品。",
+  "botania.page.corporeaIndex5": "（游戏语言为英语时）可以使用一些量词：比如“astackofapples”、“2stacksofapples”、“2stacksand20apples”、“halfastackofapples”、和“adozenapples”都是可以的。$(p)索引还可以处理一些简单的自然语言，比如“2xstacksand20xofapples”、“2stack2apple”、以及“2stacks+2apples”都是相等的",
+  "botania.page.corporeaIndex6": "使用关键词“all”或关键词“every”则可以请求网络中的所有匹配搜索条件的物品。比如，输入“all苹果”就能取出所有苹果（以及所有被重命名为“苹果”的物品）。$(p)关键词“count”、“show”、“display”、和“tell”不会取出任何物品，但会显示物品库存。",
   "botania.page.corporeaIndex7": "站在$(item)多媒体索引$(0)旁检视物品栏或翻阅合成表时，可以在鼠标悬浮在某个物品上时按[$(k:botania_corporea_request)]键来提取一个那个物品。$(p)按住shift则会提取一整组物品，按住ctrl则是半组，同时按住两个键则只会提取四分之一组。",
   "botania.page.corporeaIndex8": "某魔法的多媒体索引",
 
@@ -3237,7 +3237,7 @@
 
   "botania.entry.blackHoleTalisman": "黑洞护符",
   "botania.tagline.blackHoleTalisman": "无限的存储某一方块",
-  "botania.page.blackHoleTalisman0": "虚空是一个充满了...虚无的地方，真的，那里什么东西都没有。但只要稍微费一番心思，这个空间就可以变为让你随心所欲存储方块的地方。$(p)$(item)黑洞护符$(0)可以利用强大的盖亚之力和末影魔法来在这个空间中几乎无限量地存储某一种方块。",
+  "botania.page.blackHoleTalisman0": "虚空是一个充满了……虚无的地方，真的，那里什么东西都没有。但只要稍微费一番心思，这个空间就可以变为让你随心所欲存储方块的地方。$(p)$(item)黑洞护符$(0)可以利用强大的盖亚之力和末影魔法来在这个空间中几乎无限量地存储某一种方块。",
   "botania.page.blackHoleTalisman1": "对着方块右击可以将护符设定为存储这种方块，对着空气shift右击护符可以激活或关闭它。启用时，护符会从持有者的物品栏中不断吸收它设定的方块。$(p)将护符放在合成格里就可以取出它存储的方块，一次一组。",
   "botania.page.blackHoleTalisman2": "手持护符右击就可以将存储在其中的方块放置出来。$(p)手持护符右击其他容器就能从护符中提取最多一组方块置入那个容器中。最后，$(l:tools/exchange_rod)$(item)移壳杆$(0)$(/l)可以从护符中直接提取方块。",
   "botania.page.blackHoleTalisman3": "最糟的错是“其实是错的”",
@@ -3259,8 +3259,8 @@
 
   "botania.entry.starSword": "召星者",
   "botania.tagline.starSword": "一把召唤流星的剑",
-  "botania.page.starSword0": "$(item)召星者$(0)是一把有着召唤群星之怒能力的剑，在挥动它的时候，剑会从天上召唤一颗流星落到持有者所看的位置，对所有接触到的实体造成伤害。制作这把剑可不是一个简单的任务，它需要$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)以及一把$(l:tools/terra_sword)$(item)泰拉之刃$(0)$(/l)。注意：这么做会将泰拉之刃上的附魔消去。",
-  "botania.page.starSword1": "召星者、星怒...管他呢",
+  "botania.page.starSword0": "$(item)召星者$(0)是一把有着召唤群星之怒能力的剑，在挥动它的时候，剑会从天上召唤一颗流星落到持有者所看的位置，对所有接触到的实体造成伤害。制作这把剑可不是一个简单的任务，它需要$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)以及一把$(l:tools/terra_sword)$(item)泰拉之刃$(0)$(/l)。注意：这么做会祛除泰拉之刃上的附魔。",
+  "botania.page.starSword1": "召星者、星怒……管他呢",
 
   "botania.entry.thunderSword": "召雷者",
   "botania.tagline.thunderSword": "一把召唤雷电的剑",
@@ -3281,7 +3281,7 @@
   "botania.page.cosmeticBaubles0": "有许多$(item)装饰品$(0)能添加到玩家所装备的饰品上。它们既能单独穿戴在项链栏，也能与其他$(thing)饰品$(0)在合成栏合成 - 此时与之合成的饰品的功能不变，但外观会变为$(thing)装饰小件$(0)的样子。将复合后的饰品放入合成栏就能移除$(thing)装饰层$(0)。",
   "botania.page.cosmeticBaubles1": "将特定颜色的花瓣与$(l:mana/pool)$(item)蕴魔丝线$(0)$(/l)编织即可。奇怪的是，做出的成品和所用花瓣颜色似乎并无关联。$(p)装饰小件的工作原理也无从得知，看起来做它的人没想要功夫设计一套更好的系统，谁知道呢。",
   "botania.page.cosmeticBaubles2": "帅气",
-  "botania.page.cosmeticBaubles3": "我想要...打破常规",
+  "botania.page.cosmeticBaubles3": "我想要……打破常规",
   "botania.page.cosmeticBaubles4": "多么让人讨厌",
   "botania.page.cosmeticBaubles5": "Kalos可是很冷的",
   "botania.page.cosmeticBaubles6": "有看见什么么？",
@@ -3335,7 +3335,7 @@
   "botania.entry.travelBelt": "旅居者腰带",
   "botania.tagline.travelBelt": "更快，更高，更远",
   "botania.page.travelBelt0": "穿越各种地形是个麻烦事。$(item)旅居者腰带$(0)能装备在$(thing)腰带$(0)栏，装备时增加移动速度，跳跃高度和摔落伤害减免。$(p)最后，非潜行时能让装备者自动走上一格高的坡而不需要跳跃。",
-  "botania.page.travelBelt1": "...everell",
+  "botania.page.travelBelt1": "……everell",
 
   "botania.entry.knockbackBelt": "抗击腰带",
   "botania.tagline.knockbackBelt": "阻止一切击退",
@@ -3349,7 +3349,7 @@
   "botania.page.icePendant2": "你想堆个雪人么？",
 
   "botania.entry.lavaPendant": "火石项链",
-  "botania.tagline.lavaPendant": "抵抗火焰...稍微的",
+  "botania.tagline.lavaPendant": "抵抗火焰……稍微的",
   "botania.page.lavaPendant0": "$(item)火石项链$(0)是个吸收少量热量的$(thing)饰品$(0)，若穿戴者着火且没有直接处于$(item)火$(0)，$(item)岩浆$(0)或其他能引起燃烧的地方，火就会被扑灭。",
   "botania.page.lavaPendant1": "花子本应用到这个",
 
@@ -3422,7 +3422,7 @@
 
   "botania.entry.swapRing": "修正指环",
   "botania.tagline.swapRing": "工作时要用正确的工具",
-  "botania.page.swapRing0": "切换工具十分痛苦。人们经常发现自己挖泥土的时候用...镐？使用$(item)修正指环$(0)是极好的选择，嘛，修正它。$(p)当佩戴该指环时，手中的工具将永远是正确匹配所破坏方块的，无论是镐，斧头还是铲子。只对需要$(thing)魔力$(0)的工具有效。",
+  "botania.page.swapRing0": "切换工具十分痛苦。人们经常发现自己挖泥土的时候用……镐？使用$(item)修正指环$(0)是极好的选择，嘛，修正它。$(p)当佩戴该指环时，手中的工具将永远是正确匹配所破坏方块的，无论是镐，斧头还是铲子。只对需要$(thing)魔力$(0)的工具有效。",
   "botania.page.swapRing1": "使用正确的工具",
 
   "botania.entry.speedUpBelt": "平原旅带",
@@ -3466,9 +3466,9 @@
   "botania.page.goddessCharm1": "没有爆炸！",
 
   "botania.entry.aIntro": "精灵传送门",
-  "botania.tagline.aIntro": "旅行的下一步...",
-  "botania.page.aIntro0": "据说过去，$(thing)精灵$(0)曾与$(thing)Minecrafters$(0)共享世界。然而未知的变故，使得他们被禁止回到自己的世界，$(thing)艾尔夫海姆$(0)。$(p)他们一直以来都在尝试着桥接两个世界，最终制作传送门的方法被发明了出来。",
-  "botania.page.aIntro1": "制作这个传送门看样子不是个简单的工作，需要一些特别的材料。如下:8个$(l:basics/pure_daisy)$(item)活木$(0)$(/l)方块，3个$(item)微光活木$(0)方块，1个$(item)精灵门$(0)$(item)核心$(0)(继续读)，2个$(l:mana/pool)$(item)魔力池$(0)$(/l)和2个$(item)自然水晶$(0)(继续读)。",
+  "botania.tagline.aIntro": "旅行的下一步……",
+  "botania.page.aIntro0": "据说过去，$(thing)精灵$(0)曾与$(thing)Minecraft的玩家$(0)共享世界。然而未知的变故，使得他们被禁止回到自己的世界，$(thing)艾尔夫海姆$(0)。$(p)他们一直以来都在尝试着桥接两个世界，最终制作传送门的方法被发明了出来。",
+  "botania.page.aIntro1": "制作这个传送门看样子不是个简单的工作，需要一些特别的材料。如下:8个$(l:basics/pure_daisy)$(item)活木$(0)$(/l)方块，3个$(item)微光活木$(0)方块，1个$(item)精灵门$(0)$(item)核心$(0)（继续读），2个$(l:mana/pool)$(item)魔力池$(0)$(/l)和2个$(item)自然水晶$(0)（继续读）。",
   "botania.page.aIntro2": "制作$(item)精灵门核心$(0)",
   "botania.page.aIntro3": "合成$(item)自然水晶$(0)",
   "botania.page.aIntro4": "加上$(item)微光活木$(0)",
@@ -3516,7 +3516,7 @@
 
   "botania.entry.relics": "诸神的遗物",
   "botania.tagline.relics": "是神话？还是真实？",
-  "botania.page.relics0": "关于艾尔夫海姆的高阶种族有着这样一个传说:\"转动命运之骰的人将会得到神的恩赐\"。这些恩赐之物被称作$(item)诸$(0)$(item)神的遗物$(0)，传言它们独一无二并且会与持有者的灵魂相绑定，也就是说仅有被恩赐其物之人才能将其使用。$(p)但或许，那只是一个传说而已。",
+  "botania.page.relics0": "关于艾尔夫海姆的高阶种族有着这样一个传说:“转动命运之骰的人将会得到神的恩赐”。这些恩赐之物被称作$(item)诸$(0)$(item)神的遗物$(0)，传言它们独一无二并且会与持有者的灵魂相绑定，也就是说仅有被恩赐其物之人才能将其使用。$(p)但或许，那只是一个传说而已。",
 
   "botania.entry.relicInfo": "诸神的遗物II",
   "botania.tagline.relicInfo": "他们终究是真实的",
@@ -3525,11 +3525,11 @@
 
   "botania.entry.infiniteFruit": "禁忌之果",
   "botania.tagline.infiniteFruit": "无穷无尽的营养供应",
-  "botania.page.infiniteFruit0": "被称为$(item)禁忌之果$(0)的遗物赋予那些得到它的勇敢灵魂永垂不朽的营养。它可以像普通的食物一样食用，但不像一般食物那样消耗自身，它利用背包里的魔力填满你的饥饿度。$(p)希望你喜欢苹果的味道。。。",
+  "botania.page.infiniteFruit0": "被称为$(item)禁忌之果$(0)的遗物赋予那些得到它的勇敢灵魂永垂不朽的营养。它可以像普通的食物一样食用，但不像一般食物那样消耗自身，它利用背包里的魔力填满你的饥饿度。$(p)希望你喜欢苹果的味道……",
 
   "botania.entry.kingKey": "王之宝钥",
   "botania.tagline.kingKey": "打开宝物库",
-  "botania.page.kingKey0": "$(item)王之宝钥$(0)是一个随心所欲物质化武器的强大遗物。按住右键将会从...某地召唤大量各式各样的武器。一次至多召唤20把武器。松开钥匙就会以极高的速度一次性发射所有武器，朝着召唤者所看的方向。一旦产生接触武器就会爆炸。",
+  "botania.page.kingKey0": "$(item)王之宝钥$(0)是一个随心所欲物质化武器的强大遗物。按住右键将会从……某地召唤大量各式各样的武器。一次至多召唤20把武器。松开钥匙就会以极高的速度一次性发射所有武器，朝着召唤者所看的方向。一旦产生接触武器就会爆炸。",
 
   "botania.entry.flugelEye": "天翼族之眼",
   "botania.tagline.flugelEye": "天翼族的真正力量",
@@ -3553,13 +3553,13 @@
 
   "botania.entry.elvenLore": "精灵传说-毁灭",
   "botania.tagline.elvenLore": "我在何方，因何在此",
-  "botania.page.elvenLore0": "$(o)看起来书中的这部分只是一堆纸片。但细看却能发现，这些似乎来自于爱尔文•加尔得图书馆的文献。$(p)其中的内容应该是历史相关的知识，但这和研究植物学有什么关系…",
+  "botania.page.elvenLore0": "$(o)看起来书中的这部分只是一堆纸片。但细看却能发现，这些似乎来自于爱尔文•加尔得图书馆的文献。$(p)其中的内容应该是历史相关的知识，但这和研究植物学有什么关系……",
   "botania.page.elvenLore1": "自$(thing)毁灭$(0)后已经过去了几千年。我们之中仅有少部分人还记得那天到底发生了什么。我写下这篇文章正意图归纳我们如今仍能确信的历史。",
   "botania.page.elvenLore2": "这一切始于发生在尼德威阿尔（矮人之乡）的最初的$(thing)崩坏$(0)。尽管矮人们顽强反抗，但他们的大部分科学和文明仍难逃一劫。",
   "botania.page.elvenLore3": "这事件震动的世界之树的根基，削弱了世界之树封印穆斯贝尔海姆（火之国）的结界。火之国与遥远的米德加尔德（人类之国）相撞，一场火之风暴消灭了火之国的所有生灵。许多人认为死亡女神赫尔操弄了火之国的堕落，但至今仍没有人发现确凿的证据。",
   "botania.page.elvenLore4": "$(thing)崩坏$(0)震动了约通海姆（巨人之国）的大地，杀死了数以万计的巨人。我们尚不清楚他们是否还有其他幸存者，但时至今日没有人再发现过那些巨人们过。尼福尔海姆（雾之国）似乎并未像其他世界那样受到影响 - 这也是许多人猜测赫尔操弄了这一切的原因。不过那里除了死亡女神以外并没有其他已知的生命形式，所以我们也不太关心那儿究竟发生了什么。",
   "botania.page.elvenLore5": "对艾尔夫海姆的精灵们而言，$(thing)崩坏$(0)使我们的世界产生了分裂。由于极度不稳定的生存环境，居住在火山的火精灵和海洋中的水精灵的数量都被大幅削减。而在天空中迁徙翱翔的风精灵们大体上安然无恙。他们的近亲宝藏妖精也存活了下来。",
-  "botania.page.elvenLore5a": "那段时间，我们文明的前景十分迷茫，我们也只能住在梦之木搭成的小屋中。不过重建工作只是一个收集材料的苦差事，因为我们事先收到了警告...",
+  "botania.page.elvenLore5a": "那段时间，我们文明的前景十分迷茫，我们也只能住在梦之木搭成的小屋中。不过重建工作只是一个收集材料的苦差事，因为我们事先收到了警告……",
   "botania.page.elvenLore6": "我们在阿斯加德的使者阿莱文目睹了这一切：雷神托尔用锤子粉碎了彩虹桥，她带领居住在米德加尔德的人类和精灵们疏散撤离，拯救了成千上万的生命。她从彩虹桥那已然破裂的波浪之上抵达艾尔夫海姆来警告我们时，我们尚未发觉这趟旅程对她造成的致命伤害 - 她之后还是离开了人世。",
   "botania.page.elvenLore7": "如今我们主要担心的还是米德加尔德的情况。彩虹桥的崩塌使得各个世界之间的联系都被切断了，但我们在那里所留下的魔力定会再一次给世界注入生命的活力，无论是动物，植物还是真菌，也无论它们是自然的还是魔法的。希望它足以创造出能和我们交流联系的智慧生物，我们等待着这一天。",
 
@@ -3590,7 +3590,7 @@
   "botania.entry.shinyFlowers": "荧光花",
   "botania.tagline.shinyFlowers": "浮空的发光花",
   "botania.page.shinyFlowers0": "给你的$(item)神秘花$(0)加上点$(item)萤石粉$(0)，就能让她们更闪耀，发出相当于$(item)萤石块$(0)亮度的物理光。$(p)加上一些$(item)泥土$(0)和$(item)草地之种$(0)就能将它们变为一块小型空岛，它不仅能发光，而且还很炫酷。",
-  "botania.page.shinyFlowers3": "将任何颜色的$(item)浮空花朵$(0)与任何有效果的花朵，(任何$(thing)功能性或产能花朵$(0)等)在合成台里相互结合，会得到拥有双方属性，效果及外观的$(item)浮空花$(0)。",
+  "botania.page.shinyFlowers3": "将任何颜色的$(item)浮空花朵$(0)与任何有效果的花朵，（任何$(thing)功能性或产能花朵$(0)等）在合成台里相互结合，会得到拥有双方属性，效果及外观的$(item)浮空花$(0)。",
   "botania.page.shinyFlowers4": "荧光花",
   "botania.page.shinyFlowers1": "一闪一闪",
   "botania.page.shinyFlowers5": "浮空花",
@@ -3644,7 +3644,7 @@
 
   "botania.entry.cacophonium": "不和谐之音",
   "botania.tagline.cacophonium": "模仿生物的声音",
-  "botania.page.cacophonium0": "这是个有趣的设备，$(item)不和谐之音$(0)有着能模仿任何活着的生物声音的能力，为使其\"模仿\"一个生物。你需要拿着它右击一个生物。然后按住右键它就会开始模仿。$(p)为什么有人会想要做这个，这玩意超越了我的伦理观。",
+  "botania.page.cacophonium0": "这是个有趣的设备，$(item)不和谐之音$(0)有着能模仿任何活着的生物声音的能力，为使其“模仿”一个生物。你需要拿着它右击一个生物。然后按住右键它就会开始模仿。$(p)为什么有人会想要做这个，这玩意超越了我的伦理观。",
   "botania.page.cacophonium1": "自行车！不和谐之音",
   "botania.page.cacophonium2": "为了最大化这种不和谐，$(item)不和谐之音$(0)潜行右击$(item)音符盒$(0)来使其记录这种声音。$(p)你个怪物。",
   
@@ -3750,7 +3750,6 @@
   "botania.subtitle.unholyCloak": "罪恶斗篷：激活",
   "botania.subtitle.vineBallThrow": "藤蔓球：飞出",
   "botania.subtitle.virusInfect": "病毒：感染",
-  "botania.subtitle.worldSeedTeleport": "世界之种：传送",
-
-  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
+  "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA",
+  "botania.subtitle.worldSeedTeleport": "世界之种：传送"
 }
