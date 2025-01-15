@@ -30,7 +30,8 @@ public class WispParticleData implements ParticleOptions {
 			Codec.FLOAT.fieldOf("b").forGetter(d -> d.b),
 			Codec.FLOAT.fieldOf("maxAgeMul").forGetter(d -> d.maxAgeMul),
 			Codec.BOOL.fieldOf("depthTest").forGetter(d -> d.depthTest),
-			Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip)
+			Codec.BOOL.fieldOf("noClip").forGetter(d -> d.noClip),
+			Codec.FLOAT.optionalFieldOf("gravity", 0.0f).forGetter(d -> d.gravity)
 	)
 			.apply(instance, WispParticleData::new));
 	public final float size;
@@ -38,6 +39,7 @@ public class WispParticleData implements ParticleOptions {
 	public final float maxAgeMul;
 	public final boolean depthTest;
 	public final boolean noClip;
+	public final float gravity;
 
 	public static WispParticleData wisp(float size, float r, float g, float b) {
 		return wisp(size, r, g, b, 1);
@@ -52,10 +54,18 @@ public class WispParticleData implements ParticleOptions {
 	}
 
 	public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, boolean depthTest) {
-		return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, false);
+		return wisp(size, r, g, b, maxAgeMul, depthTest, 0.0f);
 	}
 
-	private WispParticleData(float size, float r, float g, float b, float maxAgeMul, boolean depthTest, boolean noClip) {
+	public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, float gravity) {
+		return wisp(size, r, g, b, maxAgeMul, true, gravity);
+	}
+
+	public static WispParticleData wisp(float size, float r, float g, float b, float maxAgeMul, boolean depthTest, float gravity) {
+		return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, false, gravity);
+	}
+
+	private WispParticleData(float size, float r, float g, float b, float maxAgeMul, boolean depthTest, boolean noClip, float gravity) {
 		this.size = size;
 		this.r = r;
 		this.g = g;
@@ -63,13 +73,14 @@ public class WispParticleData implements ParticleOptions {
 		this.maxAgeMul = maxAgeMul;
 		this.depthTest = depthTest;
 		this.noClip = noClip;
+		this.gravity = gravity;
 	}
 
 	public WispParticleData withNoClip(boolean v) {
 		if (noClip == v) {
 			return this;
 		} else {
-			return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, v);
+			return new WispParticleData(size, r, g, b, maxAgeMul, depthTest, v, gravity);
 		}
 	}
 
@@ -88,6 +99,7 @@ public class WispParticleData implements ParticleOptions {
 		buf.writeFloat(maxAgeMul);
 		buf.writeBoolean(depthTest);
 		buf.writeBoolean(noClip);
+		buf.writeFloat(gravity);
 	}
 
 	@NotNull
@@ -119,14 +131,19 @@ public class WispParticleData implements ParticleOptions {
 			boolean noClip = false;
 			if (reader.canRead()) {
 				reader.expect(' ');
-				depth = reader.readBoolean();
+				noClip = reader.readBoolean();
 			}
-			return new WispParticleData(size, r, g, b, mam, depth, noClip);
+			float gravity = 0;
+			if (reader.canRead()) {
+				reader.expect(' ');
+				gravity = reader.readFloat();
+			}
+			return new WispParticleData(size, r, g, b, mam, depth, noClip, gravity);
 		}
 
 		@Override
 		public WispParticleData fromNetwork(@NotNull ParticleType<WispParticleData> type, FriendlyByteBuf buf) {
-			return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean(), buf.readBoolean());
+			return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean(), buf.readBoolean(), buf.readFloat());
 		}
 	};
 }

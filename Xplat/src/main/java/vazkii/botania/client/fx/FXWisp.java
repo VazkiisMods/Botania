@@ -33,8 +33,8 @@ public class FXWisp extends TextureSheetParticle {
 	private final int moteHalfLife;
 
 	public FXWisp(ClientLevel world, double d, double d1, double d2, double xSpeed, double ySpeed, double zSpeed,
-			float size, float red, float green, float blue, boolean depthTest, float maxAgeMul, boolean noClip) {
-		super(world, d, d1, d2, 0, 0, 0);
+			float size, float red, float green, float blue, boolean depthTest, float maxAgeMul, boolean noClip, float g) {
+		super(world, d, d1, d2);
 		// super applies wiggle to motion so set it here instead
 		xd = xSpeed;
 		yd = ySpeed;
@@ -43,7 +43,7 @@ public class FXWisp extends TextureSheetParticle {
 		gCol = green;
 		bCol = blue;
 		alpha = 0.375F;
-		gravity = 0;
+		gravity = g;
 		quadSize = (this.random.nextFloat() * 0.5F + 0.5F) * 2.0F * size;
 		moteParticleScale = quadSize;
 		lifetime = (int) (28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
@@ -91,11 +91,13 @@ public class FXWisp extends TextureSheetParticle {
 			this.remove();
 		}
 
-		this.yd -= 0.04D * (double) this.gravity;
+		this.yd -= this.gravity;
 		this.move(this.xd, this.yd, this.zd);
-		this.xd *= 0.9800000190734863D;
-		this.yd *= 0.9800000190734863D;
-		this.zd *= 0.9800000190734863D;
+		if (gravity == 0.0f) {
+			this.xd *= 0.98;
+			this.yd *= 0.98;
+			this.zd *= 0.98;
+		}
 	}
 
 	public void setGravity(float value) {
