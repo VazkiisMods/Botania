@@ -1,36 +1,38 @@
 pluginManagement {
-    plugins {
-        id 'net.neoforged.gradle.userdev' version '7.0.97' apply false
-        id "net.neoforged.moddev" version "0.1.126" apply false
-        id 'org.spongepowered.mixin' version '0.8.7' apply false
-        id 'agency.highlysuspect.minivan' version '0.5' apply false
-        id 'fabric-loom' version '1.7.2' apply false
-    }
     repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
-        maven {
-            name = 'NeoForge'
-            url = 'https://maven.neoforged.net/releases'
-        }
-        maven {
-            name = 'Sleeping Town'
-            url = 'https://repo.sleeping.town/'
-            content {
-                includeGroup 'agency.highlysuspect'
-                includeGroup 'agency.highlysuspect.minivan'
+        gradlePluginPortal()
+        mavenCentral()
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'Fabric'
+                    url = uri('https://maven.fabricmc.net')
+                }
+            }
+            filter {
+                includeGroup('net.fabricmc')
+                includeGroup('fabric-loom')
             }
         }
-        
-        gradlePluginPortal()
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'Sponge'
+                    url = uri('https://repo.spongepowered.org/repository/maven-public')
+                }
+            }
+            filter {
+                includeGroupAndSubgroups("org.spongepowered")
+            }
+        }
     }
 }
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
 }
 
 rootProject.name = 'Botania'
-include("Xplat", "Fabric", "NeoForge")
+include('Xplat')
+include('Fabric')
+include('NeoForge')

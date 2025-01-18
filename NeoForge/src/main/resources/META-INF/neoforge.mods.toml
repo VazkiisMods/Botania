@@ -1,0 +1,53 @@
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+license = "${license}"
+issueTrackerURL = "${issues_url}"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${version}"
+displayName = "${mod_name}"
+displayURL = "${website_url}"
+logoFile = "logo.png"
+description = '''${description}'''
+authors = "Vazkii, wiiv, williewillus, dylan4ever, Hubry, Alwinfy, artemisSystem, Falkory220, Wormbo"
+credits = "Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw, quat1024, ToMe25, Eutro and others"
+
+itemIcon = "botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod list
+configBackground = "botania:textures/block/livingrock_bricks.png" # background for Configured's generated config screen
+
+[[mixins]]
+config = "${mod_id}.xplat.mixins.json"
+
+[[mixins]]
+config = "${mod_id}.forge.mixins.json"
+
+[[dependencies.${mod_id}]]
+modId = "neoforge"
+type = "required"
+versionRange = "[${neoforge_version},)"
+
+[[dependencies.${mod_id}]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+
+[[dependencies.${mod_id}]]
+modId = "patchouli"
+type = "required"
+versionRange = "*"
+
+[[dependencies.${mod_id}]]
+modId = "curios"
+type = "required"
+versionRange = "*"
+
+[[dependencies.${mod_id}]]
+modId = "gardenofglass"
+type = "optional"
+versionRange = "*"
+
+[[dependencies.${mod_id}]]
+modId = "ears"
+type = "optional"
+versionRange = "*"

@@ -1,56 +1,20 @@
 plugins {
-    id 'com.diffplug.spotless' version '5.12.5' apply false
-    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
+    id 'com.diffplug.spotless' version '7.0.2' apply false
+    //id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
+    // see https://fabricmc.net/develop/ for new versions
+    id 'fabric-loom' version '1.8.13' apply false
+    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
+    id 'net.neoforged.moddev' version '2.0.74' apply false
 }
 
 subprojects {
-    apply plugin: 'java'
     apply plugin: 'pmd'
-    apply plugin: "com.diffplug.spotless"
-    apply plugin: 'maven-publish'
-    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-    java.withSourcesJar()
-    archivesBaseName = "${mod_name}"
-
-    repositories {
-        mavenCentral()
-
-        maven {
-            name = 'Mixin (Fabric fork)'
-            url = 'https://maven.fabricmc.net/'
-        }
-
-        maven {
-            name = 'ParchmentMC'
-            url = 'https://maven.parchmentmc.org/'
-        }
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-        it.options.encoding = 'UTF-8'
-        it.options.release = 21
-    }
-
-    tasks.withType(GenerateModuleMetadata).configureEach {
-        it.enabled = false
-    }
+    apply plugin: 'com.diffplug.spotless'
 
     pmd {
-        toolVersion '6.35.0'
+        toolVersion = '6.55.0'
         incrementalAnalysis.set(true)
         ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
-    }
-
-    jar {
-        from "LICENSE"
-
-        exclude "**/*.bat"
-        exclude "**/*.psd"
-        exclude "**/*.ase"
-        exclude "**/*.exe"
-        exclude "**/unused"
-
-        exclude ".cache"
     }
 
     spotless {

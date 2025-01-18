@@ -1,8 +1,9 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_17",
   "package": "vazkii.botania.fabric.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractFurnaceBlockEntityFabricAccessor",
     "AbstractMinecartFabricMixin",
@@ -37,6 +38,7 @@
     "client.MinecraftFabricMixin",
     "client.ParticleEngineFabricMixin"
   ],
+  "server": [],
   "injectors": {
     "defaultRequire": 1
   }
