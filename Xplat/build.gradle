@@ -1,104 +1,49 @@
 plugins {
-    id 'java'
-    // temporary until https://github.com/CrackedPolishedBlackstoneBricksMC/minivan/issues/2 is fixed
-    // id 'agency.highlysuspect.minivan'
-    // could probably have used NeoGradle but i had the code for ModDevGradle ready
-    id "net.neoforged.moddev"
+    id 'multiloader-common'
+    id 'net.neoforged.moddev'
 }
-
-archivesBaseName = "${mod_name}-xplat"
-version = "${minecraft_version}-${build_number}"
-if (System.getenv().RELEASE_MODE == null) {
-    version += '-SNAPSHOT'
-}
-
-// minivan {
-//     version(minecraft_version)
-//     accessWideners 'src/main/resources/botania_xplat.accesswidener'
-// }
 
 neoForge {
-    neoFormVersion = "1.21.1-20240808.144430"
-
+    neoFormVersion = neo_form_version
+    // Automatically enable AccessTransformers if the file exists
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg') // TODO: convert from accesswidener
+    if (at.exists()) {
+        accessTransformers.from(at.absolutePath)
+    }
     parchment {
-        var parchment_components = parchment_version.split(":")
-        mappingsVersion = parchment_components[1]
-        minecraftVersion = parchment_components[0]
-    }
-}
-
-repositories {
-    maven {
-        name = "Jared" // Patchouli and JEI
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/" // for emi
-    }
-    maven {
-        name = "Unascribed"
-        url "https://repo.unascribed.com" // for ears
-        content {
-            includeGroup "com.unascribed"
-        }
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
     }
 }
 
 dependencies {
-    compileOnly "net.fabricmc:sponge-mixin:${mixin_version}"
-    annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}")
-    compileOnly "vazkii.patchouli:Patchouli-xplat:${patchouli_version}"
+    compileOnly group: 'net.fabricmc', name: 'sponge-mixin', version: '0.15.2+mixin.0.8.7'
+    // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
+    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.4.1'
+    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.4.1'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+    compileOnly group: 'vazkii.patchouli', name: 'Patchouli-xplat', version: patchouli_version
 
-    // compileOnly 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
+    compileOnly group: 'com.unascribed', name: 'ears-api', version: ears_version
 
-    compileOnly "com.unascribed:ears-api:${ears_version}"
-
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly group: 'mezz.jei', name:"jei-${minecraft_version}-common-api", version: jei_version
     compileOnly "dev.emi:emi-xplat-mojmap:${emi_version}:api"
 
-    compileOnly "org.jetbrains:annotations:24.0.1"
-
-    // annotationProcessor 'com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.18.2:2.0.0.123'
-    // annotationProcessor 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
+    compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.1'
 }
 
-test {
-    useJUnitPlatform()
-}
-
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.compilerArgs.add("-Acrafttweaker.processor.document.output_directory=${new File(rootProject.buildDir, "docsOut")}")
-    it.options.compilerArgs.add("-Acrafttweaker.processor.document.multi_source=true")
-
-    it.options.compilerArgs << "-Xmaxerrs" << "2000"
-
-}
-
-processResources {
-    // Exclude datagenerator .cache directory
-    exclude '.cache'
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            from components.java
-        }
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
     }
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
     }
+}
+
+artifacts {
+    commonJava sourceSets.main.java.sourceDirectories.singleFile
+    commonResources sourceSets.main.resources.sourceDirectories.files
 }

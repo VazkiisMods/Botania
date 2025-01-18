@@ -1,6 +1,6 @@
 {
   "pack": {
-    "pack_format": 15,
-    "description": "Resources used for Botania"
+    "pack_format": 48,
+    "description": "${mod_name}"
   }
 }

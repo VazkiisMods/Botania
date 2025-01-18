@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "botania",
+  "id": "${mod_id}",
   "version": "${version}",
 
-  "name": "Botania",
-  "description": "Botania is a tech mod themed around natural magic",
+  "name": "${mod_name}",
+  "description": "${description}",
   "authors": [
     "Vazkii",
     "wiiv",
@@ -19,12 +19,12 @@
   "contact": {
     "irc": "ircs://irc.esper.net:6697/#vazkii",
     "email": "~williewillus/violet-moon@lists.sr.ht",
-    "homepage": "https://botaniamod.net",
-    "sources": "https://github.com/VazkiiMods/Botania",
-    "issues": "https://github.com/VazkiiMods/Botania/issues"
+    "homepage": "${website_url}",
+    "sources": "${sources_url}",
+    "issues": "${issues_url}"
   },
 
-  "license": "Botania license",
+  "license": "${license}",
   "icon": "logo.png",
 
   "environment": "*",
@@ -75,16 +75,17 @@
     ]
   },
   "mixins": [
-    "botania_xplat.mixins.json",
-    "botania_fabric.mixins.json"
+    "botania.xplat.mixins.json",
+    "botania.fabric.mixins.json"
   ],
   "accessWidener": "botania.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.16.0",
-    "fabric-api": ">=0.97",
-    "minecraft": "=1.20.4",
-    "trinkets" : ">=3.8",
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "java": "${java_version}",
+    "trinkets" : "*",
     "patchouli": "*"
   },
 
