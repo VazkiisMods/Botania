@@ -2,7 +2,8 @@
   "required": true,
   "minVersion": "0.8",
   "package": "vazkii.botania.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractFurnaceBlockEntityAccessor",
     "AbstractHorseAccessor",
@@ -80,8 +81,8 @@
     "client.SoundEngineMixin",
     "client.SplashManagerMixin"
   ],
+  "server": [],
   "injectors": {
     "defaultRequire": 1
-  },
-  "refmap": "botania.refmap.json"
+  }
 }

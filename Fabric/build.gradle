@@ -1,10 +1,6 @@
 plugins {
+    id 'multiloader-loader'
     id 'fabric-loom'
-}
-
-version = "${minecraft_version}-${build_number}-FABRIC"
-if (System.getenv().RELEASE_MODE != "1") {
-    version += '-SNAPSHOT'
 }
 
 loom {
@@ -40,22 +36,10 @@ loom {
 
 }
 
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-}
-
 repositories {
     maven {
         name = "Modmuss"
         url = "https://maven.modmuss50.me/"
-    }
-    maven {
-        name = "Jared"
-        url = "https://maven.blamejared.com/" // for JEI and Patchouli
-    }
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/" // for trinkets and emi
     }
     maven {
           name = "Ladysnake Libs"
@@ -66,25 +50,18 @@ repositories {
         url = "https://mod-buildcraft.com/maven"
     }
     maven {
-        name "entity reach"
-        url "https://maven.jamieswhiteshirt.com/libs-release/"
+        name = "entity reach"
+        url = "https://maven.jamieswhiteshirt.com/libs-release/"
     }
     maven {
-        url "https://jitpack.io" // for step height eam
+        url = "https://jitpack.io" // for step height eam
     }
     maven {
-        url "https://maven.shedaniel.me/" // for rei
+        url = "https://maven.shedaniel.me/" // for rei
     }
     maven {
         name = "ParchmentMC"
         url = "https://maven.parchmentmc.net/"
-    }
-    maven {
-        name = "Unascribed"
-        url "https://repo.unascribed.com" // for ears
-        content {
-            includeGroup "com.unascribed"
-        }
     }
     maven {
         name = "Modrinth"
@@ -99,13 +76,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${parchment_version}@zip")
+        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:${fabric_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-
-    compileOnly project(":Xplat")
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
     modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}-FABRIC"
 
@@ -114,7 +89,7 @@ dependencies {
     modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 
-    modImplementation "me.zeroeightsix:fiber:0.23.0-2"  
+    modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
     // Don't include base and entity as Trinkets includes it already
@@ -140,49 +115,4 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
-}
-
-compileJava {
-	source(project(":Xplat").sourceSets.main.allSource)
-	options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
-
-}
-
-sourcesJar {
-    from project(":Xplat").sourceSets.main.allJava
-}
-
-processResources {
-    from project(":Xplat").sourceSets.main.resources
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-
-    // Exclude datagenerator .cache directory
-    exclude '.cache'
-
-    filesMatching('data/botania/patchouli_books/lexicon/book.json') {
-        filter {
-            it.replaceAll("buildNumber", build_number)
-        }
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            from components.java
-        }
-    }
-
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
-    }
 }
