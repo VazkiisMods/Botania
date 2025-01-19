@@ -13,6 +13,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -304,39 +305,38 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag cmp) {
-		super.saveAdditional(cmp);
+	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
 		for (ItemStack stack : stacksIn) {
-			CompoundTag stackcmp = stack.save(new CompoundTag());
-			cmp.put(TAG_STACK + i, stackcmp);
+			cmp.put(TAG_STACK + i, stack.save(registries));
 			i++;
 		}
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag cmp) {
+	public void loadAdditional(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
 		super.load(cmp);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();
 		for (int i = 0; i < count; i++) {
 			CompoundTag stackcmp = cmp.getCompound(TAG_STACK + i);
-			ItemStack stack = ItemStack.of(stackcmp);
+			ItemStack stack = ItemStack.parse(registries, stackcmp).orElse(ItemStack.EMPTY);
 			stacksIn.add(stack);
 		}
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_TICKS_OPEN, ticksOpen);
 		cmp.putInt(TAG_TICKS_SINCE_LAST_ITEM, ticksSinceLastItem);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		ticksOpen = cmp.getInt(TAG_TICKS_OPEN);
 		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
 	}

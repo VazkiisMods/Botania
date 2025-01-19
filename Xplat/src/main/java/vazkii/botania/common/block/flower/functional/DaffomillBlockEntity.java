@@ -10,6 +10,7 @@ package vazkii.botania.common.block.flower.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -98,7 +99,8 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			case SOUTH -> axis = new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
 			case WEST -> axis = new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
 			case EAST -> axis = new AABB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
-			default -> {}
+			default -> {
+			}
 		}
 		return axis;
 	}
@@ -148,8 +150,8 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 
 		cmp.putInt(TAG_ORIENTATION, orientation.get3DDataValue());
 		cmp.putInt(TAG_WIND_TICKS, windTicks);
@@ -157,8 +159,8 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 
 		orientation = Direction.from3DDataValue(cmp.getInt(TAG_ORIENTATION));
 		windTicks = cmp.getInt(TAG_WIND_TICKS);

@@ -6,6 +6,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CandleBlock;
 
@@ -20,7 +21,7 @@ public class PaintslingerLensTest {
 		BlockPos spreaderPos = new BlockPos(2, 5, 2);
 		BlockPos buttonPos = new BlockPos(2, 5, 3);
 		BlockPos bindPos = new BlockPos(2, 2, 2);
-		Player player = helper.makeMockPlayer();
+		Player player = helper.makeMockPlayer(GameType.CREATIVE);
 
 		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),

@@ -14,8 +14,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -37,6 +38,7 @@ import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.ManaNetwork;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -98,49 +100,7 @@ public interface BotaniaAPI {
 
 	}
 
-	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial() {
-		@Override
-		public int getDurabilityForType(@NotNull ArmorItem.Type type) {
-			return 0;
-		}
-
-		@Override
-		public int getDefenseForType(@NotNull ArmorItem.Type type) {
-			return 0;
-		}
-
-		@Override
-		public int getEnchantmentValue() {
-			return 0;
-		}
-
-		@NotNull
-		@Override
-		public SoundEvent getEquipSound() {
-			return SoundEvents.ARMOR_EQUIP_LEATHER;
-		}
-
-		@NotNull
-		@Override
-		public Ingredient getRepairIngredient() {
-			return Ingredient.EMPTY;
-		}
-
-		@Override
-		public String getName() {
-			return "missingno";
-		}
-
-		@Override
-		public float getToughness() {
-			return 0;
-		}
-
-		@Override
-		public float getKnockbackResistance() {
-			return 0;
-		}
-	};
+	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial(Map.of(), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY, List.of(), 0, 0);
 
 	Tier DUMMY_ITEM_TIER = new Tier() {
 		@Override
@@ -159,8 +119,8 @@ public interface BotaniaAPI {
 		}
 
 		@Override
-		public int getLevel() {
-			return 0;
+		public TagKey<Block> getIncorrectBlocksForDrops() {
+			return BlockTags.INCORRECT_FOR_WOODEN_TOOL;
 		}
 
 		@Override

@@ -12,6 +12,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrays;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -267,14 +268,14 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
-		super.writePacketNBT(cmp);
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writePacketNBT(cmp, registries);
 		cmp.putString(TAG_NAME, Component.Serializer.toJson(name));
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
-		super.readPacketNBT(cmp);
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readPacketNBT(cmp, registries);
 		name = Component.Serializer.fromJson(cmp.getString(TAG_NAME));
 	}
 

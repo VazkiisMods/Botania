@@ -14,14 +14,15 @@ import com.google.gson.annotations.SerializedName;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IVariable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 /**
@@ -37,19 +38,19 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 	@Override
 	protected List<Ingredient> makeIngredients() {
 		Level world = Minecraft.getInstance().level;
-		Map<ResourceLocation, ? extends Recipe<?>> map;
+		RecipeType<?> type;
 		if ("runic_altar".equals(recipeType)) {
-			map = BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.RUNE_TYPE);
+			type = BotaniaRecipeTypes.RUNE_TYPE;
 		} else if ("petal_apothecary".equals(recipeType)) {
-			map = BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.PETAL_TYPE);
+			type = BotaniaRecipeTypes.PETAL_TYPE;
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}
-		Recipe<?> recipe = map.get(ResourceLocation.parse(recipeName));
-		if (recipe == null) {
+		Optional<? extends RecipeHolder<?>> recipe = BotaniaRecipeTypes.getRecipe(world, ResourceLocation.parse(recipeName), type);
+		if (recipe.isEmpty()) {
 			return ImmutableList.of();
 		}
-		return recipe.getIngredients();
+		return recipe.get().value().getIngredients();
 	}
 
 	@Override

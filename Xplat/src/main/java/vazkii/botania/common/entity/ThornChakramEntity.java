@@ -180,7 +180,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	protected float getGravity() {
+	protected double getDefaultGravity() {
 		return 0F;
 	}
 
@@ -216,7 +216,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		if (!stack.isEmpty()) {
-			compound.put("fly_stack", stack.save(new CompoundTag()));
+			compound.put("fly_stack", stack.save(level().registryAccess()));
 		}
 		compound.putBoolean("flare", isFire());
 	}
@@ -225,7 +225,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		if (compound.contains("fly_stack")) {
-			stack = ItemStack.of(compound.getCompound("fly_stack"));
+			stack = ItemStack.parse(level().registryAccess(), compound.getCompound("fly_stack")).orElse(ItemStack.EMPTY);
 		}
 		setFire(compound.getBoolean("flare"));
 	}

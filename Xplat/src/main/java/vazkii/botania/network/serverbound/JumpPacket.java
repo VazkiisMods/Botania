@@ -14,11 +14,12 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import io.netty.buffer.ByteBuf;
 
 public class JumpPacket implements CustomPacketPayload {
 	public static final JumpPacket INSTANCE = new JumpPacket();

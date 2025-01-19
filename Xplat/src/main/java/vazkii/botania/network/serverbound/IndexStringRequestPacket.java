@@ -6,10 +6,11 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import io.netty.buffer.ByteBuf;
 
 public record IndexStringRequestPacket(String message) implements CustomPacketPayload {
 	public static final Type<IndexStringRequestPacket> ID = new Type<>(botaniaRL("idxs"));

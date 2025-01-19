@@ -53,8 +53,8 @@ import java.util.stream.Stream;
 
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
-import static vazkii.botania.common.block.BotaniaBlocks.*;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.common.block.BotaniaBlocks.*;
 
 public class BlockstateProvider implements DataProvider {
 	protected final PackOutput packOutput;

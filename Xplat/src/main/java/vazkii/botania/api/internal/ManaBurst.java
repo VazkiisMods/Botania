@@ -53,6 +53,7 @@ public interface ManaBurst {
 	 * The block position of the block entity that spawned this burst.
 	 * If the burst wasn't fired from a block entity, returns {@link #NO_SOURCE}
 	 */
+	@Nullable
 	BlockPos getBurstSourceBlockPos();
 
 	void setBurstSourceCoords(BlockPos pos);
@@ -71,6 +72,7 @@ public interface ManaBurst {
 
 	void setShooterUUID(UUID uuid);
 
+	@Nullable
 	UUID getShooterUUID();
 
 	void ping();

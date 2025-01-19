@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -38,22 +39,19 @@ public class CacophoniumBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
-		super.writePacketNBT(cmp);
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writePacketNBT(cmp, registries);
 
-		CompoundTag cmp1 = new CompoundTag();
 		if (!stack.isEmpty()) {
-			cmp1 = stack.save(cmp1);
+			cmp.put(TAG_STACK, stack.save(registries));
 		}
-		cmp.put(TAG_STACK, cmp1);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
-		super.readPacketNBT(cmp);
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readPacketNBT(cmp, registries);
 
-		CompoundTag cmp1 = cmp.getCompound(TAG_STACK);
-		stack = ItemStack.of(cmp1);
+		stack = ItemStack.parse(registries, cmp.getCompound(TAG_STACK)).orElse(ItemStack.EMPTY);
 	}
 
 }

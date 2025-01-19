@@ -113,7 +113,7 @@ public class ConfigDataManagerImpl implements ConfigDataManager {
 				.thenAcceptAsync(c -> type.applyFunction.accept(this, c), gameExecutor);
 	}
 
-	private record ConfigDataType<T> (Codec<T> codec, String directory,
+	private record ConfigDataType<T>(Codec<T> codec, String directory,
 			Consumer<Map<ResourceLocation, T>> validateFunction,
 			BiConsumer<ConfigDataManagerImpl, Map<ResourceLocation, T>> applyFunction) {
 		private static final ConfigDataType<LooniumStructureConfiguration> LOONUIM =

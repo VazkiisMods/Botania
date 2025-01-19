@@ -58,8 +58,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static vazkii.botania.common.item.BotaniaItems.*;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemModelProvider implements DataProvider {
 	private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");
@@ -469,7 +469,7 @@ public class ItemModelProvider implements DataProvider {
 		takeAll(itemBlocks, BotaniaBlocks.avatar.asItem(), BotaniaBlocks.bellows.asItem(),
 				BotaniaBlocks.brewery.asItem(), BotaniaBlocks.corporeaIndex.asItem(), BotaniaBlocks.gaiaPylon.asItem(),
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), BotaniaBlocks.naturaPylon.asItem())
-						.forEach(i -> builtinEntity(i, consumer));
+				.forEach(i -> builtinEntity(i, consumer));
 
 		takeAll(itemBlocks, BotaniaBlocks.teruTeruBozu.asItem())
 				.forEach(i -> builtinEntity(i, consumer, 2.5));

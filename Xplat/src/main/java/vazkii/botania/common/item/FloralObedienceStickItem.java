@@ -52,7 +52,7 @@ public class FloralObedienceStickItem extends Item {
 				}
 
 				BlockEntity tile = world.getBlockEntity(iterPos);
-				if (tile instanceof BindableSpecialFlowerBlockEntity<?>bindable && bindable.wouldBeValidBinding(pos)) {
+				if (tile instanceof BindableSpecialFlowerBlockEntity<?> bindable && bindable.wouldBeValidBinding(pos)) {
 					bindable.setBindingPos(pos);
 					WandOfTheForestItem.doParticleBeamWithOffset(world, iterPos, pos);
 				}
@@ -61,7 +61,7 @@ public class FloralObedienceStickItem extends Item {
 			return true;
 		}
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof BindableSpecialFlowerBlockEntity<?>bindableFlower) {
+		if (tile instanceof BindableSpecialFlowerBlockEntity<?> bindableFlower) {
 			bindableFlower.setBindingPos(null);
 			return true;
 		}

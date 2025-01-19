@@ -53,13 +53,13 @@ public class TeruTeruBozuModel extends Model {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
 		if (Minecraft.getInstance().level.isRaining()) {
-			sadFace.render(ms, buffer, light, overlay, r, g, b, a);
+			sadFace.render(ms, buffer, light, overlay, color);
 		} else {
-			happyFace.render(ms, buffer, light, overlay, r, g, b, a);
+			happyFace.render(ms, buffer, light, overlay, color);
 		}
-		thread.render(ms, buffer, light, overlay, r, g, b, a);
-		cloth.render(ms, buffer, light, overlay, r, g, b, a);
+		thread.render(ms, buffer, light, overlay, color);
+		cloth.render(ms, buffer, light, overlay, color);
 	}
 }

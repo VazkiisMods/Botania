@@ -26,10 +26,11 @@ public class FeatherfeetMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(@NotNull LivingEntity living, int amplified) {
+	public boolean applyEffectTick(@NotNull LivingEntity living, int amplified) {
 		if (living.fallDistance > 2.5F) {
 			living.fallDistance = 2.5F;
 		}
+		return true;
 	}
 
 }

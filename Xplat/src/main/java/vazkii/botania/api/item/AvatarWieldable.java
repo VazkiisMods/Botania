@@ -10,8 +10,8 @@ package vazkii.botania.api.item;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Avatar;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**

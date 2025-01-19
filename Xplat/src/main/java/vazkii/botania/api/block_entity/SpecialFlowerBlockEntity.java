@@ -9,6 +9,7 @@
 package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -58,6 +59,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	public boolean overgrowth = false;
 	/** true if this flower is working on Enchanted Soil and this is the second tick **/
 	public boolean overgrowthBoost = false;
+	@Nullable
 	private BlockPos positionOverride;
 	private boolean isFloating;
 
@@ -144,8 +146,8 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	}
 
 	@Override
-	public final void load(CompoundTag cmp) {
-		super.load(cmp);
+	public final void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
@@ -154,24 +156,24 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		}
 
 		FloatingFlower.IslandType oldType = floatingData.getIslandType();
-		readFromPacketNBT(cmp);
+		readFromPacketNBT(cmp, registries);
 		if (isFloating() && oldType != floatingData.getIslandType() && level != null) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
 	}
 
 	@Override
-	public final void saveAdditional(CompoundTag cmp) {
-		super.saveAdditional(cmp);
+	public final void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
-		writeToPacketNBT(cmp);
+		writeToPacketNBT(cmp, registries);
 	}
 
 	@NotNull
 	@Override
-	public CompoundTag getUpdateTag() {
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		var tag = new CompoundTag();
-		writeToPacketNBT(tag);
+		writeToPacketNBT(tag, registries);
 		return tag;
 	}
 
@@ -180,7 +182,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	 * by readFromPacketNBT on the client that receives the packet.
 	 * Note: This method is also used to write to the world NBT.
 	 */
-	public void writeToPacketNBT(CompoundTag cmp) {
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (isFloating()) {
 			cmp.put(TAG_FLOATING_DATA, floatingData.writeNBT());
 		}
@@ -191,7 +193,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	 * writeToPacketNBT in the server. Note: This method is also used
 	 * to read from the world NBT.
 	 */
-	public void readFromPacketNBT(CompoundTag cmp) {
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (cmp.contains(TAG_FLOATING_DATA)) {
 			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
 		}

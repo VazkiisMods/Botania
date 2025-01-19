@@ -181,7 +181,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	}
 
 	@Override
-	public Item getDropItem() {
+	protected Item getDropItem() {
 		return BotaniaItems.poolMinecart;
 	}
 

@@ -13,10 +13,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import org.jetbrains.annotations.Nullable;
-import vazkii.botania.api.BotaniaAPI;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
  * Blocks with this capability can express custom logic when being

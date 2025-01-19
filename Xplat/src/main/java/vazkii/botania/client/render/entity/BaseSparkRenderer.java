@@ -117,10 +117,10 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
 		Matrix4f mat = ms.last().pose();
-		buffer.addVertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).setColor(r, g, b, a).setUv(f, f3).uv2(fullbright);
-		buffer.addVertex(mat, f4 - f5, 0.0F - f6, 0.0F).setColor(r, g, b, a).setUv(f1, f3).uv2(fullbright);
-		buffer.addVertex(mat, f4 - f5, f4 - f6, 0.0F).setColor(r, g, b, a).setUv(f1, f2).uv2(fullbright);
-		buffer.addVertex(mat, 0.0F - f5, f4 - f6, 0.0F).setColor(r, g, b, a).setUv(f, f2).uv2(fullbright);
+		buffer.addVertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).setColor(r, g, b, a).setUv(f, f3).setLight(fullbright);
+		buffer.addVertex(mat, f4 - f5, 0.0F - f6, 0.0F).setColor(r, g, b, a).setUv(f1, f3).setLight(fullbright);
+		buffer.addVertex(mat, f4 - f5, f4 - f6, 0.0F).setColor(r, g, b, a).setUv(f1, f2).setLight(fullbright);
+		buffer.addVertex(mat, 0.0F - f5, f4 - f6, 0.0F).setColor(r, g, b, a).setUv(f, f2).setLight(fullbright);
 	}
 
 }

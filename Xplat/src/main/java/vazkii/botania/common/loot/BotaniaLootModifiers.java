@@ -20,7 +20,7 @@ public class BotaniaLootModifiers {
 	public static final LootItemConditionType TRUE_GUARDIAN_KILLER = new LootItemConditionType(TrueGuardianKiller.CODEC);
 	public static final LootItemConditionType ENABLE_RELICS = new LootItemConditionType(EnableRelics.CODEC);
 	public static final LootItemConditionType KILLED_BY_REAL_PLAYER = new LootItemConditionType(RealPlayerCondition.CODEC);
-	public static final LootItemFunctionType BIND_UUID = new LootItemFunctionType(BindUuid.CODEC);
+	public static final LootItemFunctionType<BindUuid> BIND_UUID = new LootItemFunctionType<>(BindUuid.CODEC);
 
 	public static void submitLootConditions(BiConsumer<LootItemConditionType, ResourceLocation> consumer) {
 		consumer.accept(TRUE_GUARDIAN_KILLER, botaniaRL("true_guardian_killer"));
@@ -28,7 +28,7 @@ public class BotaniaLootModifiers {
 		consumer.accept(KILLED_BY_REAL_PLAYER, botaniaRL("killed_by_player"));
 	}
 
-	public static void submitLootFunctions(BiConsumer<LootItemFunctionType, ResourceLocation> consumer) {
+	public static void submitLootFunctions(BiConsumer<LootItemFunctionType<?>, ResourceLocation> consumer) {
 		consumer.accept(BIND_UUID, botaniaRL("bind_uuid"));
 	}
 }

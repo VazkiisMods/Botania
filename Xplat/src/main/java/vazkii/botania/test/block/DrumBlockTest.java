@@ -11,6 +11,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.phys.Vec3;
 
@@ -35,7 +37,7 @@ public class DrumBlockTest {
 	private static final Vec3 VECTOR_MOB = POSITION_MOB.getCenter();
 
 	private static <T extends Mob> T setup(GameTestHelper helper, EntityType<T> entityType, @Nullable Item item) {
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.CREATIVE);
 		var spreader = TestingUtil.assertBlockEntity(helper, POSITION_SPREADER, BotaniaBlockEntities.SPREADER);
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand),
 				helper.absolutePos(POSITION_DRUM), Direction.UP),
@@ -79,7 +81,7 @@ public class DrumBlockTest {
 		var cow = setup(helper, EntityType.MOOSHROOM, Items.BOWL);
 		cow.setVariant(MushroomCow.MushroomType.BROWN);
 		var cowAccessor = (MushroomCowAccessor) cow;
-		cowAccessor.setStewEffects(List.of(new SuspiciousEffectHolder.EffectEntry(MobEffects.BLINDNESS, 15)));
+		cowAccessor.setStewEffects(new SuspiciousStewEffects(List.of(new SuspiciousStewEffects.Entry(MobEffects.BLINDNESS, 15))));
 		helper.startSequence()
 				.thenExecute(() -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.SUSPICIOUS_STEW, POSITION_MOB, 1.0))

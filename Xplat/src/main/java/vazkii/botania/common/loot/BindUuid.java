@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.loot;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +26,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 
 public class BindUuid extends LootItemConditionalFunction {
-	public static final Codec<BindUuid> CODEC = RecordCodecBuilder.create(instance -> commonFields(instance).apply(instance, BindUuid::new));
+	public static final MapCodec<BindUuid> CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).apply(instance, BindUuid::new));
 
 	public BindUuid(List<LootItemCondition> predicates) {
 		super(predicates);
@@ -35,7 +35,7 @@ public class BindUuid extends LootItemConditionalFunction {
 	@NotNull
 	@Override
 	public ItemStack run(@NotNull ItemStack stack, @NotNull LootContext context) {
-		if (context.getParamOrNull(LootContextParams.KILLER_ENTITY) instanceof Player player) {
+		if (context.getParamOrNull(LootContextParams.ATTACKING_ENTITY) instanceof Player player) {
 			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.bindToUUID(player.getUUID());
@@ -46,7 +46,7 @@ public class BindUuid extends LootItemConditionalFunction {
 	}
 
 	@Override
-	public LootItemFunctionType getType() {
+	public LootItemFunctionType<? extends BindUuid> getType() {
 		return BotaniaLootModifiers.BIND_UUID;
 	}
 }

@@ -157,12 +157,12 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 
 		ItemStack lens = spreader.getItemHandler().getItem(0);
 		boolean playerHasLens = heldItem.getItem() instanceof BasicLensItem;
-		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
+		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameComponents(heldItem, lens);
 		ItemStack wool = spreader.paddingColor != null
 				? new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor))
 				: ItemStack.EMPTY;
 		boolean playerHasWool = ColorHelper.isWool(Block.byItem(heldItem.getItem()));
-		boolean woolIsSame = playerHasWool && ItemStack.isSameItemSameTags(heldItem, wool);
+		boolean woolIsSame = playerHasWool && ItemStack.isSameItemSameComponents(heldItem, wool);
 		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.is(Items.SCAFFOLDING);
 		boolean shouldInsert = (playerHasLens && !lensIsSame)
 				|| (playerHasWool && !woolIsSame)
