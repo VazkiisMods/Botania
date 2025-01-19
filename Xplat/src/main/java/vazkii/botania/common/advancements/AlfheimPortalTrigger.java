@@ -54,7 +54,7 @@ public class AlfheimPortalTrigger extends SimpleCriterionTrigger<AlfheimPortalTr
 		}
 
 		boolean test(ServerLevel world, BlockPos pos, ItemStack wand) {
-			return (this.wand.isEmpty() || this.wand.get().matches(wand))
+			return (this.wand.isEmpty() || this.wand.get().test(wand))
 					&& (this.location.isEmpty() || this.location.get().matches(world, pos.getX(), pos.getY(), pos.getZ()));
 		}
 	}

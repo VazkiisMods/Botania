@@ -24,7 +24,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
-import io.netty.buffer.ByteBuf;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
@@ -36,9 +35,9 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 
-import java.util.ArrayList;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import io.netty.buffer.ByteBuf;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
@@ -51,8 +50,8 @@ public record BotaniaEffectPacket(EffectType effectType, double x, double y, dou
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::x,
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::y,
 			ByteBufCodecs.DOUBLE, BotaniaEffectPacket::z,
-			ByteBufCodecs.VAR_INT.apply(ByteBufCodecs.list()).map(Ints::toArray, is -> Ints.asList((int[])is)), BotaniaEffectPacket::args,
-			(type, x, y, z, args) -> new BotaniaEffectPacket(type, x, y, z, (int[])args)
+			ByteBufCodecs.VAR_INT.apply(ByteBufCodecs.list()).map(Ints::toArray, is -> Ints.asList((int[]) is)), BotaniaEffectPacket::args,
+			(type, x, y, z, args) -> new BotaniaEffectPacket(type, x, y, z, (int[]) args)
 	);
 
 	@Override

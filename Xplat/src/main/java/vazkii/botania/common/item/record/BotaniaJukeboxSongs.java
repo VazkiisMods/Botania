@@ -15,6 +15,6 @@ import net.minecraft.world.item.JukeboxSong;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaJukeboxSongs {
-    public static final ResourceKey<JukeboxSong> GAIA_MUSIC_1 = ResourceKey.create(Registries.JUKEBOX_SONG, botaniaRL("gaia_1"));
-    public static final ResourceKey<JukeboxSong> GAIA_MUSIC_2 = ResourceKey.create(Registries.JUKEBOX_SONG, botaniaRL("gaia_2"));
+	public static final ResourceKey<JukeboxSong> GAIA_MUSIC_1 = ResourceKey.create(Registries.JUKEBOX_SONG, botaniaRL("gaia_1"));
+	public static final ResourceKey<JukeboxSong> GAIA_MUSIC_2 = ResourceKey.create(Registries.JUKEBOX_SONG, botaniaRL("gaia_2"));
 }

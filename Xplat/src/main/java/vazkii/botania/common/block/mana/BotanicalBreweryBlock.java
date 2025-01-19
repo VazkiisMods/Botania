@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -60,21 +61,21 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		BreweryBlockEntity brew = (BreweryBlockEntity) world.getBlockEntity(pos);
-
-		ItemStack stack = player.getItemInHand(hand);
-		if (stack.isEmpty()) {
-			if (!state.getValue(BlockStateProperties.POWERED)) {
-				InventoryHelper.withdrawFromInventory(brew, player);
-				return InteractionResult.sidedSuccess(world.isClientSide());
-			}
-		} else {
-			return brew.addItem(player, stack, hand)
-					? InteractionResult.sidedSuccess(world.isClientSide())
-					: InteractionResult.PASS;
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+		if (!state.getValue(BlockStateProperties.POWERED)) {
+			BreweryBlockEntity brew = (BreweryBlockEntity) level.getBlockEntity(pos);
+			InventoryHelper.withdrawFromInventory(brew, player);
+			return InteractionResult.sidedSuccess(level.isClientSide());
 		}
 		return InteractionResult.PASS;
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		BreweryBlockEntity brew = (BreweryBlockEntity) level.getBlockEntity(pos);
+		return brew.addItem(player, stack, hand)
+				? ItemInteractionResult.sidedSuccess(level.isClientSide())
+				: ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override

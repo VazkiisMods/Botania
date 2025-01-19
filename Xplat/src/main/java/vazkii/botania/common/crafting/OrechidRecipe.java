@@ -136,8 +136,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 				ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC.map(
 						id -> TagKey.create(Registries.BIOME, id), TagKey::location
 				)), OrechidRecipe::getBiomes,
-				(in, out, weight, weightBonus, biomes) ->
-						new OrechidRecipe(in, out, weight, null, weightBonus, biomes.orElse(null))
+				(in, out, weight, weightBonus, biomes) -> new OrechidRecipe(in, out, weight, null, weightBonus, biomes.orElse(null))
 		);
 
 		@Override

@@ -52,7 +52,7 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 		}
 
 		boolean test(ItemStack stack, ServerPlayer entity) {
-			return (this.item.isEmpty() || this.item.get().matches(stack))
+			return (this.item.isEmpty() || this.item.get().test(stack))
 					&& (this.user.isEmpty() || this.user.get().matches(entity, entity));
 		}
 	}

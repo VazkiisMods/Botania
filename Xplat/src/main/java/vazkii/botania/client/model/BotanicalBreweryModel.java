@@ -132,7 +132,7 @@ public class BotanicalBreweryModel extends Model {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
 		throw new UnsupportedOperationException("unimplemented, call using other render method");
 	}
 }

@@ -10,12 +10,13 @@ package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.StreamCodec;
-
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import vazkii.botania.client.core.SkyblockWorldInfo;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import io.netty.buffer.ByteBuf;
 
 public class GogWorldPacket implements CustomPacketPayload {
 	public static final GogWorldPacket INSTANCE = new GogWorldPacket();

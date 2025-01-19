@@ -20,8 +20,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.inventory.InventoryMenu;
 
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
@@ -76,12 +74,11 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 
 	public void renderIcon(PoseStack ms, MultiBufferSource buffers, TextureAtlasSprite icon, int x, int y, int width, int height, float alpha, int overlay) {
 		VertexConsumer buffer = buffers.getBuffer(Sheets.translucentItemSheet());
-		Matrix4f model = ms.last().pose();
-		Matrix3f normal = ms.last().normal();
-		buffer.addVertex(model, x, y + height, 0).setColor(1, 1, 1, alpha).setUv(icon.getU0(), icon.getV1()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
-		buffer.addVertex(model, x + width, y + height, 0).setColor(1, 1, 1, alpha).setUv(icon.getU1(), icon.getV1()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
-		buffer.addVertex(model, x + width, y, 0).setColor(1, 1, 1, alpha).setUv(icon.getU1(), icon.getV0()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
-		buffer.addVertex(model, x, y, 0).setColor(1, 1, 1, alpha).setUv(icon.getU0(), icon.getV0()).setOverlay(overlay).uv2(0xF000F0).setNormal(normal, 1, 0, 0);
+		PoseStack.Pose pose = ms.last();
+		buffer.addVertex(pose, x, y + height, 0).setColor(1, 1, 1, alpha).setUv(icon.getU0(), icon.getV1()).setOverlay(overlay).setLight(0xF000F0).setNormal(pose, 1, 0, 0);
+		buffer.addVertex(pose, x + width, y + height, 0).setColor(1, 1, 1, alpha).setUv(icon.getU1(), icon.getV1()).setOverlay(overlay).setLight(0xF000F0).setNormal(pose, 1, 0, 0);
+		buffer.addVertex(pose, x + width, y, 0).setColor(1, 1, 1, alpha).setUv(icon.getU1(), icon.getV0()).setOverlay(overlay).setLight(0xF000F0).setNormal(pose, 1, 0, 0);
+		buffer.addVertex(pose, x, y, 0).setColor(1, 1, 1, alpha).setUv(icon.getU0(), icon.getV0()).setOverlay(overlay).setLight(0xF000F0).setNormal(pose, 1, 0, 0);
 	}
 
 }

@@ -11,7 +11,7 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -58,23 +58,20 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty()) {
-			if (stack.getItem() instanceof WandOfTheForestItem && player.isSecondaryUseActive()) {
-				return InteractionResult.PASS;
-			}
-			CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos);
-			if (cube.locked) {
-				if (!world.isClientSide) {
-					player.displayClientMessage(Component.translatable("botaniamisc.crystalCubeLocked"), false);
-				}
-			} else {
-				cube.setRequestTarget(stack);
-			}
-			return InteractionResult.sidedSuccess(world.isClientSide());
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (stack.getItem() instanceof WandOfTheForestItem && player.isSecondaryUseActive()) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		return InteractionResult.PASS;
+		CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) level.getBlockEntity(pos);
+		if (cube.locked) {
+			if (!level.isClientSide) {
+				player.displayClientMessage(Component.translatable("botaniamisc.crystalCubeLocked"), false);
+			}
+		} else {
+			cube.setRequestTarget(stack);
+		}
+		return ItemInteractionResult.sidedSuccess(level.isClientSide());
 	}
 
 	@NotNull

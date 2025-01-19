@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.BlockHitResult;
@@ -115,7 +116,7 @@ public class TestingUtil {
 
 	public static void bindWithWandOfTheForest(GameTestHelper helper, BlockPos first, BlockPos second) {
 		//Conjure a player with Wand of the Forest
-		Player player = helper.makeMockPlayer();
+		Player player = helper.makeMockPlayer(GameType.CREATIVE);
 		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.twigWand));
 		player.setShiftKeyDown(true);
 

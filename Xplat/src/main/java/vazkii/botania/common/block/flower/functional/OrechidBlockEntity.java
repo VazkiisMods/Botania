@@ -81,7 +81,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 			values.add(WeightedEntry.wrap(recipe, recipe.getWeight(getLevel(), coords)));
 		}
 		return WeightedRandom.getRandomItem(getLevel().random, values)
-				.map(WeightedEntry.Wrapper::getData)
+				.map(WeightedEntry.Wrapper::data)
 				.orElse(null);
 	}
 

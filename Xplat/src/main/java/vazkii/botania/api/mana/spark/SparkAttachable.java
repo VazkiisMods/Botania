@@ -10,7 +10,7 @@ package vazkii.botania.api.mana.spark;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import vazkii.botania.api.BotaniaAPI;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**

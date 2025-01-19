@@ -106,7 +106,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		ItemStack lens = prism.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
 		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof BasicLensItem;
-		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
+		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameComponents(heldItem, lens);
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
 		if (playerHasLens && !lensIsSame) {

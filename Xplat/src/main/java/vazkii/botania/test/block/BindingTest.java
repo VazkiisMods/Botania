@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -112,7 +113,7 @@ public class BindingTest {
 		BlockPos absoluteBindTarget = TestingUtil.assertAnyBlockEntity(helper, middle).getBlockPos();
 
 		//Use a Floral Obedience Stick on the pool
-		Player player = helper.makeMockPlayer();
+		Player player = helper.makeMockPlayer(GameType.CREATIVE);
 		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.obedienceStick));
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, middle);
 

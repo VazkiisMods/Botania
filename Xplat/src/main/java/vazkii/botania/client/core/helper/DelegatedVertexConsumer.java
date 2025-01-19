@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,11 +43,6 @@ class DelegatedVertexConsumer implements VertexConsumer {
 	}
 
 	@Override
-	public VertexConsumer overlayCoords(int u, int v) {
-		return delegate.overlayCoords(u, v);
-	}
-
-	@Override
 	public @NotNull VertexConsumer setUv2(int u, int v) {
 		return delegate.setUv2(u, v);
 	}
@@ -54,20 +50,5 @@ class DelegatedVertexConsumer implements VertexConsumer {
 	@Override
 	public @NotNull VertexConsumer setNormal(float x, float y, float z) {
 		return delegate.setNormal(x, y, z);
-	}
-
-	@Override
-	public void endVertex() {
-		delegate.endVertex();
-	}
-
-	@Override
-	public void defaultColor(int red, int green, int blue, int alpha) {
-		delegate.defaultColor(red, green, blue, alpha);
-	}
-
-	@Override
-	public void unsetDefaultColor() {
-		delegate.unsetDefaultColor();
 	}
 }

@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,16 +40,16 @@ public class FakeAirBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
+	public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
 		tag.putInt(TAG_FLOWER_X, flowerPos.getX());
 		tag.putInt(TAG_FLOWER_Y, flowerPos.getY());
 		tag.putInt(TAG_FLOWER_Z, flowerPos.getZ());
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
+	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
 		flowerPos = new BlockPos(
 				tag.getInt(TAG_FLOWER_X),
 				tag.getInt(TAG_FLOWER_Y),

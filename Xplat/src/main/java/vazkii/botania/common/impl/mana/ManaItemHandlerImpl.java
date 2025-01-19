@@ -286,7 +286,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		boolean proficient = false;
 
 		for (EquipmentSlot e : EquipmentSlot.values()) {
-			if (e.getType() != EquipmentSlot.Type.ARMOR) {
+			if (e.getType() != EquipmentSlot.Type.HUMANOID_ARMOR) {
 				continue;
 			}
 			ItemStack stack = player.getItemBySlot(e);

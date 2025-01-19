@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -53,12 +54,12 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		mana = cmp.getInt(TAG_MANA);
 	}
 

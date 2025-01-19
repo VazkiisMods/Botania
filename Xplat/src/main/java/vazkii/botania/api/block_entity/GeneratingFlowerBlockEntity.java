@@ -9,6 +9,7 @@
 package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaCollector;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**
@@ -101,14 +103,14 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 		mana = cmp.getInt(TAG_MANA);
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 		cmp.putInt(TAG_MANA, getMana());
 	}
 }

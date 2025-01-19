@@ -90,13 +90,16 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private boolean fake = false;
 	private final Set<BlockPos> alreadyCollidedAt = new HashSet<>();
 	private boolean fullManaLastTick = true;
+	@Nullable
 	private UUID shooterIdentity = null;
 	private int _ticksExisted = 0;
 	private boolean scanBeam = false;
+	@Nullable
 	private BlockPos lastCollision;
 	private boolean warped = false;
 	private int orbitTime = 0;
 	private boolean tripped = false;
+	@Nullable
 	private BlockPos magnetizePos = null;
 
 	public final List<PositionProperties> propsList = new ArrayList<>();
@@ -196,7 +199,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			if (propsList.isEmpty()) {
 				propsList.add(props);
 			} else {
-				PositionProperties lastProps = propsList.get(propsList.size() - 1);
+				PositionProperties lastProps = propsList.getLast();
 				if (!props.coordsEqual(lastProps)) {
 					propsList.add(props);
 				}
@@ -214,9 +217,11 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		return false;
 	}
 
+	@Nullable
 	private ManaReceiver collidedTile = null;
 	private boolean noParticles = false;
 
+	@Nullable
 	public ManaReceiver getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
 
@@ -255,9 +260,9 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		tag.putFloat(TAG_GRAVITY, getBurstGravity());
 
 		ItemStack stack = getSourceLens();
-		CompoundTag lensCmp = new CompoundTag();
+		Tag lensCmp = new CompoundTag();
 		if (!stack.isEmpty()) {
-			lensCmp = stack.save(lensCmp);
+			lensCmp = stack.save(level().registryAccess());
 		}
 		tag.put(TAG_LENS_STACK, lensCmp);
 
@@ -282,13 +287,13 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		tag.putInt(TAG_ORBIT_TIME, orbitTime);
 		tag.putBoolean(TAG_TRIPPED, tripped);
 		if (magnetizePos != null) {
-			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).get().orThrow());
+			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).getOrThrow());
 		}
 		tag.putBoolean(TAG_LEFT_SOURCE, hasLeftSource());
 
 		var alreadyCollidedAt = new ListTag();
 		for (BlockPos pos : this.alreadyCollidedAt) {
-			alreadyCollidedAt.add(BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow());
+			alreadyCollidedAt.add(BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).getOrThrow());
 		}
 		tag.put(TAG_ALREADY_COLLIDED_AT, alreadyCollidedAt);
 	}
@@ -305,7 +310,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		setGravity(cmp.getFloat(TAG_GRAVITY));
 
 		CompoundTag lensCmp = cmp.getCompound(TAG_LENS_STACK);
-		ItemStack stack = ItemStack.of(lensCmp);
+		ItemStack stack = ItemStack.parse(level().registryAccess(), lensCmp).orElse(ItemStack.EMPTY);
 		if (!stack.isEmpty()) {
 			setSourceLens(stack);
 		} else {
@@ -341,7 +346,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		orbitTime = cmp.getInt(TAG_ORBIT_TIME);
 		tripped = cmp.getBoolean(TAG_TRIPPED);
 		if (cmp.contains(TAG_MAGNETIZE_POS)) {
-			magnetizePos = BlockPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
+			magnetizePos = BlockPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).getOrThrow();
 		} else {
 			magnetizePos = null;
 		}
@@ -717,6 +722,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		_ticksExisted = ticks;
 	}
 
+	@Nullable
 	private LensEffectItem getLensInstance() {
 		ItemStack lens = getSourceLens();
 		if (!lens.isEmpty() && lens.getItem() instanceof LensEffectItem effect) {
@@ -744,6 +750,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Override
+	@Nullable
 	public UUID getShooterUUID() {
 		return shooterIdentity;
 	}
@@ -827,7 +834,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 	public record PositionProperties(BlockPos coords, BlockState state) {
 		public static PositionProperties fromEntity(Entity entity) {
-			return new PositionProperties(entity.blockPosition(), entity.getFeetBlockState());
+			return new PositionProperties(entity.blockPosition(), entity.getBlockStateOn());
 		}
 
 		public boolean coordsEqual(PositionProperties props) {

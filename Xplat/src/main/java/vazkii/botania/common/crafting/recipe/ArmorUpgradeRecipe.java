@@ -60,7 +60,6 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 		public static final StreamCodec<RegistryFriendlyByteBuf, ArmorUpgradeRecipe> STREAM_CODEC = SHAPED_RECIPE.streamCodec()
 				.map(ArmorUpgradeRecipe::new, Function.identity());
 
-
 		@Override
 		public ArmorUpgradeRecipe wrap(Recipe<?> recipe) {
 			if (!(recipe instanceof ShapedRecipe shapedRecipe)) {

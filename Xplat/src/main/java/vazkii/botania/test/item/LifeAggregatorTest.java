@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,7 +25,7 @@ public class LifeAggregatorTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testSpawnerMover(GameTestHelper helper) {
 		var spawnerPos = BlockPos.ZERO;
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.CREATIVE);
 		var stack = new ItemStack(BotaniaItems.spawnerMover);
 
 		helper.setBlock(spawnerPos, Blocks.SPAWNER);

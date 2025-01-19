@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -84,15 +85,15 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 
 		cmp.putInt(TAG_COOLDOWN_MAGNITUDE, cooldownStrength);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 
 		cooldownStrength = cmp.getInt(TAG_COOLDOWN_MAGNITUDE);
 	}

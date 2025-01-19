@@ -14,8 +14,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.Bound;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**

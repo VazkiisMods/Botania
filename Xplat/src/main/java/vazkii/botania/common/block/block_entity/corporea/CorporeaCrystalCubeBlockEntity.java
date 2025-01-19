@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.LivingEntity;
@@ -117,22 +118,20 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag) {
-		super.writePacketNBT(tag);
-		CompoundTag cmp = new CompoundTag();
+	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+		super.writePacketNBT(tag, registries);
 		if (!requestTarget.isEmpty()) {
-			cmp = requestTarget.save(cmp);
+			tag.put(TAG_REQUEST_TARGET, requestTarget.save(registries));
 		}
-		tag.put(TAG_REQUEST_TARGET, cmp);
 		tag.putInt(TAG_ITEM_COUNT, itemCount);
 		tag.putBoolean(TAG_LOCK, locked);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag) {
-		super.readPacketNBT(tag);
+	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+		super.readPacketNBT(tag, registries);
 		CompoundTag cmp = tag.getCompound(TAG_REQUEST_TARGET);
-		requestTarget = ItemStack.of(cmp);
+		requestTarget = ItemStack.parse(registries, cmp).orElse(ItemStack.EMPTY);
 		setCount(tag.getInt(TAG_ITEM_COUNT));
 		locked = tag.getBoolean(TAG_LOCK);
 	}

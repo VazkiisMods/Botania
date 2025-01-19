@@ -14,14 +14,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.network.serverbound.DodgePacket;
 import vazkii.botania.xplat.ClientXplatAbstractions;

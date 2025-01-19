@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -76,7 +77,7 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_GENERATION, generation);
 		cmp.putBoolean(TAG_TICKED, ticked);
 		if (ticked) {
@@ -90,7 +91,7 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		generation = cmp.getInt(TAG_GENERATION);
 		ticked = cmp.getBoolean(TAG_TICKED);
 		if (ticked) {

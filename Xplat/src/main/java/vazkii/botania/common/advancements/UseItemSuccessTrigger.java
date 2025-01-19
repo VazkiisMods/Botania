@@ -55,7 +55,7 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 		}
 
 		boolean test(ItemStack stack, ServerLevel world, double x, double y, double z) {
-			return (this.item.isEmpty() || this.item.get().matches(stack))
+			return (this.item.isEmpty() || this.item.get().test(stack))
 					&& (this.location.isEmpty() || this.location.get().matches(world, x, y, z));
 		}
 	}

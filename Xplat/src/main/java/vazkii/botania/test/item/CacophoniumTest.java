@@ -18,6 +18,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -36,7 +37,7 @@ public class CacophoniumTest {
 		BlockPos noteBlockPos = new BlockPos(1, 2, 3);
 		helper.assertBlockPresent(Blocks.NOTE_BLOCK, noteBlockPos);
 
-		Player player = helper.makeMockPlayer();
+		Player player = helper.makeMockPlayer(GameType.CREATIVE);
 		Cow cow = helper.spawnWithNoFreeWill(EntityType.COW, cowPos);
 
 		//Give a cacophonium to the player.

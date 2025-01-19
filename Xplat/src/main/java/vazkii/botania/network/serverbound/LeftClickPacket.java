@@ -13,10 +13,11 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-import io.netty.buffer.ByteBuf;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import io.netty.buffer.ByteBuf;
 
 public class LeftClickPacket implements CustomPacketPayload {
 	public static final LeftClickPacket INSTANCE = new LeftClickPacket();

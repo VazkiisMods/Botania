@@ -11,6 +11,7 @@ package vazkii.botania.common.block.block_entity;
 import com.google.common.base.Preconditions;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Clearable;
@@ -46,15 +47,15 @@ public abstract class SimpleInventoryBlockEntity extends BotaniaBlockEntity impl
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag) {
+	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(tag, tmp);
+		ContainerHelper.loadAllItems(tag, tmp, registries);
 		copyToInv(tmp, itemHandler);
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag) {
-		ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler));
+	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+		ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler), registries);
 	}
 
 	// NB: Cannot be named the same as the corresponding method in vanilla's interface -- causes obf issues with MCP

@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -98,14 +99,14 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag) {
-		super.readPacketNBT(tag);
+	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+		super.readPacketNBT(tag, registries);
 		craftResult = ItemStack.of(tag.getCompound(TAG_CRAFTING_RESULT));
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag) {
-		super.writePacketNBT(tag);
+	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+		super.writePacketNBT(tag, registries);
 		tag.put(TAG_CRAFTING_RESULT, craftResult.save(new CompoundTag()));
 	}
 

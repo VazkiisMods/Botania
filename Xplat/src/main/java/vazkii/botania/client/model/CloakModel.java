@@ -53,9 +53,9 @@ public class CloakModel extends Model {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-		collar.render(ms, buffer, light, overlay, r, g, b, a);
-		sideL.render(ms, buffer, light, overlay, r, g, b, a);
-		sideR.render(ms, buffer, light, overlay, r, g, b, a);
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
+		collar.render(ms, buffer, light, overlay, color);
+		sideL.render(ms, buffer, light, overlay, color);
+		sideR.render(ms, buffer, light, overlay, color);
 	}
 }

@@ -55,24 +55,24 @@ public class BellowsModel extends Model {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-		render(ms, buffer, light, overlay, r, g, b, a, 1);
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
+		render(ms, buffer, light, overlay, color, 1);
 	}
 
-	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float alpha, float fract) {
-		base.render(ms, buffer, light, overlay, r, g, b, alpha);
-		pipe.render(ms, buffer, light, overlay, r, g, b, alpha);
+	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color, float fract) {
+		base.render(ms, buffer, light, overlay, color);
+		pipe.render(ms, buffer, light, overlay, color);
 
 		float mov = (1F - fract) * 0.5F;
 
 		ms.translate(0F, mov, 0F);
-		top.render(ms, buffer, light, overlay, r, g, b, alpha);
+		top.render(ms, buffer, light, overlay, color);
 		ms.translate(0F, -mov, 0F);
 
 		ms.mulPose(VecHelper.rotateX(180F));
 		ms.translate(-0.19F, -1.375F, -0.19F);
 		ms.scale(1F, fract, 1F);
-		funnel.render(ms, buffer, light, overlay, r, g, b, alpha);
+		funnel.render(ms, buffer, light, overlay, color);
 		ms.scale(1F, 1F / fract, 1F);
 	}
 
