@@ -10,7 +10,6 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -75,7 +74,7 @@ public class BellowsBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
 		if (PlayerHelper.isTruePlayer(player)) {
 			((BellowsBlockEntity) world.getBlockEntity(pos)).interact();
 			return InteractionResult.sidedSuccess(world.isClientSide());

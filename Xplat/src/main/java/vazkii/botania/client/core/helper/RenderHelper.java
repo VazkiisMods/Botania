@@ -41,6 +41,7 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -379,9 +380,8 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.stencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 
 		Matrix4f mat = ms.last().pose();
-		BufferBuilder buf = Tesselator.getInstance().getBuilder();
 		RenderSystem.setShader(GameRenderer::getPositionColorShader);
-		buf.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
+		BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
 		buf.addVertex(mat, centerX, centerY, 0).setColor(0, 0.5F, 0.5F, a);
 
 		for (int i = degs; i >= 0; i--) {
@@ -390,7 +390,7 @@ public final class RenderHelper extends RenderType {
 		}
 
 		buf.addVertex(mat, centerX, centerY, 0).setColor(0F, 1F, 0.5F, a);
-		Tesselator.getInstance().end();
+		Tesselator.getInstance().clear();
 
 		RenderSystem.disableBlend();
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
@@ -477,10 +477,10 @@ public final class RenderHelper extends RenderType {
 		float green = ((color >> 8) & 0xFF) / 255F;
 		float blue = (color & 0xFF) / 255F;
 
-		buffer.addVertex(mat, startX, endY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvStartX), icon.getV(uvEndY)).uv2(light);
-		buffer.addVertex(mat, endX, endY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvEndX), icon.getV(uvEndY)).uv2(light);
-		buffer.addVertex(mat, endX, startY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvEndX), icon.getV(uvStartY)).uv2(light);
-		buffer.addVertex(mat, startX, startY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvStartX), icon.getV(uvStartY)).uv2(light);
+		buffer.addVertex(mat, startX, endY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvStartX), icon.getV(uvEndY)).setLight(light);
+		buffer.addVertex(mat, endX, endY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvEndX), icon.getV(uvEndY)).setLight(light);
+		buffer.addVertex(mat, endX, startY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvEndX), icon.getV(uvStartY)).setLight(light);
+		buffer.addVertex(mat, startX, startY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvStartX), icon.getV(uvStartY)).setLight(light);
 	}
 
 	/**
@@ -568,10 +568,10 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-		PoseStack modelViewStack = RenderSystem.getModelViewStack();
-		modelViewStack.pushPose();
+		Matrix4fStack modelViewStack = RenderSystem.getModelViewStack();
+		modelViewStack.pushMatrix();
 		modelViewStack.translate(x, y, 100.0F);
-		modelViewStack.translate(8.0D, 8.0D, 0.0D);
+		modelViewStack.translate(8.0F, 8.0F, 0.0F);
 		modelViewStack.scale(1.0F, -1.0F, 1.0F);
 		modelViewStack.scale(16.0F, 16.0F, 16.0F);
 		RenderSystem.applyModelViewMatrix();
@@ -601,7 +601,7 @@ public final class RenderHelper extends RenderType {
 			Lighting.setupFor3DItems();
 		}
 
-		modelViewStack.popPose();
+		modelViewStack.popMatrix();
 		RenderSystem.applyModelViewMatrix();
 	}
 
@@ -643,6 +643,7 @@ public final class RenderHelper extends RenderType {
 	}
 
 	// Borrowed with permission from https://github.com/XFactHD/FramedBlocks/blob/14f468810fc416b39447512810f0aa86e1012335/src/main/java/xfacthd/framedblocks/client/util/GhostVertexConsumer.java
+	// TODO: is this even still relevant? it doesn't exist anymore where it was borrowed from
 	public record GhostVertexConsumer(VertexConsumer wrapped, int alpha) implements VertexConsumer {
 		@Override
 		public @NotNull VertexConsumer addVertex(float x, float y, float z) {
@@ -665,11 +666,6 @@ public final class RenderHelper extends RenderType {
 		}
 
 		@Override
-		public VertexConsumer overlayCoords(int u, int v) {
-			return wrapped.overlayCoords(u, v);
-		}
-
-		@Override
 		public @NotNull VertexConsumer setUv2(int u, int v) {
 			return wrapped.setUv2(u, v);
 		}
@@ -677,21 +673,6 @@ public final class RenderHelper extends RenderType {
 		@Override
 		public @NotNull VertexConsumer setNormal(float x, float y, float z) {
 			return wrapped.setNormal(x, y, z);
-		}
-
-		@Override
-		public void endVertex() {
-			wrapped.endVertex();
-		}
-
-		@Override
-		public void defaultColor(int r, int g, int b, int a) {
-			wrapped.defaultColor(r, g, b, a);
-		}
-
-		@Override
-		public void unsetDefaultColor() {
-			wrapped.unsetDefaultColor();
 		}
 	}
 }

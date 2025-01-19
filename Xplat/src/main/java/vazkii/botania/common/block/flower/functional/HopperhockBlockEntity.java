@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -230,15 +231,15 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 
 		cmp.putInt(TAG_FILTER_TYPE, filterType);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 
 		filterType = cmp.getInt(TAG_FILTER_TYPE);
 	}

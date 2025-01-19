@@ -50,7 +50,7 @@ public class RelicBindTrigger extends SimpleCriterionTrigger<RelicBindTrigger.In
 		}
 
 		boolean test(ItemStack stack) {
-			return this.relic.isEmpty() || this.relic.get().matches(stack);
+			return this.relic.isEmpty() || this.relic.get().test(stack);
 		}
 	}
 }

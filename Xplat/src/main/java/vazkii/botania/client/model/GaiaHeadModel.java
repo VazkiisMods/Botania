@@ -26,11 +26,11 @@ public class GaiaHeadModel extends SkullModelBase {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
 		var type = GaiaHeadBlockEntityRenderer.getViewType();
 		var model = GaiaHeadBlockEntityRenderer.models.get(type);
 		if (model != null) {
-			model.renderToBuffer(ms, buffer, light, overlay, r, g, b, a);
+			model.renderToBuffer(ms, buffer, light, overlay, color);
 		}
 	}
 }

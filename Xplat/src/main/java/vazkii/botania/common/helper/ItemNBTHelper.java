@@ -206,7 +206,7 @@ public final class ItemNBTHelper {
 				return ItemStack.matches(duplicateAndClearMana(stack1), duplicateAndClearMana(stack2));
 			}
 		}
-		return ItemStack.isSameItemSameTags(stack1, stack2);
+		return ItemStack.isSameItemSameComponents(stack1, stack2);
 	}
 
 	/**

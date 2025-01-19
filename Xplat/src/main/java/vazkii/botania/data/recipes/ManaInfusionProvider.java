@@ -29,9 +29,6 @@ import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.Arrays;
-import java.util.function.Consumer;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaInfusionProvider extends BotaniaRecipeProvider {

@@ -10,7 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -60,15 +60,15 @@ public class TeruTeruBozuBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (isSunflower(stack) && removeRain(level) || isBlueOrchid(stack) && startRain(level)) {
 			if (!player.getAbilities().instabuild) {
 				stack.shrink(1);
 			}
-			return InteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(level.isClientSide());
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	private boolean isSunflower(ItemStack stack) {

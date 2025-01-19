@@ -11,10 +11,8 @@ package vazkii.botania.api.recipe;
 import net.minecraft.commands.CacheableFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
@@ -24,10 +22,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.BotaniaAPI;
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 import java.util.Optional;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface PureDaisyRecipe extends Recipe<RecipeInput> {
 	ResourceLocation TYPE_ID = botaniaRL("pure_daisy");

@@ -102,7 +102,7 @@ public abstract class ThrowableCopyEntity extends Projectile {
 		this.setPos(d, e, f);
 	}
 
-	protected float getGravity() {
-		return 0.03F;
+	protected double getDefaultGravity() {
+		return 0.03;
 	}
 }

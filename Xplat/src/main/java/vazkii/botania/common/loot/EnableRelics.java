@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.loot;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -20,7 +20,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 public class EnableRelics implements LootItemCondition {
 	public static final EnableRelics INSTANCE = new EnableRelics();
-	public static final Codec<EnableRelics> CODEC = Codec.unit(INSTANCE);
+	public static final MapCodec<EnableRelics> CODEC = MapCodec.unit(INSTANCE);
 
 	private EnableRelics() {}
 

@@ -13,6 +13,7 @@ import com.google.common.collect.Iterables;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -142,14 +143,14 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 		cmp.putInt(TAG_NEXT_COLOR, nextColor.ordinal());
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 		nextColor = DyeColor.byId(cmp.getInt(TAG_NEXT_COLOR));
 	}
 }

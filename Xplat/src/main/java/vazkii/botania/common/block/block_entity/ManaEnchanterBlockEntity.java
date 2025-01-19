@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -311,7 +312,8 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 				}
 
 			}
-			default -> {}
+			default -> {
+			}
 		}
 	}
 
@@ -390,7 +392,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putInt(TAG_MANA_REQUIRED, manaRequired);
 		cmp.putInt(TAG_STAGE, stage.ordinal());
@@ -409,7 +411,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		mana = cmp.getInt(TAG_MANA);
 		manaRequired = cmp.getInt(TAG_MANA_REQUIRED);
 		stage = State.values()[cmp.getInt(TAG_STAGE)];

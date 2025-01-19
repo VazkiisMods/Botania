@@ -98,13 +98,12 @@ public final class BossBarHandler {
 
 		var matrix = gui.pose().last().pose();
 		RenderSystem.setShader(CoreShaders::dopplegangerBar);
-		BufferBuilder builder = Tesselator.getInstance().getBuilder();
-		builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		builder.addVertex(matrix, x, y + h, 0).setUv(minU, maxV);
 		builder.addVertex(matrix, x + w, y + h, 0).setUv(maxU, maxV);
 		builder.addVertex(matrix, x + w, y, 0).setUv(maxU, minV);
 		builder.addVertex(matrix, x, y, 0).setUv(minU, minV);
-		Tesselator.getInstance().end();
+		Tesselator.getInstance().clear();
 	}
 
 }

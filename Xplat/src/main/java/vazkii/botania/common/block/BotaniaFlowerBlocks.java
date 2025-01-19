@@ -315,8 +315,7 @@ public class BotaniaFlowerBlocks {
 			Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
-		return new SpecialFlowerBlock(
-				effect, effectDuration, props, beType);
+		return createSpecialFlowerBlock(effect, effectDuration, props, beType, false);
 	}
 
 	private static FlowerBlock createSpecialFlowerBlock(
@@ -324,9 +323,7 @@ public class BotaniaFlowerBlocks {
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
 			boolean hasComparatorOutput) {
-		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(
-				effect, effectDuration, props, beType, hasComparatorOutput
-		);
+		return new SpecialFlowerBlock(effect, effectDuration, props, beType, hasComparatorOutput);
 	}
 
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {

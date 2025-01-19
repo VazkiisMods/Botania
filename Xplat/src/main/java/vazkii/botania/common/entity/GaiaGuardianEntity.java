@@ -94,8 +94,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.*;
 import java.util.function.Supplier;
 
-import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 
 public class GaiaGuardianEntity extends Mob {
 	public static final float ARENA_RANGE = 12F;

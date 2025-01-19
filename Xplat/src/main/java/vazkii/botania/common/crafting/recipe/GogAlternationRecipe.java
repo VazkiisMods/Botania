@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import com.google.common.base.Suppliers;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -22,7 +23,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import com.google.common.base.Suppliers;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Supplier;
@@ -84,15 +84,15 @@ public class GogAlternationRecipe<C extends RecipeInput> implements Recipe<C> {
 
 	private static class Serializer implements RecipeSerializer<GogAlternationRecipe<?>> {
 		private static final MapCodec<GogAlternationRecipe<?>> RAW_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-						Recipe.CODEC.fieldOf("base").forGetter(GogAlternationRecipe::getBaseRecipe),
-						Recipe.CODEC.fieldOf("gog").forGetter(GogAlternationRecipe::getGogRecipe)
-				).apply(instance, GogAlternationRecipe::new));
+				Recipe.CODEC.fieldOf("base").forGetter(GogAlternationRecipe::getBaseRecipe),
+				Recipe.CODEC.fieldOf("gog").forGetter(GogAlternationRecipe::getGogRecipe)
+		).apply(instance, GogAlternationRecipe::new));
 		public static final MapCodec<GogAlternationRecipe<?>> CODEC = RAW_CODEC.validate(recipe -> {
-					if (recipe.getBaseRecipe().getType() != recipe.getGogRecipe().getType()) {
-						return DataResult.error(() -> "Subrecipes must have matching types");
-					}
-					return DataResult.success(recipe);
-				});
+			if (recipe.getBaseRecipe().getType() != recipe.getGogRecipe().getType()) {
+				return DataResult.error(() -> "Subrecipes must have matching types");
+			}
+			return DataResult.success(recipe);
+		});
 		public static final StreamCodec<RegistryFriendlyByteBuf, GogAlternationRecipe<?>> STREAM_CODEC = StreamCodec.composite(
 				Recipe.STREAM_CODEC, GogAlternationRecipe::getBaseRecipe,
 				Recipe.STREAM_CODEC, GogAlternationRecipe::getGogRecipe,

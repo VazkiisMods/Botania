@@ -9,10 +9,10 @@
 package vazkii.botania.mixin;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +24,7 @@ public interface AbstractFurnaceBlockEntityAccessor {
 	NonNullList<ItemStack> getItems();
 
 	@Accessor("quickCheck")
-	RecipeManager.CachedCheck<Container, ? extends AbstractCookingRecipe> getQuickCheck();
+	RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> getQuickCheck();
 
 	@Accessor
 	int getLitTime();

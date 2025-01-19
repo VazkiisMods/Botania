@@ -28,7 +28,6 @@ import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.*;
-import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 import vazkii.botania.common.item.brew.VialItem;
@@ -203,7 +202,7 @@ public final class BotaniaItems {
 	public static final Item manasteelAxe = make(botaniaRL(LibItemNames.MANASTEEL_AXE), new ManasteelAxeItem(unstackableCustomDamage()));
 	public static final Item manasteelHoe = make(botaniaRL(LibItemNames.MANASTEEL_HOE), new ManasteelHoeItem(unstackableCustomDamage()));
 	public static final Item manasteelSword = make(botaniaRL(LibItemNames.MANASTEEL_SWORD), new ManasteelSwordItem(unstackableCustomDamage()));
-	public static final Item manasteelShears = make(botaniaRL(LibItemNames.MANASTEEL_SHEARS), new ManasteelShearsItem(unstackableCustomDamage().defaultDurability(238)));
+	public static final Item manasteelShears = make(botaniaRL(LibItemNames.MANASTEEL_SHEARS), new ManasteelShearsItem(unstackableCustomDamage().durability(238)));
 	public static final Item elementiumHelm = make(botaniaRL(LibItemNames.ELEMENTIUM_HELM), new ElementiumHelmItem(unstackableCustomDamage()));
 	public static final Item elementiumChest = make(botaniaRL(LibItemNames.ELEMENTIUM_CHEST), new ElementiumChestItem(unstackableCustomDamage()));
 	public static final Item elementiumLegs = make(botaniaRL(LibItemNames.ELEMENTIUM_LEGS), new ElementiumLegsItem(unstackableCustomDamage()));
@@ -213,7 +212,7 @@ public final class BotaniaItems {
 	public static final Item elementiumAxe = make(botaniaRL(LibItemNames.ELEMENTIUM_AXE), new ElementiumAxeItem(unstackableCustomDamage()));
 	public static final Item elementiumHoe = make(botaniaRL(LibItemNames.ELEMENTIUM_HOE), new ElementiumHoeItem(unstackableCustomDamage()));
 	public static final Item elementiumSword = make(botaniaRL(LibItemNames.ELEMENTIUM_SWORD), new ElementiumSwordItem(unstackableCustomDamage()));
-	public static final Item elementiumShears = make(botaniaRL(LibItemNames.ELEMENTIUM_SHEARS), new ElementiumShearsItem(unstackableCustomDamage().defaultDurability(238)));
+	public static final Item elementiumShears = make(botaniaRL(LibItemNames.ELEMENTIUM_SHEARS), new ElementiumShearsItem(unstackableCustomDamage().durability(238)));
 	public static final Item terrasteelHelm = make(botaniaRL(LibItemNames.TERRASTEEL_HELM), new TerrasteelHelmItem(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item terrasteelChest = make(botaniaRL(LibItemNames.TERRASTEEL_CHEST), new TerrasteelArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item terrasteelLegs = make(botaniaRL(LibItemNames.TERRASTEEL_LEGS), new TerrasteelArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
@@ -227,10 +226,10 @@ public final class BotaniaItems {
 	public static final Item manaweaveChest = make(botaniaRL(LibItemNames.MANAWEAVE_CHEST), new ManaweaveArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
 	public static final Item manaweaveLegs = make(botaniaRL(LibItemNames.MANAWEAVE_LEGS), new ManaweaveArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
 	public static final Item manaweaveBoots = make(botaniaRL(LibItemNames.MANAWEAVE_BOOTS), new ManaweaveArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
-	public static final Item enderDagger = make(botaniaRL(LibItemNames.ENDER_DAGGER), new SoulscribeItem(unstackable().defaultDurability(69))); // What you looking at?
+	public static final Item enderDagger = make(botaniaRL(LibItemNames.ENDER_DAGGER), new SoulscribeItem(unstackable().durability(69))); // What you looking at?
 	public static final Item glassPick = make(botaniaRL(LibItemNames.GLASS_PICK), new VitreousPickaxeItem(unstackableCustomDamage()));
-	public static final Item livingwoodBow = make(botaniaRL(LibItemNames.LIVINGWOOD_BOW), new LivingwoodBowItem(defaultBuilderCustomDamage().defaultDurability(500)));
-	public static final Item crystalBow = make(botaniaRL(LibItemNames.CRYSTAL_BOW), new CrystalBowItem(defaultBuilderCustomDamage().defaultDurability(500)));
+	public static final Item livingwoodBow = make(botaniaRL(LibItemNames.LIVINGWOOD_BOW), new LivingwoodBowItem(defaultBuilderCustomDamage().durability(500)));
+	public static final Item crystalBow = make(botaniaRL(LibItemNames.CRYSTAL_BOW), new CrystalBowItem(defaultBuilderCustomDamage().durability(500)));
 	public static final Item thornChakram = make(botaniaRL(LibItemNames.THORN_CHAKRAM), new ThornChakramItem(defaultBuilder().stacksTo(6)));
 	public static final Item flareChakram = make(botaniaRL(LibItemNames.FLARE_CHAKRAM), new ThornChakramItem(defaultBuilder().stacksTo(6)));
 
@@ -249,7 +248,7 @@ public final class BotaniaItems {
 	public static final Item enderHand = make(botaniaRL(LibItemNames.ENDER_HAND), new EnderHandItem(unstackable()));
 	public static final Item craftingHalo = make(botaniaRL(LibItemNames.CRAFTING_HALO), new AssemblyHaloItem(unstackable()));
 	public static final Item autocraftingHalo = make(botaniaRL(LibItemNames.AUTOCRAFTING_HALO), new ManufactoryHaloItem(unstackable()));
-	public static final Item spellCloth = make(botaniaRL(LibItemNames.SPELL_CLOTH), new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable().defaultDurability(35))));
+	public static final Item spellCloth = make(botaniaRL(LibItemNames.SPELL_CLOTH), new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable().durability(35))));
 	public static final Item flowerBag = make(botaniaRL(LibItemNames.FLOWER_BAG), new FlowerPouchItem(unstackable()));
 	public static final Item blackHoleTalisman = make(botaniaRL(LibItemNames.BLACK_HOLE_TALISMAN), new BlackHoleTalismanItem(unstackable()));
 	public static final Item temperanceStone = make(botaniaRL(LibItemNames.TEMPERANCE_STONE), new StoneOfTemperanceItem(unstackable()));
@@ -295,10 +294,10 @@ public final class BotaniaItems {
 	public static final Item flightTiara = make(botaniaRL(LibItemNames.FLIGHT_TIARA), new FlugelTiaraItem(unstackable().rarity(Rarity.UNCOMMON)));
 
 	// Misc
-	public static final Item manaCookie = make(botaniaRL(LibItemNames.MANA_COOKIE), new Item(defaultBuilder().food(new FoodProperties.Builder().nutrition(0).saturationMod(0.1F).effect(new MobEffectInstance(MobEffects.SATURATION, 20, 0), 1).build())));
+	public static final Item manaCookie = make(botaniaRL(LibItemNames.MANA_COOKIE), new Item(defaultBuilder().food(new FoodProperties.Builder().nutrition(0).saturationModifier(0.1F).effect(new MobEffectInstance(MobEffects.SATURATION, 20, 0), 1).build())));
 	public static final Item manaBottle = make(botaniaRL(LibItemNames.MANA_BOTTLE), new BottledManaItem(
 			// Mark as food just to fool foxes into using it
-			unstackable().food(new FoodProperties.Builder().alwaysEat().build())));
+			unstackable().food(new FoodProperties.Builder().alwaysEdible().build())));
 	public static final Item laputaShard = make(botaniaRL(LibItemNames.LAPUTA_SHARD), new LaputaShardItem(unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item necroVirus = make(botaniaRL(LibItemNames.NECRO_VIRUS), new EquestrianVirusItem(defaultBuilder()));
 	public static final Item nullVirus = make(botaniaRL(LibItemNames.NULL_VIRUS), new EquestrianVirusItem(defaultBuilder()));

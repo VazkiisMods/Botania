@@ -9,7 +9,7 @@
 package vazkii.botania.common.loot;
 
 import com.google.common.collect.ImmutableSet;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -26,7 +26,7 @@ import java.util.Set;
 
 public class RealPlayerCondition implements LootItemCondition {
 	public static final RealPlayerCondition INSTANCE = new RealPlayerCondition();
-	public static final Codec<RealPlayerCondition> CODEC = Codec.unit(INSTANCE);
+	public static final MapCodec<RealPlayerCondition> CODEC = MapCodec.unit(INSTANCE);
 
 	private RealPlayerCondition() {}
 

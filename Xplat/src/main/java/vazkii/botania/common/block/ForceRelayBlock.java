@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -89,7 +91,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 		}
 	}
 
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos) {
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Level world, BlockPos pos) {
 		if (world.isClientSide) {
 			return false;
 		}
@@ -124,17 +126,20 @@ public class ForceRelayBlock extends BotaniaBlock {
 	public static class WorldData extends SavedData {
 
 		private static final String ID = "PistonRelayPairs";
-		public static final Factory<WorldData> FACTORY = new Factory<>(() -> new WorldData(new CompoundTag()),
-				WorldData::new, DataFixTypes.LEVEL);
+		public static final Factory<WorldData> FACTORY = new Factory<>(WorldData::new, WorldData::new, DataFixTypes.LEVEL);
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
 
-		public WorldData(@NotNull CompoundTag cmp) {
+		public WorldData() {
+			// initialize with empty data
+		}
+
+		public WorldData(CompoundTag cmp, HolderLookup.Provider registries) {
 			ListTag list = cmp.getList("list", Tag.TAG_INT_ARRAY);
 			for (int i = 0; i < list.size(); i += 2) {
 				Tag from = list.get(i);
 				Tag to = list.get(i + 1);
-				BlockPos fromPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, from).result().get().getFirst();
-				BlockPos toPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, to).result().get().getFirst();
+				BlockPos fromPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, from).result().orElseThrow().getFirst();
+				BlockPos toPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, to).result().orElseThrow().getFirst();
 
 				mapping.put(fromPos, toPos);
 			}
@@ -142,11 +147,11 @@ public class ForceRelayBlock extends BotaniaBlock {
 
 		@NotNull
 		@Override
-		public CompoundTag save(@NotNull CompoundTag cmp) {
+		public CompoundTag save(CompoundTag cmp, HolderLookup.Provider registries) {
 			ListTag list = new ListTag();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
-				Tag from = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getKey()).result().get();
-				Tag to = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getValue()).result().get();
+				Tag from = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getKey()).result().orElseThrow();
+				Tag to = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getValue()).result().orElseThrow();
 				list.add(from);
 				list.add(to);
 			}

@@ -15,10 +15,11 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 
-import io.netty.buffer.ByteBuf;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import io.netty.buffer.ByteBuf;
 
 public record ItemAgePacket(int entityId, int timeCounter) implements CustomPacketPayload {
 

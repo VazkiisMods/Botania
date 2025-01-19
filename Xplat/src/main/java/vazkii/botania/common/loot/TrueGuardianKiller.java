@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.loot;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -22,7 +22,7 @@ import vazkii.botania.common.entity.GaiaGuardianEntity;
 
 public class TrueGuardianKiller implements LootItemCondition {
 	public static final TrueGuardianKiller INSTANCE = new TrueGuardianKiller();
-	public static final Codec<TrueGuardianKiller> CODEC = Codec.unit(INSTANCE);
+	public static final MapCodec<TrueGuardianKiller> CODEC = MapCodec.unit(INSTANCE);
 
 	private TrueGuardianKiller() {}
 
@@ -30,7 +30,7 @@ public class TrueGuardianKiller implements LootItemCondition {
 	public boolean test(@NotNull LootContext context) {
 		Entity victim = context.getParamOrNull(LootContextParams.THIS_ENTITY);
 		return victim instanceof GaiaGuardianEntity gg
-				&& context.getParamOrNull(LootContextParams.KILLER_ENTITY) == gg.trueKiller;
+				&& context.getParamOrNull(LootContextParams.ATTACKING_ENTITY) == gg.trueKiller;
 	}
 
 	@Override

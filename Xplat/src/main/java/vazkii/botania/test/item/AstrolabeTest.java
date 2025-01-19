@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CandleBlock;
@@ -379,7 +380,7 @@ public class AstrolabeTest {
 
 	@NotNull
 	private Player mockPlayerWithAstrolabe(final GameTestHelper helper, Vec3 posPlayer, final Vec3 lookTarget, int mana) {
-		final Player player = helper.makeMockPlayer();
+		final Player player = helper.makeMockPlayer(GameType.CREATIVE);
 		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.astrolabe));
 		final ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
 		Objects.requireNonNull(XplatAbstractions.INSTANCE.findManaItem(tablet)).addMana(mana);

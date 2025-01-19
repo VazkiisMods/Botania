@@ -27,10 +27,11 @@ public class AbsolutionMobEffect extends InstantenousMobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(LivingEntity livingEntity, int t) {
+	public boolean applyEffectTick(LivingEntity livingEntity, int t) {
 		// SuspiciousStewItem does not support instant effects, so need to implement removal here.
 		// This exits the loop over all potions effects with a ConcurrentModificationException, but It's Fine(tm),
 		// since that loop is specifically guarded against that case.
 		livingEntity.removeAllEffects();
+		return true;
 	}
 }

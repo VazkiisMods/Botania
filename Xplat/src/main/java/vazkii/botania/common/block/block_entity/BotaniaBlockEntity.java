@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -26,28 +27,28 @@ public class BotaniaBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
-		writePacketNBT(tag);
+	public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
+		writePacketNBT(tag, registries);
 	}
 
 	@NotNull
 	@Override
-	public final CompoundTag getUpdateTag() {
+	public final CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		var tag = new CompoundTag();
-		writePacketNBT(tag);
+		writePacketNBT(tag, registries);
 		return tag;
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
-		readPacketNBT(tag);
+	public void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+		readPacketNBT(tag, registries);
 	}
 
-	public void writePacketNBT(CompoundTag cmp) {}
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {}
 
-	public void readPacketNBT(CompoundTag cmp) {}
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {}
 
 	@Nullable
 	@Override

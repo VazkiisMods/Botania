@@ -13,8 +13,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -22,7 +20,7 @@ import java.util.function.BiConsumer;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaBannerPatterns {
-	private static final List<BannerPattern> ALL = new ArrayList<>();
+	private static final List<ResourceKey<BannerPattern>> ALL = new ArrayList<>();
 	public static final ResourceKey<BannerPattern> FLOWER = make("flower");
 	public static final ResourceKey<BannerPattern> LEXICON = make("lexicon");
 	public static final ResourceKey<BannerPattern> LOGO = make("logo");
@@ -41,14 +39,16 @@ public final class BotaniaBannerPatterns {
 	public static final ResourceKey<BannerPattern> SWORD = make("sword");
 
 	private static ResourceKey<BannerPattern> make(String hashName) {
-		BannerPattern pattern = new BannerPattern(LibMisc.MOD_ID + ":" + hashName);
-		ALL.add(pattern);
-		return ResourceKey.create(Registries.BANNER_PATTERN, botaniaRL(hashName));
+		ResourceKey<BannerPattern> bannerKey = ResourceKey.create(Registries.BANNER_PATTERN, botaniaRL(hashName));
+		ALL.add(bannerKey);
+		return bannerKey;
 	}
 
 	public static void submitRegistrations(BiConsumer<BannerPattern, ResourceLocation> consumer) {
-		for (var pattern : ALL) {
-			consumer.accept(pattern, ResourceLocation.parse(pattern.getHashname()));
+		for (var resourceKey : ALL) {
+			BannerPattern pattern = new BannerPattern(resourceKey.location(),
+					"block.minecraft.banner." + resourceKey.location().toLanguageKey());
+			consumer.accept(pattern, resourceKey.location());
 		}
 	}
 }

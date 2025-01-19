@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -47,7 +48,7 @@ public class FabricRedStringContainerBlockEntity extends RedStringContainerBlock
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		// We cannot query for the storage api on the client - so we send the binding position.
 		BlockPos binding = getBinding();
 		if (binding == null) {
@@ -61,7 +62,7 @@ public class FabricRedStringContainerBlockEntity extends RedStringContainerBlock
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		if (cmp.contains("bindX")) {
 			clientPos = new BlockPos(cmp.getInt("bindX"), cmp.getInt("bindY"), cmp.getInt("bindZ"));
 		} else {

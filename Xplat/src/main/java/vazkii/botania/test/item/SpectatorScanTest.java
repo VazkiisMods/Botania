@@ -13,6 +13,7 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
@@ -97,7 +98,7 @@ public class SpectatorScanTest {
 		lootChest.setLootTable(ResourceLocation.parse(LOOT_TABLE_CHEST), 1L);
 
 		// set up player
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.CREATIVE);
 		player.moveTo(helper.absoluteVec(new Vec3(24, 24, 24)));
 		additionalSetup.accept(helper, player);
 		var spectatorStack = new ItemStack(BotaniaItems.itemFinder);

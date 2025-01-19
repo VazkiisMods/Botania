@@ -30,8 +30,8 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static vazkii.botania.common.block.BotaniaBlocks.*;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+import static vazkii.botania.common.block.BotaniaBlocks.*;
 
 public class BotaniaBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();

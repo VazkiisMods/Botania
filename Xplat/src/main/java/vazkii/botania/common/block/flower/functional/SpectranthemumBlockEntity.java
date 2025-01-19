@@ -10,6 +10,7 @@ package vazkii.botania.common.block.flower.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -94,16 +95,16 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
 		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 		bindPos = new BlockPos(
 				cmp.getInt(TAG_BIND_X),
 				cmp.getInt(TAG_BIND_Y),

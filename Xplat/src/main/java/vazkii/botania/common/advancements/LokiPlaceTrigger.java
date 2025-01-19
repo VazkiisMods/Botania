@@ -50,7 +50,7 @@ public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.In
 		}
 
 		boolean test(ItemStack ring, int blocksPlaced) {
-			return (this.ring.isEmpty() || this.ring.get().matches(ring)) && this.blocksPlaced.matches(blocksPlaced);
+			return (this.ring.isEmpty() || this.ring.get().test(ring)) && this.blocksPlaced.matches(blocksPlaced);
 		}
 	}
 }

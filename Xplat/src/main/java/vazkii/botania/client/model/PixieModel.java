@@ -67,7 +67,7 @@ public class PixieModel extends EntityModel<PixieEntity> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
 		body.render(ms, buffer, light, overlay);
 
 		leftWingT.render(ms, buffer, light, overlay);

@@ -12,6 +12,5 @@ public interface AdvancedTooltipProvider {
 			Item.TooltipContext context,
 			Consumer<Component> tooltipAdder,
 			TooltipFlag tooltipFlag,
-			List<Component> fullTooltip
-	);
+			List<Component> fullTooltip);
 }

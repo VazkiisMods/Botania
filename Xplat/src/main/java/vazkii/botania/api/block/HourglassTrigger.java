@@ -10,7 +10,7 @@ package vazkii.botania.api.block;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import vazkii.botania.api.BotaniaAPI;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**

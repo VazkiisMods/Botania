@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.block_entity;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -34,6 +33,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4fStack;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -361,12 +361,12 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 					double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-					PoseStack pose = RenderSystem.getModelViewStack();
-					pose.pushPose();
-					pose.translate(xPos, yPos, 0);
+					Matrix4fStack pose = RenderSystem.getModelViewStack();
+					pose.pushMatrix();
+					pose.translate((float) xPos, (float) yPos, 0);
 					RenderSystem.applyModelViewMatrix();
 					gui.renderFakeItem(altar.getItemHandler().getItem(i), 0, 0);
-					pose.popPose();
+					pose.popMatrix();
 					RenderSystem.applyModelViewMatrix();
 
 					angle += anglePer;

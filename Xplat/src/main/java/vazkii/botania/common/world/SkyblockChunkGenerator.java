@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.world;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.*;
@@ -25,20 +25,19 @@ import net.minecraft.world.level.levelgen.blending.Blender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 import java.util.function.BiConsumer;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 	// [VanillaCopy] NoiseBasedChunkGenerator's codec, but calls our constructor
-	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create(
+	public static final MapCodec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.mapCodec(
 			(instance) -> instance.group(
 					BiomeSource.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeSource),
 					NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(NoiseBasedChunkGenerator::generatorSettings))
 					.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 
-	public static void submitRegistration(BiConsumer<Codec<? extends ChunkGenerator>, ResourceLocation> consumer) {
+	public static void submitRegistration(BiConsumer<MapCodec<? extends ChunkGenerator>, ResourceLocation> consumer) {
 		consumer.accept(SkyblockChunkGenerator.CODEC, botaniaRL("skyblock"));
 	}
 
@@ -52,7 +51,7 @@ public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 
 	@NotNull
 	@Override
-	protected Codec<? extends ChunkGenerator> codec() {
+	protected MapCodec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
@@ -67,7 +66,7 @@ public class SkyblockChunkGenerator extends NoiseBasedChunkGenerator {
 			@NotNull ChunkAccess chunkAccess, GenerationStep.@NotNull Carving carving) {}
 
 	@Override
-	public @NotNull CompletableFuture<ChunkAccess> fillFromNoise(@NotNull Executor executor, @NotNull Blender blender,
+	public @NotNull CompletableFuture<ChunkAccess> fillFromNoise(@NotNull Blender blender,
 			@NotNull RandomState randomState, @NotNull StructureManager structureManager, @NotNull ChunkAccess chunk) {
 		return CompletableFuture.completedFuture(chunk);
 	}
