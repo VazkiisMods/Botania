@@ -33,9 +33,9 @@ public class StarfieldCreatorBlockEntityRenderer implements BlockEntityRenderer<
 	}
 
 	private void renderFace(VertexConsumer vertexConsumer, Matrix4f matrix4f, float f, float g, float h, float i, float j, float k, float l, float m) {
-		vertexConsumer.vertex(matrix4f, f, h, j).endVertex();
-		vertexConsumer.vertex(matrix4f, g, h, k).endVertex();
-		vertexConsumer.vertex(matrix4f, g, i, l).endVertex();
-		vertexConsumer.vertex(matrix4f, f, i, m).endVertex();
+		vertexConsumer.addVertex(matrix4f, f, h, j);
+		vertexConsumer.addVertex(matrix4f, g, h, k);
+		vertexConsumer.addVertex(matrix4f, g, i, l);
+		vertexConsumer.addVertex(matrix4f, f, i, m);
 	}
 }
