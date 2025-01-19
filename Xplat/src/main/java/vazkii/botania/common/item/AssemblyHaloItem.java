@@ -428,14 +428,14 @@ public class AssemblyHaloItem extends Item {
 					float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
 					float zp = (float) Math.sin(ang * Math.PI / 180F) * s;
 
-					buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).uv(u, v).endVertex();
-					buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).uv(u, 0).endVertex();
+					buffer.addVertex(mat, xp * m, y, zp * m).setColor(r, g, b, a).setUv(u, v);
+					buffer.addVertex(mat, xp, y0, zp).setColor(r, g, b, a).setUv(u, 0);
 
 					xp = (float) Math.cos((ang + 1) * Math.PI / 180F) * s;
 					zp = (float) Math.sin((ang + 1) * Math.PI / 180F) * s;
 
-					buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).uv(0, 0).endVertex();
-					buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).uv(0, v).endVertex();
+					buffer.addVertex(mat, xp, y0, zp).setColor(r, g, b, a).setUv(0, 0);
+					buffer.addVertex(mat, xp * m, y, zp * m).setColor(r, g, b, a).setUv(0, v);
 				}
 				y0 = 0;
 				ms.popPose();
