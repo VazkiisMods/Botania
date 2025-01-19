@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.LivingEntity;
@@ -151,8 +152,8 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 
 		if (bindingPos != null) {
 			cmp.put(TAG_BINDING, NbtUtils.writeBlockPos(bindingPos));
@@ -160,8 +161,8 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 
 		if (cmp.contains(TAG_BINDING)) {
 			bindingPos = NbtUtils.readBlockPos(cmp.getCompound(TAG_BINDING));

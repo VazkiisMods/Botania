@@ -11,7 +11,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import vazkii.botania.api.BotaniaAPI;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**

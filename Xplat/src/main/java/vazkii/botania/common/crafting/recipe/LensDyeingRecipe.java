@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -21,7 +23,6 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.google.common.base.Suppliers;
 import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.lens.LensItem;

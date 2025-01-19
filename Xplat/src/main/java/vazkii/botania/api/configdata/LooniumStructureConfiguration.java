@@ -20,26 +20,26 @@ public class LooniumStructureConfiguration {
 	public static final int DEFAULT_COST = 35000;
 	public static final int DEFAULT_MAX_NEARBY_MOBS = 10;
 	public static final Codec<LooniumStructureConfiguration> CODEC = RecordCodecBuilder.<LooniumStructureConfiguration>create(
-		instance -> instance.group(
-			ResourceLocation.CODEC.optionalFieldOf("parent")
-					.forGetter(lsc -> Optional.ofNullable(lsc.parent)),
-			ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("manaCost")
-					.forGetter(lsc -> Optional.ofNullable(lsc.manaCost)),
-			ExtraCodecs.POSITIVE_INT.optionalFieldOf("maxNearbyMobs")
-					.forGetter(lsc -> Optional.ofNullable(lsc.maxNearbyMobs)),
-			StructureSpawnOverride.BoundingBoxType.CODEC
-					.optionalFieldOf("boundingBoxType")
-					.forGetter(lsc -> Optional.ofNullable(lsc.boundingBoxType)),
-			WeightedRandomList.codec(LooniumMobSpawnData.CODEC)
-					.optionalFieldOf("spawnedMobs")
-					.forGetter(lsc -> Optional.ofNullable(lsc.spawnedMobs)),
-			Codec.list(LooniumMobAttributeModifier.CODEC)
-					.optionalFieldOf("attributeModifiers")
-					.forGetter(lsc -> Optional.ofNullable(lsc.attributeModifiers)),
-			Codec.list(LooniumMobEffectToApply.CODEC)
-					.optionalFieldOf("effectsToApply")
-					.forGetter(lsc -> Optional.ofNullable(lsc.effectsToApply))
-		).apply(instance, LooniumStructureConfiguration::create)
+			instance -> instance.group(
+					ResourceLocation.CODEC.optionalFieldOf("parent")
+							.forGetter(lsc -> Optional.ofNullable(lsc.parent)),
+					ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("manaCost")
+							.forGetter(lsc -> Optional.ofNullable(lsc.manaCost)),
+					ExtraCodecs.POSITIVE_INT.optionalFieldOf("maxNearbyMobs")
+							.forGetter(lsc -> Optional.ofNullable(lsc.maxNearbyMobs)),
+					StructureSpawnOverride.BoundingBoxType.CODEC
+							.optionalFieldOf("boundingBoxType")
+							.forGetter(lsc -> Optional.ofNullable(lsc.boundingBoxType)),
+					WeightedRandomList.codec(LooniumMobSpawnData.CODEC)
+							.optionalFieldOf("spawnedMobs")
+							.forGetter(lsc -> Optional.ofNullable(lsc.spawnedMobs)),
+					Codec.list(LooniumMobAttributeModifier.CODEC)
+							.optionalFieldOf("attributeModifiers")
+							.forGetter(lsc -> Optional.ofNullable(lsc.attributeModifiers)),
+					Codec.list(LooniumMobEffectToApply.CODEC)
+							.optionalFieldOf("effectsToApply")
+							.forGetter(lsc -> Optional.ofNullable(lsc.effectsToApply))
+			).apply(instance, LooniumStructureConfiguration::create)
 	).validate(lsc -> {
 		if (lsc.parent == null && (lsc.manaCost == null || lsc.boundingBoxType == null || lsc.spawnedMobs == null)) {
 			return DataResult.error(() -> "Mana cost, bounding box type, and spawned mobs must be specified if there is no parent configuration");

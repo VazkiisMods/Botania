@@ -14,7 +14,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.BotaniaAPI;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public interface PetalApothecaryRecipe extends RecipeWithReagent {

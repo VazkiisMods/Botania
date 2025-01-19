@@ -1,14 +1,17 @@
 package vazkii.botania.common.component;
 
 import com.mojang.serialization.Codec;
-import io.netty.buffer.ByteBuf;
+
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.IntFunction;
+
+import io.netty.buffer.ByteBuf;
 
 public enum TooltipVisibility implements StringRepresentable {
 	HIDDEN(0, "hidden"),

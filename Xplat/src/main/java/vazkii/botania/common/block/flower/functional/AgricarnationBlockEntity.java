@@ -84,7 +84,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 						state.randomTick(serverLevel, pos, serverLevel.random);
 					}
 					if (BotaniaConfig.common().blockBreakParticles()) {
-						serverLevel.levelEvent(LevelEvent.PARTICLES_PLANT_GROWTH, pos, 6 + serverLevel.random.nextInt(4));
+						serverLevel.levelEvent(LevelEvent.PARTICLES_BEE_GROWTH, pos, 6 + serverLevel.random.nextInt(4));
 					}
 					serverLevel.playSound(null, x, y, z, BotaniaSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 

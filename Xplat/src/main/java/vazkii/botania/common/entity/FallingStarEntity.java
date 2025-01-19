@@ -55,7 +55,7 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 		super.tick();
 
 		if (!hasBeenInAir && !level().isClientSide) {
-			var bs = getFeetBlockState();
+			var bs = getBlockStateOn();
 			hasBeenInAir = bs.isAir() || isInWater() || isInLava();
 		}
 

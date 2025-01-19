@@ -12,10 +12,11 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.recipe.StateIngredientType;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BotaniaRegistries {
 	public static final ResourceKey<Registry<Brew>> BREWS =

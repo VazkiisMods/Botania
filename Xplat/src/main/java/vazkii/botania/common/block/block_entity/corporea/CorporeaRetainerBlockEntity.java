@@ -14,6 +14,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -97,8 +98,8 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
-		super.writePacketNBT(cmp);
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writePacketNBT(cmp, registries);
 
 		cmp.putInt(TAG_REQUEST_X, requestPos.getX());
 		cmp.putInt(TAG_REQUEST_Y, requestPos.getY());
@@ -115,8 +116,8 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
-		super.readPacketNBT(cmp);
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readPacketNBT(cmp, registries);
 
 		int x = cmp.getInt(TAG_REQUEST_X);
 		int y = cmp.getInt(TAG_REQUEST_Y);

@@ -13,7 +13,6 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.brew.BaseBrewItem;
-import vazkii.botania.common.item.equipment.bauble.RingOfMagnetizationItem;
 import vazkii.botania.common.item.equipment.tool.bow.LivingwoodBowItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
@@ -119,13 +118,13 @@ public final class BotaniaItemProperties {
 				LivingwoodBowItem item = ((LivingwoodBowItem) stack.getItem());
 				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
+						: (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
 			}
 		};
-		consumer.accept(BotaniaItems.livingwoodBow, ResourceLocation.fromNamespaceAndPath("pulling"), pulling);
-		consumer.accept(BotaniaItems.livingwoodBow, ResourceLocation.fromNamespaceAndPath("pull"), pull);
-		consumer.accept(BotaniaItems.crystalBow, ResourceLocation.fromNamespaceAndPath("pulling"), pulling);
-		consumer.accept(BotaniaItems.crystalBow, ResourceLocation.fromNamespaceAndPath("pull"), pull);
+		consumer.accept(BotaniaItems.livingwoodBow, ResourceLocation.withDefaultNamespace("pulling"), pulling);
+		consumer.accept(BotaniaItems.livingwoodBow, ResourceLocation.withDefaultNamespace("pull"), pull);
+		consumer.accept(BotaniaItems.crystalBow, ResourceLocation.withDefaultNamespace("pulling"), pulling);
+		consumer.accept(BotaniaItems.crystalBow, ResourceLocation.withDefaultNamespace("pull"), pull);
 	}
 
 	private BotaniaItemProperties() {}

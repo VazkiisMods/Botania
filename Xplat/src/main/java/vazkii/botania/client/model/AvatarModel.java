@@ -62,13 +62,13 @@ public class AvatarModel extends Model {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-		leftleg.render(ms, buffer, light, overlay, r, g, b, a);
-		rightarm.render(ms, buffer, light, overlay, r, g, b, a);
-		leftarm.render(ms, buffer, light, overlay, r, g, b, a);
-		head.render(ms, buffer, light, overlay, r, g, b, a);
-		rightleg.render(ms, buffer, light, overlay, r, g, b, a);
-		body.render(ms, buffer, light, overlay, r, g, b, a);
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
+		leftleg.render(ms, buffer, light, overlay, color);
+		rightarm.render(ms, buffer, light, overlay, color);
+		leftarm.render(ms, buffer, light, overlay, color);
+		head.render(ms, buffer, light, overlay, color);
+		rightleg.render(ms, buffer, light, overlay, color);
+		body.render(ms, buffer, light, overlay, color);
 	}
 
 }

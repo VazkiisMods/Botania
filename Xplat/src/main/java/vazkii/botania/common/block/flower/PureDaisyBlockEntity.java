@@ -9,15 +9,16 @@
 package vazkii.botania.common.block.flower;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -142,8 +143,8 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	private PureDaisyRecipe findRecipe(BlockPos coords) {
 		BlockState state = getLevel().getBlockState(coords);
 
-		for (Recipe<?> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.PURE_DAISY_TYPE).values()) {
-			if (recipe instanceof PureDaisyRecipe daisyRecipe && daisyRecipe.matches(getLevel(), coords, state)) {
+		for (RecipeHolder<PureDaisyRecipe> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
+			if (recipe.value() instanceof PureDaisyRecipe daisyRecipe && daisyRecipe.matches(getLevel(), coords, state)) {
 				return daisyRecipe;
 			}
 		}
@@ -180,8 +181,8 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 		positionAt = cmp.getInt(TAG_POSITION);
 
 		for (int i = 0; i < ticksRemaining.length; i++) {
@@ -190,8 +191,8 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 		cmp.putInt(TAG_POSITION, positionAt);
 		for (int i = 0; i < ticksRemaining.length; i++) {
 			cmp.putInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);

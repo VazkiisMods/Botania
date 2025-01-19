@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedstoneLampBlock;
@@ -81,7 +82,7 @@ public class BoreLensTest {
 		var lampPos = new BlockPos(2, 2, 2);
 		var buttonPos = new BlockPos(2, 2, 0);
 		var testPos = new BlockPos(1, 2, 1);
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.CREATIVE);
 
 		// Because Mojang removed the block entity rotation methods, we need to ensure
 		// that the spreader is pointed at the mana void properly, in case the test

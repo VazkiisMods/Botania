@@ -55,7 +55,7 @@ public class TangleberrieBlockEntity extends FunctionalFlowerBlockEntity {
 
 			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.5F, 0.5F, 0.5F, 3);
 			for (LivingEntity entity : entities) {
-				if (entity instanceof Player || !entity.canChangeDimensions()) {
+				if (entity instanceof Player || !entity.canUsePortal(false)) {
 					continue;
 				}
 

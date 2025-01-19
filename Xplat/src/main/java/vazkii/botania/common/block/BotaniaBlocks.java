@@ -57,9 +57,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 import static vazkii.botania.common.lib.LibBlockNames.*;
 import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class BotaniaBlocks {
 	private static final BlockBehaviour.StateArgumentPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;

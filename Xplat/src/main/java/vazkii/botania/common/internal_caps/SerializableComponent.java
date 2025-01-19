@@ -3,6 +3,7 @@ package vazkii.botania.common.internal_caps;
 import net.minecraft.nbt.CompoundTag;
 
 import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.annotations.SoftImplement;
 
 public abstract class SerializableComponent {

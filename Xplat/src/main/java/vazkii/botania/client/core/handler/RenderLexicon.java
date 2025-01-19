@@ -128,7 +128,7 @@ public class RenderLexicon {
 
 		Material mat = LexicaBotaniaItem.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.buffer(buffers, RenderType::entitySolid);
-		model.renderToBuffer(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+		model.renderToBuffer(ms, buffer, light, OverlayTexture.NO_OVERLAY, 0xffffff);
 
 		if (ticks < 3) {
 			Font font = Minecraft.getInstance().font;

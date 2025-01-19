@@ -20,7 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.CosmeticBauble;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -218,7 +217,8 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 						ms.scale(0.5F, -0.5F, -0.5F);
 						renderItem(stack, ms, buffers, light);
 					}
-					default -> {}
+					default -> {
+					}
 				}
 			} else { // body cosmetics
 				bipedModel.body.translateAndRotate(ms);
@@ -272,7 +272,8 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 						ms.scale(0.6F, -0.6F, -0.6F);
 						renderItem(stack, ms, buffers, light);
 					}
-					default -> {}
+					default -> {
+					}
 				}
 			}
 		}

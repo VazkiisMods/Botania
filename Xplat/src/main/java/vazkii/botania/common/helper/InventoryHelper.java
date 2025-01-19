@@ -167,7 +167,7 @@ public class InventoryHelper {
 
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack pstack = player.getInventory().getItem(i);
-				if (player.isCreative() || (!pstack.isEmpty() && ItemStack.isSameItemSameTags(stack, pstack))) {
+				if (player.isCreative() || (!pstack.isEmpty() && ItemStack.isSameItemSameComponents(stack, pstack))) {
 					inv.setItem(index, player.isCreative() ? stack.copy() : pstack.split(1));
 					didAny = true;
 					index++;

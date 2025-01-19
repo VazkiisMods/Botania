@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -228,7 +229,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		double y = getEffectivePos().getY();
 		double z = getEffectivePos().getZ() + 0.5 - RANGE + 2 * RANGE * random.nextDouble();
 
-		while (!world.noCollision(pickedMobType.type.getAABB(x, y, z))) {
+		while (!world.noCollision(pickedMobType.type.getSpawnAABB(x, y, z))) {
 			y += 1.0;
 			if (y >= world.getMaxBuildHeight()) {
 				return;
@@ -510,8 +511,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readFromPacketNBT(cmp, registries);
 		if (cmp.contains(TAG_LOOT_TABLE)) {
 			lootTableOverride = ResourceLocation.parse(cmp.getString(TAG_LOOT_TABLE));
 		}
@@ -543,8 +544,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
+	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writeToPacketNBT(cmp, registries);
 		if (lootTableOverride != null) {
 			cmp.putString(TAG_LOOT_TABLE, lootTableOverride.toString());
 		}

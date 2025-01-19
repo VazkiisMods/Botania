@@ -77,7 +77,6 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 		public static final StreamCodec<RegistryFriendlyByteBuf, WaterBottleMatchingRecipe> STREAM_CODEC = SHAPED_RECIPE.streamCodec()
 				.map(WaterBottleMatchingRecipe::new, Function.identity());
 
-
 		@Override
 		public WaterBottleMatchingRecipe wrap(Recipe<?> recipe) {
 			if (!(recipe instanceof ShapedRecipe shapedRecipe)) {

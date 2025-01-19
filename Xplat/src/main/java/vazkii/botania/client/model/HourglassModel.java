@@ -64,11 +64,11 @@ public class HourglassModel extends Model {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-		render(ms, buffer, light, overlay, r, g, b, a, 0, 1, false);
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color) {
+		render(ms, buffer, light, overlay, color, 0, 1, false);
 	}
 
-	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a, float fract1, float fract2, boolean flip) {
+	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color, float fract1, float fract2, boolean flip) {
 		if (flip) {
 			float tmp = fract1;
 			fract1 = fract2;
@@ -76,9 +76,10 @@ public class HourglassModel extends Model {
 		}
 
 		float f = 1F / 16F;
-		ring.render(ms, buffer, light, overlay, 1, 1, 1, a);
-		top.render(ms, buffer, light, overlay, 1, 1, 1, a);
-		bottom.render(ms, buffer, light, overlay, 1, 1, 1, a);
+		int alphaWhite = color | 0xffffff;
+		ring.render(ms, buffer, light, overlay, alphaWhite);
+		top.render(ms, buffer, light, overlay, alphaWhite);
+		bottom.render(ms, buffer, light, overlay, alphaWhite);
 
 		if (fract1 > 0) {
 			ms.pushPose();
@@ -89,7 +90,7 @@ public class HourglassModel extends Model {
 				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract1, 1F);
-			sandT.render(ms, buffer, light, overlay, r, g, b, a);
+			sandT.render(ms, buffer, light, overlay, color);
 			ms.popPose();
 		}
 
@@ -102,12 +103,12 @@ public class HourglassModel extends Model {
 				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract2, 1F);
-			sandB.render(ms, buffer, light, overlay, r, g, b, a);
+			sandB.render(ms, buffer, light, overlay, color);
 			ms.popPose();
 		}
 
-		glassT.render(ms, buffer, light, overlay, 1, 1, 1, a);
-		glassB.render(ms, buffer, light, overlay, 1, 1, 1, a);
+		glassT.render(ms, buffer, light, overlay, alphaWhite);
+		glassB.render(ms, buffer, light, overlay, alphaWhite);
 	}
 
 }

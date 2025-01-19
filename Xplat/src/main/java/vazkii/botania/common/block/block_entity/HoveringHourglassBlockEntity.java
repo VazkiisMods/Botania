@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.SimpleContainer;
@@ -186,8 +187,8 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag tag) {
-		super.writePacketNBT(tag);
+	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+		super.writePacketNBT(tag, registries);
 		tag.putInt(TAG_TIME, time);
 		tag.putFloat(TAG_TIME_FRACTION, timeFraction);
 		tag.putBoolean(TAG_FLIP, flip);
@@ -197,8 +198,8 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag tag) {
-		super.readPacketNBT(tag);
+	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
+		super.readPacketNBT(tag, registries);
 		time = tag.getInt(TAG_TIME);
 		timeFraction = tag.getFloat(TAG_TIME_FRACTION);
 		flip = tag.getBoolean(TAG_FLIP);

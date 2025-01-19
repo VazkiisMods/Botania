@@ -9,8 +9,9 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.resources.ResourceLocation;
-import vazkii.botania.api.BotaniaAPI;
+
 import vazkii.botania.api.internal.ManaBurst;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 /**

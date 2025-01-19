@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
@@ -257,8 +258,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	@Override
-	public void writePacketNBT(CompoundTag cmp) {
-		super.writePacketNBT(cmp);
+	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.writePacketNBT(cmp, registries);
 
 		cmp.putUUID(TAG_UUID, getIdentifier());
 
@@ -293,8 +294,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
-		super.readPacketNBT(cmp);
+	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.readPacketNBT(cmp, registries);
 
 		String tagUuidMostDeprecated = "uuidMost";
 		String tagUuidLeastDeprecated = "uuidLeast";
@@ -696,7 +697,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			case CLOCKWISE_90 -> rotationX += 270F;
 			case CLOCKWISE_180 -> rotationX += 180F;
 			case COUNTERCLOCKWISE_90 -> rotationX += 90F;
-			case NONE -> {}
+			case NONE -> {
+			}
 		}
 
 		if (rotationX >= 360F) {
@@ -708,7 +710,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		switch (mirror) {
 			case LEFT_RIGHT -> rotationX = 360F - rotationX;
 			case FRONT_BACK -> rotationX = 180F - rotationX;
-			case NONE -> {}
+			case NONE -> {
+			}
 		}
 
 		if (rotationX < 0F) {

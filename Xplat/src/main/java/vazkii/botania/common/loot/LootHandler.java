@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -50,7 +50,7 @@ public final class LootHandler {
 			}
 		} else if (XplatAbstractions.INSTANCE.gogLoaded()
 				&& (Blocks.SHORT_GRASS.getLootTable().equals(id) || Blocks.TALL_GRASS.getLootTable().equals(id))) {
-			addPool.accept(LootPool.lootPool().add(LootTableReference.lootTableReference(GOG_SEEDS_TABLE)));
+			addPool.accept(LootPool.lootPool().add(NestedLootTable.lootTableReference(GOG_SEEDS_TABLE)));
 		}
 	}
 
@@ -62,7 +62,7 @@ public final class LootHandler {
 
 	private static LootPoolEntryContainer.Builder<?> getInjectEntry(String name, int weight) {
 		ResourceLocation table = botaniaRL("inject/" + name);
-		return LootTableReference.lootTableReference(table)
+		return NestedLootTable.lootTableReference(table)
 				.setWeight(weight);
 	}
 

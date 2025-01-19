@@ -5,12 +5,14 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,17 +45,23 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class LooniumStructureConfigurationProvider implements DataProvider {
 
-	public static final String LOONIUM_MODIFIER_DAMAGE = "Loonium Modifier Damage";
-	public static final String LOONIUM_MODIFIER_HEALTH = "Loonium Modifier Health";
+	public static final ResourceLocation LOONIUM_MODIFIER_DAMAGE = botaniaRL("loonium_modifier_damage");
+	public static final ResourceLocation LOONIUM_MODIFIER_HEALTH = botaniaRL("loonium_modifier_health");
 	private final PackOutput.PathProvider pathProvider;
+	private final CompletableFuture<HolderLookup.Provider> registryLookupFuture;
 
-	public LooniumStructureConfigurationProvider(PackOutput packOutput) {
+	public LooniumStructureConfigurationProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
 		pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loonium_config");
+		this.registryLookupFuture = registryLookupFuture;
 	}
 
 	@NotNull
 	@Override
 	public CompletableFuture<?> run(@NotNull CachedOutput cache) {
+		return registryLookupFuture.thenCompose(registryLookup -> this.run(cache, registryLookup));
+	}
+
+	private CompletableFuture<?> run(@NotNull CachedOutput cache, HolderLookup.Provider registries) {
 		Map<ResourceLocation, LooniumStructureConfiguration> configs = new HashMap<>();
 		addConfigs(configs);
 
@@ -61,7 +70,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 			Path path = pathProvider.json(e.getKey());
 			LooniumStructureConfiguration config = e.getValue();
 			JsonElement jsonTree = LooniumStructureConfiguration.CODEC.encodeStart(JsonOps.INSTANCE, config)
-					.getOrThrow(false, BotaniaAPI.LOGGER::error);
+					.getOrThrow();
 			output.add(DataProvider.saveStable(cache, jsonTree, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
@@ -141,9 +150,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 				)
 				.attributeModifiers(
 						new LooniumMobAttributeModifier(LOONIUM_MODIFIER_HEALTH,
-								Attributes.MAX_HEALTH, 2, AttributeModifier.Operation.MULTIPLY_BASE),
+								Attributes.MAX_HEALTH, 2, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
 						new LooniumMobAttributeModifier(LOONIUM_MODIFIER_DAMAGE,
-								Attributes.ATTACK_DAMAGE, 1.5, AttributeModifier.Operation.MULTIPLY_BASE)
+								Attributes.ATTACK_DAMAGE, 1.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 				)
 				.effectsToApply(getStandardEffects(false, true))
 				.build();
@@ -179,9 +188,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_AXE_GOLD)
 						.attributeModifiers(
 								new LooniumMobAttributeModifier(LOONIUM_MODIFIER_HEALTH,
-										Attributes.MAX_HEALTH, 1.5, AttributeModifier.Operation.MULTIPLY_BASE),
+										Attributes.MAX_HEALTH, 1.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
 								new LooniumMobAttributeModifier(LOONIUM_MODIFIER_DAMAGE,
-										Attributes.ATTACK_DAMAGE, 1.5, AttributeModifier.Operation.MULTIPLY_BASE)
+										Attributes.ATTACK_DAMAGE, 1.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
 						)
 						.build(),
 				LooniumMobSpawnData.entityWeight(EntityType.HOGLIN, 300).spawnAsAdult().build()
@@ -719,7 +728,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 				.build();
 	}
 
-	public static LooniumMobSpawnData getPiglinSpawnData(int weight, ResourceLocation equipmentTable,
+	public static LooniumMobSpawnData getPiglinSpawnData(int weight, ResourceKey<LootTable> equipmentTable,
 			boolean needWaterBreathing, boolean zombificationImmune) {
 		CompoundTag piglinNbt = new CompoundTag();
 		if (zombificationImmune) {

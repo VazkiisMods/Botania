@@ -11,12 +11,13 @@ package vazkii.botania.network.clientbound;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import vazkii.botania.common.item.rod.SkiesRodItem;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
+import io.netty.buffer.ByteBuf;
 
 public record AvatarSkiesRodPacket(boolean elytra) implements CustomPacketPayload {
 	public static final Type<AvatarSkiesRodPacket> ID = new Type<>(botaniaRL("atr"));

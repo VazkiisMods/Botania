@@ -161,7 +161,8 @@ public class BifrostRodItem extends SelfReturningItem {
 				case SOUTH -> axis = AABB.encapsulatingFullBlocks(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
 				case WEST -> axis = AABB.encapsulatingFullBlocks(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
 				case EAST -> axis = AABB.encapsulatingFullBlocks(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
-				default -> {}
+				default -> {
+				}
 			}
 
 			List<Player> players = world.getEntitiesOfClass(Player.class, axis);

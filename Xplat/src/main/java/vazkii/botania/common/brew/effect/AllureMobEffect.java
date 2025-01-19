@@ -28,13 +28,14 @@ public class AllureMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(@NotNull LivingEntity living, int amplified) {
+	public boolean applyEffectTick(@NotNull LivingEntity living, int amplified) {
 		if (living instanceof Player player) {
 			FishingHook hook = player.fishing;
 			if (hook != null) {
 				hook.tick();
 			}
 		}
+		return true;
 	}
 
 }

@@ -2,10 +2,9 @@ package vazkii.botania.common.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -14,23 +13,25 @@ import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 
+import io.netty.buffer.ByteBuf;
+
 public record WandOfTheForestComponent(WandMode wandMode, TooltipVisibility tooltipVisibility) implements AdvancedTooltipProvider {
-	public static Codec<WandOfTheForestComponent> CODEC = RecordCodecBuilder.create(instance ->
-			instance.group(
-					WandMode.CODEC.optionalFieldOf("mode", WandMode.BIND).forGetter(WandOfTheForestComponent::wandMode),
-					TooltipVisibility.CODEC.optionalFieldOf("tooltip_visibility", TooltipVisibility.IN_NAME).forGetter(WandOfTheForestComponent::tooltipVisibility)
-			).apply(instance, WandOfTheForestComponent::new)
+	public static Codec<WandOfTheForestComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			WandMode.CODEC.optionalFieldOf("mode", WandMode.BIND).forGetter(WandOfTheForestComponent::wandMode),
+			TooltipVisibility.CODEC.optionalFieldOf("tooltip_visibility", TooltipVisibility.IN_NAME).forGetter(WandOfTheForestComponent::tooltipVisibility)
+	).apply(instance, WandOfTheForestComponent::new)
 	);
 	public static StreamCodec<ByteBuf, WandOfTheForestComponent> STREAM_CODEC = StreamCodec.composite(
-		WandMode.STREAM_CODEC, WandOfTheForestComponent::wandMode,
-		TooltipVisibility.STREAM_CODEC, WandOfTheForestComponent::tooltipVisibility,
-		WandOfTheForestComponent::new
+			WandMode.STREAM_CODEC, WandOfTheForestComponent::wandMode,
+			TooltipVisibility.STREAM_CODEC, WandOfTheForestComponent::tooltipVisibility,
+			WandOfTheForestComponent::new
 	);
 
 	@Override
