@@ -128,14 +128,14 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 		Matrix4f mat = ms.last().pose();
 		int start = 3;
 		int end = 13;
-		builder.vertex(mat, start, end, 0).color(red, green, blue, (int) (alpha * 255F))
-				.uv(sprite.getU(start), sprite.getV(end)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
-		builder.vertex(mat, end, end, 0).color(red, green, blue, (int) (alpha * 255F))
-				.uv(sprite.getU(end), sprite.getV(end)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
-		builder.vertex(mat, end, start, 0).color(red, green, blue, (int) (alpha * 255F))
-				.uv(sprite.getU(end), sprite.getV(start)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
-		builder.vertex(mat, start, start, 0).color(red, green, blue, (int) (alpha * 255F))
-				.uv(sprite.getU(start), sprite.getV(start)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		builder.addVertex(mat, start, end, 0).setColor(red, green, blue, (int) (alpha * 255F))
+				.setUv(sprite.getU(start), sprite.getV(end)).setOverlay(overlay).uv2(light).setNormal(0, 0, 1);
+		builder.addVertex(mat, end, end, 0).setColor(red, green, blue, (int) (alpha * 255F))
+				.setUv(sprite.getU(end), sprite.getV(end)).setOverlay(overlay).uv2(light).setNormal(0, 0, 1);
+		builder.addVertex(mat, end, start, 0).setColor(red, green, blue, (int) (alpha * 255F))
+				.setUv(sprite.getU(end), sprite.getV(start)).setOverlay(overlay).uv2(light).setNormal(0, 0, 1);
+		builder.addVertex(mat, start, start, 0).setColor(red, green, blue, (int) (alpha * 255F))
+				.setUv(sprite.getU(start), sprite.getV(start)).setOverlay(overlay).uv2(light).setNormal(0, 0, 1);
 	}
 
 }

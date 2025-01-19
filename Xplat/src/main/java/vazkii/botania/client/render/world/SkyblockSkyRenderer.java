@@ -68,11 +68,11 @@ public class SkyblockSkyRenderer {
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderTexture(0, planetTextures[p]);
 			Matrix4f mat = ms.last().pose();
-			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-			tessellator.getBuilder().vertex(mat, -scale, 100, -scale).uv(0.0F, 0.0F).endVertex();
-			tessellator.getBuilder().vertex(mat, scale, 100, -scale).uv(1.0F, 0.0F).endVertex();
-			tessellator.getBuilder().vertex(mat, scale, 100, scale).uv(1.0F, 1.0F).endVertex();
-			tessellator.getBuilder().vertex(mat, -scale, 100, scale).uv(0.0F, 1.0F).endVertex();
+			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, -scale, 100, -scale).setUv(0.0F, 0.0F);
+			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, scale, 100, -scale).setUv(1.0F, 0.0F);
+			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, scale, 100, scale).setUv(1.0F, 1.0F);
+			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, -scale, 100, scale).setUv(0.0F, 1.0F);
 			tessellator.end();
 
 			switch (p) {
@@ -125,7 +125,7 @@ public class SkyblockSkyRenderer {
 			ms.mulPose(VecHelper.rotateY((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
 
 			Matrix4f mat = ms.last().pose();
-			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 			for (int i = 0; i < angles; i++) {
 				int j = i;
 				if (i % 2 == 0) {
@@ -139,11 +139,11 @@ public class SkyblockSkyRenderer {
 
 				float ut = ang * uPer;
 				if (i % 2 == 0) {
-					tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
-					tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
+					tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
+					tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
 				} else {
-					tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
-					tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
+					tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
+					tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
 				}
 
 			}
@@ -187,7 +187,7 @@ public class SkyblockSkyRenderer {
 		ms.mulPose(VecHelper.rotateZ(angle2));
 
 		Matrix4f mat = ms.last().pose();
-		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		for (int i = 0; i < angles; i++) {
 			int j = i;
 			if (i % 2 == 0) {
@@ -201,11 +201,11 @@ public class SkyblockSkyRenderer {
 
 			float ut = ang * uPer;
 			if (i % 2 == 0) {
-				tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
-				tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
+				tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
+				tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
 			} else {
-				tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
-				tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
+				tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
+				tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
 			}
 
 		}
