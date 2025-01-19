@@ -115,8 +115,8 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 		Matrix4f mat = ms.last().pose();
 
 		double innerRadius = radius - FRAME_WIDTH;
-		Runnable centerFuncInner = () -> buffer.vertex(mat, 0, Y_OFFSET_INNER, 0).color(r, g, b, INNER_ALPHA).endVertex();
-		Runnable centerFuncOuter = () -> buffer.vertex(mat, 0, Y_OFFSET_OUTER, 0).color(r, g, b, OUTER_ALPHA).endVertex();
+		Runnable centerFuncInner = () -> buffer.addVertex(mat, 0, Y_OFFSET_INNER, 0).setColor(r, g, b, INNER_ALPHA);
+		Runnable centerFuncOuter = () -> buffer.addVertex(mat, 0, Y_OFFSET_OUTER, 0).setColor(r, g, b, OUTER_ALPHA);
 		Runnable[] vertexFuncsInner = new Runnable[TOTAL_ANGLES + 1];
 		Runnable[] vertexFuncsOuter = new Runnable[TOTAL_ANGLES + 1];
 
@@ -127,11 +127,11 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 
 			float xpInner = (float) (cos * innerRadius);
 			float zpInner = (float) (sin * innerRadius);
-			vertexFuncsInner[i] = (() -> buffer.vertex(mat, xpInner, Y_OFFSET_INNER, zpInner).color(r, g, b, INNER_ALPHA).endVertex());
+			vertexFuncsInner[i] = (() -> buffer.addVertex(mat, xpInner, Y_OFFSET_INNER, zpInner).setColor(r, g, b, INNER_ALPHA));
 
 			float xpOuter = (float) (Math.cos(rad) * radius);
 			float zpOuter = (float) (Math.sin(rad) * radius);
-			vertexFuncsOuter[i] = (() -> buffer.vertex(mat, xpOuter, Y_OFFSET_OUTER, zpOuter).color(r, g, b, OUTER_ALPHA).endVertex());
+			vertexFuncsOuter[i] = (() -> buffer.addVertex(mat, xpOuter, Y_OFFSET_OUTER, zpOuter).setColor(r, g, b, OUTER_ALPHA));
 		}
 		vertexFuncsInner[TOTAL_ANGLES] = vertexFuncsInner[0];
 		vertexFuncsOuter[TOTAL_ANGLES] = vertexFuncsOuter[0];

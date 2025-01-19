@@ -73,10 +73,10 @@ public class BabylonWeaponRenderer extends EntityRenderer<BabylonWeaponEntity> {
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.BABYLON_ICON);
 		Matrix4f mat = ms.last().pose();
-		buffer.vertex(mat, -1, 0, -1).color(1, 1, 1, chargeMul).uv(0, 0).endVertex();
-		buffer.vertex(mat, -1, 0, 1).color(1, 1, 1, chargeMul).uv(0, 1).endVertex();
-		buffer.vertex(mat, 1, 0, 1).color(1, 1, 1, chargeMul).uv(1, 1).endVertex();
-		buffer.vertex(mat, 1, 0, -1).color(1, 1, 1, chargeMul).uv(1, 0).endVertex();
+		buffer.addVertex(mat, -1, 0, -1).setColor(1, 1, 1, chargeMul).setUv(0, 0);
+		buffer.addVertex(mat, -1, 0, 1).setColor(1, 1, 1, chargeMul).setUv(0, 1);
+		buffer.addVertex(mat, 1, 0, 1).setColor(1, 1, 1, chargeMul).setUv(1, 1);
+		buffer.addVertex(mat, 1, 0, -1).setColor(1, 1, 1, chargeMul).setUv(1, 0);
 
 		ms.popPose();
 	}

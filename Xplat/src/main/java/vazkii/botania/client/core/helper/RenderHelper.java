@@ -38,6 +38,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
@@ -312,12 +313,12 @@ public final class RenderHelper extends RenderType {
 			float g = ((color & 0xFF00) >> 8) / 255F;
 			float b = (color & 0xFF) / 255F;
 			Matrix4f mat = ms.last().pose();
-			Runnable center = () -> buffer.vertex(mat, 0, 0, 0).color(r, g, b, f1).endVertex();
+			Runnable center = () -> buffer.addVertex(mat, 0, 0, 0).setColor(r, g, b, f1);
 			Runnable[] vertices = {
-					() -> buffer.vertex(mat, -0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex(),
-					() -> buffer.vertex(mat, 0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex(),
-					() -> buffer.vertex(mat, 0, f3, 1F * f4).color(0, 0, 0, 0).endVertex(),
-					() -> buffer.vertex(mat, -0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex()
+					() -> buffer.addVertex(mat, -0.866F * f4, f3, -0.5F * f4).setColor(0, 0, 0, 0),
+					() -> buffer.addVertex(mat, 0.866F * f4, f3, -0.5F * f4).setColor(0, 0, 0, 0),
+					() -> buffer.addVertex(mat, 0, f3, 1F * f4).setColor(0, 0, 0, 0),
+					() -> buffer.addVertex(mat, -0.866F * f4, f3, -0.5F * f4).setColor(0, 0, 0, 0)
 			};
 			triangleFan(center, vertices);
 		}
@@ -344,10 +345,10 @@ public final class RenderHelper extends RenderType {
 	public static void flatRectangle(VertexConsumer buffer, Matrix4f mat,
 			float xMin, float xMax, float y, float zMin, float zMax,
 			int r, int g, int b, int a) {
-		buffer.vertex(mat, xMax, y, zMin).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, xMin, y, zMin).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, xMin, y, zMax).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, xMax, y, zMax).color(r, g, b, a).endVertex();
+		buffer.addVertex(mat, xMax, y, zMin).setColor(r, g, b, a);
+		buffer.addVertex(mat, xMin, y, zMin).setColor(r, g, b, a);
+		buffer.addVertex(mat, xMin, y, zMax).setColor(r, g, b, a);
+		buffer.addVertex(mat, xMax, y, zMax).setColor(r, g, b, a);
 	}
 
 	public static void renderProgressPie(GuiGraphics gui, int x, int y, float progress, ItemStack stack) {
@@ -381,14 +382,14 @@ public final class RenderHelper extends RenderType {
 		BufferBuilder buf = Tesselator.getInstance().getBuilder();
 		RenderSystem.setShader(GameRenderer::getPositionColorShader);
 		buf.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
-		buf.vertex(mat, centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
+		buf.addVertex(mat, centerX, centerY, 0).setColor(0, 0.5F, 0.5F, a);
 
 		for (int i = degs; i >= 0; i--) {
 			float rad = (i - 90) / 180F * (float) Math.PI;
-			buf.vertex(mat, centerX + Mth.cos(rad) * r, centerY + Mth.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
+			buf.addVertex(mat, centerX + Mth.cos(rad) * r, centerY + Mth.sin(rad) * r, 0).setColor(0F, 1F, 0.5F, a);
 		}
 
-		buf.vertex(mat, centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
+		buf.addVertex(mat, centerX, centerY, 0).setColor(0F, 1F, 0.5F, a);
 		Tesselator.getInstance().end();
 
 		RenderSystem.disableBlend();
@@ -445,8 +446,8 @@ public final class RenderHelper extends RenderType {
 
 		buffer = new DelegatedVertexConsumer(buffer) {
 			@Override
-			public VertexConsumer color(float red, float green, float blue, float alpha) {
-				return super.color(r, g, b, a);
+			public @NotNull VertexConsumer setColor(float red, float green, float blue, float alpha) {
+				return super.setColor(r, g, b, a);
 			}
 		};
 		((ItemRendererAccessor) Minecraft.getInstance().getItemRenderer())
@@ -476,10 +477,10 @@ public final class RenderHelper extends RenderType {
 		float green = ((color >> 8) & 0xFF) / 255F;
 		float blue = (color & 0xFF) / 255F;
 
-		buffer.vertex(mat, startX, endY, 0).color(red, green, blue, alpha).uv(icon.getU(uvStartX), icon.getV(uvEndY)).uv2(light).endVertex();
-		buffer.vertex(mat, endX, endY, 0).color(red, green, blue, alpha).uv(icon.getU(uvEndX), icon.getV(uvEndY)).uv2(light).endVertex();
-		buffer.vertex(mat, endX, startY, 0).color(red, green, blue, alpha).uv(icon.getU(uvEndX), icon.getV(uvStartY)).uv2(light).endVertex();
-		buffer.vertex(mat, startX, startY, 0).color(red, green, blue, alpha).uv(icon.getU(uvStartX), icon.getV(uvStartY)).uv2(light).endVertex();
+		buffer.addVertex(mat, startX, endY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvStartX), icon.getV(uvEndY)).uv2(light);
+		buffer.addVertex(mat, endX, endY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvEndX), icon.getV(uvEndY)).uv2(light);
+		buffer.addVertex(mat, endX, startY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvEndX), icon.getV(uvStartY)).uv2(light);
+		buffer.addVertex(mat, startX, startY, 0).setColor(red, green, blue, alpha).setUv(icon.getU(uvStartX), icon.getV(uvStartY)).uv2(light);
 	}
 
 	/**
@@ -644,18 +645,23 @@ public final class RenderHelper extends RenderType {
 	// Borrowed with permission from https://github.com/XFactHD/FramedBlocks/blob/14f468810fc416b39447512810f0aa86e1012335/src/main/java/xfacthd/framedblocks/client/util/GhostVertexConsumer.java
 	public record GhostVertexConsumer(VertexConsumer wrapped, int alpha) implements VertexConsumer {
 		@Override
-		public VertexConsumer vertex(double x, double y, double z) {
-			return wrapped.vertex(x, y, z);
+		public @NotNull VertexConsumer addVertex(float x, float y, float z) {
+			return wrapped.addVertex(x, y, z);
 		}
 
 		@Override
-		public VertexConsumer color(int red, int green, int blue, int alpha) {
-			return wrapped.color(red, green, blue, (alpha * this.alpha) / 0xFF);
+		public @NotNull VertexConsumer setColor(int red, int green, int blue, int alpha) {
+			return wrapped.setColor(red, green, blue, (alpha * this.alpha) / 0xFF);
 		}
 
 		@Override
-		public VertexConsumer uv(float u, float v) {
-			return wrapped.uv(u, v);
+		public @NotNull VertexConsumer setUv(float u, float v) {
+			return wrapped.setUv(u, v);
+		}
+
+		@Override
+		public @NotNull VertexConsumer setUv1(int u, int v) {
+			return wrapped.setUv1(u, v);
 		}
 
 		@Override
@@ -664,13 +670,13 @@ public final class RenderHelper extends RenderType {
 		}
 
 		@Override
-		public VertexConsumer uv2(int u, int v) {
-			return wrapped.uv2(u, v);
+		public @NotNull VertexConsumer setUv2(int u, int v) {
+			return wrapped.setUv2(u, v);
 		}
 
 		@Override
-		public VertexConsumer normal(float x, float y, float z) {
-			return wrapped.normal(x, y, z);
+		public @NotNull VertexConsumer setNormal(float x, float y, float z) {
+			return wrapped.setNormal(x, y, z);
 		}
 
 		@Override
