@@ -171,7 +171,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_ANCIENT_CITY).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 60)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_ANCIENT_CITY).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 440)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 40)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_ANCIENT_CITY).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 400)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_ANCIENT_CITY).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 100).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 200).build()
@@ -264,7 +266,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_DROWNED_JUNGLE_TEMPLE).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 360)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_JUNGLE_TEMPLE).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 500)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 50)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_JUNGLE_TEMPLE).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 450)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_JUNGLE_TEMPLE).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 300).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 300).build()
@@ -283,7 +287,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_MONUMENT).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 40)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_MONUMENT).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 360)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 40)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_MONUMENT).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 320)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_MONUMENT).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 30)
 						.effectsToApply(standardEffectsInWater).build(),
@@ -321,7 +327,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 60)
 						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_SWORD).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 400)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 40)
+						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_BOW).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 360)
 						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_BOW).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 30)
 						.effectsToApply(standardEffectsInWater).build(),
@@ -383,7 +391,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_DROWNED_PORTAL).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 360)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_PORTAL).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 500)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 50)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_PORTAL).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 450)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_PORTAL).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 250).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 50).build()
@@ -444,7 +454,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_DROWNED_PORTAL).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 60)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_PORTAL).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 400)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 40)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_PORTAL).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 360)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_PORTAL).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 30)
 						.effectsToApply(standardEffectsInWater).build(),
@@ -492,7 +504,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_DROWNED_PORTAL).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 360)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_PORTAL).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 500)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 400)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_PORTAL).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 100)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_PORTAL).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 50).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 250).build()
@@ -510,7 +524,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_SHIPWRECK).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 40)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_SHIPWRECK).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 360)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 40)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_SHIPWRECK).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 320)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_SHIPWRECK).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 30)
 						.effectsToApply(standardEffectsInWater).build(),
@@ -524,15 +540,17 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 				LooniumMobSpawnData.entityWeight(EntityType.ENDERMAN, 80).build(),
 				getCreeperSpawnData(149, false, getCreeperEffects(false)),
 				getCreeperSpawnData(1, true, getCreeperEffects(false)),
-				LooniumMobSpawnData.entityWeight(EntityType.HUSK, 40)
+				LooniumMobSpawnData.entityWeight(EntityType.HUSK, 50)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_STRONGHOLD).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.DROWNED, 40)
+				LooniumMobSpawnData.entityWeight(EntityType.DROWNED, 50)
 						.equipmentTable(BotaniaLootTables.LOONIUM_DROWNED_STRONGHOLD).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 410)
+				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 400)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_STRONGHOLD).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 60)
+				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 50)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_STRONGHOLD).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 440)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 50)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_STRONGHOLD).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 400)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_STRONGHOLD).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 100).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SILVERFISH, 100).build(),
@@ -551,9 +569,11 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_DROWNED_TRAIL_RUINS).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 423)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ZOMBIE_TRAIL_RUINS).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 59)
+				LooniumMobSpawnData.entityWeight(EntityType.STRAY, 49)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_TRAIL_RUINS).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 529)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 49)
+						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_TRAIL_RUINS).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 509)
 						.equipmentTable(BotaniaLootTables.LOONIUM_SKELETON_TRAIL_RUINS).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 59).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 529).build()
@@ -609,7 +629,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_SWORD).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE_VILLAGER, 106)
 						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_BY_PROFESSION).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 600)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 60)
+						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_BOW).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 540)
 						.equipmentTable(BotaniaLootTables.LOONIUM_WEAPON_BOW).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 59).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 529).build()
@@ -670,7 +692,9 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 						.equipmentTable(BotaniaLootTables.LOONIUM_ARMOR_MANSION).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.ZOMBIE, 50).spawnAsBaby()
 						.equipmentTable(BotaniaLootTables.LOONIUM_ARMOR_MANSION).build(),
-				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 200)
+				LooniumMobSpawnData.entityWeight(EntityType.BOGGED, 20)
+						.equipmentTable(BotaniaLootTables.LOONIUM_ARMOR_MANSION).build(),
+				LooniumMobSpawnData.entityWeight(EntityType.SKELETON, 180)
 						.equipmentTable(BotaniaLootTables.LOONIUM_ARMOR_MANSION).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.CAVE_SPIDER, 30).build(),
 				LooniumMobSpawnData.entityWeight(EntityType.SPIDER, 270).build()

@@ -12,8 +12,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.armortrim.*;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -254,22 +258,21 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_DIAMOND,
 				randomizedSetFactory.apply(trimSilenceCopper, armorItems.get(ArmorMaterials.DIAMOND)));
 
-		// TODO: tipped arrows need actual potions now
-		//CompoundTag darknessEffectTag = getPotionEffectTag(MobEffects.DARKNESS, 200);
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WARD_IRON).setWeight(11))
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WARD_DIAMOND).setWeight(5))
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_GOLD).setWeight(3))
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_DIAMOND).setWeight(1))
-				// TODO: figure out arbitrary tipped arrows
-//				).withPool(LootPool.lootPool()
-//						// Note: Slowness from Strays stacks with tipped arrow effects, so just checking for bow here
-//						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-//								EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment()
-//										.mainhand(ItemPredicate.Builder.item().of(Items.BOW)).build())))
-//						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-//						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetNbtFunction.setTag(darknessEffectTag)))
+				).withPool(LootPool.lootPool()
+						// Note: Slowness from Strays stacks with tipped arrow effects, so just checking for bow here
+						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+								EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment()
+										.mainhand(ItemPredicate.Builder.item().of(Items.BOW)).build())))
+						.when(LootItemRandomChanceCondition.randomChance(0.9f))
+						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetComponentsFunction.setComponent(
+								DataComponents.POTION_CONTENTS, PotionContents.EMPTY.withEffectAdded(
+										new MobEffectInstance(MobEffects.DARKNESS, 200)))))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_ANCIENT_CITY,
@@ -360,8 +363,6 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_DIAMOND,
 				randomizedSetFactory.apply(trimSpireAmethyst, armorItems.get(ArmorMaterials.DIAMOND)));
 
-		// TODO: tipped arrows need actual potions now
-		//CompoundTag levitationEffectTag = getPotionEffectTag(MobEffects.LEVITATION, 200);
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_END_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
@@ -369,14 +370,14 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON).setWeight(3))
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_GOLD).setWeight(2))
 						.add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_DIAMOND).setWeight(2))
-// TODO: figure out arbitrary tipped arrow effects
-//				).withPool(LootPool.lootPool()
-//						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-//								EntityPredicate.Builder.entity()
-//										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
-//						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-//						.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
-//								.apply(SetNbtFunction.setTag(levitationEffectTag)))
+				).withPool(LootPool.lootPool()
+						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+								EntityPredicate.Builder.entity()
+										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
+						.when(LootItemRandomChanceCondition.randomChance(0.9f))
+						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetComponentsFunction.setComponent(
+								DataComponents.POTION_CONTENTS, PotionContents.EMPTY.withEffectAdded(
+										new MobEffectInstance(MobEffects.LEVITATION, 200)))))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_END_CITY,
@@ -390,19 +391,6 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_END_CITY)))
 		);
 	}
-
-	// TODO: was used for arbitrary tipped arrow effects
-//	private static CompoundTag getPotionEffectTag(MobEffect mobEffect, int duration) {
-//		// [VanillaCopy] based on PotionUtils::setCustomEffects
-//		ListTag effects = new ListTag();
-//		effects.add(new MobEffectInstance(mobEffect, duration).save(new CompoundTag()));
-//
-//		CompoundTag effectTag = new CompoundTag();
-//		effectTag.put(PotionUtils.TAG_CUSTOM_POTION_EFFECTS, effects);
-//		effectTag.putInt(PotionUtils.TAG_CUSTOM_POTION_COLOR, mobEffect.getColor());
-//
-//		return effectTag;
-//	}
 
 	private void defineFortressEquipmentTables(Map<ResourceKey<LootTable>, LootTable.Builder> tables,
 			Map<Holder<ArmorMaterial>, Item[]> armorItems,
@@ -765,8 +753,6 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 
 		// Illusioner cosplay, including bow and blindness arrows, even for mobs that don't know how to use bows
-		// TODO: this was for making a blindness arrow
-		// CompoundTag blindnessEffectTag = getPotionEffectTag(MobEffects.BLINDNESS, 100);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ILLUSIONER, fixedDyedSetFactory.apply(
 				trimFactory.apply(TrimPatterns.VEX, TrimMaterials.LAPIS), COLOR_ILLUSIONER_COAT,
 				new Item[] { Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS })
@@ -774,15 +760,16 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.BOW)
 								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)
-										.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
-		// TODO: figure out how to make a blindness arrow:
-//				     .withPool(LootPool.lootPool()
-//						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-//								EntityPredicate.Builder.entity()
-//										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
-//						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-//						.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
-//								.apply(SetNbtFunction.setTag(blindnessEffectTag))))
+										.when(LootItemRandomChanceCondition.randomChance(0.3f))))
+				).withPool(LootPool.lootPool()
+						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+								EntityPredicate.Builder.entity()
+										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
+						.when(LootItemRandomChanceCondition.randomChance(0.9f))
+						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(
+								SetComponentsFunction.setComponent(DataComponents.POTION_CONTENTS,
+										PotionContents.EMPTY.withEffectAdded(new MobEffectInstance(MobEffects.BLINDNESS, 100)))))
+				)
 		);
 
 		// Vex cosplay, including sword (even for ranged mobs)
