@@ -131,7 +131,7 @@ public final class ToolCommons {
 			modifier = TerraShattererItem.getLevel(stack);
 		}
 
-		int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+		int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.EFFICIENCY, stack);
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 

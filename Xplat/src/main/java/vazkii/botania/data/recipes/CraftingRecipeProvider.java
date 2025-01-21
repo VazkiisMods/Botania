@@ -12,6 +12,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -21,7 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
@@ -45,13 +46,14 @@ import vazkii.botania.data.recipes.builder.WrapperRecipeBuilder;
 import vazkii.botania.mixin.RecipeProviderAccessor;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class CraftingRecipeProvider extends BotaniaRecipeProvider {
-	public CraftingRecipeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public CraftingRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override
@@ -1223,7 +1225,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 		WrapperRecipeBuilder.wrap(WaterBottleMatchingRecipe.SERIALIZER,
 				ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.waterRod)
-						.define('B', Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
+						.define('B', Ingredient.of(PotionContents.createItemStack(Items.POTION, Potions.WATER)))
 						.define('R', BotaniaItems.runeWater)
 						.define('T', BotaniaItems.livingwoodTwig)
 						.pattern("  B")

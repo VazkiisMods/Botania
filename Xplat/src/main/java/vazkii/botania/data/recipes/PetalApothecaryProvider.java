@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -29,14 +30,15 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	private static final Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaTags.Items.SEED_APOTHECARY_REAGENT);
 
-	public PetalApothecaryProvider(PackOutput packOutput) {
-		super(packOutput);
+	public PetalApothecaryProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

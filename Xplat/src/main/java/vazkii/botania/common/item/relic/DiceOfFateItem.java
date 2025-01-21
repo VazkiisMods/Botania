@@ -12,7 +12,6 @@ import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -30,12 +29,12 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.loot.BotaniaLootTables;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -84,8 +83,7 @@ public class DiceOfFateItem extends RelicItem {
 				return InteractionResultHolder.consume(toGive);
 			} else {
 				int roll = world.random.nextInt(6) + 1;
-				ResourceLocation tableId = BotaniaAPI.botaniaRL("dice/roll_" + roll);
-				LootTable table = world.getServer().getLootData().getLootTable(tableId);
+				LootTable table = world.getServer().reloadableRegistries().getLootTable(BotaniaLootTables.getDiceRollTable(roll));
 				LootParams context = new LootParams.Builder((ServerLevel) world)
 						.withParameter(LootContextParams.THIS_ENTITY, player)
 						.withParameter(LootContextParams.ORIGIN, player.position())

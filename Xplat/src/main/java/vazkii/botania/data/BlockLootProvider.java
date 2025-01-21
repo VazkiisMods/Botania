@@ -12,6 +12,7 @@ import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -71,9 +72,11 @@ public class BlockLootProvider implements DataProvider {
 
 	private final PackOutput.PathProvider pathProvider;
 	private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
+	private final CompletableFuture<HolderLookup.Provider> lookupProvider;
 
-	public BlockLootProvider(PackOutput packOutput) {
+	public BlockLootProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/blocks");
+		this.lookupProvider = lookupProvider;
 
 		for (Block b : BuiltInRegistries.BLOCK) {
 			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
@@ -127,6 +130,10 @@ public class BlockLootProvider implements DataProvider {
 
 	@Override
 	public CompletableFuture<?> run(CachedOutput cache) {
+		return lookupProvider.thenCompose(registryLookup -> this.run(cache, registryLookup));
+	}
+
+	private CompletableFuture<?> run(@NotNull CachedOutput cache, HolderLookup.Provider registryLookup) {
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
 		for (Block b : BuiltInRegistries.BLOCK) {
@@ -144,7 +151,7 @@ public class BlockLootProvider implements DataProvider {
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
 			LootTable lootTable = e.getValue().setParamSet(LootContextParamSets.BLOCK).build();
-			output.add(DataProvider.saveStable(cache, LootTable.CODEC, lootTable, path));
+			output.add(DataProvider.saveStable(cache, registryLookup, LootTable.DIRECT_CODEC, lootTable, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}

@@ -1,5 +1,6 @@
 package vazkii.botania.fabric.data;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -13,11 +14,13 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.data.recipes.CraftingRecipeProvider.*;
 
 public class FabricRecipeProvider extends BotaniaRecipeProvider {
-	public FabricRecipeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public FabricRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

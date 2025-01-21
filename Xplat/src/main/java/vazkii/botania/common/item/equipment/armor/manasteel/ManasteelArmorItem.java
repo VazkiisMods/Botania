@@ -11,6 +11,7 @@ package vazkii.botania.common.item.equipment.armor.manasteel;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.Entity;
@@ -51,7 +52,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
 	}
 
-	public ManasteelArmorItem(Type type, ArmorMaterial mat, Properties props) {
+	public ManasteelArmorItem(Type type, Holder<ArmorMaterial> mat, Properties props) {
 		super(mat, type, props);
 		this.type = type;
 	}
@@ -143,7 +144,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	private int getSetPiecesEquipped(Player player) {
 		int pieces = 0;
 		for (EquipmentSlot slot : EquipmentSlot.values()) {
-			if (slot.getType() == EquipmentSlot.Type.ARMOR && hasArmorSetItem(player, slot)) {
+			if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR && hasArmorSetItem(player, slot)) {
 				pieces++;
 			}
 		}

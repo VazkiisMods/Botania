@@ -22,7 +22,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -208,8 +208,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
-		for (Recipe<?> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (recipe instanceof ElvenTradeRecipe tradeRecipe && tradeRecipe.containsItem(inputStack)) {
+		for (RecipeHolder<ElvenTradeRecipe> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
+			if (recipe.value() instanceof ElvenTradeRecipe tradeRecipe && tradeRecipe.containsItem(inputStack)) {
 				return true;
 			}
 		}
@@ -268,17 +268,17 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		}
 	}
 
-	public static Collection<ElvenTradeRecipe> elvenTradeRecipes(Level world) {
+	public static Collection<RecipeHolder<ElvenTradeRecipe>> elvenTradeRecipes(Level world) {
 		// By virtue of IRecipeType's type parameter,
 		// we know all the recipes in the map must be ElvenTradeRecipe.
 		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
-		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values();
+		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.ELVEN_TRADE_TYPE);
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons(true);
-		for (Recipe<?> r : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (!(r instanceof ElvenTradeRecipe recipe)) {
+		for (RecipeHolder<ElvenTradeRecipe> r : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
+			if (!(r.value() instanceof ElvenTradeRecipe recipe)) {
 				continue;
 			}
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
@@ -318,7 +318,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	@Override
 	public void loadAdditional(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
-		super.load(cmp);
+		super.loadAdditional(cmp, registries);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();

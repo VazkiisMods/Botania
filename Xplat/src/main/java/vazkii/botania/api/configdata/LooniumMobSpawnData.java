@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.Weight;
@@ -24,7 +25,7 @@ public class LooniumMobSpawnData extends WeightedEntry.IntrusiveBase {
 					Weight.CODEC.fieldOf("weight").forGetter(IntrusiveBase::getWeight),
 					Codec.BOOL.optionalFieldOf("spawnAsBaby").forGetter(msd -> Optional.ofNullable(msd.spawnAsBaby)),
 					CompoundTag.CODEC.optionalFieldOf("nbt").forGetter(msd -> Optional.ofNullable(msd.nbt)),
-					LootTable.CODEC.optionalFieldOf("equipmentTable")
+					ResourceKey.codec(Registries.LOOT_TABLE).optionalFieldOf("equipmentTable")
 							.forGetter(msd -> Optional.ofNullable(msd.equipmentTable)),
 					Codec.list(LooniumMobEffectToApply.CODEC)
 							.optionalFieldOf("effectsToApply")

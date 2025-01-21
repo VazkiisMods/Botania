@@ -15,7 +15,6 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
@@ -42,9 +41,9 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 				SimpleInstance {
 
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(Instance::player),
-				ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "item").forGetter(Instance::item),
-				ExtraCodecs.strictOptionalField(EntityPredicate.CODEC, "user").forGetter(Instance::user)
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(Instance::player),
+				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(Instance::item),
+				EntityPredicate.CODEC.optionalFieldOf("user").forGetter(Instance::user)
 		).apply(instance, Instance::new));
 
 		public static Criterion<Instance> shoot() {
