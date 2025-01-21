@@ -19,6 +19,8 @@ import net.minecraft.world.damagesource.DamageType;
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
+import java.io.DataOutput;
+
 import static vazkii.botania.common.BotaniaDamageTypes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
@@ -32,15 +34,15 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	}
 
 	private static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
-		pack.addProvider((PackOutput output) -> new FabricBlockLootProvider(output));
+		pack.addProvider(FabricBlockLootProvider::new);
 		var blockTagProvider = pack.addProvider(FabricBlockTagProvider::new);
 		pack.addProvider((output, registriesFuture) -> new FabricItemTagProvider(output, registriesFuture, blockTagProvider.contentsGetter()));
-		pack.addProvider((PackOutput output) -> new FabricRecipeProvider(output));
+		pack.addProvider(FabricRecipeProvider::new);
 		pack.addProvider(FabricBiomeTagProvider::new);
 	}
 
 	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
-		pack.addProvider((PackOutput output) -> new BlockLootProvider(output));
+		pack.addProvider(BlockLootProvider::new);
 		pack.addProvider(LooniumStructureLootProvider::new);
 		pack.addProvider(LooniumStructureConfigurationProvider::new);
 		pack.addProvider(LooniumEquipmentLootProvider::new);
@@ -51,17 +53,17 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		pack.addProvider(BiomeTagProvider::new);
 		pack.addProvider(BotaniaDynamicRegistryProvider::new);
 		pack.addProvider(DamageTypeTagProvider::new);
-		pack.addProvider((PackOutput output) -> new StonecuttingProvider(output));
-		pack.addProvider((PackOutput output) -> new CraftingRecipeProvider(output));
-		pack.addProvider((PackOutput output) -> new SmeltingProvider(output));
-		pack.addProvider((PackOutput output) -> new ElvenTradeProvider(output));
-		pack.addProvider((PackOutput output) -> new ManaInfusionProvider(output));
-		pack.addProvider((PackOutput output) -> new PureDaisyProvider(output));
-		pack.addProvider((PackOutput output) -> new BrewProvider(output));
-		pack.addProvider((PackOutput output) -> new PetalApothecaryProvider(output));
-		pack.addProvider((PackOutput output) -> new RunicAltarProvider(output));
-		pack.addProvider((PackOutput output) -> new TerrestrialAgglomerationProvider(output));
-		pack.addProvider((PackOutput output) -> new OrechidProvider(output));
+		pack.addProvider(StonecuttingProvider::new);
+		pack.addProvider(CraftingRecipeProvider::new);
+		pack.addProvider(SmeltingProvider::new);
+		pack.addProvider(ElvenTradeProvider::new);
+		pack.addProvider(ManaInfusionProvider::new);
+		pack.addProvider(PureDaisyProvider::new);
+		pack.addProvider(BrewProvider::new);
+		pack.addProvider(PetalApothecaryProvider::new);
+		pack.addProvider(RunicAltarProvider::new);
+		pack.addProvider(TerrestrialAgglomerationProvider::new);
+		pack.addProvider(OrechidProvider::new);
 		pack.addProvider((PackOutput output) -> new BlockstateProvider(output));
 		pack.addProvider((PackOutput output) -> new FloatingFlowerModelProvider(output));
 		pack.addProvider((PackOutput output) -> new ItemModelProvider(output));

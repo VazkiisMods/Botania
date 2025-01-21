@@ -89,7 +89,7 @@ public class EquestrianVirusItem extends Item {
 				jumpHeight.addPermanentModifier(new AttributeModifier(virusId, jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADD_VALUE));
 
 				newHorse.playSound(BotaniaSounds.virusInfect, 1.0F + living.level().random.nextFloat(), living.level().random.nextFloat() * 0.7F + 1.3F);
-				newHorse.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
+				newHorse.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null);
 				newHorse.setAge(horse.getAge());
 				player.level().addFreshEntity(newHorse);
 				newHorse.spawnAnim();

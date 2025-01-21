@@ -7,7 +7,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -15,6 +17,10 @@ public class BotaniaLootTables {
 	private static final Set<ResourceKey<LootTable>> LOCATIONS = Sets.newHashSet();
 	private static final Set<ResourceKey<LootTable>> IMMUTABLE_LOCATIONS = Collections.unmodifiableSet(LOCATIONS);
 
+	public static final ResourceKey<LootTable> BEHEADING_LOOT_TABLE = register("elementium_axe_beheading");
+	public static final List<ResourceKey<LootTable>> DICE_ROLL_LOOT_TABLES = IntStream.rangeClosed(1, 6)
+			.mapToObj(i -> register("dice/roll_" + i)).toList();
+	public static final ResourceKey<LootTable> GHAST_LOOT_TABLE = register("ghast_ender_air_crying");
 	public static final ResourceKey<LootTable> LOONIUM_DEFAULT_LOOT = register("loonium/default");
 
 	// TODO 1.21: embed armor set and weapon equipment tables
@@ -151,5 +157,15 @@ public class BotaniaLootTables {
 
 	public static Set<ResourceKey<LootTable>> all() {
 		return IMMUTABLE_LOCATIONS;
+	}
+
+	/**
+	 * Gets the resource key for the dice loot table for the specified number.
+	 * 
+	 * @param roll The rolled number. Must be between 1 and 6, inclusive.
+	 * @return Loot table resource key for the dice roll.
+	 */
+	public static ResourceKey<LootTable> getDiceRollTable(int roll) {
+		return DICE_ROLL_LOOT_TABLES.get(roll - 1);
 	}
 }

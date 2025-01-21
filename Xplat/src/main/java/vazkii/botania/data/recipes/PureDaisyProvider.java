@@ -9,6 +9,7 @@
 package vazkii.botania.data.recipes;
 
 import net.minecraft.commands.CacheableFunction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -24,11 +25,13 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.PureDaisyRecipe;
 import vazkii.botania.common.crafting.StateIngredients;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class PureDaisyProvider extends BotaniaRecipeProvider {
-	public PureDaisyProvider(PackOutput packOutput) {
-		super(packOutput);
+	public PureDaisyProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

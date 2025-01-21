@@ -54,9 +54,9 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 		if (slot == getType().getSlot()) {
 			UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
 			ret = HashMultimap.create(ret);
-			int reduction = getMaterial().getDefenseForType(getType());
+			int reduction = getMaterial().value().getDefense(getType());
 			ret.put(Attributes.KNOCKBACK_RESISTANCE,
-					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
+					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADD_VALUE));
 		}
 		return ret;
 	}

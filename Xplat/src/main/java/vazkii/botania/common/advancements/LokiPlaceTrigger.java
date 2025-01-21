@@ -15,7 +15,6 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
@@ -40,8 +39,8 @@ public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.In
 	public record Instance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> ring, MinMaxBounds.Ints blocksPlaced) implements SimpleInstance {
 
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(Instance::player),
-				ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "ring").forGetter(Instance::ring),
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(Instance::player),
+				ItemPredicate.CODEC.optionalFieldOf("ring").forGetter(Instance::ring),
 				MinMaxBounds.Ints.CODEC.optionalFieldOf("blocks_placed", MinMaxBounds.Ints.ANY).forGetter(Instance::blocksPlaced)
 		).apply(instance, Instance::new));
 

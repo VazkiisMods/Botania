@@ -11,11 +11,12 @@ package vazkii.botania.common.crafting.recipe;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.mixin.ShapedRecipeAccessor;
+import vazkii.botania.mixin.ShapedRecipePatternAccessor;
 
 import java.util.function.Function;
 
@@ -38,9 +40,11 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	private static ShapedRecipePattern transformPattern(ShapedRecipePattern pattern) {
 		final var testPotion = new ItemStack(Items.POTION);
 		final NonNullList<Ingredient> ingredients = NonNullList.of(Ingredient.EMPTY,
-				pattern.ingredients().stream().map(i -> i.test(testPotion) ? Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION),
-						Potions.WATER)) : i).toArray(Ingredient[]::new));
-		return new ShapedRecipePattern(pattern.width(), pattern.height(), ingredients, pattern.data());
+				pattern.ingredients().stream().map(i -> i.test(testPotion)
+						? Ingredient.of(PotionContents.createItemStack(Items.POTION, Potions.WATER))
+						: i).toArray(Ingredient[]::new));
+		return new ShapedRecipePattern(pattern.width(), pattern.height(), ingredients,
+				((ShapedRecipePatternAccessor) pattern).getData());
 	}
 
 	public WaterBottleMatchingRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result) {
@@ -59,7 +63,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 		}
 		for (int i = 0; i < craftingContainer.size(); i++) {
 			var item = craftingContainer.getItem(i);
-			if (item.is(Items.POTION) && !(PotionUtils.getPotion(item) == Potions.WATER)) {
+			if (item.is(Items.POTION) && !item.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.WATER)) {
 				return false;
 			}
 		}

@@ -12,6 +12,7 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -51,8 +53,10 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebble_sources"));
-	private static final ResourceLocation PEBBLES_TABLE = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebbles");
+	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK,
+			ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebble_sources"));
+	private static final ResourceKey<LootTable> PEBBLES_TABLE = ResourceKey.create(Registries.LOOT_TABLE,
+			ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebbles"));
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level());
@@ -89,7 +93,7 @@ public final class SkyblockWorldEvents {
 					if (world.isClientSide) {
 						player.swing(hand);
 					} else if (world instanceof ServerLevel level) {
-						var table = level.getServer().getLootData().getLootTable(PEBBLES_TABLE);
+						var table = level.getServer().reloadableRegistries().getLootTable(PEBBLES_TABLE);
 						var context = new LootParams.Builder(level)
 								.withParameter(LootContextParams.BLOCK_STATE, state)
 								.withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(hit.getBlockPos()))
