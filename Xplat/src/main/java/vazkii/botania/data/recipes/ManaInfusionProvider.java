@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -29,11 +30,13 @@ import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManaInfusionProvider extends BotaniaRecipeProvider {
-	public ManaInfusionProvider(PackOutput packOutput) {
-		super(packOutput);
+	public ManaInfusionProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -26,14 +27,15 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class StonecuttingProvider extends BotaniaRecipeProvider {
-	public StonecuttingProvider(PackOutput packOutput) {
-		super(packOutput);
+	public StonecuttingProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

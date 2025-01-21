@@ -55,6 +55,7 @@
     "ServerPlayerGameModeAccessor",
     "ServerPlayerMixin",
     "ShapedRecipeAccessor",
+    "ShapedRecipePatternAccessor",
     "ShapelessRecipeAccessor",
     "SpawnPlacementsMixin",
     "StatsAccessor",

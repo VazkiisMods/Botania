@@ -9,6 +9,7 @@
 package vazkii.botania.data;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -22,13 +23,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.Comparator;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Predicate;
 
 import static vazkii.botania.common.item.BotaniaItems.*;
 
@@ -86,7 +91,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.alchemyCatalyst.asItem(), divaCharm,
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
-		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 		this.tag(ItemTags.LECTERN_BOOKS).add(lexicon);
 		this.tag(ItemTags.BOOKSHELF_BOOKS).add(lexicon);
@@ -141,9 +145,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 			allPetals.addTag(petalTag);
 		});
 
+		Predicate<Item> jukeboxPlayablePredicate = item -> item.components().has(DataComponents.JUKEBOX_PLAYABLE);
 		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
 				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)
-				.addTag(ItemTags.MUSIC_DISCS);
+				.add(getItems(jukeboxPlayablePredicate));
 		this.tag(ItemTags.ARROWS);
 		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)
@@ -235,5 +240,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
 				.add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
 				.addOptionalTag(ResourceLocation.fromNamespaceAndPath("forge", "seeds"));
+	}
+
+	@NotNull
+	private static Item[] getItems(Predicate<Item> predicate) {
+		Comparator<Item> itemComparator = Comparator.comparing(BuiltInRegistries.ITEM::getKey);
+		return BuiltInRegistries.ITEM.stream().filter(predicate).sorted(itemComparator).toArray(Item[]::new);
 	}
 }

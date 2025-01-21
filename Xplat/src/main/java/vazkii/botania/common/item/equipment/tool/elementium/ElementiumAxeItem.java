@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -26,13 +25,11 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelAxeItem;
+import vazkii.botania.common.loot.BotaniaLootTables;
 
 import java.util.function.Consumer;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public class ElementiumAxeItem extends ManasteelAxeItem {
-	private static final ResourceLocation BEHEADING_LOOT_TABLE = botaniaRL("elementium_axe_beheading");
 
 	public ElementiumAxeItem(Properties props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), 6F, -3.1F, props);
@@ -44,14 +41,14 @@ public class ElementiumAxeItem extends ManasteelAxeItem {
 				.withParameter(LootContextParams.THIS_ENTITY, target)
 				.withParameter(LootContextParams.ORIGIN, target.position())
 				.withParameter(LootContextParams.DAMAGE_SOURCE, source)
-				.withOptionalParameter(LootContextParams.KILLER_ENTITY, source.getEntity())
-				.withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, source.getDirectEntity());
+				.withOptionalParameter(LootContextParams.ATTACKING_ENTITY, source.getEntity())
+				.withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, source.getDirectEntity());
 
 		if (hitRecently && target.getKillCredit() != null && target.getKillCredit() instanceof Player p) {
 			ctx = ctx.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, p).withLuck(p.getLuck());
 		}
 
-		target.level().getServer().getLootData().getLootTable(BEHEADING_LOOT_TABLE)
+		target.level().getServer().reloadableRegistries().getLootTable(BotaniaLootTables.BEHEADING_LOOT_TABLE)
 				.getRandomItems(ctx.create(LootContextParamSets.ENTITY), target.getLootTableSeed(), consumer);
 	}
 

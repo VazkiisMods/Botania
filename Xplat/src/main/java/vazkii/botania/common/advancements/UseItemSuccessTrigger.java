@@ -16,7 +16,6 @@ import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
@@ -44,9 +43,9 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 	public record Instance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> item, Optional<LocationPredicate> location) implements SimpleInstance {
 
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(Instance::player),
-				ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "item").forGetter(Instance::item),
-				ExtraCodecs.strictOptionalField(LocationPredicate.CODEC, "location").forGetter(Instance::location)
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(Instance::player),
+				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(Instance::item),
+				LocationPredicate.CODEC.optionalFieldOf("location").forGetter(Instance::location)
 		).apply(instance, Instance::new));
 
 		public static Criterion<Instance> used(ItemLike... items) {

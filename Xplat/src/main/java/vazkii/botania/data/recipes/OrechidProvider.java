@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -22,12 +23,14 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class OrechidProvider extends BotaniaRecipeProvider {
 
-	public OrechidProvider(PackOutput packOutput) {
-		super(packOutput);
+	public OrechidProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	// TODO: We had an enormous amount of ores defined for mod compat.
