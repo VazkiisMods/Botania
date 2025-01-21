@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -18,11 +19,13 @@ import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
-	public TerrestrialAgglomerationProvider(PackOutput packOutput) {
-		super(packOutput);
+	public TerrestrialAgglomerationProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

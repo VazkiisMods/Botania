@@ -17,7 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
@@ -44,9 +43,9 @@ public class AlfheimPortalTrigger extends SimpleCriterionTrigger<AlfheimPortalTr
 				SimpleInstance {
 
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(Instance::player),
-				ExtraCodecs.strictOptionalField(ItemPredicate.CODEC, "wand").forGetter(Instance::wand),
-				ExtraCodecs.strictOptionalField(LocationPredicate.CODEC, "location").forGetter(Instance::location)
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(Instance::player),
+				ItemPredicate.CODEC.optionalFieldOf("wand").forGetter(Instance::wand),
+				LocationPredicate.CODEC.optionalFieldOf("location").forGetter(Instance::location)
 		).apply(instance, Instance::new));
 
 		public static Criterion<Instance> activatedPortal() {

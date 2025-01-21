@@ -11,7 +11,7 @@ package vazkii.botania.common.brew;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
@@ -71,7 +71,7 @@ public class BotaniaBrews {
 	}
 
 	private static Brew make(int cost, MobEffectInstance... effects) {
-		return new Brew(PotionUtils.getColor(Arrays.asList(effects)), cost, effects);
+		return new Brew(PotionContents.getColor(Arrays.asList(effects)), cost, effects);
 	}
 
 }

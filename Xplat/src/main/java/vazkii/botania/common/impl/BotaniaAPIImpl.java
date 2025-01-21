@@ -10,9 +10,11 @@ package vazkii.botania.common.impl;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +23,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -33,11 +34,11 @@ import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.flower.functional.SolegnoliaBlockEntity;
 import vazkii.botania.common.config.ConfigDataManagerImpl;
-import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.RegistryHelper;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
+import vazkii.botania.common.item.BotaniaArmorMaterials;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
 
@@ -48,129 +49,29 @@ import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
 
-	private enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial {
-		MANASTEEL("manasteel", 16,
-				Map.of(
-						ArmorItem.Type.BOOTS, 2,
-						ArmorItem.Type.LEGGINGS, 5,
-						ArmorItem.Type.CHESTPLATE, 6,
-						ArmorItem.Type.HELMET, 2
-				),
-				18, () -> BotaniaSounds.equipManasteel, () -> BotaniaItems.manaSteel, 0),
-		MANAWEAVE("manaweave", 5,
-				Map.of(
-						ArmorItem.Type.BOOTS, 1,
-						ArmorItem.Type.LEGGINGS, 2,
-						ArmorItem.Type.CHESTPLATE, 3,
-						ArmorItem.Type.HELMET, 1
-				),
-				18, () -> BotaniaSounds.equipManaweave, () -> BotaniaItems.manaweaveCloth, 0),
-		ELEMENTIUM("elementium", 18,
-				Map.of(
-						ArmorItem.Type.BOOTS, 2,
-						ArmorItem.Type.LEGGINGS, 5,
-						ArmorItem.Type.CHESTPLATE, 6,
-						ArmorItem.Type.HELMET, 2
-				),
-				18, () -> BotaniaSounds.equipElementium, () -> BotaniaItems.elementium, 0),
-		TERRASTEEL("terrasteel", 34,
-				Map.of(
-						ArmorItem.Type.BOOTS, 3,
-						ArmorItem.Type.LEGGINGS, 6,
-						ArmorItem.Type.CHESTPLATE, 8,
-						ArmorItem.Type.HELMET, 3
-				),
-				26, () -> BotaniaSounds.equipTerrasteel, () -> BotaniaItems.terrasteel, 3);
-
-		private final String name;
-		private final int durabilityMultiplier;
-		private final Map<ArmorItem.Type, Integer> damageReduction;
-		private final int enchantability;
-		private final Supplier<SoundEvent> equipSound;
-		private final Supplier<Item> repairItem;
-		private final float toughness;
-
-		ArmorMaterial(String name, int durabilityMultiplier, Map<ArmorItem.Type, Integer> damageReduction,
-				int enchantability, Supplier<SoundEvent> equipSound, Supplier<Item> repairItem, float toughness) {
-			this.name = name;
-			this.durabilityMultiplier = durabilityMultiplier;
-			this.damageReduction = damageReduction;
-			this.enchantability = enchantability;
-			this.equipSound = equipSound;
-			this.repairItem = repairItem;
-			this.toughness = toughness;
-		}
-
-		@Override
-		public int getDurabilityForType(ArmorItem.Type slot) {
-			// [VanillaCopy] ArmorMaterials
-			int base = switch (slot) {
-				case BOOTS -> 13;
-				case LEGGINGS -> 15;
-				case CHESTPLATE -> 16;
-				case HELMET -> 11;
-			};
-			return durabilityMultiplier * base;
-		}
-
-		@Override
-		public int getDefenseForType(ArmorItem.Type slot) {
-			return this.damageReduction.get(slot);
-		}
-
-		@Override
-		public int getEnchantmentValue() {
-			return enchantability;
-		}
-
-		@NotNull
-		@Override
-		public SoundEvent getEquipSound() {
-			return equipSound.get();
-		}
-
-		@NotNull
-		@Override
-		public Ingredient getRepairIngredient() {
-			return Ingredient.of(repairItem.get());
-		}
-
-		@NotNull
-		@Override
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public float getToughness() {
-			return toughness;
-		}
-
-		@Override
-		public float getKnockbackResistance() {
-			return 0;
-		}
-	}
-
 	private enum ItemTier implements Tier {
-		MANASTEEL(300, 6.2F, 2, 3, 20, () -> BotaniaItems.manaSteel),
-		ELEMENTIUM(720, 6.2F, 2, 3, 20, () -> BotaniaItems.elementium),
-		TERRASTEEL(2300, 9, 4, 4, 26, () -> BotaniaItems.terrasteel);
+		MANASTEEL(300, 6.2F, 2, 20,
+				() -> BotaniaItems.manaSteel, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
+		ELEMENTIUM(720, 6.2F, 2, 20,
+				() -> BotaniaItems.elementium, BlockTags.INCORRECT_FOR_DIAMOND_TOOL),
+		TERRASTEEL(2300, 9, 4, 26,
+				() -> BotaniaItems.terrasteel, BlockTags.INCORRECT_FOR_NETHERITE_TOOL);
 
 		private final int maxUses;
 		private final float efficiency;
 		private final float attackDamage;
-		private final int harvestLevel;
 		private final int enchantability;
 		private final Supplier<Item> repairItem;
+		private final TagKey<Block> incorrectBlockForDrops;
 
-		ItemTier(int maxUses, float efficiency, float attackDamage, int harvestLevel, int enchantability, Supplier<Item> repairItem) {
+		ItemTier(int maxUses, float efficiency, float attackDamage, int enchantability,
+				Supplier<Item> repairItem, TagKey<Block> incorrectBlockForDrops) {
 			this.maxUses = maxUses;
 			this.efficiency = efficiency;
 			this.attackDamage = attackDamage;
-			this.harvestLevel = harvestLevel;
 			this.enchantability = enchantability;
 			this.repairItem = repairItem;
+			this.incorrectBlockForDrops = incorrectBlockForDrops;
 		}
 
 		@Override
@@ -189,8 +90,8 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getLevel() {
-			return harvestLevel;
+		public TagKey<Block> getIncorrectBlocksForDrops() {
+			return incorrectBlockForDrops;
 		}
 
 		@Override
@@ -218,23 +119,23 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getManasteelArmorMaterial() {
-		return ArmorMaterial.MANASTEEL;
+	public Holder<ArmorMaterial> getManasteelArmorMaterial() {
+		return BotaniaArmorMaterials.MANASTEEL;
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getElementiumArmorMaterial() {
-		return ArmorMaterial.ELEMENTIUM;
+	public Holder<ArmorMaterial> getElementiumArmorMaterial() {
+		return BotaniaArmorMaterials.ELEMENTIUM;
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getManaweaveArmorMaterial() {
-		return ArmorMaterial.MANAWEAVE;
+	public Holder<ArmorMaterial> getManaweaveArmorMaterial() {
+		return BotaniaArmorMaterials.MANAWEAVE;
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getTerrasteelArmorMaterial() {
-		return ArmorMaterial.TERRASTEEL;
+	public Holder<ArmorMaterial> getTerrasteelArmorMaterial() {
+		return BotaniaArmorMaterials.TERRASTEEL;
 	}
 
 	@Override

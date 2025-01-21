@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -40,16 +39,14 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.loot.BotaniaLootTables;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
-
 public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSupplier {
 	public static final int PARTICLE_COLOR = 0x000008;
-	private static final ResourceLocation GHAST_LOOT_TABLE = botaniaRL("ghast_ender_air_crying");
 
 	public EnderAirBottleEntity(EntityType<EnderAirBottleEntity> type, Level world) {
 		super(type, world);
@@ -108,7 +105,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 					40,
 					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
 
-			LootTable table = this.level().getServer().getLootData().getLootTable(GHAST_LOOT_TABLE);
+			LootTable table = this.level().getServer().reloadableRegistries().getLootTable(BotaniaLootTables.GHAST_LOOT_TABLE);
 			LootParams.Builder builder = new LootParams.Builder(((ServerLevel) level()));
 			builder.withParameter(LootContextParams.THIS_ENTITY, entity);
 			builder.withParameter(LootContextParams.ORIGIN, entity.position());

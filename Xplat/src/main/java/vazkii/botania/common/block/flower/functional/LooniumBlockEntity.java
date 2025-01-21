@@ -24,7 +24,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -42,7 +44,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
-import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -154,7 +155,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	};
 
 	@Nullable
-	private ResourceLocation lootTableOverride;
+	private ResourceKey<LootTable> lootTableOverride;
 	@Nullable
 	private Object2BooleanMap<ResourceLocation> detectedStructures;
 	@Nullable
@@ -268,13 +269,12 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		if (pickedMobType.equipmentTable != null) {
-			LootTable equipmentTable = world.getServer().getLootData().getLootTable(pickedMobType.equipmentTable);
+			LootTable equipmentTable = world.getServer().reloadableRegistries().getLootTable(pickedMobType.equipmentTable);
 			if (equipmentTable != LootTable.EMPTY) {
 				LootParams lootParams = new LootParams.Builder(world)
 						.withParameter(LootContextParams.THIS_ENTITY, mob)
 						.withParameter(LootContextParams.ORIGIN, mob.position())
-						// TODO 1.21: replace with LootContextParamSets.EQUIPMENT
-						.create(LootContextParamSets.SELECTOR);
+						.create(LootContextParamSets.EQUIPMENT);
 				var equippedSlots = new HashSet<EquipmentSlot>();
 				equipmentTable.getRandomItems(lootParams, equipmentStack -> {
 					EquipmentSlot slot = equipmentStack.is(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
@@ -379,7 +379,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			return ItemStack.EMPTY;
 		} else {
 			Collections.shuffle(stacks);
-			return stacks.get(0);
+			return stacks.getFirst();
 		}
 	}
 
@@ -387,7 +387,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private List<Pair<ResourceLocation, LootTable>> determineLootTables(ServerLevel world,
 			Set<ResourceLocation> structureIds) {
 		var lootTables = new ArrayList<Pair<ResourceLocation, LootTable>>();
-		LootDataManager lootData = world.getServer().getLootData();
+		ReloadableServerRegistries.Holder lootData = world.getServer().reloadableRegistries();
 		Supplier<LootTable> defaultLootTableSupplier = Suppliers.memoize(() -> lootData.getLootTable(
 				BotaniaLootTables.LOONIUM_DEFAULT_LOOT));
 		if (lootTableOverride != null) {
@@ -400,7 +400,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				if (structureId.equals(LooniumStructureConfiguration.DEFAULT_CONFIG_ID)) {
 					continue;
 				}
-				ResourceLocation lootTableId = botaniaRL("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
+				ResourceKey<LootTable> lootTableId = ResourceKey.create(Registries.LOOT_TABLE,
+						botaniaRL("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath())));
 				LootTable lootTable = lootData.getLootTable(lootTableId);
 				if (lootTable != LootTable.EMPTY) {
 					lootTables.add(Pair.of(structureId, lootTable));
@@ -514,7 +515,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.readFromPacketNBT(cmp, registries);
 		if (cmp.contains(TAG_LOOT_TABLE)) {
-			lootTableOverride = ResourceLocation.parse(cmp.getString(TAG_LOOT_TABLE));
+			lootTableOverride = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(cmp.getString(TAG_LOOT_TABLE)));
 		}
 		if (cmp.contains(TAG_CONFIG_OVERRIDE)) {
 			configOverride = ResourceLocation.parse(cmp.getString(TAG_CONFIG_OVERRIDE));
@@ -547,7 +548,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	public void writeToPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.writeToPacketNBT(cmp, registries);
 		if (lootTableOverride != null) {
-			cmp.putString(TAG_LOOT_TABLE, lootTableOverride.toString());
+			cmp.putString(TAG_LOOT_TABLE, lootTableOverride.location().toString());
 		}
 		if (configOverride != null) {
 			cmp.putString(TAG_CONFIG_OVERRIDE, configOverride.toString());

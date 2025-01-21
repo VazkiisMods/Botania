@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Mob;
@@ -19,7 +20,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SuspiciousStewItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -154,7 +154,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 		for (ItemEntity bowlItemEntity : bowlItemEntities) {
 			ItemStack bowlItem = bowlItemEntity.getItem();
 			ItemStack stewItem = new ItemStack(Items.SUSPICIOUS_STEW);
-			SuspiciousStewItem.saveMobEffects(stewItem, stewEffects);
+			stewItem.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, mushroomCowAccessor.getStewEffects());
 			spawnItem(mushroomCow, stewItem);
 
 			EntityHelper.shrinkItem(bowlItemEntity);

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -23,11 +24,13 @@ import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ElvenTradeProvider extends BotaniaRecipeProvider {
-	public ElvenTradeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public ElvenTradeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override

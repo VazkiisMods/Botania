@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 
 import vazkii.botania.api.BotaniaAPI;
 
@@ -33,7 +33,7 @@ public class Brew {
 	/**
 	 * @param color   The color for the potion to be rendered in the bottle, note that it will get
 	 *                changed a bit when it renders (for more or less brightness) to give a fancy effect.
-	 *                See {@link net.minecraft.world.item.alchemy.PotionUtils#getColor} for a method
+	 *                See {@link PotionContents#getColor} for a method
 	 *                to calculate this automatically.
 	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
@@ -50,7 +50,7 @@ public class Brew {
 	 * @param effects A supplier that supplies a list of effects to apply to the player when they drink it.
 	 */
 	public Brew(int cost, Supplier<List<MobEffectInstance>> effects) {
-		this.color = () -> PotionUtils.getColor(effects.get());
+		this.color = () -> PotionContents.getColor(effects.get());
 		this.cost = cost;
 		this.effects = effects;
 	}
