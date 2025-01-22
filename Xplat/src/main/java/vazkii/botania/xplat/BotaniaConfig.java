@@ -42,6 +42,7 @@ public class BotaniaConfig {
 		boolean referencesEnabled();
 		boolean splashesEnabled();
 		boolean useShaders();
+		boolean opaqueParticles();
 	}
 
 	private static ConfigAccess config = null;
