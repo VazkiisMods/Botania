@@ -1,0 +1,168 @@
+### NBT documentation for 1.20.1
+This document will hopefully aid the development of data fixers for the upgrade from 1.20.1 to 1.21.1 or later.
+The goal is to document all NBT data structures, especially those for items, but also anything that might reference
+item data, such as block/entity inventories, or the lens that last affected a mana burst.
+
+#### Botania Items
+Items are listed in the order they are encountered in `BotaniaItems`, skipping those that need no special treatment beyond what Minecraft would do for items anyway.
+- LexicaBotaniaItem (`botania:lexicon`):
+  - `botania:elven_unlock` (boolean) - whether to render it with the alternate Elven look
+- WandOfTheForestItem (`botania:twig_wand` and `botania:dreamwood_wand`):
+  - `color1`, `color2` (int) - DyeColor IDs of the two petals used to craft the wand
+  - `bindMode` (boolean) - whether the wand is in bind mode (otherwise it's in function mode)
+  - `boundTileX`, `boundTileY`, `boundTileZ` (int) - block position for the current bind attempt in progress; defaults to 0/Integer.MIN_VALUE/0 for no binding source
+- LensItem (the various mana spreader lenses):
+  - `color` (int) - DyeColor index for the lens color; -1 resolves to white, 16 for rainbow effect (which should probably become a separate value to not stand in the way of mods that add dye color)
+  - `compositeLens` (compound) - serialized ItemStack containing the second lens item of a composite lens
+- GrassSeedsItem (pasture seeds and its variations):
+  - no NBT data
+  - TODO: Is the BlockSwapper persisted? (it doesn't seem so)
+- SkiesRodItem (`botania:tornado_rod`):
+  - `flying` (boolean) - whether the rod currently boosts elytra flight or jump
+  - `flyCounter` (int) - tracks time spent boosting (actually ticks up in increments of 3 every tick)
+- HellsRodITem (`botania:fire_rod`):
+  - no NBT data, but uses vanilla cooldown mechanic (1200 ticks, 900 with proficiency)
+- PlentifulMantleRodItem (`botania:divining_rod`):
+  - no NBT data, but uses vanilla cooldown mechanic (20 ticks, 15 with proficiency)
+- MoltenCoreRodItem (`botania:smelt_rod`):
+  - no NBT data
+  - tracks smelting progress per player in static map that does not appear to get persisted
+- ShiftingCrustRodItem (`botania:exchange_rod`):
+  - data updated every tick, if changed (both together affect effective radius):
+    - `extraRange` (int) - extra replacement range if the rod is used with proficiency (3 in that case, otherwise 1)
+    - `temperanceStone` (boolean) - whether the player currently has an active Stone of Temperance in their inventory
+  - data updated when selecting a block to replace with:
+    - `placedItem` (string) - item ID to place (notably *not* an item stack)
+    - `swapDirection` (int) - Direction (in the form of its 3DDataValue, i.e. the ID) of the clicked face from the use context when the block to place was selected
+    - `swapHitVec` (list of double) - click location from the use context when the block to place was selected
+  - data updated when clicking to initiate a replacement operation:
+    - `swapping` (boolean) - whether the rod is currently performing a swap operation; set along with a selected position
+    - `selectX`, `selectY`, `selectZ` (int) - block position that was targeted for block replacement
+    - `swapClickAxis` (int) - Direction (in the form of its 3DDataValue, i.e. the ID) of the face clicked to start a swapping operation
+    - `targetBlock` (string) - block ID to replace (no block state information)
+- BifrostRodItem (`botania:rainbow_rod`):
+  - no NBT data, but uses vanilla cooldown mechanic (600 ticks)
+- ShadedMesaRodItem (`botania:gravity_rod`):
+  - `ticksTillExpire` \[sic] (int) - ticks left until the rod forgets its target ID and distance (up to 5 ticks)
+  - `ticksCooldown` (int) - ticks left until cooldown ends
+  - `target` (int) - entity ID of the target
+  - `dist` (double) - desired target distance to the entity (defaults to 2.0 for item entities, otherwise 5.5)
+- all armor items (manasteel, elementium, terrasteel, and manaweave):
+  - `phantomInk` (boolean) - whether Phantom Ink was applied to the item to make it invisible when worn
+- TerrasteelHelmItem (`botania:terrasteel_helmet`):
+  - `phantomInk` (see above)
+  - for each possible AncientWillType value: `AncientWill_` + lowercase name of will enum value (boolean) - whether that will type was applied to the helm
+- TerraShattererItem (`botania:terra_pick`):
+  - `tipped` (boolean) - whether the pick is tipped with elementium and should thus filter out disposable or semi-disposable block types
+  - `mana` (int) - amount of mana stored in the pick (determines rank)
+  - `enabled` (boolean) - whether the pick's AoE mining is enabled
+  - Note: The Terra Shatterer is a mana item, but only supports charging from pools. It cannot be charged by other player items or dispersive sparks, and cannot provide mana or be drained by pools.
+- TerraTruncatorItem (`botania:terra_axe`):
+  - no special NBT data
+  - it uses a "block swapper" to track block breaking, but it does not appear to get persisted
+- TerraBladeItem (`botania:terra_sword`):
+  - no special NBT data
+  - is used as the lens item for the mana bursts it fires
+- StarcallerItem (`botania:star_sword`):
+  - `lastTriggerTime` (long) - game time when the sword's effect last triggered
+- VitreousPickaxeItem (`botania:glasS_pickaxe`):
+  - `botania:silk_hack` (boolean) - temporary helper value to ensure supported blocks are mined as if the pick has the silktouch enchantment (Note: This is a temporary value and does not need to be migrated.)
+- ManaTabletItem (`botania:mana_tablet`):
+  - `mana` (int) - amount of mana stored in the tablet
+  - `creative` (boolean) - when true, the tablet's mana amount is always considered to be at its maximum value
+  - `oneUse` (boolean) - when true, the tablet cannot be charged in a pool (apparently it still accepts mana from a spark, but that might be an oversight)
+- ManaMirrorItem (`botania:mana_mirror`):
+  - `mana` (int) - amount of mana the mirror currently makes available, synchronized with the mana amount available in the bound pool
+  - `maxMana` (int) - maximum amount of mana the bound pool can contain
+  - `manaBacklog` (int) - accumulated difference in mana content that still needs to be synchronized with the bound pool
+  - `pos` (compound) - GlobalPos of the bound mana pool, consisting of:
+    - `dimension` (string) - ID of the bound position's dimension (e.g. `minecraft:overworld`)
+    - `pos` (int array, length 3) - bound position within that dimension, values in \[X, Y, Z] order
+- ManaBlasterItem (`botania:mana_gun`):
+  - `lens` (compound) - serialized ItemStack of the attached lens, unless a lens clip is used
+  - `clip` (boolean) - whether the blaster has a lens clip
+  - `clipPos` (int) - currently selected lens position within the clip (0..5)
+  - `lens0`..`lens5` (compound) - serialized ItemStacks of lenses in indexed lens clip positions
+  - `cooldown` (int) - remaining cooldown ticks (a custom cooldown is used so dual wielding is possible with individual cooldowns)
+- LifeAggregatorItem (`botania:spawner_mover`):
+  - `spawner` (compound) - serialized spawner block entity metadata
+- AssemblyHaloItem (`botania:crafting_halo`):
+  - `lastCrafting` (string) - ID of last used crafting recipe
+  - `storedRecipe1`..`storedRecipe11` (string) - IDs of the stored recipes for each segment (other than the crafting table segment)
+  - `equipped` (boolean) - whether the item was equipped during the last tick
+  - `rotationBase` (float) - rotation of the segments around the Y axis, updated only while the item is not equipped
+- ManufacturingHaloItem (`botania:auto_crafting_halo`):
+  - same properties as Assembly Halo
+  - `active` (boolean) - whether autocrafting is enabled (autocrafting is also enabled when this tag does not exist)
+- FlowerPouchItem (`botania:flower_bag`):
+  - `Items` (list of compound) - 32 serialized ItemStacks, first 16 for small mystical flowers, last 16 for tall mystical flowers, each in native DyeColor order
+- BlackHoleTalismanITem (`botania:black_hole_talisman`):
+  - `active` (boolean) - whether the talisman sucks in matching items from the player's inventory
+  - `blockName` (string) - ID of the block type the talisman contains
+  - `blockCount` (int) - number of blocks stored in the talisman
+- StoneOfTemperanceItem (`botania:temperance_stone`):
+  - `active` (boolean) - whether the stone's effects are applied
+- CacophoniumItem (`botania:cacophonium`):
+  - `sound` (string) - ID of the sound event the Cacophonium plays when used
+  - `soundName` (string) - translation key of the entity the sound was captured from
+- SlimeInABottleItem (`botania:slime_bottle`):
+  - `active` (boolean) - whether the bottle is active, i.e. the player is in a slime chunk
+- WorldshaperssSextantItem \[sic] (`botania:sextant`):
+  - `sourceX`, `sourceY`, `sourceZ` (int) - center position of the shape (Y = Integer.MIN_VALUE means no shape is defined or being defined)
+  - `mode` (string) - mode name (currently supports "circle" and "sphere")
+- AstrolabeItem (`botania:astrolabe`):
+  - `blockState` (compound) - serialized block state (is a block state for legacy reasons, nowadays only stores the default block state and could be reduced to just the block type):
+    - `Name` (string) - block type
+    - `Properties` (compound) - key value pairs representing the block state properties
+  - `size` (int) - size of the shape to place (odd number between 3 and 11)
+- BaubleBoxItem (`botania:bauble_box`):
+  - `open` (boolean) - true while the UI is open (for display purposes)
+  - `Items` (list of compound) - 24 serialized ItemStacks
+- all BaubleItem subclasses:
+  - `baubleUUID` (UUID as int array), `baubleUUIDMost`/`baubleUUIDLeast` (long; legacy tags) - unique bauble ID used to associate attribute modifiers with a particular item
+  - `phantomInk` (boolean) - whether Phantom Ink was applied to the item to make it invisible when equipped
+  - `cosmeticItem` (compound) - serialized ItemStack for a cosmetic override for this bauble
+- BandOfManaItem (`botania:mana_ring` and `botania:mana_ring_greater`):
+  - `mana` (int) - amount of stored mana
+- RingOfMagnetizationItem (`botania:magnet_ring` and `botania:magnet_ring_greater`):
+  - `cooldown` (int) - remaining deactivation time after throwing an item
+- RingOfDexterousMotionItem (`botania:dodge_ring`):
+  - `dodgeCooldown` (int) - remaining cooldown ticks after dodging
+- PlanestriderSashItem (`botania:speed_up_belt`):
+  - `speed` (float) - current speed bonus (0.0 to 0.25)
+  - `oldX`, `oldY`, `oldZ` (double) - previous player position for movement check (speed resets when position difference is essentially zero)
+- CloakOfVirtueItem (`botania:holy_cloak`), CloakOfSinItem (`botania:unholy_cloak`), and CloakOfBalanceItem (`botania:balance_cloak`):
+  - `cooldown` (int) - remaining cooldown ticks
+  - `inEffect` (boolean) - temporary flag to prevent recursive damage handling, in case mobs deal damage when they are dealt damage
+- CharmOfTheDivaItem (`botania:diva_charm`):
+  - `mobsToCharm` (int array) - entity IDs of mobs to possibly brainwash after they were hit (Note: This is a temporary value and does not need to be migrated.)
+- SpectatorItem (`botania:itemfinder`):
+  - `highlightPositionsEnt` (int array) - entity IDs of items, players, mobs, etc. to highlight
+  - `highlightPositionsBlock` (long array) - positions of blocks to highlight, encoded as long values as per `BlockPos::asLong`
+- FlugelTiaraItem (`botania:flight_tiara`):
+  - `variant` (int) - wing type ID (0 = no wings)
+  - `flying` (boolean) - whether the player is flying like in Creative mode
+  - `gliding` (boolean) - whether the player does the Flügel Tiara glide
+  - `timeLeft` (int) - remaining flight time in ticks
+  - `infiniteFlight` (boolean) - when true, the flight time is unlimited (not set by Botania itself, but available for data/mod packs)
+  - `dashCooldown` (int) - remaining cooldown ticks until next time dash can activate
+  - `isSprinting` (boolean) - whether the player is currently sprinting
+  - `boostPending` (boolean) - pending dash boost flag (temporary, is cleared immediately next tick as the dash speed boost is applied)
+- BottledManaItem (`botania:mana_bottle`):
+  - `swigsLeft` (int) - how often the player can still drink from the bottle (defaults to 6 if not set)
+  - `randomSeed` (long) - RNG seed to determine the next effect for drinking from the bottle
+- LaputaShardItem (`botania:laputa_shard`):
+  - Note: The item is also used as lens for the mana bursts that transport the blocks. As an actual item it only uses the `level` property.
+  - `level` (int) - level of the item itself
+  - additional properties when used as burst lens:
+    - `_state` (compound) - the block state to transport (see AstrolabeItem for details)
+    - `_tile` (compound) - NBT data for transported block entity
+    - `_x`, `_y`, `_z` (int) - where to spawn the next burst (the tick after this burst was spawned)
+    - `_yStart` (int) - this burst's spawn height (determines where to place the transported block)
+    - `_pointy` (boolean) - when true, the island is shaped like a cone (with the tip downward) instead of a (half) spheroid
+    - `_heightscale` (double) - vertical scale (relative to horizontal radius) of the island
+    - `iterationI`, `iterationJ`, `iterationK` (int) - internal iteration counters to determine the next block position to process
+- ResoluteIvyItem
+  - `Botania_keepIvy` (boolean) - added to *other* item stacks that the Resolute Ivy was applied to (removed from retained items when the player respawns after dying)
+
+TODO: continue with Guardian of Gaia drops
