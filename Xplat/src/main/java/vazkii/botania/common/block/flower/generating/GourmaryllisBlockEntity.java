@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -152,15 +153,18 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	private static int getCooldown(int foodValue) {
-		return foodValue * FOOD_COOLDOWN_FACTOR;
+		return Math.max(1, foodValue * FOOD_COOLDOWN_FACTOR);
 	}
 
 	private static int getDigestingMana(int foodValue, double streakFactor) {
-		return (int) (foodValue * foodValue * FOOD_MANA_FACTOR * streakFactor);
+		return Math.max(1, (int) (foodValue * foodValue * FOOD_MANA_FACTOR * streakFactor));
 	}
 
 	private static int getFoodValue(ItemStack stack) {
-		return Math.min(MAX_FOOD_VALUE, stack.getItem().getFoodProperties().getNutrition());
+		FoodProperties foodProperties = stack.getItem().getFoodProperties();
+		// greetings to GregTech's Purple Drink, which claims to be edible but does not have food properties
+		int nutrition = foodProperties != null ? foodProperties.getNutrition() : 0;
+		return Math.min(MAX_FOOD_VALUE, nutrition);
 	}
 
 	@Override

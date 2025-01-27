@@ -36,6 +36,7 @@ thanks to Wormbo for a lot of work on this feature!
 * Fix: Redstone comparators no longer read signal strength 0 from special flowers other than the Thermalily
 * Fix: A comparator reading from a Thermalily through a solid block no longer keeps outputting a value after breaking the Thermalily
 * Fix: Potential crash issues in combination with mods that add colors have been resolved
+* Fix: Workaround for missing food properties in some items that are nonetheless flagged as edible
 * Language update:
   * de_de completed (Wormbo, thanks to Kartabass and PssbleTrngle for reviewing)
   * ko_kr updated (UnineVesiKass)
