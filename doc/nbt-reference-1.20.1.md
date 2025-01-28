@@ -4,7 +4,7 @@ The goal is to document all NBT data structures, especially those for items, but
 item data, such as block/entity inventories, or the lens that last affected a mana burst.
 
 #### Botania Items
-Items are listed in the order they are encountered in `BotaniaItems`, skipping those that need no special treatment beyond what Minecraft would do for items anyway.
+Items are listed in the order they are encountered in `BotaniaItems`, skipping those that need no special treatment beyond what Minecraft would do for items anyway. (e.g. vanilla tool, weapon, or armor data)
 - LexicaBotaniaItem (`botania:lexicon`):
   - `botania:elven_unlock` (boolean) - whether to render it with the alternate Elven look
 - WandOfTheForestItem (`botania:twig_wand` and `botania:dreamwood_wand`):
@@ -164,5 +164,83 @@ Items are listed in the order they are encountered in `BotaniaItems`, skipping t
     - `iterationI`, `iterationJ`, `iterationK` (int) - internal iteration counters to determine the next block position to process
 - ResoluteIvyItem
   - `Botania_keepIvy` (boolean) - added to *other* item stacks that the Resolute Ivy was applied to (removed from retained items when the player respawns after dying)
+- any RelicItem (via Relic capability)
+  - `soulbindUUID` (string) - UUID of the owning player
+- KeyOfTheKingsLawItem (`botania:king_key`)
+  - `charging` (boolean) - whether the key is charging up to fire
+  - `weaponsSpawned` (int) - number of weapons already spawned
+- EyeOfTheFlugelItem (`botania:flugel_eye`)
+  - `target_` + dimension ID (int array, length 3) - bound teleportation target location for individual dimensions
+- RingOfLokiITem (`botania:loki_ring`)
+  - `cursorList` (compound) - "list" of selected offsets from the origin, stored as follows:
+    - `cursorCount` (int) - number of offsets
+    - `cursor` + number (compound) - an offset:
+      - `xOffset`, `yOffset`, `zOffset` (int) - block position offset coordinates
+    - Note: There has been no upper bound to the number of offsets until somewhat recently in 1.20.1, when the upper limit of 1023 offsets was introduced to prevent accidental NBT-selfbans.
+  - `xOrigin`, `yOrigin`, `zOrigin` (int) - binding center position, only set while binding mode is active
+- BaseBrewITem (`botania:brew_vial`, `botania:brew_flask`)
+  - `brewKey` (string) - ID of the brew type
+  - `swigsLeft` (int) - number of uses left
+- IncenseStickItem (`botania:incense_stick`) and TaintedBloodPendantItem (`botania:blood_pendant`)
+  - `brewKey` (string) - ID of the brew type, optional
 
-TODO: continue with Guardian of Gaia drops
+### Botania entities
+For now only entities that somehow reference item stacks, e.g. mana bursts. (Not a complete list of NBT properties.)
+
+- ManaBurstEntity (`botania:mana_burst`)
+  - `lensStack` (compound) - serialized ItemStack of the source lens (could be a terra blade or laputa shard)
+- ManaSparkEntity (`botania:spark`)
+  - `upgrade` (int) - ordinal of the applied spark augment (should probably become an item reference)
+- ThornChakramEntity (`botania:thorn_chakram`)
+  - Note: Does not reference its source item, but should probably do so, like thrown tridents.
+
+Botania mobs (Guardian of Gaia, pixies, pink wither) do not carry any items.
+
+### Botania block entities
+For now only block entities that somehow reference item stacks. (e.g. mana spreader)
+
+- SimpleInventoryBlockEntity superclass
+  - `Items` (list of compound) - list of item slots content (this is a standard vanilla feature)
+- ExposedSimpleInventoryBlockEntity superclass
+  - same as SimpleInventoryBlockEntity, except inventory is accessible to item transfer automation
+- PetalApothecaryBlockEntity (`botania:altar`)
+  - SimpleInventoryBlockEntity with 16 slots of stack size 1 for items thrown into the apothecary
+- ManaSpreaderBlockEntity (`botania:mana_spreader`)
+  - ExposedSimpleInventoryBlockEntity with a single slot of stack size 1 limited to item types implementing BasicLensItem
+  - `paddingColor` (int) - dye color ID of wool padding, -1 if no padding (should be flattened into colored spreader block types)
+  - Note: Scaffolding is a block state property.
+- RunicAltarBlockEntity (`botania:runic_altar`)
+  - SimpleInventoryBlockEntity with 16 slots of stack size 1 for items placed onto the altar, excluding the livingrock item
+- ManaEnchanterBlockEntity (`botania:enchanter`)
+  - `item` (compound) - serialized ItemStack to enchant
+  - `enchantsToApply` (string) - comma-separated pairs of enchantment ID and level (each separated by `=`) for the gathered enchantments to apply to the item
+- OpenCrateBlockEntity (`botania:open_crate`)
+  - ExposedSimpleInventoryBlockEntity with a single slot of default stack size
+- CraftyCrateBlockEntity (`botania:crafty_crate`)
+  - OpenCrateBlockEntity, except with 9 slots of stack size 1 that are potentially locked from applying a crafting pattern
+  - `craft_result` (compound) - serialized ItemStack representing the crafting result item to eject (temporary value, probably never actually set)
+- PlatformBlockEntity (`botania:platform`)
+  - `camo` (compound) - serialized block state to disguise this platform as (not actually an item); in the past, mana glass was used to make platforms invisible, but the current implementation uses `minecraft:barrier` instead
+- AlfheimPortalBlockEntity (`botania:alfheim_portal`)
+  - `stackCount` (int) - number of item stacks currently stored in the portal
+  - `portalStack` + number (compound) - serialized ItemStack at that index pf the stored items list
+  - Note: Stack containing more than a one item are split up into stacks of single items before being stored
+- TinyPotatoBlockEntity (`botania:tiny_potato`)
+  - ExposedSimpleInventoryBlockEntity with 6 slots of stack size 1 for equipment
+  - Note: Should probably store data of the tiny potato item used to place it, instead of just the name.
+- BreweryBlockEntity (`botania:brewery`)
+  - SimpleInventoryBlockEntity with 7 slots of stack size 1 (index 0 is the brew container item to infuse)
+- ManaPrismBlockEntity (`botania:prism`)
+  - ExposedSimpleInventoryBlockEntity with a single slot of stack size 1 limited to item types implementing BasicLensItem
+- CorporeaCrystalCubeBlockEntity (`botania:corporea_crystal_cube`)
+  - `requestTarget` (compound) - serialized ItemStack of size 1 for the request target item
+- IncensePlateBlockEntity (`botania:incense_plate`)
+  - ExposedSimpleInventoryBlockEntity with a single slot restricted to infused incense sticks
+- HoveringHourglassBlockEntity (`botania:hourglass`)
+  - ExposedSimpleInventoryBlockEntity with a single slot restricted to sand, red sand, soul sand, or mana powder items
+- SparkTinkererBlockEntity (`botania:spark_changer`)
+  - ExposedSimpleInventoryBlockEntity with a single slot of stack size 1, restricted to items extending SparkAugmentItem
+- CacophoniumBlockEntity (`botania:cacophonium_block`)
+  - `stack` (compound) - serialized ItemStack of the cacophonium used to create the block
+- AvatarBlockEntity (`botania:avatar`)
+  - SimpleInventoryBlockEntity with a single slot of stack size 1 (no restriction, this is checked when trying to give the avatar an item)
