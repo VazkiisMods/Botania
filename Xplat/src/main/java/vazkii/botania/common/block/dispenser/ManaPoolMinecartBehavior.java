@@ -33,41 +33,46 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
-		Direction enumfacing = source.getBlockState().getValue(DispenserBlock.FACING);
+		Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
 		Level world = source.getLevel();
-		double d0 = source.x() + (double) enumfacing.getStepX() * 1.125D;
-		double d1 = Math.floor(source.y()) + (double) enumfacing.getStepY();
-		double d2 = source.z() + (double) enumfacing.getStepZ() * 1.125D;
-		BlockPos blockpos = source.getPos().relative(enumfacing);
-		BlockState iblockstate = world.getBlockState(blockpos);
-		RailShape railshape = iblockstate.getBlock() instanceof BaseRailBlock ? iblockstate.getValue(((BaseRailBlock) iblockstate.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
-		double d3;
-		if (iblockstate.is(BlockTags.RAILS)) {
-			if (railshape.isAscending()) {
-				d3 = 0.6D;
+		double x = source.x() + (double) direction.getStepX() * 1.125;
+		double y = Math.floor(source.y()) + (double) direction.getStepY();
+		double z = source.z() + (double) direction.getStepZ() * 1.125;
+		BlockPos blockpos = source.getPos().relative(direction);
+		BlockState blockState = world.getBlockState(blockpos);
+		RailShape railShape = blockState.getBlock() instanceof BaseRailBlock
+				? blockState.getValue(((BaseRailBlock) blockState.getBlock()).getShapeProperty())
+				: RailShape.NORTH_SOUTH;
+		double yOffset;
+		if (blockState.is(BlockTags.RAILS)) {
+			if (railShape.isAscending()) {
+				yOffset = 0.6;
 			} else {
-				d3 = 0.1D;
+				yOffset = 0.1;
 			}
 		} else {
-			if (!iblockstate.isAir() || !world.getBlockState(blockpos.below()).is(BlockTags.RAILS)) {
+			if (!blockState.isAir() || !world.getBlockState(blockpos.below()).is(BlockTags.RAILS)) {
 				return this.behaviourDefaultDispenseItem.dispense(source, stack);
 			}
 
-			BlockState iblockstate1 = world.getBlockState(blockpos.below());
-			RailShape railshape1 = iblockstate1.getBlock() instanceof BaseRailBlock ? iblockstate1.getValue(((BaseRailBlock) iblockstate1.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
-			if (enumfacing != Direction.DOWN && railshape1.isAscending()) {
-				d3 = -0.4D;
+			BlockState blockStateBelow = world.getBlockState(blockpos.below());
+			RailShape railShapeBelow = blockStateBelow.getBlock() instanceof BaseRailBlock
+					? blockStateBelow.getValue(((BaseRailBlock) blockStateBelow.getBlock()).getShapeProperty())
+					: RailShape.NORTH_SOUTH;
+			if (direction != Direction.DOWN && railShapeBelow.isAscending()) {
+				yOffset = -0.4;
 			} else {
-				d3 = -0.9D;
+				yOffset = -0.9;
 			}
 		}
 
-		AbstractMinecart entityminecart = new ManaPoolMinecartEntity(world, d0, d1 + d3, d2);
+		// changed from vanilla, because it uses AbstractMinecart.Type enum to resolve the entity type
+		AbstractMinecart minecart = new ManaPoolMinecartEntity(world, x, y + yOffset, z);
 		if (stack.hasCustomHoverName()) {
-			entityminecart.setCustomName(stack.getHoverName());
+			minecart.setCustomName(stack.getHoverName());
 		}
 
-		world.addFreshEntity(entityminecart);
+		world.addFreshEntity(minecart);
 		stack.shrink(1);
 		return stack;
 	}

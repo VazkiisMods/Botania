@@ -26,7 +26,7 @@ public class StickBehavior extends OptionalDispenseItemBehavior {
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.getLevel();
-		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
+		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
 		BlockPos pos = source.getPos().relative(facing);
 
 		setSuccess(FloralObedienceStickItem.applyStick(world, pos));
