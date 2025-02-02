@@ -26,6 +26,7 @@ import java.util.List;
 public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	public static final int RANGE = 12;
 	public static final int SPEED = 10;
+	public static final int OVERGROWN_SPEED = SPEED / 2;
 //	private static final int MAX_GENERATIONS = 100;
 	public static final int MAX_MANA_GENERATIONS = 100;
 	public static final int MANA_PER_GEN = 60;
@@ -58,9 +59,9 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (!getLevel().isClientSide) {
-			if (getLevel().getGameTime() % SPEED == 0 && getLevel().hasNeighborSignal(getBlockPos())) {
+			if (shouldTick(getLevel().getGameTime())) {
 				runSimulation();
-			} else if ((getLevel().getGameTime() + 1) % SPEED == 0) {
+			} else if (shouldTick(getLevel().getGameTime() + 1)) {
 				int diameter = radius * 2;
 
 				for (int i = 0; i <= diameter; i++) {
@@ -74,6 +75,10 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 				}
 			}
 		}
+	}
+
+	private boolean shouldTick(long gameTime) {
+		return (gameTime % SPEED == 0 || (gameTime % (OVERGROWN_SPEED) == 0 && overgrowthBoost)) && getLevel().hasNeighborSignal(getBlockPos());
 	}
 
 	private void runSimulation() {
@@ -188,7 +193,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		private static int getCellGeneration(BlockPos pos, DandelifeonBlockEntity dandie, boolean onBoundary) {
 			BlockEntity tile = dandie.getLevel().getBlockEntity(pos);
 			if (tile instanceof CellularBlockEntity cell) {
-				return onBoundary ? (cell.hasPoweredParent(dandie.getLevel()) ? Cell.boundaryPunish(cell.getGeneration()) : Cell.DEAD) : cell.getGeneration();
+				return onBoundary ? (cell.hasActiveParent(dandie) ? Cell.boundaryPunish(cell.getGeneration()) : Cell.DEAD) : cell.getGeneration();
 			}
 
 			return Cell.DEAD;

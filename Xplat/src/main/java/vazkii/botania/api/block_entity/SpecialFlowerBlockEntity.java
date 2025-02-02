@@ -123,7 +123,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		this.isFloating = floating;
 	}
 
-	private boolean isOnSpecialSoil() {
+	public boolean isOnSpecialSoil() {
 		if (isFloating()) {
 			return false;
 		} else {
