@@ -9,7 +9,6 @@
 package vazkii.botania.mixin.client;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.authlib.GameProfile;
 
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -17,6 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.block.SkullBlock;
 
 import org.spongepowered.asm.mixin.Final;
@@ -53,7 +53,7 @@ public abstract class SkullBlockRendererMixin {
 	}
 
 	@Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
-	private static void hookGetRenderType(SkullBlock.Type type, GameProfile gameProfile, CallbackInfoReturnable<RenderType> cir) {
+	private static void hookGetRenderType(SkullBlock.Type type, ResolvableProfile profile, CallbackInfoReturnable<RenderType> cir) {
 		if (type == GaiaHeadBlock.GAIA_TYPE) {
 			GaiaHeadBlockEntityRenderer.hookGetRenderType(cir);
 		}
