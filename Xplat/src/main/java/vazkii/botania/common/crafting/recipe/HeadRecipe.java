@@ -30,9 +30,11 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.data.UuidNameProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class HeadRecipe extends RunicAltarRecipe {
 
@@ -70,7 +72,15 @@ public class HeadRecipe extends RunicAltarRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack ingr = inv.getItem(i);
 			if (ingr.is(Items.NAME_TAG)) {
-				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getHoverName().getString());
+				String nameTagText = ingr.getHoverName().getString();
+				if (isUUID(nameTagText)) {
+					// UUID
+					String PlayerName = UuidNameProvider.getPlayerNameFromUUID(nameTagText.replace("-", ""));
+					ItemNBTHelper.setString(stack, "SkullOwner", PlayerName);
+				} else {
+					// Player Name
+					ItemNBTHelper.setString(stack, "SkullOwner", ingr.getHoverName().getString());
+				}
 				break;
 			}
 		}
@@ -107,6 +117,12 @@ public class HeadRecipe extends RunicAltarRecipe {
 		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull HeadRecipe recipe) {
 			BotaniaRecipeTypes.RUNE_SERIALIZER.toNetwork(buf, recipe);
 		}
+	}
+
+	private boolean isUUID(String input) {
+		String uuidRegex = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{32}$";
+		Pattern pattern = Pattern.compile(uuidRegex);
+		return pattern.matcher(input).matches();
 	}
 
 }
