@@ -29,8 +29,8 @@ public class NaturalSpawnerMixin {
 	 * Adds the naturally-spawned tag to slimes
 	 */
 	@ModifyArg(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"),
-		method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V"
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"),
+			method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V"
 	)
 	private static Entity onSpawned(Entity entity) {
 		NarslimmusBlockEntity.onSpawn(entity);
@@ -48,8 +48,8 @@ public class NaturalSpawnerMixin {
 	}
 
 	// Jump over entity.checkSpawnRules(pos, reason) and entity.checkSpawnObstruction(pos) under Bloodlust
-	@Inject(at = @At(value = "RETURN", ordinal = 1), cancellable = true, method = "isValidPositionForMob")
-	private static void bloodthirstOverride(ServerLevel world, Mob entity, double p_234974_2_, CallbackInfoReturnable<Boolean> cir) {
+	@Inject(at = @At("RETURN"), cancellable = true, method = "isValidPositionForMob")
+	private static void bloodthirstOverride(ServerLevel world, Mob entity, double distance, CallbackInfoReturnable<Boolean> cir) {
 		if (BloodthirstMobEffect.overrideSpawn(world, entity.blockPosition(), entity.getType().getCategory())) {
 			cir.setReturnValue(true);
 		}

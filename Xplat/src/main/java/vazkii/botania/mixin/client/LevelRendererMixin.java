@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 
 import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
@@ -70,25 +71,27 @@ public class LevelRendererMixin {
 	 * Render planets and other extras, after the first invoke to ms.rotate(Y) after getRainLevel is called
 	 */
 	@Inject(
-		method = "renderSky",
-		slice = @Slice(
-			from = @At(
-				ordinal = 0, value = "INVOKE",
-				target = "Lnet/minecraft/client/multiplayer/ClientLevel;getRainLevel(F)F"
-			)
-		),
-		at = @At(
-			shift = At.Shift.AFTER,
-			ordinal = 0,
-			value = "INVOKE",
-			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionf;)V"
-		),
-		require = 0
+			method = "renderSky",
+			slice = @Slice(
+					from = @At(
+							ordinal = 0, value = "INVOKE",
+							target = "Lnet/minecraft/client/multiplayer/ClientLevel;getRainLevel(F)F"
+					)
+			),
+			at = @At(
+					shift = At.Shift.AFTER,
+					ordinal = 0,
+					value = "INVOKE",
+					target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionf;)V"
+			),
+			require = 0
 	)
-	private void renderExtras(PoseStack ms, Matrix4f projMat, float partialTicks, Camera camera,
-			boolean foggy, Runnable resetFog, CallbackInfo ci) {
+	private void renderExtras(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera,
+							  boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
 		if (isGogSky()) {
-			SkyblockSkyRenderer.renderExtra(ms, Minecraft.getInstance().level, partialTicks, 0);
+			PoseStack poseStack = new PoseStack();
+			poseStack.mulPose(frustumMatrix);
+			SkyblockSkyRenderer.renderExtra(poseStack, Minecraft.getInstance().level, partialTick, 0);
 		}
 	}
 
@@ -96,14 +99,14 @@ public class LevelRendererMixin {
 	 * Make the sun bigger by scaling it to double size
 	 */
 	@ModifyVariable(
-		method = "renderSky",
-		slice = @Slice(
-			from = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getTimeOfDay(F)F"),
-			to = @At(ordinal = 0, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V")
-		),
-		at = @At(value = "CONSTANT", args = "floatValue=30.0"),
-		ordinal = 1,
-		require = 0
+			method = "renderSky",
+			slice = @Slice(
+					from = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getTimeOfDay(F)F"),
+					to = @At(ordinal = 0, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V")
+			),
+			at = @At(value = "CONSTANT", args = "floatValue=30.0"),
+			ordinal = 1,
+			require = 0
 	)
 	private Matrix4f makeSunBigger(Matrix4f matrix) {
 		if (isGogSky()) {
@@ -118,14 +121,14 @@ public class LevelRendererMixin {
 	 * Make the moon bigger by scaling it to triple size (the matrix is already scaled on the call above)
 	 */
 	@ModifyVariable(
-		method = "renderSky",
-		slice = @Slice(
-			from = @At(ordinal = 0, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"),
-			to = @At(ordinal = 1, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V")
-		),
-		at = @At(value = "CONSTANT", args = "floatValue=20.0"),
-		ordinal = 1,
-		require = 0
+			method = "renderSky",
+			slice = @Slice(
+					from = @At(ordinal = 0, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"),
+					to = @At(ordinal = 1, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V")
+			),
+			at = @At(value = "CONSTANT", args = "floatValue=20.0"),
+			ordinal = 1,
+			require = 0
 	)
 	private Matrix4f makeMoonBigger(Matrix4f matrix) {
 		if (isGogSky()) {
@@ -138,31 +141,34 @@ public class LevelRendererMixin {
 	 * Render lots of extra stars
 	 */
 	@Inject(
-		method = "renderSky",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getStarBrightness(F)F"),
-		require = 0
+			method = "renderSky",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getStarBrightness(F)F"),
+			require = 0
 	)
-	private void renderExtraStars(PoseStack ms, Matrix4f projMat, float partialTicks, Camera camera,
-			boolean foggy, Runnable resetFog, CallbackInfo ci) {
+	private void renderExtraStars(Matrix4f frustumMatrix, Matrix4f projectionMatrix, float partialTick, Camera camera,
+								  boolean isFoggy, Runnable skyFogSetup, CallbackInfo ci) {
 		if (isGogSky()) {
-			SkyblockSkyRenderer.renderStars(starBuffer, ms, projMat, partialTicks, resetFog);
+			PoseStack poseStack = new PoseStack();
+			poseStack.mulPose(frustumMatrix);
+			SkyblockSkyRenderer.renderStars(starBuffer, poseStack, projectionMatrix, partialTick, skyFogSetup);
 		}
 	}
 
 	@SuppressWarnings("mapping") // applyModelViewMatrix is unobfuscated - not mapped on Fabric, mapped on Forge
 	@Inject(
-		method = "renderLevel",
-		at = @At(
-			shift = At.Shift.AFTER,
-			value = "INVOKE",
-			target = "Lcom/mojang/blaze3d/systems/RenderSystem;applyModelViewMatrix()V",
-			ordinal = 0 // after debugRenderer, before a long sequence of endBatch calls
-		)
+			method = "renderLevel",
+			at = @At(
+					shift = At.Shift.AFTER,
+					value = "INVOKE",
+					target = "Lcom/mojang/blaze3d/systems/RenderSystem;applyModelViewMatrix()V",
+					ordinal = 0 // after debugRenderer, before a long sequence of endBatch calls
+			)
 	)
-	private void renderOverlays(PoseStack ps, float partialTicks, long unknown, boolean drawBlockOutline,
-			Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f projMat, CallbackInfo ci) {
+	private void renderOverlays(DeltaTracker deltaTracker, boolean renderBlockOutline, Camera camera,
+								GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f frustumMatrix, Matrix4f projectionMatrix, CallbackInfo ci) {
 		// Called from our own mixin instead of e.g. Forge's render world last event,
 		// because that event is too late for Fabulous mode
-		WorldOverlays.renderWorldLast(camera, partialTicks, ps, renderBuffers, level);
+		PoseStack poseStack = new PoseStack();
+		WorldOverlays.renderWorldLast(camera, deltaTracker.getGameTimeDeltaPartialTick(false), poseStack, renderBuffers, level);
 	}
 }
