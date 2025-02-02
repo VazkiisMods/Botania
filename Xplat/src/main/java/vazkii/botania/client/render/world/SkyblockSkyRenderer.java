@@ -73,7 +73,7 @@ public class SkyblockSkyRenderer {
 			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, scale, 100, -scale).setUv(1.0F, 0.0F);
 			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, scale, 100, scale).setUv(1.0F, 1.0F);
 			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX).addVertex(mat, -scale, 100, scale).setUv(0.0F, 1.0F);
-			tessellator.end();
+			tessellator.clear();
 
 			switch (p) {
 				case 0 -> {
@@ -147,7 +147,7 @@ public class SkyblockSkyRenderer {
 				}
 
 			}
-			tessellator.end();
+			tessellator.clear();
 
 			switch (p) {
 				case 0 -> {
@@ -209,7 +209,7 @@ public class SkyblockSkyRenderer {
 			}
 
 		}
-		tessellator.end();
+		tessellator.clear();
 		ms.popPose();
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F - insideVoid);
 		GlStateManager._blendFuncSeparate(770, 1, 1, 0);

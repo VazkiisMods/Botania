@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.PlayerAccess;
@@ -48,8 +47,8 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 
 	// Clear the entity on any return after the capture.
 	@Inject(
-		at = @At(value = "RETURN"), method = "attack",
-		slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getKnockbackBonus(Lnet/minecraft/world/entity/LivingEntity;)I"))
+		at = @At(value = "RETURN"),
+		method = "attack"
 	)
 	private void clearCritTarget(CallbackInfo ci) {
 		this.terraWillCritTarget = null;
