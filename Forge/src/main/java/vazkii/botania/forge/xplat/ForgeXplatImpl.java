@@ -227,11 +227,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
 		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
-							IFluidHandler.FluidAction.SIMULATE);
+					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success) {
-						h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
 						item.setItem(h.getContainer());
 					}
 					return success;
@@ -244,11 +243,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		var stack = player.getItemInHand(hand);
 		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
-							IFluidHandler.FluidAction.SIMULATE);
+					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
 					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success && !player.getAbilities().instabuild) {
-						h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
+						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
 						player.setItemInHand(hand, h.getContainer());
 					}
 					return success;
