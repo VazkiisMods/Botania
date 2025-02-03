@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -22,39 +23,47 @@ import vazkii.botania.common.handler.BotaniaSounds;
 public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	public static final int COOLDOWN_TICKS_MULTIPLER = 400;
 	public static final String TAG_COOLDOWN_MAGNITUDE = "cooldownStrength";
+	public static final int FAST_PROVIDE_TICKS = 10;
+	public static final int MAX_HEAT = 25;
 
 	private int cooldownStrength = 15;
-	public static final int[] COOLDOWN_ROLL_PDF = { 10, 5, 3, 2, 1, 1, 3, 3, 3, 2, 1, 1, 1, 2, 2 };
-	public static final int COOLDOWN_ROLL_TOTAL;
-
-	static {
-		int acc = 0;
-		for (var i : COOLDOWN_ROLL_PDF) {
-			acc += i;
-		}
-		COOLDOWN_ROLL_TOTAL = acc;
-	}
+	private int ticksSinceFueled = 0;
+	private int heat;
 
 	public ThermalilyBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 600, 45);
+		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 600);
+	}
+
+	@Override
+	public int manaPerTick() {
+		return 45 + heat * 2;
 	}
 
 	@Override
 	public int getCooldownTime(boolean finishedPrevious) {
 		if (finishedPrevious) {
-			cooldownStrength = rollNewCooldownStrength(getLevel().getRandom());
+			cooldownStrength = rollNewCooldownStrength(getLevel().getRandom(), heat);
 		}
 		return COOLDOWN_TICKS_MULTIPLER * cooldownStrength;
 	}
 
-	public static int rollNewCooldownStrength(RandomSource random) {
-		var total = random.nextInt(COOLDOWN_ROLL_TOTAL);
-		var index = 0;
-		while (total >= COOLDOWN_ROLL_PDF[index]) {
-			total -= COOLDOWN_ROLL_PDF[index];
-			index++;
+	public static int rollNewCooldownStrength(RandomSource random, int bias) {
+		return Math.min(Math.max(Math.round(Mth.normal(random, 10 - bias / 3, 4 - bias / 10)), 1), 15);
+	}
+
+	@Override
+	public void tickFlower() {
+		super.tickFlower();
+		if (burnTime == 0 && cooldown == 0) {
+			ticksSinceFueled++;
+		} else if (burnTime == startBurnTime) {
+			if (ticksSinceFueled <= FAST_PROVIDE_TICKS) {
+				heat = heat < MAX_HEAT ? heat + 1 : heat;
+			} else {
+				heat = 0;
+			}
+			ticksSinceFueled = 0;
 		}
-		return index + 1;
 	}
 
 	@Override
