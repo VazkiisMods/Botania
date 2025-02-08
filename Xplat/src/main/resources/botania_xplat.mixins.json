@@ -27,6 +27,7 @@
     "GrowingPlantBodyBlockMixin",
     "HopperBlockEntityAccessor",
     "HurtByTargetGoalAccessor",
+    "HurtByTargetGoalMixin",
     "InventoryAccessor",
     "ItemEntityAccessor",
     "ItemEntityMixin",

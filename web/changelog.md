@@ -40,6 +40,7 @@ thanks to Wormbo for a lot of work on this feature!
 * Fix: Proper support for NBT-based food items on Forge to prevent crash if they don't implement the vanilla method to get food properties
 * Fix: Potential crash with certain modded dispenser variants when trying to attach a mana/corporea spark or applying a Wand of the Forest or Floral Obedience Stick that way
 * Fix: Failed access to bound inventory via red-stringed container on Fabric without specifying a direction (e.g. by looking at one with WTHIT)
+* Fix: Charm of the Diva now also works with Trinkets 3.7.2 (by not using a hacky NBT-based workaround)
 * Language update:
   * de_de completed (Wormbo, thanks to Kartabass and PssbleTrngle for reviewing)
   * ko_kr updated (UnineVesiKass)
