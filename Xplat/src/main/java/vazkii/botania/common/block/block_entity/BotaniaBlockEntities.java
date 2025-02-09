@@ -112,6 +112,8 @@ public class BotaniaBlockEntities {
 	public static void registerWandHudCaps(BECapConsumer<WandHUD> consumer) {
 		consumer.accept(be -> new AnimatedTorchBlockEntity.WandHud((AnimatedTorchBlockEntity) be), BotaniaBlockEntities.ANIMATED_TORCH);
 		consumer.accept(be -> new BreweryBlockEntity.WandHud((BreweryBlockEntity) be), BotaniaBlockEntities.BREWERY);
+		consumer.accept(be -> new CorporeaFunnelBlockEntity.WandHud((CorporeaFunnelBlockEntity) be), BotaniaBlockEntities.CORPOREA_FUNNEL);
+		consumer.accept(be -> new CorporeaInterceptorBlockEntity.WandHud((CorporeaInterceptorBlockEntity) be), BotaniaBlockEntities.CORPOREA_INTERCEPTOR);
 		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), BotaniaBlockEntities.CORPOREA_RETAINER);
 		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), BotaniaBlockEntities.CRAFT_CRATE);
 		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), BotaniaBlockEntities.ENCHANTER);

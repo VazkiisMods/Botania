@@ -13,6 +13,7 @@
     "BiomeAccessor",
     "BlockModelGeneratorsAccessor",
     "BlockPropertiesAccessor",
+    "BundleItemAccessor",
     "BushBlockMixin",
     "CollectingNeighborUpdaterMixin",
     "CreeperAccessor",
