@@ -11,12 +11,14 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
@@ -62,7 +64,7 @@ public class WeightLens extends Lens {
 		if (harvestToolStack.isEmpty()) {
 			return false;
 		}
-		harvestToolStack.enchant(Enchantments.SILK_TOUCH, 1);
+		harvestToolStack.enchant(level.holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 1);
 
 		Item blockItem = state.getBlock().asItem();
 		for (var drop : Block.getDrops(state, level, pos, null, owner, harvestToolStack)) {

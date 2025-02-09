@@ -1,8 +1,11 @@
 package vazkii.botania.test.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -92,10 +95,10 @@ public class SpectatorScanTest {
 
 		// set loot tables
 		var lootChestCart = helper.spawn(EntityType.CHEST_MINECART, POSITION_CART_LOOT);
-		lootChestCart.setLootTable(ResourceLocation.parse(LOOT_TABLE_CART), 1L);
+		lootChestCart.setLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(LOOT_TABLE_CART)), 1L);
 
 		var lootChest = TestingUtil.assertBlockEntity(helper, POSITION_CHEST_LOOT, BlockEntityType.CHEST);
-		lootChest.setLootTable(ResourceLocation.parse(LOOT_TABLE_CHEST), 1L);
+		lootChest.setLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse(LOOT_TABLE_CHEST)), 1L);
 
 		// set up player
 		var player = helper.makeMockPlayer(GameType.CREATIVE);

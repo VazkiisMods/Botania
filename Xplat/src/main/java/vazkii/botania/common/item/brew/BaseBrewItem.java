@@ -19,6 +19,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -53,7 +54,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return drinkSpeed;
 	}
 
@@ -151,7 +152,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 
 	@NotNull
 	public static String getSubtype(ItemStack stack) {
-		return stack.hasTag() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") : "none";
+		return /*todo stack.hasTag() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") :*/ "none";
 	}
 
 	public int getSwigs() {

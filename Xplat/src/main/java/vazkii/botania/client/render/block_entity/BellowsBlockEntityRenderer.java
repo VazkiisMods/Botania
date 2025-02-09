@@ -57,7 +57,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
 		ms.mulPose(VecHelper.rotateY(angle));
 		float fract = Math.max(0.1F, 1F - (bellows == null ? 0 : bellows.movePos + bellows.moving * f + 0.1F));
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
-		model.render(ms, buffer, light, overlay, 1, 1, 1, 1, fract);
+		model.render(ms, buffer, light, overlay, 0xFFFFFF, fract);
 		ms.popPose();
 	}
 

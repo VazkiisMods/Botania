@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -43,7 +44,7 @@ public class EnderAirEntity extends Entity {
 				double x = this.getX() + random.nextDouble();
 				double y = this.getY() + random.nextDouble();
 				double z = this.getZ() + random.nextDouble();
-				level().addAlwaysVisibleParticle(ParticleTypes.ENTITY_EFFECT, x, y, z, r, g, b);
+				level().addAlwaysVisibleParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, r, g, b), x, y, z, r, g, b); //Todo why are the rgb values used for the particle speed?
 			}
 		}
 	}

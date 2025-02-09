@@ -3,7 +3,10 @@ package vazkii.botania.mixin;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.LoomMenu;
@@ -31,10 +34,12 @@ public abstract class LoomMenuMixin extends AbstractContainerMenu {
 		super(menuType, containerId);
 	}
 
+	@Shadow @Final private HolderGetter<BannerPattern> patternGetter;
+
 	@Inject(at = @At("HEAD"), method = "getSelectablePatterns(Lnet/minecraft/world/item/ItemStack;)Ljava/util/List;", cancellable = true)
 	private void handleBotaniaPatternItems(ItemStack stack, CallbackInfoReturnable<List<Holder<BannerPattern>>> cir) {
 		if (stack.getItem() instanceof ItemWithBannerPattern p) {
-			cir.setReturnValue(BuiltInRegistries.BANNER_PATTERN.getTag(p.getBannerPattern())
+			cir.setReturnValue(this.patternGetter.get(p.getBannerPattern())
 					.map(ImmutableList::copyOf).orElse(ImmutableList.of()));
 		}
 	}
