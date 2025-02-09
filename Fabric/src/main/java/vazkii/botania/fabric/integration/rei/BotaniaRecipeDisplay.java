@@ -18,13 +18,14 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import net.minecraft.world.item.crafting.RecipeInput;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implements Display {
+public abstract class BotaniaRecipeDisplay<T extends Recipe<RecipeInput>> implements Display {
 	protected final RecipeHolder<? extends T> recipe;
 	protected List<EntryIngredient> inputs;
 	protected EntryIngredient outputs;

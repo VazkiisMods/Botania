@@ -36,8 +36,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.List;
 
 public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, CustomCreativeTabContents {
-
-	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
+	//Todo convert to data component
+	//public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
 	public LexicaBotaniaItem(Properties settings) {
 		super(settings);
@@ -51,7 +51,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
 		output.accept(this);
 		ItemStack creative = new ItemStack(this);
-		creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
+		//creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
 		output.accept(creative);
 	}
 
@@ -86,17 +86,20 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 		Component title = stack.getHoverName();
 
 		// Akashic tome tag contains a `text` field, which is a stringified text component
+		/*
 		String akashicTomeNBT = "akashictome:displayName";
 		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
 			CompoundTag nameTextComponent = stack.getTag().getCompound(akashicTomeNBT);
 			title = Component.Serializer.fromJson(nameTextComponent.getString("text"));
 		}
 
+		 */
+
 		return title;
 	}
 
 	public static boolean isElven(ItemStack stack) {
-		return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
+		return /*stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK)*/ false;
 	}
 
 	// Random item to expose this as public

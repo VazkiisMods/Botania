@@ -13,6 +13,8 @@ import com.google.common.collect.Iterables;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -274,7 +276,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		}
 
-		int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, tool);
+		int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(player.level().holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), tool);
 		discount += unbreaking * 0.05F;
 		discount = XplatAbstractions.INSTANCE.fireManaDiscountEvent(player, discount, tool);
 

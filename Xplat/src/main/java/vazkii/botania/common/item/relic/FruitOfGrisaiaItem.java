@@ -36,7 +36,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 32;
 	}
 

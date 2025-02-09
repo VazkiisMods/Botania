@@ -18,6 +18,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ColorRGBA;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -30,6 +32,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.AvatarModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -55,7 +58,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 		ms.scale(1F, -1F, -1F);
 		ms.mulPose(VecHelper.rotateY(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.get3DDataValue() - 2), 0)]));
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
-		model.renderToBuffer(ms, buffer, light, overlay, 1, 1, 1, 1);
+		model.renderToBuffer(ms, buffer, light, overlay, 0xFFFFFF);
 
 		if (avatar != null) {
 			ItemStack stack = avatar.getItemHandler().getItem(0);
@@ -78,7 +81,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 					ms.scale(s, s, s);
 					ms.translate(0F, -0.01F, 0F);
 					float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
-					model.renderToBuffer(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
+					model.renderToBuffer(ms, buffer, 0xF000F0, overlay, FastColor.ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F));
 					ms.popPose();
 				}
 			}

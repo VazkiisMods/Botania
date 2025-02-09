@@ -66,7 +66,7 @@ public class LooniumComponent extends SerializableComponent {
 	@Override
 	public void readFromNbt(CompoundTag tag) {
 		if (tag.contains(TAG_TO_DROP)) {
-			setDrop(ItemStack.of(tag.getCompound(TAG_TO_DROP)));
+			//todo setDrop(ItemStack.of(tag.getCompound(TAG_TO_DROP)));
 		} else {
 			setDrop(ItemStack.EMPTY);
 		}
@@ -82,7 +82,7 @@ public class LooniumComponent extends SerializableComponent {
 	public void writeToNbt(CompoundTag tag) {
 		if (isOverrideDrop()) {
 			if (!getDrop().isEmpty()) {
-				tag.put(TAG_TO_DROP, getDrop().save(new CompoundTag()));
+				//todo tag.put(TAG_TO_DROP, getDrop().save(new CompoundTag()));
 			}
 			tag.putBoolean(TAG_OVERRIDE_DROP, true);
 		}

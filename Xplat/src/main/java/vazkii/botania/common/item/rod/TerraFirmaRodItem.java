@@ -51,13 +51,13 @@ public class TerraFirmaRodItem extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 72000;
 	}
 
 	@Override
 	public void onUseTick(@NotNull Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
-		if (count != getUseDuration(stack) && count % 10 == 0 && living instanceof Player player) {
+		if (count != getUseDuration(stack, living) && count % 10 == 0 && living instanceof Player player) {
 			terraform(stack, world, player);
 		}
 	}

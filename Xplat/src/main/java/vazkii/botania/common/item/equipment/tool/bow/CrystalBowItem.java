@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -60,7 +61,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 			boolean canMaterializeArrow = canFire(stack, player); // Botania - custom check
 			ItemStack arrowStack = player.getProjectile(stack);
 
-			int i = (int) ((getUseDuration(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
+			int i = (int) ((getUseDuration(stack, entityLiving) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
 			if (i < 0) {
 				return;
 			}
@@ -75,23 +76,25 @@ public class CrystalBowItem extends LivingwoodBowItem {
 					boolean markUnpickable = player.getAbilities().instabuild || arrowStack.is(Items.ARROW); // Botania
 					if (!level.isClientSide) {
 						ArrowItem arrowItem = (ArrowItem) (arrowStack.getItem() instanceof ArrowItem ? arrowStack.getItem() : Items.ARROW);
-						AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, player);
+						AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, player, stack);
 						arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
 						if (power == 1.0F) {
 							arrow.setCritArrow(true);
 						}
 
-						int powerEnch = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
+						var enchantLookup = player.level().holderLookup(Registries.ENCHANTMENT);
+
+						int powerEnch = EnchantmentHelper.getItemEnchantmentLevel(enchantLookup.getOrThrow(Enchantments.POWER), stack);
 						if (powerEnch > 0) {
 							arrow.setBaseDamage(arrow.getBaseDamage() + (double) powerEnch * 0.5D + 0.5D);
 						}
 
-						int knockback = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH_ARROWS, stack);
+						int knockback = EnchantmentHelper.getItemEnchantmentLevel(enchantLookup.getOrThrow(Enchantments.PUNCH), stack);
 						if (knockback > 0) {
 							arrow.setKnockback(knockback);
 						}
 
-						if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FLAME, stack) > 0) {
+						if (EnchantmentHelper.getItemEnchantmentLevel(enchantLookup.getOrThrow(Enchantments.FLAME), stack) > 0) {
 							arrow.setRemainingFireTicks(100 * 20);
 						}
 

@@ -89,7 +89,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 		if (entity instanceof Mob target
 				&& !target.level().isClientSide
 				// TODO 1.21: Use an actual boss identification method (likely via entity tag)
-				&& target.canChangeDimensions()
+				/*&& target.canChangeDimensions()*/
 				&& Math.random() < 0.6) {
 			MinecraftServer server = player.level().getServer();
 			ItemStack amulet = EquipmentHandler.findOrEmpty(BotaniaItems.divaCharm, player);

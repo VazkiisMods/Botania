@@ -53,10 +53,13 @@ public class AdvancementProvider {
 
 		@Override
 		public void generate(HolderLookup.Provider lookup, Consumer<AdvancementHolder> consumer) {
+			/*todo
 			var elvenLexiconUnlock = new CompoundTag();
 			elvenLexiconUnlock.putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
+
+			 */
 			Criterion<InventoryChangeTrigger.TriggerInstance> elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
-					ItemPredicate.Builder.item().of(BotaniaItems.lexicon).hasNbt(elvenLexiconUnlock).build()
+					ItemPredicate.Builder.item().of(BotaniaItems.lexicon)/*todo .hasNbt(elvenLexiconUnlock)*/.build()
 			);
 
 			// Main progression line
@@ -230,14 +233,14 @@ public class AdvancementProvider {
 					.addCriterion("use_spawner_mover", UseItemSuccessTrigger.Instance.used(BotaniaItems.spawnerMover))
 					.save(consumer, mainId("spawner_mover_use"));
 			DisplayInfo tiaraWings = simple(BotaniaItems.flightTiara, "tiaraWings", AdvancementType.TASK);
-			tiaraWings.getIcon().getOrCreateTag().putInt("variant", 1);
+			//todo tiaraWings.getIcon().getOrCreateTag().putInt("variant", 1);
 			Criterion<?>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
 					.mapToObj(i -> {
 						CompoundTag tag = new CompoundTag();
 						tag.putInt("variant", i);
 						return tag;
 					})
-					.map(nbt -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara).hasNbt(nbt).build())
+					.map(nbt -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara)/*todo .hasNbt(nbt)*/.build())
 					.map(InventoryChangeTrigger.TriggerInstance::hasItems)
 					.toArray(Criterion<?>[]::new);
 			var builder = Advancement.Builder.advancement()
@@ -421,7 +424,7 @@ public class AdvancementProvider {
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(65))
 					.addCriterion("use_l20_shard", InventoryChangeTrigger.TriggerInstance.hasItems(
-							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard).hasNbt(level20Shard).build()))
+							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard)/*todo .hasNbt(level20Shard)*/.build()))
 					.save(consumer, challengeId("l20_shard_use"));
 			Advancement.Builder.advancement()
 					.display(hidden(Items.BREAD, "alfPortalBread", AdvancementType.CHALLENGE))

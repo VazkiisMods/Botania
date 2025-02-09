@@ -152,7 +152,7 @@ public final class RenderHelper extends RenderType {
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.createCompositeState(true);
-		LIGHT_RELAY = makeLayer(ResourcesLib.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
+		LIGHT_RELAY = makeLayer(ResourcesLib.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, glState);
 
 		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
 				.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
@@ -186,7 +186,7 @@ public final class RenderHelper extends RenderType {
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setCullState(NO_CULL)
 				.createCompositeState(true);
-		BABYLON_ICON = makeLayer(ResourcesLib.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
+		BABYLON_ICON = makeLayer(ResourcesLib.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, glState);
 
 		RenderStateShard.TextureStateShard haloTexture = new RenderStateShard.TextureStateShard(FlugelTiaraItem.textureHalo, false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(haloTexture)
@@ -194,7 +194,7 @@ public final class RenderHelper extends RenderType {
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setCullState(NO_CULL)
 				.createCompositeState(true);
-		HALO = makeLayer(ResourcesLib.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
+		HALO = makeLayer(ResourcesLib.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, glState);
 
 		// [VanillaCopy] End portal, with own shader
 		glState = RenderType.CompositeState.builder()
@@ -259,11 +259,11 @@ public final class RenderHelper extends RenderType {
 
 	public static RenderType getHaloLayer(ResourceLocation texture) {
 		RenderType.CompositeState glState = RenderType.CompositeState.builder()
-				.setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
+				.setShaderState(new ShaderStateShard(GameRenderer::getPositionTexColorShader))
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
 				.setCullState(new RenderStateShard.CullStateShard(false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY).createCompositeState(false);
-		return makeLayer(ResourcesLib.PREFIX_MOD + "crafting_halo", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, false, true, glState);
+		return makeLayer(ResourcesLib.PREFIX_MOD + "crafting_halo", DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 64, false, true, glState);
 	}
 
 	private static final Function<ResourceLocation, RenderType> DOPPLEGANGER = Util.memoize(texture -> {

@@ -165,7 +165,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		super.readFromPacketNBT(cmp, registries);
 
 		if (cmp.contains(TAG_BINDING)) {
-			bindingPos = NbtUtils.readBlockPos(cmp.getCompound(TAG_BINDING));
+			//todo bindingPos = NbtUtils.readBlockPos(cmp.getCompound(TAG_BINDING));
 		} else {
 			//In older versions of the mod (1.16, early 1.17), GeneratingFlowerBlockEntity and SpecialFlowerBlockEntity
 			//implemented their own copies of the binding logic. Read data from the old locations.
