@@ -158,7 +158,7 @@ public final class BotaniaBlocks {
 	public static final Block petalBlockRed = new PetalBlock(DyeColor.RED, BlockBehaviour.Properties.copy(petalBlockWhite).mapColor(DyeColor.RED));
 	public static final Block petalBlockBlack = new PetalBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(petalBlockWhite).mapColor(DyeColor.BLACK));
 
-	public static final Block whiteMushroom = new BotaniaMushroomBlock(DyeColor.WHITE, BlockBehaviour.Properties.copy(whiteFlower).lightLevel(s -> 3));
+	public static final Block whiteMushroom = new BotaniaMushroomBlock(DyeColor.WHITE, BlockBehaviour.Properties.copy(whiteFlower).lightLevel(s -> 3).offsetType(BlockBehaviour.OffsetType.NONE));
 	public static final Block orangeMushroom = new BotaniaMushroomBlock(DyeColor.ORANGE, BlockBehaviour.Properties.copy(whiteMushroom));
 	public static final Block magentaMushroom = new BotaniaMushroomBlock(DyeColor.MAGENTA, BlockBehaviour.Properties.copy(whiteMushroom));
 	public static final Block lightBlueMushroom = new BotaniaMushroomBlock(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.copy(whiteMushroom));
