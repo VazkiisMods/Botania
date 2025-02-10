@@ -55,6 +55,7 @@
     "ServerLevelMixin",
     "ServerPlayerGameModeAccessor",
     "ServerPlayerMixin",
+    "ServerPlayerMixin$ContainerListenerMixin",
     "SpawnPlacementsMixin",
     "StatsAccessor",
     "TextureSlotAccessor",

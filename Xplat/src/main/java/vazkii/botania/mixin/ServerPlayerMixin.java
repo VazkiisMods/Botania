@@ -10,6 +10,8 @@ package vazkii.botania.mixin;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,4 +41,14 @@ public class ServerPlayerMixin {
 		}
 	}
 
+	@Mixin(targets = "net/minecraft/server/level/ServerPlayer$2")
+	public static class ContainerListenerMixin {
+		@Inject(at = @At("HEAD"), method = "slotChanged", cancellable = true)
+		private void onSlotChanged(AbstractContainerMenu containerMenu, int slotIndex, ItemStack itemStack, CallbackInfo ci) {
+			// ManaItems update frequently - skip advancement processing for them
+			if (XplatAbstractions.INSTANCE.findManaItem(itemStack) != null) {
+				ci.cancel();
+			}
+		}
+	}
 }
