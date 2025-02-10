@@ -32,7 +32,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
 		ImmutableList.Builder<ElvenTradeRecipe> builder = ImmutableList.builder();
-		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
+		for (IVariable s : variables.get("recipes", level.registryAccess()).asListOrSingleton(level.registryAccess())) {
 			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE, ResourceLocation.parse(s.asString()));
 			if (recipe != null) {
 				builder.add(recipe);
@@ -62,11 +62,11 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("heading")) {
-			return IVariable.from(recipes.get(0).getOutputs().get(0).getHoverName());
+			return IVariable.from(recipes.get(0).getOutputs().get(0).getHoverName(), level.registryAccess());
 		} else if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			if (index < mostInputs) {
-				return interweaveIngredients(index);
+				return interweaveIngredients(index, level);
 			} else {
 				return null;
 			}
@@ -76,14 +76,14 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 			if (index < mostOutputs) {
 				return IVariable.wrapList(recipes.stream().map(ElvenTradeRecipe::getOutputs)
 						.map(l -> index < l.size() ? l.get(index) : ItemStack.EMPTY)
-						.map(IVariable::from)
-						.collect(Collectors.toList()));
+						.map(o -> IVariable.from(o, level.registryAccess()))
+						.collect(Collectors.toList()), level.registryAccess());
 			}
 		}
 		return null;
 	}
 
-	private IVariable interweaveIngredients(int inputIndex) {
+	private IVariable interweaveIngredients(int inputIndex, Level level) {
 		List<Ingredient> recipes = this.recipes.stream().map(ElvenTradeRecipe::getIngredients).map(ingredients -> {
 			if (inputIndex < ingredients.size()) {
 				return ingredients.get(inputIndex);
@@ -91,7 +91,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 				return Ingredient.EMPTY;
 			}
 		}).collect(Collectors.toList());
-		return PatchouliUtils.interweaveIngredients(recipes, longestIngredientSize);
+		return PatchouliUtils.interweaveIngredients(recipes, longestIngredientSize, level);
 	}
 
 }

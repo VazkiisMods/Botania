@@ -161,7 +161,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		}
 	};
 
-	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super RecipeHolder<T>> comparator) {
+	private static <T extends Recipe<C>, C extends RecipeInput> List<T> sortRecipes(RecipeType<T> type, Comparator<? super RecipeHolder<T>> comparator) {
 		return Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(type)
 				.stream().sorted(comparator).map(RecipeHolder::value).toList();
 	}

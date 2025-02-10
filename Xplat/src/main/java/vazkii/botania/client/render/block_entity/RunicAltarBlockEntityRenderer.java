@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
@@ -136,7 +137,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 				}
 
 				VertexConsumer buffer = buffers.getBuffer(curIter < iters ? RenderType.entityTranslucentCull(cubeTex) : RenderType.entitySolid(cubeTex));
-				spinningCube.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
+				spinningCube.render(ms, buffer, 0xF000F0, overlay, FastColor.ARGB32.colorFromFloat(alpha, 1, 1, 1));
 
 				ms.popPose();
 			}

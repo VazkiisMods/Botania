@@ -25,6 +25,7 @@ import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.block.SkullBlock;
 
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -65,9 +66,9 @@ public class GaiaHeadBlockEntityRenderer extends SkullBlockRenderer {
 
 	public static void hookGetRenderType(CallbackInfoReturnable<RenderType> cir) {
 		SkullBlock.Type type = getViewType();
-		GameProfile profile = null;
+		ResolvableProfile profile = null;
 		if (type == SkullBlock.Types.PLAYER && Minecraft.getInstance().getCameraEntity() instanceof Player player) {
-			profile = player.getGameProfile();
+			profile = new ResolvableProfile(player.getGameProfile());
 		}
 
 		RenderType layer = SkullBlockRenderer.getRenderType(type, profile);

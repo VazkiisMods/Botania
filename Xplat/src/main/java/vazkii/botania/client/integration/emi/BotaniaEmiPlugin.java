@@ -138,13 +138,13 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibi));
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibiFloating));
 
-		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.brewVial, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.bloodPendant, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareNbt());
-		// Disables the ability to see the no wings tiara recipe, probably an nbt mismatch
-		//registry.setDefaultComparison(BotaniaItems.flightTiara, compareNbt);
+		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.brewVial, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.bloodPendant, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareComponents());
+		// Disables the ability to see the no wings tiara recipe, probably an nbt mismatch todo check if this is still the case for data components
+		//registry.setDefaultComparison(BotaniaItems.flightTiara, compareComponents);
 
 		registry.addRecipe(new AncientWillEmiRecipe(EmiStack.of(BotaniaItems.terrasteelHelm), EmiIngredient.of(List.of(
 				EmiStack.of(BotaniaItems.ancientWillAhrim),

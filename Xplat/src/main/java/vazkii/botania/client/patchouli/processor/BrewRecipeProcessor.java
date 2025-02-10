@@ -29,7 +29,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		ResourceLocation id = ResourceLocation.parse(variables.get("recipe").asString());
+		ResourceLocation id = ResourceLocation.parse(variables.get("recipe", level.registryAccess()).asString());
 		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.BREW_TYPE, id);
 	}
 
@@ -41,18 +41,18 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 			}
 			return null;
 		} else if (key.equals("heading")) {
-			return IVariable.from(Component.translatable("botaniamisc.brewOf", Component.translatable(recipe.getBrew().getTranslationKey())));
+			return IVariable.from(Component.translatable("botaniamisc.brewOf", Component.translatable(recipe.getBrew().getTranslationKey())), level.registryAccess());
 		} else if (key.equals("vial")) {
-			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.vial)));
+			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.vial)), level.registryAccess());
 		} else if (key.equals("flask")) {
-			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.flask)));
+			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.flask)), level.registryAccess());
 		} else if (key.startsWith("input")) {
 			int requestedIndex = Integer.parseInt(key.substring(5)) - 1;
 			int indexOffset = (6 - recipe.getIngredients().size()) / 2; //Center the brew ingredients
 			int index = requestedIndex - indexOffset;
 
 			if (index < recipe.getIngredients().size() && index >= 0) {
-				return IVariable.wrapList(Arrays.stream(recipe.getIngredients().get(index).getItems()).map(IVariable::from).collect(Collectors.toList()));
+				return IVariable.wrapList(Arrays.stream(recipe.getIngredients().get(index).getItems()).map(o -> IVariable.from(o, level.registryAccess())).collect(Collectors.toList()), level.registryAccess());
 			} else {
 				return null;
 			}
