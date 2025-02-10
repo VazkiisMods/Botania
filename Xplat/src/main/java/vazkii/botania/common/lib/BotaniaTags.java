@@ -41,6 +41,7 @@ public class BotaniaTags {
 
 		public static final TagKey<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final TagKey<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Item> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		/**
 		 * Items in this tag can be specified as contributor headflowers
@@ -153,6 +154,7 @@ public class BotaniaTags {
 		public static final TagKey<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final TagKey<Block> SHINY_FLOWERS = tag("shiny_flowers");
 		public static final TagKey<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Block> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		public static final TagKey<Block> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final TagKey<Block> MINI_FLOWERS = tag("mini_flowers");

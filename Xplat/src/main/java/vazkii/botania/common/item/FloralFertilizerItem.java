@@ -9,21 +9,28 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FloralFertilizerItem extends Item {
+	private static final int RANGE = 3;
 
 	public FloralFertilizerItem(Properties props) {
 		super(props);
@@ -34,34 +41,57 @@ public class FloralFertilizerItem extends Item {
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		final int range = 3;
 		if (!world.isClientSide) {
+			Optional<HolderSet.Named<Block>> flowersTag =
+					BuiltInRegistries.BLOCK.getTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
+			Optional<HolderSet.Named<Block>> mushroomsTag =
+					BuiltInRegistries.BLOCK.getTag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS);
+			boolean flowersAvailable = flowersTag.map(holders -> holders.size() > 0).orElse(false);
+			boolean mushroomsAvailable = mushroomsTag.map(holders -> holders.size() > 0).orElse(false);
+
 			List<BlockPos> validCoords = new ArrayList<>();
 
-			for (int i = -range - 1; i < range; i++) {
-				for (int j = -range - 1; j < range; j++) {
-					for (int k = 2; k >= -2; k--) {
-						BlockPos pos_ = pos.offset(i + 1, k + 1, j + 1);
-						if (world.isEmptyBlock(pos_) && (!world.dimensionType().ultraWarm() || pos_.getY() < 255)
-								&& BotaniaBlocks.whiteFlower.defaultBlockState().canSurvive(world, pos_)) {
-							validCoords.add(pos_);
-						}
-					}
+			for (BlockPos candidatePos : BlockPos.betweenClosed(
+					pos.getX() - RANGE, pos.getY() - 2, pos.getZ() - RANGE,
+					pos.getX() + RANGE, pos.getY() + 2, pos.getZ() + RANGE)) {
+				if (!world.isInWorldBounds(candidatePos) || !world.isEmptyBlock(candidatePos)) {
+					continue;
+				}
+				BlockState belowState = world.getBlockState(candidatePos.below());
+				if (flowersAvailable && canPlaceFlower(belowState, world) || mushroomsAvailable && canPlaceMushroom(belowState)) {
+					validCoords.add(candidatePos.immutable());
 				}
 			}
 
-			int flowerCount = Math.min(validCoords.size(), world.random.nextBoolean() ? 3 : 4);
-			for (int i = 0; i < flowerCount; i++) {
+			int petalCount = world.random.nextIntBetweenInclusive(5, 7);
+			while (petalCount > 0 && !validCoords.isEmpty()) {
+				petalCount--;
 				BlockPos coords = validCoords.get(world.random.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				world.setBlockAndUpdate(coords, BotaniaBlocks.getFlower(DyeColor.byId(world.random.nextInt(16))).defaultBlockState());
+				BlockState belowState = world.getBlockState(coords.below());
+				boolean tryPlaceFlower = flowersAvailable && canPlaceFlower(belowState, world);
+				boolean tryPlaceMushroom = mushroomsAvailable && canPlaceMushroom(belowState);
+
+				Optional<Holder<Block>> toPlace;
+				if (tryPlaceMushroom && (!tryPlaceFlower || world.random.nextInt(3) == 0)) {
+					toPlace = mushroomsTag.get().getRandomElement(world.random);
+				} else if (tryPlaceFlower) {
+					toPlace = flowersTag.get().getRandomElement(world.random);
+					petalCount--;
+				} else {
+					continue;
+				}
+
+				if (toPlace.isPresent() && !toPlace.get().value().defaultBlockState().isAir()) {
+					world.setBlockAndUpdate(coords, toPlace.get().value().defaultBlockState());
+				}
 			}
 			ctx.getItemInHand().shrink(1);
 		} else {
 			for (int i = 0; i < 15; i++) {
-				double x = pos.getX() - range + world.random.nextInt(range * 2 + 1) + Math.random();
+				double x = pos.getX() - RANGE + world.random.nextInt(RANGE * 2 + 1) + Math.random();
 				double y = pos.getY() + 1;
-				double z = pos.getZ() - range + world.random.nextInt(range * 2 + 1) + Math.random();
+				double z = pos.getZ() - RANGE + world.random.nextInt(RANGE * 2 + 1) + Math.random();
 				float red = (float) Math.random();
 				float green = (float) Math.random();
 				float blue = (float) Math.random();
@@ -71,5 +101,13 @@ public class FloralFertilizerItem extends Item {
 		}
 
 		return InteractionResult.sidedSuccess(world.isClientSide());
+	}
+
+	private static boolean canPlaceMushroom(BlockState belowState) {
+		return belowState.is(BlockTags.MUSHROOM_GROW_BLOCK);
+	}
+
+	private static boolean canPlaceFlower(BlockState belowState, Level world) {
+		return belowState.is(BlockTags.DIRT) && !world.dimensionType().ultraWarm();
 	}
 }

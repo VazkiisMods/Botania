@@ -95,6 +95,13 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						.toArray(Block[]::new)
 		);
 
+		tag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS).add(
+				ColorHelper.supportedColors()
+						.map(BotaniaBlocks::getMushroom)
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
+						.toArray(Block[]::new)
+		);
+
 		tag(BotaniaTags.Blocks.SHINY_FLOWERS).add(
 				ColorHelper.supportedColors()
 						.map(BotaniaBlocks::getShinyFlower)
