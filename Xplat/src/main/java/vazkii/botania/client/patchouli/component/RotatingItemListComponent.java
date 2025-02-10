@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.patchouli.component;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.patchouli.api.IVariable;
@@ -30,7 +31,7 @@ public class RotatingItemListComponent extends RotatingItemListComponentBase {
 	}
 
 	@Override
-	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup, HolderLookup.Provider registries) {
 		theIngredients.clear();
 		for (IVariable ingredient : ingredients) {
 			theIngredients.add(lookup.apply(ingredient).as(Ingredient.class));

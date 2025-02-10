@@ -34,7 +34,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		List<String> names = variables.get("recipes").asStream().map(IVariable::asString).collect(Collectors.toList());
+		List<String> names = variables.get("recipes", level.registryAccess()).asStream(level.registryAccess()).map(IVariable::asString).collect(Collectors.toList());
 		this.recipes = new ArrayList<>();
 		for (String name : names) {
 			CraftingRecipe recipe = PatchouliUtils.getRecipe(level, RecipeType.CRAFTING, ResourceLocation.parse(name));
@@ -63,7 +63,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 		}
 		if (key.equals("heading")) {
 			if (!hasCustomHeading) {
-				return IVariable.from(recipes.get(0).getResultItem(level.registryAccess()).getHoverName());
+				return IVariable.from(recipes.get(0).getResultItem(level.registryAccess()).getHoverName(), level.registryAccess());
 			}
 			return null;
 		}
@@ -87,12 +87,12 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 					ingredients.add(list.size() > index ? list.get(index) : Ingredient.EMPTY);
 				}
 			}
-			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize);
+			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize, level);
 		}
 		if (key.equals("output")) {
 			return IVariable.wrapList(recipes.stream()
-					.map(r -> IVariable.from(r.getResultItem(level.registryAccess())))
-					.collect(Collectors.toList()));
+					.map(r -> IVariable.from(r.getResultItem(level.registryAccess()), level.registryAccess()))
+					.collect(Collectors.toList()), level.registryAccess());
 		}
 		if (key.equals("shapeless")) {
 			return IVariable.wrap(shapeless);

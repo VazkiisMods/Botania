@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.annotations.SerializedName;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -54,8 +55,8 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 	}
 
 	@Override
-	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
-		recipeName = lookup.apply(IVariable.wrap(recipeName)).asString();
-		recipeType = lookup.apply(IVariable.wrap(recipeType)).asString();
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup, HolderLookup.Provider registries) {
+		recipeName = lookup.apply(IVariable.wrap(recipeName, registries)).asString();
+		recipeType = lookup.apply(IVariable.wrap(recipeType, registries)).asString();
 	}
 }

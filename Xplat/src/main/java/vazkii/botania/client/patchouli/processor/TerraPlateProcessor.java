@@ -26,7 +26,7 @@ public class TerraPlateProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		ResourceLocation id = ResourceLocation.parse(variables.get("recipe").asString());
+		ResourceLocation id = ResourceLocation.parse(variables.get("recipe", level.registryAccess()).asString());
 		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.TERRA_PLATE_TYPE, id);
 	}
 
@@ -36,13 +36,13 @@ public class TerraPlateProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("output")) {
-			return IVariable.from(recipe.getResultItem(level.registryAccess()));
+			return IVariable.from(recipe.getResultItem(level.registryAccess()), level.registryAccess());
 		}
 		if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			List<Ingredient> list = recipe.getIngredients();
 			if (index >= 0 && index < list.size()) {
-				return IVariable.from(list.get(index).getItems());
+				return IVariable.from(list.get(index).getItems(), level.registryAccess());
 			}
 		}
 		return null;

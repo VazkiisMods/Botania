@@ -101,7 +101,7 @@ public class ManaBlasterBakedModel extends DelegatedModel {
 					return new Transformation(new Vector3f(-0.4F, 0.2F, 0.0F), VecHelper.rotateY(90), new Vector3f(0.625F, 0.625F, 0.625F), null);
 				}
 			};
-			this.lensModel = baker.bake(new ModelResourceLocation(lensId, "inventory"), transform);
+			this.lensModel = baker.bake(lensId, transform); //todo confirm this is correct
 		}
 
 		@NotNull

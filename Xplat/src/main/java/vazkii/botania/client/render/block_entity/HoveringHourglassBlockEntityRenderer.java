@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
@@ -69,7 +70,7 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 		float g = (color >> 8) / 255.0F;
 		float b = (color & 0xFF) / 255.0F;
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
-		model.render(ms, buffer, light, overlay, r, g, b, 1, fract1, fract2, hasWorld && hourglass.flip);
+		model.render(ms, buffer, light, overlay, FastColor.ARGB32.colorFromFloat(1.0F, r, g, b), fract1, fract2, hasWorld && hourglass.flip);
 		ms.popPose();
 	}
 

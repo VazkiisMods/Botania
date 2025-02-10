@@ -43,7 +43,7 @@ public final class BotaniaItemProperties {
 		consumer.accept(BotaniaItems.manaCookie, botaniaRL("totalbiscuit"),
 				(stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 		consumer.accept(BotaniaItems.slimeBottle, botaniaRL("active"),
-				(stack, world, entity, seed) -> stack.hasTag() && stack.getTag().getBoolean(SlimeInABottleItem.TAG_ACTIVE) ? 1.0F : 0.0F);
+				(stack, world, entity, seed) -> /* todo stack.hasTag() && stack.getTag().getBoolean(SlimeInABottleItem.TAG_ACTIVE) ? 1.0F :*/ 0.0F);
 		consumer.accept(BotaniaItems.spawnerMover, botaniaRL("full"),
 				(stack, world, entity, seed) -> LifeAggregatorItem.hasData(stack) ? 1 : 0);
 		consumer.accept(BotaniaItems.temperanceStone, botaniaRL("active"),
@@ -58,7 +58,7 @@ public final class BotaniaItemProperties {
 		ResourceLocation poolFullId = botaniaRL("full");
 		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
-			boolean renderFull = ((ManaPoolBlock) block).variant == ManaPoolBlock.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
+			boolean renderFull = ((ManaPoolBlock) block).variant == ManaPoolBlock.Variant.CREATIVE /*todo || stack.hasTag() && stack.getTag().getBoolean("RenderFull")*/;
 			return renderFull ? 1F : 0F;
 		};
 		consumer.accept(BotaniaBlocks.manaPool, poolFullId, poolFull);

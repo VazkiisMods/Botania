@@ -11,6 +11,7 @@ package vazkii.botania.client.patchouli.component;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.patchouli.api.IComponentRenderContext;
@@ -68,7 +69,7 @@ public class TerraPlateComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup, HolderLookup.Provider registries) {
 		cornerBlock = lookup.apply(corner).as(ItemStack.class);
 		centerBlock = lookup.apply(center).as(ItemStack.class);
 		middleBlock = lookup.apply(edge).as(ItemStack.class);

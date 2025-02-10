@@ -65,7 +65,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 	@Override
 	public IDrawable getBackground() {
 		return background;
-	}
+	} //todo
 
 	@NotNull
 	@Override
@@ -82,7 +82,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
 				.addItemStacks(recipe.getOutput().getDisplayedStacks())
-				.addTooltipCallback((view, tooltip) -> tooltip.addAll(recipe.getOutput().descriptionTooltip()));
+				.addRichTooltipCallback((view, tooltip) -> tooltip.addAll(recipe.getOutput().descriptionTooltip()));
 	}
 
 	@Override

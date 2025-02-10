@@ -9,11 +9,9 @@
 package vazkii.botania.client.render.world;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.*;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.Util;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -38,16 +36,17 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SequencedMap;
 
 public final class BoundBlockRenderer {
 	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(() -> {
-		Map<RenderType, BufferBuilder> ret = new IdentityHashMap<>();
-		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.bufferSize()));
-		ret.put(RenderHelper.LINE_4_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_4_NO_DEPTH.bufferSize()));
-		ret.put(RenderHelper.LINE_5_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_5_NO_DEPTH.bufferSize()));
-		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.bufferSize()));
+		SequencedMap<RenderType, ByteBufferBuilder> ret = new Object2ObjectLinkedOpenHashMap<>();
+		ret.put(RenderHelper.LINE_1_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_1_NO_DEPTH.bufferSize()));
+		ret.put(RenderHelper.LINE_4_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_4_NO_DEPTH.bufferSize()));
+		ret.put(RenderHelper.LINE_5_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_5_NO_DEPTH.bufferSize()));
+		ret.put(RenderHelper.LINE_8_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_8_NO_DEPTH.bufferSize()));
 		return ret;
-	}), Tesselator.getInstance().getBuilder());
+	}), new ByteBufferBuilder(786432)); //Todo confirm the capacity is correct. This is just taken from `RenderBuffers`
 
 	private BoundBlockRenderer() {}
 
