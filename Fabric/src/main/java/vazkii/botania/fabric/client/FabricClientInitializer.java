@@ -82,7 +82,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		// Blocks and Items
 		ModelLoadingPlugin.register(pluginContext -> {
 			MiscellaneousModels.INSTANCE.onModelRegister(Minecraft.getInstance().getResourceManager(), pluginContext::addModels);
-			pluginContext.modifyModelAfterBake().register((bakedModel, context) -> MiscellaneousModels.INSTANCE.modifyModelAfterbake(bakedModel, context.id()));
+			pluginContext.modifyModelAfterBake().register((bakedModel, context) -> MiscellaneousModels.INSTANCE.modifyModelAfterbake(bakedModel, context.resourceId()));
 		});
 		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
 		BotaniaItemProperties.init((i, id, propGetter) -> ItemProperties.register(i.asItem(), id, propGetter));

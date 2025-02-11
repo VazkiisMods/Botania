@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -79,7 +80,7 @@ public final class HUDHandler {
 		}
 	}
 
-	public static void onDrawScreenPost(GuiGraphics gui, float partialTicks) {
+	public static void onDrawScreenPost(GuiGraphics gui, DeltaTracker partialTicks) {
 		PoseStack ms = gui.pose();
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui) {
@@ -95,14 +96,14 @@ public final class HUDHandler {
 			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, mc.player);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
-				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTicks, mc.player, tiara);
+				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTicks.getGameTimeDeltaPartialTick(true), mc.player, tiara);
 				profiler.pop();
 			}
 
 			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, mc.player);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
-				RingOfDexterousMotionItem.ClientLogic.renderHUD(gui, mc.player, dodgeRing, partialTicks);
+				RingOfDexterousMotionItem.ClientLogic.renderHUD(gui, mc.player, dodgeRing, partialTicks.getGameTimeDeltaPartialTick(true));
 				profiler.pop();
 			}
 		}
@@ -223,7 +224,7 @@ public final class HUDHandler {
 		}
 
 		profiler.popPush("itemsRemaining");
-		ItemsRemainingRenderHandler.render(gui, partialTicks);
+		ItemsRemainingRenderHandler.render(gui, partialTicks.getGameTimeDeltaPartialTick(true));
 		profiler.pop();
 		profiler.pop();
 

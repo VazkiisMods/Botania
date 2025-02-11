@@ -14,6 +14,7 @@ public class FabricBiomeTagProvider extends BiomeTagProvider {
 		super(packOutput, lookupProvider);
 	}
 
+	//TODO maybe use v2 tags
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 		// need to do this so we can use them in addTag. It generates a dummy empty file,

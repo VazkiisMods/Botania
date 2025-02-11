@@ -25,6 +25,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -101,13 +102,13 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	@Override
 	public void readPacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		super.readPacketNBT(tag, registries);
-		craftResult = ItemStack.of(tag.getCompound(TAG_CRAFTING_RESULT));
+		craftResult = ItemStack.EMPTY /*todo ItemStack.of(tag.getCompound(TAG_CRAFTING_RESULT))*/;
 	}
 
 	@Override
 	public void writePacketNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		super.writePacketNBT(tag, registries);
-		tag.put(TAG_CRAFTING_RESULT, craftResult.save(new CompoundTag()));
+		tag.put(TAG_CRAFTING_RESULT, /*craftResult.save(new CompoundTag())*/ new CompoundTag());
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, CraftyCrateBlockEntity self) {
@@ -169,7 +170,8 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 		Optional<RecipeHolder<CraftingRecipe>> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
-			craftResult = recipe.value().assemble(craft, this.getLevel().registryAccess());
+			CraftingInput input = CraftingInput.of(craft.getWidth(), craft.getHeight(), craft.getItems());
+			craftResult = recipe.value().assemble(input, this.getLevel().registryAccess());
 
 			// Given some mods can return air by a bad implementation of their recipe handler,
 			// check for air before continuting on.
@@ -180,7 +182,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 			}
 
 			Container handler = getItemHandler();
-			List<ItemStack> remainders = recipe.value().getRemainingItems(craft);
+			List<ItemStack> remainders = recipe.value().getRemainingItems(input);
 
 			for (int i = 0; i < craft.getContainerSize(); i++) {
 				ItemStack s = remainders.get(i);
@@ -202,13 +204,14 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	}
 
 	private Optional<RecipeHolder<CraftingRecipe>> getMatchingRecipe(CraftingContainer craft) {
+		CraftingInput input = CraftingInput.of(craft.getWidth(), craft.getHeight(), craft.getItems());
 		for (ResourceLocation currentRecipe : lastRecipes) {
 			var holder = BotaniaRecipeTypes.getRecipe(level, currentRecipe, RecipeType.CRAFTING);
-			if (holder.isPresent() && holder.get().value().matches(craft, level)) {
+			if (holder.isPresent() && holder.get().value().matches(input, level)) {
 				return holder;
 			}
 		}
-		Optional<RecipeHolder<CraftingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craft, level);
+		Optional<RecipeHolder<CraftingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level);
 		if (recipe.isPresent()) {
 			if (lastRecipes.size() >= 8) {
 				lastRecipes.remove();

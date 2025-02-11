@@ -45,6 +45,7 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class FlowerPouchItem extends Item {
@@ -176,7 +177,7 @@ public class FlowerPouchItem extends Item {
 		var stream = IntStream.range(0, container.getContainerSize())
 				.mapToObj(container::getItem)
 				.filter(s -> !s.isEmpty());
-		ItemUtils.onContainerDestroyed(entity, stream);
+		ItemUtils.onContainerDestroyed(entity, stream.collect(Collectors.toList()));
 		container.clearContent();
 	}
 

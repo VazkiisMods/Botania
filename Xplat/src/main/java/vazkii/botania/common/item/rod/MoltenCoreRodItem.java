@@ -20,7 +20,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -71,7 +73,6 @@ public class MoltenCoreRodItem extends Item {
 		if (!(living instanceof Player p)) {
 			return;
 		}
-		Container dummyInv = new SimpleContainer(1);
 
 		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, false)) {
 			return;
@@ -82,9 +83,9 @@ public class MoltenCoreRodItem extends Item {
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			BlockState state = world.getBlockState(pos.getBlockPos());
 
-			dummyInv.setItem(0, new ItemStack(state.getBlock()));
-			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, p.level())
-					.map(r -> r.value().assemble(dummyInv, world.registryAccess()))
+			SingleRecipeInput input = new SingleRecipeInput(new ItemStack(state.getBlock()));
+			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, input, p.level())
+					.map(r -> r.value().assemble(input, world.registryAccess()))
 					.filter(r -> !r.isEmpty() && r.getItem() instanceof BlockItem)
 					.ifPresent(result -> {
 						boolean decremented = false;

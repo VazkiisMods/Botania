@@ -1,11 +1,6 @@
 package vazkii.botania.fabric.xplat;
 
-import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-
-import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
-
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -51,7 +46,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.Creeper;
@@ -114,7 +108,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -472,8 +465,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public FabricItemSettings defaultItemBuilder() {
-		return new FabricItemSettings();
+	public Item.Properties defaultItemBuilder() {
+		return new Item.Properties();
 	}
 
 	@Override

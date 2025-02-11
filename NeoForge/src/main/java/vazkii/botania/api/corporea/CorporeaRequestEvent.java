@@ -8,14 +8,13 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.neoforged.bus.api.Cancelable;
 import net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.ICancellableEvent;
 
 /**
  * Fired when a corporea request is initiated. Can be cancelled.
  */
-@Cancelable
-public class CorporeaRequestEvent extends Event {
+public class CorporeaRequestEvent extends Event implements ICancellableEvent {
 
 	private final CorporeaRequestMatcher matcher;
 	private final int count;

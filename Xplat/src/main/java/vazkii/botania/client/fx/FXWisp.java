@@ -104,7 +104,7 @@ public class FXWisp extends TextureSheetParticle {
 		gravity = value;
 	}
 
-	private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
+	private static BufferBuilder beginRenderCommon(Tesselator tesselator, TextureManager textureManager) {
 		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
@@ -113,9 +113,10 @@ public class FXWisp extends TextureSheetParticle {
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+		return tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
+	//TODO there's end method in ParticleRenderType anymore. Check where the method below should be used instead
 	private static void endRenderCommon() {
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
@@ -125,16 +126,19 @@ public class FXWisp extends TextureSheetParticle {
 
 	public static final ParticleRenderType NORMAL_RENDER = new ParticleRenderType() {
 		@Override
-		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
-			beginRenderCommon(bufferBuilder, textureManager);
+		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
 			RenderSystem.enableDepthTest();
+			return beginRenderCommon(tesselator, textureManager);
 		}
 
+		/*
 		@Override
 		public void end(Tesselator tessellator) {
 			tessellator.end();
 			endRenderCommon();
 		}
+
+		 */
 
 		@Override
 		public String toString() {
@@ -144,17 +148,21 @@ public class FXWisp extends TextureSheetParticle {
 
 	public static final ParticleRenderType DIW_RENDER = new ParticleRenderType() {
 		@Override
-		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
-			beginRenderCommon(bufferBuilder, textureManager);
+		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
 			RenderSystem.disableDepthTest();
+			return beginRenderCommon(tesselator, textureManager);
+
 		}
 
+		/*
 		@Override
 		public void end(Tesselator tessellator) {
 			tessellator.end();
 			RenderSystem.enableDepthTest();
 			endRenderCommon();
 		}
+
+		 */
 
 		@Override
 		public String toString() {

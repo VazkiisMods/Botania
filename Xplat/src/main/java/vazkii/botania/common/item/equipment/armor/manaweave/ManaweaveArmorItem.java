@@ -93,13 +93,13 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	}
 
 	@Override
-	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void addInformationAfterShift(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
 		if (XplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
 			list.add(Component.translatable("botaniamisc.santaweaveInfo"));
 			list.add(Component.literal(""));
 		}
 
-		super.addInformationAfterShift(stack, world, list, flags);
+		super.addInformationAfterShift(stack, context, list, flags);
 	}
 
 	@Override

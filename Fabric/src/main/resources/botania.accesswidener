@@ -8,3 +8,4 @@ accessible class net/minecraft/client/renderer/RenderType$CompositeRenderType
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
 extendable class net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator
 accessible class net/minecraft/client/resources/model/ModelManager$ReloadState
+accessible method net/minecraft/core/dispenser/DefaultDispenseItemBehavior consumeWithRemainder (Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;

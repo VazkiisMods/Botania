@@ -47,7 +47,7 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 	}
 
 	public ManasteelPickaxeItem(Tier mat, Properties props, float attackSpeed) {
-		super(mat, 1, attackSpeed, props);
+		super(mat, props.attributes(ManasteelPickaxeItem.createAttributes(mat, 1, attackSpeed)));
 	}
 
 	@Override

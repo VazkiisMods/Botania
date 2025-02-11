@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
 
 import vazkii.botania.data.*;
@@ -76,7 +76,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		builder.add(Registries.DAMAGE_TYPE, FabricDatagenInitializer::damageTypeBC);
 	}
 
-	protected static void damageTypeBC(BootstapContext<DamageType> context) {
+	protected static void damageTypeBC(BootstrapContext<DamageType> context) {
 		context.register(RELIC_DAMAGE, RELIC);
 		context.register(PLAYER_ATTACK_ARMOR_PIERCING, PLAYER_AP);
 		context.register(KEY_EXPLOSION, KEY);

@@ -9,6 +9,7 @@
 package vazkii.botania.common.handler;
 
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -41,7 +42,7 @@ public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
+	public static final Holder<Attribute> PIXIE_SPAWN_CHANCE = Holder.direct(new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1));
 	private static final Map<EquipmentSlot, UUID> DEFAULT_MODIFIER_UUIDS = Util.make(new EnumMap<>(EquipmentSlot.class), m -> {
 		m.put(EquipmentSlot.HEAD, UUID.fromString("3c1f559c-9ec4-412d-ada0-dbf3e714088e"));
 		m.put(EquipmentSlot.CHEST, UUID.fromString("9631121c-16f0-4ed4-ba0a-0e7a063cb71c"));
@@ -59,11 +60,11 @@ public final class PixieHandler {
 	);
 
 	public static void registerAttribute(BiConsumer<Attribute, ResourceLocation> r) {
-		r.accept(PIXIE_SPAWN_CHANCE, botaniaRL("pixie_spawn_chance"));
+		r.accept(PIXIE_SPAWN_CHANCE.value(), botaniaRL("pixie_spawn_chance"));
 	}
 
-	public static AttributeModifier makeModifier(EquipmentSlot slot, String name, double amount) {
-		return new AttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, AttributeModifier.Operation.ADDITION);
+	public static AttributeModifier makeModifier(String name, double amount) {
+		return new AttributeModifier(botaniaRL(name), amount, AttributeModifier.Operation.ADD_VALUE);
 	}
 
 	public static void onDamageTaken(Player player, DamageSource source) {

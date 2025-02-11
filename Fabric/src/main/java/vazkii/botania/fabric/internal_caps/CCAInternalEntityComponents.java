@@ -8,12 +8,14 @@
  */
 package vazkii.botania.fabric.internal_caps;
 
-import dev.onyxstudios.cca.api.v3.component.Component;
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
-import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import org.ladysnake.cca.api.v3.component.Component;
+import org.ladysnake.cca.api.v3.component.ComponentKey;
+import org.ladysnake.cca.api.v3.component.ComponentRegistryV3;
+import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -46,27 +48,92 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 
 	// NB: These all have to be public because CCA generates direct references to them via ASM (but why???)
 
+	//TODO the CCA Component needs the NBT methods now. Decide what to do here
 	public static class CCAEthicalComponent extends EthicalComponent implements Component {
 		public CCAEthicalComponent(PrimedTnt entity) {
 			super(entity);
 		}
+
+		@Override
+		public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
+
+		@Override
+		public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
 	}
 
 	public static class CCASpectralRailComponent extends SpectralRailComponent implements Component {
+		@Override
+		public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
+
+		@Override
+		public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
 	}
 
 	public static class CCAItemFlagsComponent extends ItemFlagsComponent implements Component {
+		@Override
+		public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
+
+		@Override
+		public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
 	}
 
 	public static class CCAKeptItemsComponent extends KeptItemsComponent implements Component {
+		@Override
+		public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
+
+		@Override
+		public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
 	}
 
 	public static class CCALooniumComponent extends LooniumComponent implements Component {
+		@Override
+		public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
+
+		@Override
+		public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
 	}
 
 	public static class CCANarslimmusComponent extends NarslimmusComponent implements Component {
+		@Override
+		public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
+
+		@Override
+		public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
 	}
 
 	public static class CCATigerseyeComponent extends TigerseyeComponent implements Component {
+		@Override
+		public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
+
+		@Override
+		public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
+
+		}
 	}
 }

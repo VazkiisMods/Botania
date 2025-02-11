@@ -153,7 +153,7 @@ public class FXSparkle extends TextureSheetParticle {
 		}
 	}
 
-	private static void beginRenderCommon(BufferBuilder buffer, TextureManager textureManager) {
+	private static BufferBuilder beginRenderCommon(Tesselator tesselator, TextureManager textureManager) {
 		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 		RenderSystem.enableDepthTest();
 		RenderSystem.depthMask(false);
@@ -162,9 +162,10 @@ public class FXSparkle extends TextureSheetParticle {
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
-		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+		return tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
+	//TODO there's end method in ParticleRenderType anymore. Check where the method below should be used instead
 	private static void endRenderCommon() {
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
@@ -174,14 +175,8 @@ public class FXSparkle extends TextureSheetParticle {
 
 	public static final ParticleRenderType NORMAL_RENDER = new ParticleRenderType() {
 		@Override
-		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
-			beginRenderCommon(bufferBuilder, textureManager);
-		}
-
-		@Override
-		public void end(Tesselator tessellator) {
-			tessellator.end();
-			endRenderCommon();
+		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
+			return beginRenderCommon(tesselator, textureManager);
 		}
 
 		@Override
@@ -192,15 +187,9 @@ public class FXSparkle extends TextureSheetParticle {
 
 	public static final ParticleRenderType CORRUPT_RENDER = new ParticleRenderType() {
 		@Override
-		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
-			beginRenderCommon(bufferBuilder, textureManager);
-			RenderSystem.setShader(CoreShaders::filmGrainParticle);
-		}
-
-		@Override
-		public void end(Tesselator tessellator) {
-			tessellator.end();
-			endRenderCommon();
+		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
+			RenderSystem.setShader(CoreShaders::filmGrainParticle); //Todo
+			return beginRenderCommon(tesselator, textureManager);
 		}
 
 		@Override

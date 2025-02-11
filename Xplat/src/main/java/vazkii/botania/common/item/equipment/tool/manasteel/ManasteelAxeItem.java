@@ -41,11 +41,11 @@ public class ManasteelAxeItem extends AxeItem implements CustomDamageItem, Sorta
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ManasteelAxeItem(Properties props) {
-		this(BotaniaAPI.instance().getManasteelItemTier(), 6F, -3.1F, props);
+		this(BotaniaAPI.instance().getManasteelItemTier(), props.attributes(ManasteelAxeItem.createAttributes(BotaniaAPI.instance().getManasteelItemTier(), 6F, -3.1F)));
 	}
 
-	public ManasteelAxeItem(Tier mat, float attackDamage, float attackSpeed, Properties props) {
-		super(mat, attackDamage, attackSpeed, props);
+	public ManasteelAxeItem(Tier mat, Properties props) {
+		super(mat, props);
 	}
 
 	@Override

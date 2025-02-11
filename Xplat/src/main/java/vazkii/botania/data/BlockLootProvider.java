@@ -14,9 +14,11 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -31,7 +33,6 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
@@ -64,8 +65,11 @@ import java.util.function.Function;
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BlockLootProvider implements DataProvider {
+	/* TODO we need the HolderLookup.Provider to get the Enchantments
 	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
 			.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+
+	 */
 	private static final Function<Block, LootTable.Builder> SKIP = b -> {
 		throw new RuntimeException("shouldn't be executed");
 	};
@@ -167,21 +171,27 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genCopyNbt(Block b, String... tags) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
+		/*todo
 		CopyNbtFunction.Builder func = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
 		for (String tag : tags) {
 			func = func.copy(tag, "BlockEntityTag." + tag);
 		}
+
+		 */
 		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion())
-				.apply(func);
+				/*.apply(func)*/;
 		return LootTable.lootTable().withPool(pool);
 	}
 
 	protected static LootTable.Builder genCellBlock(Block b) {
+		/* todo we need the HolderLookup.Provider to get enchantments
 		ItemPredicate.Builder silkPred = ItemPredicate.Builder.item()
 				.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)));
+
+		 */
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
-				.when(MatchTool.toolMatches(silkPred));
+				/* .when(MatchTool.toolMatches(silkPred))*/;
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(silk));
 	}
 
@@ -201,7 +211,7 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genSilkDrop(ItemLike silkDrop, ItemLike normalDrop) {
 		LootPoolEntryContainer.Builder<?> cobbleDrop = LootItem.lootTableItem(normalDrop).when(ExplosionCondition.survivesExplosion());
-		LootPoolEntryContainer.Builder<?> stoneDrop = LootItem.lootTableItem(silkDrop).when(SILK_TOUCH);
+		LootPoolEntryContainer.Builder<?> stoneDrop = LootItem.lootTableItem(silkDrop)/*.when(SILK_TOUCH)*/;
 
 		return LootTable.lootTable().withPool(
 				LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -209,7 +219,7 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genSolidVine(Block b) {
-		LootPoolEntryContainer.Builder<?> entry = NestedLootTable.lootTableReference(ResourceLocation.withDefaultNamespace("blocks/vine"));
+		LootPoolEntryContainer.Builder<?> entry = NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace("blocks/vine")));
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
@@ -238,7 +248,7 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genAltGrass(Block b) {
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
-				.when(SILK_TOUCH);
+				/*.when(SILK_TOUCH)*/;
 		LootPoolEntryContainer.Builder<?> dirt = LootItem.lootTableItem(Blocks.DIRT)
 				.when(ExplosionCondition.survivesExplosion());
 		LootPoolEntryContainer.Builder<?> entry = AlternativesEntry.alternatives(silk, dirt);

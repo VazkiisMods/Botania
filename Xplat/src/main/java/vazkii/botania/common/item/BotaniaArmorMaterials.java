@@ -36,7 +36,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 6,
 					ArmorItem.Type.HELMET, 2
 			),
-			18, () -> BotaniaSounds.equipManasteel, () -> Ingredient.of(BotaniaItems.manaSteel), 0);
+			18, () -> Holder.direct(BotaniaSounds.equipManasteel), () -> Ingredient.of(BotaniaItems.manaSteel), 0);
 	public static final Holder<ArmorMaterial> MANAWEAVE = register("manaweave",
 			Map.of(
 					ArmorItem.Type.BOOTS, 1,
@@ -44,7 +44,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 3,
 					ArmorItem.Type.HELMET, 1
 			),
-			18, () -> BotaniaSounds.equipManaweave, () -> Ingredient.of(BotaniaItems.manaweaveCloth), 0);
+			18, () -> Holder.direct(BotaniaSounds.equipManaweave), () -> Ingredient.of(BotaniaItems.manaweaveCloth), 0);
 	public static final Holder<ArmorMaterial> ELEMENTIUM = register("elementium",
 			Map.of(
 					ArmorItem.Type.BOOTS, 2,
@@ -52,7 +52,7 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 6,
 					ArmorItem.Type.HELMET, 2
 			),
-			18, () -> BotaniaSounds.equipElementium, () -> Ingredient.of(BotaniaItems.elementium), 0);
+			18, () -> Holder.direct(BotaniaSounds.equipElementium), () -> Ingredient.of(BotaniaItems.elementium), 0);
 	public static final Holder<ArmorMaterial> TERRASTEEL = register("terrasteel",
 			Map.of(
 					ArmorItem.Type.BOOTS, 3,
@@ -60,17 +60,17 @@ public class BotaniaArmorMaterials {
 					ArmorItem.Type.CHESTPLATE, 8,
 					ArmorItem.Type.HELMET, 3
 			),
-			26, () -> BotaniaSounds.equipTerrasteel, () -> Ingredient.of(BotaniaItems.terrasteel), 3);
+			26, () -> Holder.direct(BotaniaSounds.equipTerrasteel), () -> Ingredient.of(BotaniaItems.terrasteel), 3);
 
 	private static Holder<ArmorMaterial> register(
 			String name,
 			Map<ArmorItem.Type, Integer> defense,
 			int enchantmentValue,
-			Supplier<Holder<SoundEvent>> equipSound,
+			Supplier<Holder<SoundEvent>> equipSound, //TODO I don't think this needs to be a supplier
 			Supplier<Ingredient> repairIngredient,
 			float toughness) {
 		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace(name)));
-		return register(name, defense, enchantmentValue, equipSound, toughness, repairIngredient, list);
+		return register(name, defense, enchantmentValue, equipSound.get(), toughness, repairIngredient, list);
 	}
 
 	private static Holder<ArmorMaterial> register(

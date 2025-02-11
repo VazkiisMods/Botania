@@ -51,7 +51,7 @@ public class HornItem extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 72000;
 	}
 
@@ -64,7 +64,7 @@ public class HornItem extends Item {
 	@Override
 	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int time) {
 		if (!world.isClientSide) {
-			if (time != getUseDuration(stack) && time % 5 == 0) {
+			if (time != getUseDuration(stack, living) && time % 5 == 0) {
 				living.gameEvent(GameEvent.INSTRUMENT_PLAY);
 				breakGrass(world, stack, living.blockPosition(), living);
 			}

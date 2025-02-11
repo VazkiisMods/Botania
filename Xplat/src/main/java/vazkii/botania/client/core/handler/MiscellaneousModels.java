@@ -152,10 +152,10 @@ public class MiscellaneousModels {
 
 	private MiscellaneousModels() {
 		afterBakeModifiers = new HashMap<>();
-		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.PLATFORM_ABSTRUSE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.PLATFORM_SPECTRAL, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.PLATFORM_INFRANGIBLE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(botaniaModelRL(LibBlockNames.TINY_POTATO, "inventory"), TinyPotatoModel::new);
+		afterBakeModifiers.put(botaniaRL(LibBlockNames.PLATFORM_ABSTRUSE), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(botaniaRL(LibBlockNames.PLATFORM_SPECTRAL), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(botaniaRL(LibBlockNames.PLATFORM_INFRANGIBLE), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(botaniaRL(LibBlockNames.TINY_POTATO), TinyPotatoModel::new);
 
 		modelConsumers = new HashMap<>();
 		modelConsumers.put(elvenSpreaderCoreId, bakedModel -> this.elvenSpreaderCore = bakedModel);

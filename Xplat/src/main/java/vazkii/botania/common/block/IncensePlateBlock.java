@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
@@ -73,7 +74,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		} else if (!plateStack.isEmpty() && !plate.burning) {
 			if (!stack.isEmpty() && stack.is(Items.FLINT_AND_STEEL)) {
 				plate.ignite();
-				stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
+				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 			} else {
 				player.getInventory().placeItemBackInInventory(plateStack);
 				plate.getItemHandler().setItem(0, ItemStack.EMPTY);

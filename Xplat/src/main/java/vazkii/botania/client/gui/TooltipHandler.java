@@ -11,6 +11,7 @@ package vazkii.botania.client.gui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
@@ -20,9 +21,9 @@ import java.util.List;
 
 public final class TooltipHandler {
 
-	public static void onTooltipEvent(ItemStack stack, TooltipFlag ctx, List<Component> tooltip) {
+	public static void onTooltipEvent(ItemStack stack, Item.TooltipContext context, TooltipFlag flag, List<Component> lines) {
 		if (ResoluteIvyItem.hasIvy(stack)) {
-			tooltip.add(Component.translatable("botaniamisc.hasKeepIvy"));
+			lines.add(Component.translatable("botaniamisc.hasKeepIvy"));
 		}
 	}
 

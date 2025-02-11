@@ -45,7 +45,7 @@ public class FabricManaBlasterModel extends BlockModel {
 	@Nullable
 	@Override
 	public BakedModel bake(ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter,
-			ModelState state, ResourceLocation location) {
+			ModelState state) {
 
 		return ManaBlasterBakedModel.create(
 				baker,

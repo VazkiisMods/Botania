@@ -51,7 +51,7 @@ public class LifeAggregatorItem extends Item {
 
 	@Nullable
 	private static ResourceLocation getEntityId(ItemStack stack) {
-		CompoundTag tag = stack.getTagElement(TAG_SPAWNER);
+		CompoundTag tag = /*todo stack.getTagElement(TAG_SPAWNER)*/ null;
 		if (tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
 			var spawnData = SpawnData.CODEC.parse(NbtOps.INSTANCE, tag);
@@ -99,17 +99,20 @@ public class LifeAggregatorItem extends Item {
 
 			if (!world.isClientSide) {
 				if (ctx.getPlayer() != null) {
-					ctx.getPlayer().broadcastBreakEvent(ctx.getHand());
+					//todo ctx.getPlayer().broadcastBreakEvent(ctx.getHand());
 				}
 				mover.shrink(1);
 
 				BlockEntity te = world.getBlockEntity(pos);
 				if (te instanceof SpawnerBlockEntity) {
+					/*todo
 					CompoundTag spawnerTag = ctx.getItemInHand().getTagElement(TAG_SPAWNER).copy();
 					spawnerTag.putInt("x", pos.getX());
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());
 					te.load(spawnerTag);
+
+					 */
 				}
 			} else {
 				for (int i = 0; i < 100; i++) {
@@ -131,7 +134,7 @@ public class LifeAggregatorItem extends Item {
 		if (world.getBlockState(pos).is(Blocks.SPAWNER)) {
 			if (!world.isClientSide) {
 				BlockEntity te = world.getBlockEntity(pos);
-				stack.getOrCreateTag().put(TAG_SPAWNER, te.saveWithFullMetadata());
+				//todo stack.getOrCreateTag().put(TAG_SPAWNER, te.saveWithFullMetadata());
 				world.destroyBlock(pos, false);
 				if (player != null) {
 					player.getCooldowns().addCooldown(this, 20);
@@ -139,7 +142,7 @@ public class LifeAggregatorItem extends Item {
 						UseItemSuccessTrigger.INSTANCE.trigger(serverPlayer, stack, serverPlayer.serverLevel(),
 								pos.getX(), pos.getY(), pos.getZ());
 					}
-					player.broadcastBreakEvent(ctx.getHand());
+					//todo player.broadcastBreakEvent(ctx.getHand());
 				}
 			} else {
 				for (int i = 0; i < 50; i++) {
