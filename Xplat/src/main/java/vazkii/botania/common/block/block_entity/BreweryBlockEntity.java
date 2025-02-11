@@ -92,11 +92,14 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	private void findRecipe() {
+		/*TODO we need the RecipeInput for this
 		Optional<RecipeHolder<BotanicalBreweryRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.BREW_TYPE, getItemHandler(), level);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew.value();
 			level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
 		});
+
+		 */
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, BreweryBlockEntity self) {
@@ -124,7 +127,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		}
 
 		if (self.recipe != null) {
-			if (!self.recipe.matches(self.getItemHandler(), level)) {
+			if (/*!self.recipe.matches(self.getItemHandler(), level)*/ false) { //This also needs the recipe Input
 				self.recipe = null;
 				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState());
 			}

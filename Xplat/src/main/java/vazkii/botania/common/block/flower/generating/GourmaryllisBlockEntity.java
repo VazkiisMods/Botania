@@ -10,6 +10,7 @@ package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -134,7 +135,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
-			if (DelayHelper.canInteractWithImmediate(this, item) && stack.getItem().isEdible()) {
+			if (DelayHelper.canInteractWithImmediate(this, item) && stack.getItem().components().has(DataComponents.FOOD)) {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 
@@ -165,7 +166,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	private static int getFoodValue(ItemStack stack) {
 		// support for Forge's NBT-based food properties
 		FoodProperties foodProperties = XplatAbstractions.INSTANCE.getFoodProperties(stack);
-		int nutrition = foodProperties != null ? foodProperties.getNutrition() : 0;
+		int nutrition = foodProperties != null ? foodProperties.nutrition() : 0;
 		return Math.min(MAX_FOOD_VALUE, nutrition);
 	}
 
@@ -176,7 +177,8 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		cmp.putInt(TAG_DIGESTING_MANA, digestingMana);
 		ListTag foodList = new ListTag();
 		for (ItemStack food : lastFoods) {
-			foodList.add(food.save(new CompoundTag()));
+			//todo foodList.add(food.save(new CompoundTag()));
+			foodList.add(new CompoundTag());
 		}
 		cmp.put(TAG_LAST_FOODS, foodList);
 		cmp.putInt(TAG_LAST_FOOD_COUNT, lastFoodCount);
@@ -191,7 +193,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		lastFoods.clear();
 		ListTag foodList = cmp.getList(TAG_LAST_FOODS, Tag.TAG_COMPOUND);
 		for (int i = 0; i < foodList.size(); i++) {
-			lastFoods.add(ItemStack.of(foodList.getCompound(i)));
+			//todo lastFoods.add(ItemStack.of(foodList.getCompound(i)));
 		}
 		lastFoodCount = cmp.getInt(TAG_LAST_FOOD_COUNT);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);

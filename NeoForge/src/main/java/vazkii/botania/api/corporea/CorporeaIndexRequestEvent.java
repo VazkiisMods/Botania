@@ -9,15 +9,14 @@
 package vazkii.botania.api.corporea;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.bus.api.Cancelable;
 import net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.ICancellableEvent;
 
 /**
  * CorporeaIndexRequestEvent is fired when a player attempts to request an item from a corporea index.
  * If the event is cancelled, the request will not be performed.
  */
-@Cancelable
-public class CorporeaIndexRequestEvent extends Event {
+public class CorporeaIndexRequestEvent extends Event implements ICancellableEvent {
 	private final ServerPlayer requester;
 	private final CorporeaRequestMatcher request;
 	private final int requestCount;

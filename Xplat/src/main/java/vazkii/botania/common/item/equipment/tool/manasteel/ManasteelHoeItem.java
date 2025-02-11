@@ -32,8 +32,8 @@ public class ManasteelHoeItem extends HoeItem implements CustomDamageItem, Sorta
 		this(BotaniaAPI.instance().getManasteelItemTier(), props, -1f);
 	}
 
-	public ManasteelHoeItem(Tier mat, Properties properties, float attackSpeed) {
-		super(mat, (int) -mat.getAttackDamageBonus(), attackSpeed, properties);
+	public ManasteelHoeItem(Tier mat, Properties properties, float attackSpeed) { //Todo unsure about this
+		super(mat, properties.attributes(ManasteelHoeItem.createAttributes(mat, -mat.getAttackDamageBonus(), attackSpeed)));
 	}
 
 	@Override

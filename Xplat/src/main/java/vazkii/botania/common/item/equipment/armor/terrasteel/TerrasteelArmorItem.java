@@ -17,6 +17,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -24,17 +25,21 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerrasteelArmorItem extends ManasteelArmorItem {
 
@@ -47,18 +52,14 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 		return ResourcesLib.MODEL_TERRASTEEL_NEW;
 	}
 
-	@NotNull
+	//TODO Very unsure if this works
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == getType().getSlot()) {
-			UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
-			ret = HashMultimap.create(ret);
-			int reduction = getMaterial().value().getDefense(getType());
-			ret.put(Attributes.KNOCKBACK_RESISTANCE,
-					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADD_VALUE));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		int reduction = getMaterial().value().getDefense(getType());
+
+		return super.getDefaultAttributeModifiers().withModifierAdded(Attributes.KNOCKBACK_RESISTANCE,
+				new AttributeModifier(botaniaRL("terrasteel_modifier." + type.getName()), (double) reduction / 20, AttributeModifier.Operation.ADD_VALUE), //TODO I changed the name here to fit mc's way of naming the modifier. Check if this is alr!
+				EquipmentSlotGroup.bySlot(type.getSlot()));
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {

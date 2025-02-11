@@ -41,7 +41,7 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 72000;
 	}
 
@@ -57,14 +57,14 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 			return;
 		}
 
-		if (count != getUseDuration(stack) && count % 5 == 0) {
+		if (count != getUseDuration(stack, living) && count % 5 == 0) {
 			int range = 12;
 			List<Entity> shearables = world.getEntitiesOfClass(Entity.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), Shearable.class::isInstance);
 			if (shearables.size() > 0) {
 				for (Entity entity : shearables) {
 					if (entity instanceof Shearable shearable && shearable.readyForShearing()) {
 						shearable.shear(living.getSoundSource());
-						stack.hurtAndBreak(1, living, l -> l.broadcastBreakEvent(l.getUsedItemHand()));
+						stack.hurtAndBreak(1, living, LivingEntity.getSlotForHand(living.getUsedItemHand()));
 						break;
 					}
 				}

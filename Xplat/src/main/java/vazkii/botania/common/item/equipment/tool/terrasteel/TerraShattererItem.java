@@ -314,6 +314,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
 
+	/*TODO
 	@NotNull
 	@Override
 	public Rarity getRarity(@NotNull ItemStack stack) {
@@ -329,4 +330,6 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		}
 		return Rarity.UNCOMMON;
 	}
+
+	 */
 }

@@ -72,7 +72,7 @@ public class FabricFloatingFlowerModel extends BlockModel {
 	@NotNull
 	@Override
 	public BakedModel bake(ModelBaker baker, BlockModel model, Function<Material, TextureAtlasSprite> spriteGetter,
-			ModelState transform, ResourceLocation location, boolean guiLight3d) {
+			ModelState transform, boolean guiLight3d) {
 		final Transformation moveFlower = new Transformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
 		Transformation mul = moveFlower.compose(transform.getRotation());
 		ModelState newTransform = new ModelState() {
@@ -86,11 +86,11 @@ public class FabricFloatingFlowerModel extends BlockModel {
 				return transform.isUvLocked();
 			}
 		};
-		BakedModel bakedFlower = unbakedFlower.bake(baker, spriteGetter, newTransform, location);
+		BakedModel bakedFlower = unbakedFlower.bake(baker, spriteGetter, newTransform);
 
 		Map<FloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
 		for (Map.Entry<FloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
-			BakedModel bakedIsland = e.getValue().bake(baker, spriteGetter, transform, location);
+			BakedModel bakedIsland = e.getValue().bake(baker, spriteGetter, transform);
 			bakedIslands.put(e.getKey(), bakedIsland);
 		}
 		return new Baked(bakedFlower, bakedIslands);

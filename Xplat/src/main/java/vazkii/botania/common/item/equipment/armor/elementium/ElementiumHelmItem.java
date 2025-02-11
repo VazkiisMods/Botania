@@ -12,11 +12,13 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,15 +30,12 @@ public class ElementiumHelmItem extends ElementiumArmorItem implements ManaDisco
 		super(Type.HELMET, props);
 	}
 
-	@NotNull
+	//TODO Very unsure if this works
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == getEquipmentSlot()) {
-			ret = HashMultimap.create(ret);
-			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Armor modifier", 0.11));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers() {
+		return super.getDefaultAttributeModifiers().withModifierAdded(PixieHandler.PIXIE_SPAWN_CHANCE,
+				PixieHandler.makeModifier("armor." + this.type.getName(), 0.11), //TODO I changed the name here to fit mc's way of naming the modifier. Check if this is alr!
+				EquipmentSlotGroup.bySlot(type.getSlot()));
 	}
 
 	@Override

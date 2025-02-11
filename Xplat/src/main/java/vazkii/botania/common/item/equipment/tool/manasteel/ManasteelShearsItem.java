@@ -8,11 +8,15 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -53,6 +57,8 @@ public class ManasteelShearsItem extends ShearsItem implements CustomDamageItem,
 
 	@Override
 	public int getSortingPriority(ItemStack stack, BlockState state) {
-		return 1000 + EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+		//Todo test if this works
+		HolderLookup<Enchantment> enchLookup = Minecraft.getInstance().level.holderLookup(Registries.ENCHANTMENT);
+		return 1000 + EnchantmentHelper.getItemEnchantmentLevel(enchLookup.getOrThrow(Enchantments.EFFICIENCY), stack);
 	}
 }

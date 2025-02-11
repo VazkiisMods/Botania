@@ -72,7 +72,6 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.network.NetworkDirection;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
@@ -99,7 +98,6 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlo
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.forge.block.ForgeSpecialFlowerBlock;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
@@ -347,12 +345,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun) {
-		return NeoForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun));
+		return NeoForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun)).isCanceled();
 	}
 
 	@Override
 	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
-		return NeoForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark));
+		return NeoForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark)).isCanceled();
 	}
 
 	@Override
@@ -463,7 +461,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
-		return state.is(Tags.Blocks.GLASS) || state.is(Tags.Blocks.GLASS_PANES);
+		return state.is(Tags.Blocks.GLASS_BLOCKS) || state.is(Tags.Blocks.GLASS_PANES);
 	}
 
 	@Override
@@ -474,12 +472,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Fluid getBucketFluid(BucketItem item) {
-		return item.getFluid();
+		return item.content;
 	}
 
 	@Override
 	public int getSmeltingBurnTime(ItemStack stack) {
-		return CommonHooks.getBurnTime(stack, RecipeType.SMELTING);
+		return stack.getBurnTime(RecipeType.SMELTING);
 	}
 
 	@Override

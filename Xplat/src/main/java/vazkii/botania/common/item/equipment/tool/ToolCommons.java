@@ -8,8 +8,11 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.protocol.game.ClientboundLevelEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -20,6 +23,7 @@ import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -131,7 +135,9 @@ public final class ToolCommons {
 			modifier = TerraShattererItem.getLevel(stack);
 		}
 
-		int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.EFFICIENCY, stack);
+		//Todo test if this works
+		HolderLookup<Enchantment> enchLookup = Minecraft.getInstance().level.holderLookup(Registries.ENCHANTMENT);
+		int efficiency = EnchantmentHelper.getItemEnchantmentLevel(enchLookup.getOrThrow(Enchantments.EFFICIENCY), stack);
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 

@@ -68,7 +68,7 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 	private static boolean tickingSwappers = false;
 
 	public TerraTruncatorItem(Properties props) {
-		super(BotaniaAPI.instance().getTerrasteelItemTier(), 5.0F, -3.0F, props);
+		super(BotaniaAPI.instance().getTerrasteelItemTier(), props.attributes(TerraTruncatorItem.createAttributes(BotaniaAPI.instance().getTerrasteelItemTier(), 5.0F, -3.0F)));
 	}
 
 	public static boolean shouldBreak(Player player) {

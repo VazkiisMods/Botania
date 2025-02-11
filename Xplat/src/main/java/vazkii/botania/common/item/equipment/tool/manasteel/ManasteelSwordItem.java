@@ -36,7 +36,7 @@ public class ManasteelSwordItem extends SwordItem implements CustomDamageItem {
 	}
 
 	public ManasteelSwordItem(Tier mat, int attackDamage, float attackSpeed, Properties props) {
-		super(mat, attackDamage, attackSpeed, props);
+		super(mat, props.attributes(ManasteelSwordItem.createAttributes(mat, attackDamage, attackSpeed)));
 	}
 
 	@Override

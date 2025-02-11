@@ -79,7 +79,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		for (int i = 0; i <= 20; i += 5) {
 			ItemStack s = new ItemStack(this);
 			if (i != 0) {
-				s.getOrCreateTag().putInt(TAG_LEVEL, i - 1);
+				//todo s.getOrCreateTag().putInt(TAG_LEVEL, i - 1);
 			}
 			output.accept(s);
 		}
@@ -182,8 +182,9 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 					CompoundTag cmp = new CompoundTag();
 					if (tile != null) {
-						cmp = tile.saveWithFullMetadata();
-						// Reset the block entity so e.g. chests don't spawn their drops
+						//todo cmp = tile.saveWithFullMetadata();
+
+						//Reset the block entity so e.g. chests don't spawn their drops
 						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(pos_, state);
 						world.setBlockEntity(newTile);
 					}
@@ -201,8 +202,11 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 					world.gameEvent(null, GameEvent.BLOCK_DESTROY, pos_);
 
 					ItemStack copyLens = new ItemStack(this);
+					/*todo
 					copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
 					copyLens.getTag().put(TAG_STATE, NbtUtils.writeBlockState(state));
+
+					 */
 					ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
 					ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
 					ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
@@ -225,10 +229,14 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	}
 
 	public static int getShardLevel(ItemStack shard) {
+		/*todo
 		if (!shard.hasTag()) {
 			return 0;
 		}
 		return shard.getOrCreateTag().getInt(TAG_LEVEL);
+
+		 */
+		return 0;
 	}
 
 	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightscale, boolean pointy) {
@@ -293,9 +301,11 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 				BlockPos pos = new BlockPos(x, y, z);
 
 				BlockState placeState = Blocks.AIR.defaultBlockState();
+				/*todo
 				if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
 					placeState = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getTag().getCompound(TAG_STATE));
 				}
+				 */
 
 				if (entity.level().dimensionType().ultraWarm() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
 					placeState = placeState.setValue(BlockStateProperties.WATERLOGGED, false);
@@ -305,7 +315,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 					BlockEntity tile = null;
 					CompoundTag tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {
-						tile = BlockEntity.loadStatic(pos, placeState, tilecmp);
+						tile = BlockEntity.loadStatic(pos, placeState, tilecmp, entity.level().registryAccess());
 					}
 
 					if (placeState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)
@@ -338,9 +348,12 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
+		/*todo
 		BlockState state = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getOrCreateTag().getCompound(TAG_STATE));
 		entity.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
 				entity.getDeltaMovement().x(), entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
+
+		 */
 
 		return true;
 	}

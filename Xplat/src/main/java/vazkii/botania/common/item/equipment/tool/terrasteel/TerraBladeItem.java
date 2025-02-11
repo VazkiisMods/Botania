@@ -69,7 +69,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffectItem
 				&& attackStrength == 1) {
 			ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
 			player.level().addFreshEntity(burst);
-			player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+			player.getMainHandItem().hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
 			player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}

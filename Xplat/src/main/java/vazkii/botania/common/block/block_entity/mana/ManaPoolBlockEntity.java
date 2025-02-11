@@ -151,12 +151,12 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		List<ManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
 		List<ManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
 
-		for (var recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE).values()) {
-			if (recipe.matches(stack)) {
-				if (recipe.getRecipeCatalyst() == null) {
-					matchingNonCatRecipes.add(recipe);
-				} else if (recipe.getRecipeCatalyst().test(state)) {
-					matchingCatRecipes.add(recipe);
+		for (var recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
+			if (recipe.value().matches(stack)) {
+				if (recipe.value().getRecipeCatalyst() == null) {
+					matchingNonCatRecipes.add(recipe.value());
+				} else if (recipe.value().getRecipeCatalyst().test(state)) {
+					matchingCatRecipes.add(recipe.value());
 				}
 			}
 		}

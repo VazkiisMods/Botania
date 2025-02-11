@@ -11,6 +11,7 @@ package vazkii.botania.forge;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -25,7 +26,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.Collections;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public final class ForgeBotaniaConfig {
 
 	private static class Client implements BotaniaConfig.ClientConfigAccess {

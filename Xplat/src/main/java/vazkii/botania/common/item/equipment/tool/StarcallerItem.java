@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -82,7 +83,7 @@ public class StarcallerItem extends ManasteelSwordItem {
 				world.addFreshEntity(bonusStar);
 			}
 
-			stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+			stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}

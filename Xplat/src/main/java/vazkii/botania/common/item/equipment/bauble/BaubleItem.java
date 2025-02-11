@@ -15,6 +15,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -60,23 +61,30 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
+		/* TODO
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		}
-		return ItemStack.of(cmp);
+
+		 */
+		return /*ItemStack.of(cmp)*/ stack;
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
+		/*TODO
 		CompoundTag cmp = new CompoundTag();
 		if (!cosmetic.isEmpty()) {
 			cmp = cosmetic.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
+
+		 */
 	}
 
 	public static UUID getBaubleUUID(ItemStack stack) {
+		/*TODO I think this whole method should now return a ResourceLocation instead
 		var tag = stack.getOrCreateTag();
 
 		// Legacy handling
@@ -91,8 +99,8 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 			UUID uuid = UUID.randomUUID();
 			tag.putUUID(TAG_BAUBLE_UUID, uuid);
 		}
-
-		return tag.getUUID(TAG_BAUBLE_UUID);
+		 */
+		return UUID.fromString("0e5420ba-bbba-4155-9d22-8894d78b9cc7"); //this is just some random UUID //tag.getUUID(TAG_BAUBLE_UUID);
 	}
 
 	@Override

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -31,6 +33,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
+//TODO compare vanilla bow with copied parts in here! I'm very sure several things could be updated here
 public class CrystalBowItem extends LivingwoodBowItem {
 
 	private static final int ARROW_COST = 200;
@@ -89,18 +92,10 @@ public class CrystalBowItem extends LivingwoodBowItem {
 							arrow.setBaseDamage(arrow.getBaseDamage() + (double) powerEnch * 0.5D + 0.5D);
 						}
 
-						int knockback = EnchantmentHelper.getItemEnchantmentLevel(enchantLookup.getOrThrow(Enchantments.PUNCH), stack);
-						if (knockback > 0) {
-							arrow.setKnockback(knockback);
-						}
-
 						if (EnchantmentHelper.getItemEnchantmentLevel(enchantLookup.getOrThrow(Enchantments.FLAME), stack) > 0) {
 							arrow.setRemainingFireTicks(100 * 20);
 						}
 
-						stack.hurtAndBreak(1, player, (p) -> {
-							p.broadcastBreakEvent(player.getUsedItemHand());
-						});
 						if (markUnpickable || player.getAbilities().instabuild && (arrowStack.is(Items.SPECTRAL_ARROW) || arrowStack.is(Items.TIPPED_ARROW))) {
 							arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 						}
@@ -130,13 +125,15 @@ public class CrystalBowItem extends LivingwoodBowItem {
 	}
 
 	private boolean canFire(ItemStack stack, Player player) {
-		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
+		HolderLookup<Enchantment> enchLookup = player.level().holderLookup(Registries.ENCHANTMENT);
+		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(enchLookup.getOrThrow(Enchantments.INFINITY), stack) > 0;
 		return player.getAbilities().instabuild || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
+		HolderLookup<Enchantment> enchLookup = entity.level().holderLookup(Registries.ENCHANTMENT);
+		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(enchLookup.getOrThrow(Enchantments.INFINITY), stack) > 0;
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, ARROW_COST / (infinity ? 2 : 1));
 	}
 }

@@ -15,6 +15,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.core.Holder;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
@@ -139,8 +140,9 @@ public class CurioIntegration extends EquipmentHandler {
 			return getItem().canEquip(stack, slotContext.entity());
 		}
 
+		//TODO use the ResourceLocation variant
 		@Override
-		public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
+		public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
 			return getItem().getEquippedAttributeModifiers(stack);
 		}
 

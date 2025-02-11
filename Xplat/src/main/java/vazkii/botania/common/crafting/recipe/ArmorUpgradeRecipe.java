@@ -40,8 +40,8 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 		ItemStack out = super.assemble(inv, registries);
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (stack.hasTag() && stack.getItem() instanceof ArmorItem) {
-				out.setTag(stack.getTag());
+			if (/*todo stack.hasTag() &&*/ stack.getItem() instanceof ArmorItem) {
+				//out.setTag(stack.getTag());
 				break;
 			}
 		}

@@ -37,7 +37,7 @@ public class SoulscribeItem extends ManasteelSwordItem {
 			target.hurt(player.damageSources().playerAttack(player), 20);
 		}
 
-		stack.hurtAndBreak(1, attacker, e -> e.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+		stack.hurtAndBreak(1, attacker, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
 		return true;
 	}
 

@@ -182,6 +182,7 @@ public interface XplatAbstractions {
 	<D> void openMenu(ServerPlayer player, MenuProvider menu, D initialData, StreamCodec<? super RegistryFriendlyByteBuf, D> streamCodec);
 
 	TagKey<Block> getOreTag();
+	//TODO could be replaced by a xPlat tag reference, since neo and fabric tags are mostly common tags now
 	boolean isInGlassTag(BlockState state);
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize);
