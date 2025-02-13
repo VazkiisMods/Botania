@@ -73,7 +73,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 			ItemStack stack = inv.getItem(i);
 			if (stack.is(BotaniaItems.laputaShard)) {
 				ItemStack result = stack.copy();
-				result.getOrCreateTag().putInt(LaputaShardItem.TAG_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
+				//todo result.getOrCreateTag().putInt(LaputaShardItem.TAG_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
 				return result;
 			}
 		}

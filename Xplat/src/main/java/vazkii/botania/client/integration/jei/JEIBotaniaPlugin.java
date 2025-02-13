@@ -70,6 +70,8 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
+//TODO unsurpress
+@SuppressWarnings("removal")
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = botaniaRL("main");
@@ -205,14 +207,14 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
 		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
-		for (ElvenTradeRecipe recipe : AlfheimPortalBlockEntity.elvenTradeRecipes(Minecraft.getInstance().level)) {
-			if (recipe instanceof LexiconElvenTradeRecipe) {
+		for (RecipeHolder<ElvenTradeRecipe> recipe : AlfheimPortalBlockEntity.elvenTradeRecipes(Minecraft.getInstance().level)) {
+			if (recipe.value() instanceof LexiconElvenTradeRecipe) {
 				continue;
 			}
-			List<Ingredient> inputs = recipe.getIngredients();
-			List<ItemStack> outputs = recipe.getOutputs();
-			if (inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0))) {
-				recipeRegistry.hideRecipes(ElvenTradeRecipeCategory.TYPE, List.of(recipe));
+			List<Ingredient> inputs = recipe.value().getIngredients();
+			List<ItemStack> outputs = recipe.value().getOutputs();
+			if (inputs.size() == 1 && outputs.size() == 1 && recipe.value().containsItem(outputs.getFirst())) {
+				recipeRegistry.hideRecipes(ElvenTradeRecipeCategory.TYPE, List.of(recipe.value()));
 			}
 		}
 

@@ -77,13 +77,13 @@ public class WorldshaperssSextantItem extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 72000;
 	}
 
 	@Override
 	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
-		if (getUseDuration(stack) - count < 10
+		if (getUseDuration(stack, living) - count < 10
 				|| !(living instanceof Player)
 				|| !world.isClientSide) {
 			return;
@@ -303,7 +303,7 @@ public class WorldshaperssSextantItem extends Item {
 			ItemStack onUse = player.getUseItem();
 			int time = player.getUseItemRemainingTicks();
 
-			if (onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
+			if (onUse == stack && stack.getItem().getUseDuration(stack, player) - time >= 10) {
 				double radius = calculateRadius(stack, player);
 				Font font = Minecraft.getInstance().font;
 				int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 30;
@@ -328,7 +328,7 @@ public class WorldshaperssSextantItem extends Item {
 						float yp = y + net.minecraft.util.Mth.sin(radian) * (float) radius;
 						Tesselator.getInstance().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION).addVertex(ms.last().pose(), xp, yp, 0);
 					}
-					Tesselator.getInstance().end();
+					//todo Tesselator.getInstance().end();
 				}
 			}
 		}

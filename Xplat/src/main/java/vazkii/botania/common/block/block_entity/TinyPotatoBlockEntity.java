@@ -32,6 +32,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.FireworkExplosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -229,7 +230,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 
 				if (messageIndex == messageTimes.size() - 1) {
 					CompoundTag explosion = new CompoundTag();
-					explosion.putByte("Type", (byte) FireworkRocketItem.Shape.LARGE_BALL.getId());
+					explosion.putByte("Type", (byte) FireworkExplosion.Shape.LARGE_BALL.getId());
 					explosion.putBoolean("Flicker", true);
 					explosion.putBoolean("Trail", true);
 					explosion.putIntArray("Colors", List.of(
@@ -241,7 +242,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 					explosions.add(explosion);
 
 					ItemStack rocket = new ItemStack(Items.FIREWORK_ROCKET);
-					CompoundTag rocketFireworks = rocket.getOrCreateTagElement("Fireworks");
+					CompoundTag rocketFireworks = /*todo rocket.getOrCreateTagElement("Fireworks")*/ new CompoundTag();
 					rocketFireworks.putByte("Flight", (byte) 0);
 					rocketFireworks.put("Explosions", explosions);
 
@@ -270,13 +271,13 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	@Override
 	public void writePacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.writePacketNBT(cmp, registries);
-		cmp.putString(TAG_NAME, Component.Serializer.toJson(name));
+		cmp.putString(TAG_NAME, Component.Serializer.toJson(name, registries));
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.readPacketNBT(cmp, registries);
-		name = Component.Serializer.fromJson(cmp.getString(TAG_NAME));
+		name = Component.Serializer.fromJson(cmp.getString(TAG_NAME), registries);
 	}
 
 	@Override

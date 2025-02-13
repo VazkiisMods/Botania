@@ -133,15 +133,18 @@ public class ManaMirrorItem extends Item {
 
 	public void bindPool(ItemStack stack, ManaPool pool) {
 		GlobalPos pos = GlobalPos.of(pool.getManaReceiverLevel().dimension(), pool.getManaReceiverPos());
-		Tag ser = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
+		Tag ser = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).result().get();
 		ItemNBTHelper.set(stack, TAG_POS, ser);
 	}
 
 	@Nullable
 	private static GlobalPos getBoundPos(ItemStack stack) {
+		/*todo
 		if (!stack.getOrCreateTag().contains(TAG_POS)) {
 			return null;
 		}
+
+		 */
 
 		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS))
 				.result()

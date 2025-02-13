@@ -37,6 +37,8 @@ import java.util.ArrayList;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
+//TODO unsurpress
+@SuppressWarnings("removal")
 public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipe> {
 
 	public static final RecipeType<RunicAltarRecipe> TYPE =

@@ -61,13 +61,16 @@ public class ThrownItemEntity extends ItemEntity {
 			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
 			BlockState blockState = this.level().getBlockState(blockPos);
 			if (blockState.is(Blocks.NETHER_PORTAL)) {
-				this.handleInsidePortal(blockPos);
+				//todo this.handleInsidePortal(blockPos);
 				teleported = true;
 			} else if (blockState.is(Blocks.END_GATEWAY)) {
 				BlockEntity blockEntity = this.level().getBlockEntity(blockPos);
+				/*todo
 				if (blockEntity instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
 					TheEndGatewayBlockEntity.teleportEntity(this.level(), blockPos, blockState, this, gateway);
 				}
+
+				 */
 
 				teleported = true;
 			}

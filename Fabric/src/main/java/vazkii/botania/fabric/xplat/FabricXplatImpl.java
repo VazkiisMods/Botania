@@ -471,7 +471,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Item.Properties defaultItemBuilderWithCustomDamageOnFabric() {
-		return defaultItemBuilder().customDamage((stack, amount, entity, breakCallback) -> {
+		return defaultItemBuilder().customDamage((stack, amount, entity, slot, breakCallback) -> {
 			var item = stack.getItem();
 			if (item instanceof CustomDamageItem cd) {
 				return cd.damageItem(stack, amount, entity, breakCallback);

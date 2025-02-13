@@ -56,8 +56,11 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
 			var colorName = Component.translatable(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
+			/*todo
 			TextColor realColor = TextColor.fromRgb(getLensColor(stack, world));
 			stacks.add(Component.translatable("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
+
+			 */
 		}
 
 		if (lens instanceof StormLens) {
@@ -190,7 +193,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		} else {
-			return ItemStack.of(cmp);
+			return /*ItemStack.of(cmp)*/ItemStack.EMPTY;
 		}
 	}
 
@@ -199,7 +202,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		if (compositeLens.isEmpty()) {
 			ItemNBTHelper.removeEntry(sourceLens, TAG_COMPOSITE_LENS);
 		} else {
-			CompoundTag cmp = compositeLens.save(new CompoundTag());
+			CompoundTag cmp = /*compositeLens.save(new CompoundTag())*/ new CompoundTag();
 			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
 		}
 		return sourceLens;

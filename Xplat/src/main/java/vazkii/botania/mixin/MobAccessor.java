@@ -24,8 +24,11 @@ public interface MobAccessor {
 	@Invoker("getAmbientSound")
 	SoundEvent botania_getAmbientSound();
 
+	/* todo
 	@Accessor
 	void setLootTable(ResourceLocation id);
+
+	 */
 
 	@Accessor
 	GoalSelector getGoalSelector();

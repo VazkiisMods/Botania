@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,14 +27,14 @@ public class BeaconBlockEntityFabricMixin {
 	@Unique
 	private static boolean bifrost = false;
 
-	@ModifyVariable(method = "tick", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;"))
-	private static Block captureBifrost(Block obj) {
-		bifrost = obj == BotaniaBlocks.bifrostPerm;
+	@ModifyVariable(method = "tick", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"), argsOnly = true)
+	private static BlockState captureBifrost(BlockState obj) {
+		bifrost = obj == BotaniaBlocks.bifrostPerm.defaultBlockState();
 		return obj;
 	}
 
-	@ModifyVariable(method = "tick", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/item/DyeColor;getTextureDiffuseColors()[F"))
-	private static float[] bifrostColor(float[] obj, Level level) {
+	@ModifyVariable(method = "tick", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/item/DyeColor;getTextureDiffuseColor()I"), argsOnly = true)
+	private static int bifrostColor(int obj, Level level) {
 		if (bifrost) {
 			return ((PermanentBifrostBlock) BotaniaBlocks.bifrostPerm).getBeaconColorMultiplier(
 					BotaniaBlocks.bifrostPerm.defaultBlockState(),

@@ -1,6 +1,7 @@
 package vazkii.botania.fabric.mixin;
 
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RepairItemRecipe;
 import net.minecraft.world.level.Level;
 
@@ -15,13 +16,15 @@ import vazkii.botania.common.item.BotaniaItems;
 public class RepairItemRecipeFabricMixin {
 	@Inject(
 		at = @At("RETURN"),
-		method = "matches(Lnet/minecraft/world/inventory/CraftingContainer;Lnet/minecraft/world/level/Level;)Z",
+		method = "Lnet/minecraft/world/item/crafting/RepairItemRecipe;matches(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/world/level/Level;)Z",
 		cancellable = true
 	)
-	private void preventSpellClothRepair(CraftingContainer craftingContainer, Level level,
-			CallbackInfoReturnable<Boolean> cir) {
+	private void preventSpellClothRepair(CraftingInput input, Level level, CallbackInfoReturnable<Boolean> cir) {
+		/*todo
 		if (craftingContainer.hasAnyMatching(s -> s.is(BotaniaItems.spellCloth))) {
 			cir.setReturnValue(false);
 		}
+
+		 */
 	}
 }

@@ -16,6 +16,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -62,6 +63,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 		builder.add(BlockStateProperties.POWERED);
 	}
 
+	/* OLD
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		HoveringHourglassBlockEntity hourglass = (HoveringHourglassBlockEntity) world.getBlockEntity(pos);
@@ -89,6 +91,36 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 		}
 
 		return InteractionResult.PASS;
+	}
+
+	 */
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		HoveringHourglassBlockEntity hourglass = (HoveringHourglassBlockEntity) world.getBlockEntity(pos);
+		ItemStack hgStack = hourglass.getItemHandler().getItem(0);
+		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+
+		if (hourglass.lock) {
+			if (!player.level().isClientSide && hand == InteractionHand.OFF_HAND) {
+				player.sendSystemMessage(Component.translatable("botaniamisc.hourglassLock"));
+			}
+			return ItemInteractionResult.FAIL;
+		}
+
+		if (hgStack.isEmpty() && HoveringHourglassBlockEntity.getStackItemTime(stack) > 0) {
+			hourglass.getItemHandler().setItem(0, stack.copy());
+			stack.setCount(0);
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		} else if (!hgStack.isEmpty()) {
+			player.getInventory().placeItemBackInInventory(hgStack);
+			hourglass.getItemHandler().setItem(0, ItemStack.EMPTY);
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		}
+
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override

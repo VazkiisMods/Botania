@@ -57,7 +57,7 @@ public class FelPumpkinBlock extends BotaniaBlock {
 			Blaze blaze = EntityType.BLAZE.create(world);
 			blaze.moveTo(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.setPersistenceRequired();
-			((MobAccessor) blaze).setLootTable(LOOT_TABLE);
+			//todo ((MobAccessor) blaze).setLootTable(LOOT_TABLE);
 			blaze.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null);
 			world.addFreshEntity(blaze);
 

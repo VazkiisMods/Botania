@@ -51,11 +51,14 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 		output.accept(creative);
 	}
 
+	/*todo
 	@NotNull
 	@Override
 	public Rarity getRarity(@NotNull ItemStack stack) {
 		return isStackCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
 	}
+
+	 */
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> stacks, TooltipFlag flags) {

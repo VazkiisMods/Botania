@@ -35,6 +35,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
+//TODO unsurpress
+@SuppressWarnings("removal")
 public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe> {
 
 	public static final RecipeType<PureDaisyRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "pure_daisy", PureDaisyRecipe.class);
@@ -102,7 +104,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 		for (var state : ingredient.getDisplayed()) {
 			if (!state.getFluidState().isEmpty()) {
 				inputSlotBuilder.addIngredient(this.fluidHelper.getFluidIngredientType(),
-						this.fluidHelper.create(state.getFluidState().getType(), 1000));
+						this.fluidHelper.create(state.getFluidState().holder(), 1000));
 			}
 		}
 		inputSlotBuilder.addItemStacks(ingredient.getDisplayedStacks())

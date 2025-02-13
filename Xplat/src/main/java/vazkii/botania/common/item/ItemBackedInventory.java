@@ -31,7 +31,7 @@ public class ItemBackedInventory extends SimpleContainer {
 		ListTag lst = ItemNBTHelper.getList(stack, TAG_ITEMS, Tag.TAG_COMPOUND, false);
 		int i = 0;
 		for (; i < expectedSize && i < lst.size(); i++) {
-			setItem(i, ItemStack.of(lst.getCompound(i)));
+			setItem(i, /*ItemStack.of(lst.getCompound(i))*/ ItemStack.EMPTY);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class ItemBackedInventory extends SimpleContainer {
 		super.setChanged();
 		ListTag list = new ListTag();
 		for (int i = 0; i < getContainerSize(); i++) {
-			list.add(getItem(i).save(new CompoundTag()));
+			//todo list.add(getItem(i).save(new CompoundTag()));
 		}
 		ItemNBTHelper.setList(stack, TAG_ITEMS, list);
 	}
