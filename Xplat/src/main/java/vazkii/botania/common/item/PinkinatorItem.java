@@ -56,7 +56,7 @@ public class PinkinatorItem extends Item {
 						pink.setCustomName(wither.getCustomName());
 						pink.setCustomNameVisible(wither.isCustomNameVisible());
 					}
-					pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null, null);
+					pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null);
 					world.addFreshEntity(pink);
 					pink.spawnAnim();
 					pink.playSound(BotaniaSounds.pinkinator, 1F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);

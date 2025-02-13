@@ -37,7 +37,7 @@ public class KeptItemsComponent extends SerializableComponent {
 		stacks.clear();
 		ListTag list = tag.getList("stacks", Tag.TAG_COMPOUND);
 		for (Tag t : list) {
-			stacks.add(ItemStack.of((CompoundTag) t));
+			stacks.add(/*ItemStack.of((CompoundTag) t)*/ ItemStack.EMPTY);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class KeptItemsComponent extends SerializableComponent {
 	public void writeToNbt(CompoundTag tag) {
 		ListTag list = new ListTag();
 		for (ItemStack stack : stacks) {
-			list.add(stack.save(new CompoundTag()));
+			//todo list.add(stack.save(new CompoundTag()));
 		}
 		tag.put("stacks", list);
 	}

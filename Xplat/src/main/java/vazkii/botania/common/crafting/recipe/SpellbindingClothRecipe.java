@@ -66,8 +66,11 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
+		/*todo
 		stackToDisenchant.removeTagKey("Enchantments"); // Remove enchantments
 		stackToDisenchant.removeTagKey("RepairCost");
+
+		 */
 		return stackToDisenchant;
 	}
 

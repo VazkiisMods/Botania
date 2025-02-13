@@ -37,7 +37,7 @@ public class LivingwoodSlingshotItem extends Item {
 
 	@Override
 	public void releaseUsing(ItemStack stack, Level world, LivingEntity living, int duration) {
-		int j = getUseDuration(stack) - duration;
+		int j = getUseDuration(stack, living) - duration;
 
 		if (!world.isClientSide && (!(living instanceof Player player) || player.getAbilities().instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC))) {
 			float f = j / 20.0F;
@@ -60,7 +60,7 @@ public class LivingwoodSlingshotItem extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 72000;
 	}
 

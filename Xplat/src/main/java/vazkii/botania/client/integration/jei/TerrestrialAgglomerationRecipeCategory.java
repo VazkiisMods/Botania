@@ -37,6 +37,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
+//TODO unsurpress
+@SuppressWarnings("removal")
 public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<TerrestrialAgglomerationRecipe> {
 	public static final RecipeType<TerrestrialAgglomerationRecipe> TYPE =
 			RecipeType.create(LibMisc.MOD_ID, "terra_plate", TerrestrialAgglomerationRecipe.class);

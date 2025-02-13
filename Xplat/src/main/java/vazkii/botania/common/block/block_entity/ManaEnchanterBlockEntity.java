@@ -11,11 +11,13 @@ package vazkii.botania.common.block.block_entity;
 import com.google.common.base.Predicates;
 import com.google.common.base.Suppliers;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -23,6 +25,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,6 +35,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
@@ -170,6 +174,16 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
 				if (item.is(Items.ENCHANTED_BOOK)) {
+					ItemEnchantments itemenchantments = EnchantmentHelper.getEnchantmentsForCrafting(item);
+					if (!itemenchantments.isEmpty()) {
+						for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemenchantments.entrySet()) {
+							if (isEnchantmentValid(entry.getKey())) {
+								advanceStage();
+								return true;
+							}
+						}
+					}
+					/*OLD
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if (enchants.size() > 0) {
 						Enchantment enchant = enchants.keySet().iterator().next();
@@ -178,6 +192,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 							return true;
 						}
 					}
+					 */
 				}
 			}
 		}
@@ -192,6 +207,21 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
 				if (item.is(Items.ENCHANTED_BOOK)) {
+					ItemEnchantments itemenchantments = EnchantmentHelper.getEnchantmentsForCrafting(item);
+					if (!itemenchantments.isEmpty()) {
+						for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemenchantments.entrySet()) {
+							Holder<Enchantment> ench = entry.getKey();
+							int enchantLvl = entry.getIntValue();
+							if (!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
+								this.enchants.add(new EnchantmentInstance(ench, enchantLvl));
+								level.playSound(null, worldPosition, BotaniaSounds.ding, SoundSource.BLOCKS, 1F, 1F);
+								addedEnch = true;
+								break;
+							}
+						}
+					}
+
+					/*OLD
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if (enchants.size() > 0) {
 						Map.Entry<Enchantment, Integer> e = enchants.entrySet().iterator().next();
@@ -204,6 +234,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 							break;
 						}
 					}
+					 */
 				}
 			}
 
@@ -221,12 +252,12 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		if (manaRequired == -1) {
 			manaRequired = 0;
 			for (EnchantmentInstance data : enchants) {
-				manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantment.getRarity().getWeight()))
+				manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantment.value().getWeight()))
 						* 1.05F)
 						* ((3F + data.level * data.level)
 								* 0.25F)
 						* (0.9F + enchants.size() * 0.05F)
-						* (data.enchantment.isTreasureOnly() ? 1.25F : 1F));
+						* (data.enchantment.is(EnchantmentTags.DOUBLE_TRADE_PRICE) ? 1.25F : 1F));
 			}
 		} else if (mana >= manaRequired) {
 			manaRequired = 0;
@@ -399,15 +430,20 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		cmp.putInt(TAG_STAGE_TICKS, stageTicks);
 		cmp.putInt(TAG_STAGE_3_END_TICKS, stage3EndTicks);
 
+		/*todo
 		CompoundTag itemCmp = new CompoundTag();
 		if (!itemToEnchant.isEmpty()) {
 			cmp.put(TAG_ITEM, itemToEnchant.save(itemCmp));
 		}
 
+
+
 		String enchStr = enchants.stream()
-				.map(e -> BuiltInRegistries.ENCHANTMENT.getKey(e.enchantment) + "=" + e.level)
+				.map(e -> Registries.ENCHANTMENT.getKey(e.enchantment) + "=" + e.level)
 				.collect(Collectors.joining(","));
-		cmp.putString(TAG_ENCHANTS, enchStr);
+
+		 */
+		cmp.putString(TAG_ENCHANTS, "enchStr-todo");
 	}
 
 	@Override
@@ -419,7 +455,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		stage3EndTicks = cmp.getInt(TAG_STAGE_3_END_TICKS);
 
 		CompoundTag itemCmp = cmp.getCompound(TAG_ITEM);
-		itemToEnchant = ItemStack.of(itemCmp);
+		itemToEnchant = /*todo ItemStack.of(itemCmp)*/ ItemStack.EMPTY;
 
 		enchants.clear();
 		String enchStr = cmp.getString(TAG_ENCHANTS);
@@ -431,13 +467,13 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 					int lvl = Integer.parseInt(entryTokens[1]);
 					level.holderLookup(Registries.ENCHANTMENT)
 							.get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(entryTokens[0])))
-							.ifPresent(ench -> enchants.add(new EnchantmentInstance(ench.value(), lvl)));
+							.ifPresent(ench -> enchants.add(new EnchantmentInstance(ench, lvl)));
 				} catch (ResourceLocationException ignored) {}
 			}
 		}
 	}
 
-	private boolean hasEnchantAlready(Enchantment enchant) {
+	private boolean hasEnchantAlready(Holder<Enchantment> enchant) {
 		for (EnchantmentInstance data : enchants) {
 			if (data.enchantment == enchant) {
 				return true;
@@ -447,14 +483,14 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		return false;
 	}
 
-	private boolean isEnchantmentValid(@Nullable Enchantment ench) {
-		if (ench == null || !ench.canEnchant(itemToEnchant)) {
+	private boolean isEnchantmentValid(@Nullable Holder<Enchantment> ench) {
+		if (ench == null || !ench.value().canEnchant(itemToEnchant)) {
 			return false;
 		}
 
 		for (EnchantmentInstance data : enchants) {
-			Enchantment otherEnch = data.enchantment;
-			if (!ench.isCompatibleWith(otherEnch)) {
+			Holder<Enchantment> otherEnch = data.enchantment;
+			if (!Enchantment.areCompatible(ench, otherEnch)) {
 				return false;
 			}
 		}

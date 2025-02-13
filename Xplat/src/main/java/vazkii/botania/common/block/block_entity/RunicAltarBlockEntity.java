@@ -21,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -215,10 +216,12 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (currentRecipe != null) {
 			this.manaToGet = currentRecipe.getMana();
 		} else {
+			/*TODO we need the RecipeInput for this
 			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level)
 					.map(RecipeHolder::value)
 					.map(RunicAltarRecipe::getMana)
 					.orElse(0);
+			 */
 		}
 
 		if (manaToGet != this.manaToGet) {
@@ -240,11 +243,11 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
-	public InteractionResult trySetLastRecipe(Player player) {
+	public ItemInteractionResult trySetLastRecipe(Player player) {
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the altar has no items, so just optimistically assume success on the client.
 		if (player.level().isClientSide()) {
-			return InteractionResult.sidedSuccess(true);
+			return ItemInteractionResult.sidedSuccess(true);
 		}
 		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
 		if (success) {
@@ -252,8 +255,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? InteractionResult.sidedSuccess(false)
-				: InteractionResult.PASS;
+				? ItemInteractionResult.sidedSuccess(false)
+				: ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override
@@ -267,10 +270,12 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (currentRecipe != null) {
 			recipe = currentRecipe;
 		} else {
+			/*TODO we need the RecipeInput for this
 			Optional<RecipeHolder<RunicAltarRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, getItemHandler(), level);
 			if (maybeRecipe.isPresent()) {
 				recipe = maybeRecipe.get().value();
 			}
+			 */
 		}
 
 		if (recipe != null && manaToGet > 0 && mana >= manaToGet) {
@@ -286,7 +291,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			if (livingrock != null) {
 				int mana = recipe.getMana();
 				receiveMana(-mana);
-				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
+				ItemStack output = ItemStack.EMPTY; //todo recipe.assemble(getItemHandler(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
 				level.addFreshEntity(outputItem);
@@ -404,6 +409,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 			if (amt > 0) {
 				float anglePer = 360F / amt;
+				/*TODO we need the RecipeInput for this
 				altar.level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, altar.getItemHandler(), altar.level).ifPresent(recipe -> {
 					RenderSystem.enableBlend();
 					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -434,6 +440,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);
 					}
 				});
+				*/
 
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;

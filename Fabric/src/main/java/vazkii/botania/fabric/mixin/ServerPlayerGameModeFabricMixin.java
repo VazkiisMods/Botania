@@ -32,7 +32,7 @@ public class ServerPlayerGameModeFabricMixin {
 	@Final
 	protected ServerPlayer player;
 
-	@Inject(method = "destroyBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V"))
+	@Inject(method = "destroyBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)Lnet/minecraft/world/level/block/state/BlockState;"))
 	private void onStartBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
 		ServerPlayer player = this.player;
 		ItemStack stack = player.getMainHandItem();

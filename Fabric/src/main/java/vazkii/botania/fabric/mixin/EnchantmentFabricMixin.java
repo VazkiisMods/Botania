@@ -16,8 +16,11 @@ public class EnchantmentFabricMixin {
 	@Inject(method = "canEnchant", cancellable = true, at = @At("HEAD"))
 	public void onEnchant(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
 		Enchantment self = (Enchantment) (Object) this;
-		if (self == Enchantments.MOB_LOOTING && stack.is(BotaniaItems.elementiumAxe)) {
+		/*todo
+		if (self == Enchantments.LOOTING && stack.is(BotaniaItems.elementiumAxe)) {
 			cir.setReturnValue(true);
 		}
+
+		 */
 	}
 }

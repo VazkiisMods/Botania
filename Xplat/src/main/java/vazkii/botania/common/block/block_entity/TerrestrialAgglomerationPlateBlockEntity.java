@@ -110,7 +110,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				}
 
 				if (self.mana >= recipe.getMana()) {
-					ItemStack result = recipe.assemble(inv, level.registryAccess());
+					ItemStack result = ItemStack.EMPTY /*todo recipe.assemble(inv, level.registryAccess())*/;
 					for (ItemStack item : items) {
 						item.setCount(0);
 					}
@@ -183,8 +183,9 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		if (items.isEmpty()) {
 			return null;
 		}
-		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, items, level)
-				.map(RecipeHolder::value).orElse(null);
+		return /*TODO we need the RecipeInput for this
+				level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, items, level)
+				.map(RecipeHolder::value).orElse(null)*/ null;
 	}
 
 	private boolean isActive() {

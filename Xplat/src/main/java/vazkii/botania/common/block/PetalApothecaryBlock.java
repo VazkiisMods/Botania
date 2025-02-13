@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -115,6 +116,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		}
 	}
 
+	/*OLD
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (!(world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary)) {
@@ -133,6 +135,28 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		}
 
 		return InteractionResult.PASS;
+	}
+	 */
+
+	//TODO this could maybe be split into useItemOn and useWithoutItem
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (!(world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary)) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
+
+		if (apothecary.canAddLastRecipe() && mainHandEmpty) {
+			return apothecary.trySetLastRecipe(player);
+		} else if (!apothecary.isEmpty() && mainHandEmpty) {
+			InventoryHelper.withdrawFromInventory(apothecary, player);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		} else if (tryWithdrawFluid(player, hand, apothecary, pos) || tryDepositFluid(player, hand, apothecary, pos)) {
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		}
+
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override

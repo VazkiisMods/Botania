@@ -8,6 +8,7 @@
  */
 package vazkii.botania.fabric.mixin;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -46,9 +47,9 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	protected int lastHurtByPlayerTime;
 
 	@Inject(method = "dropAllDeathLoot", at = @At(shift = At.Shift.AFTER, value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;dropFromLootTable(Lnet/minecraft/world/damagesource/DamageSource;Z)V"))
-	private void dropEnd(DamageSource source, CallbackInfo ci) {
+	private void dropEnd(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
 		var self = (LivingEntity) (Object) this;
-		ElementiumAxeItem.onEntityDrops(lastHurtByPlayerTime > 0, source, self, self::spawnAtLocation);
+		ElementiumAxeItem.onEntityDrops(lastHurtByPlayerTime > 0, damageSource, self, self::spawnAtLocation);
 	}
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")

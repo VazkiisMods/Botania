@@ -18,6 +18,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -102,6 +103,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			return true;
 		}
 
+		/*TODO we need the RecipeInput for this
 		Optional<RecipeHolder<PetalApothecaryRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getItemHandler(), level);
 		if (maybeRecipe.isPresent()) {
 			var recipe = maybeRecipe.get();
@@ -126,6 +128,8 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				return true;
 			}
 		}
+
+		 */
 
 		if (!XplatAbstractions.INSTANCE.isFluidContainer(item)
 				&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned) {
@@ -180,12 +184,12 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		lastReagent = Ingredient.EMPTY;
 	}
 
-	public InteractionResult trySetLastRecipe(Player player) {
+	public ItemInteractionResult trySetLastRecipe(Player player) {
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the apothecary has water and no items, so just optimistically assume
 		// success on the client.
 		if (player.level().isClientSide()) {
-			return InteractionResult.sidedSuccess(true);
+			return ItemInteractionResult.sidedSuccess(true);
 		}
 		boolean success = InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
 		if (success) {
@@ -193,8 +197,8 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? InteractionResult.sidedSuccess(false)
-				: InteractionResult.PASS;
+				? ItemInteractionResult.sidedSuccess(false)
+				: ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	public boolean isEmpty() {
@@ -337,6 +341,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			if (amt > 0) {
 				float anglePer = 360F / amt;
 
+				/*TODO we need the RecipeInput for this
 				Optional<RecipeHolder<PetalApothecaryRecipe>> maybeRecipe = altar.level.getRecipeManager()
 						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, altar.getItemHandler(), altar.level);
 				maybeRecipe.ifPresent(recipe -> {
@@ -357,6 +362,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					gui.renderFakeItem(reagent, xc + radius + 16, yc + 6);
 					gui.drawString(mc.font, "+", xc + radius + 14, yc + 10, 0xFFFFFF, false);
 				});
+				 */
 
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;

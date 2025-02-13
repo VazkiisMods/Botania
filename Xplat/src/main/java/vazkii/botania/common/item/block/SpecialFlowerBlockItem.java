@@ -62,27 +62,37 @@ public class SpecialFlowerBlockItem extends BlockItem {
 
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
+		/*todo
 		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		return tag != null && tag.contains(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS);
+
+		 */
+		return false;
 	}
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
+		/*todo
 		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		if (tag != null) {
 			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Math.round(13F * frac);
 		}
+
+		 */
 		return 0;
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
+		/*todo
 		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		if (tag != null) {
 			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
 		}
+
+		 */
 		return 0;
 	}
 }

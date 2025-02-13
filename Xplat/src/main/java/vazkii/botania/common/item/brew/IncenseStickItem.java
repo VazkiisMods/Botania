@@ -16,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
+import net.minecraft.world.item.alchemy.PotionContents;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
@@ -74,7 +75,7 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer, C
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if (!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffect().isInstantenous()) {
+		if (!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffect().value().isInstantenous()) {
 			return ItemStack.EMPTY;
 		}
 

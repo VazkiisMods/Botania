@@ -47,11 +47,15 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}
+		/*todo idk why this throws error
 		Optional<? extends RecipeHolder<?>> recipe = BotaniaRecipeTypes.getRecipe(world, ResourceLocation.parse(recipeName), type);
 		if (recipe.isEmpty()) {
 			return ImmutableList.of();
 		}
 		return recipe.get().value().getIngredients();
+
+		 */
+		return ImmutableList.of();
 	}
 
 	@Override

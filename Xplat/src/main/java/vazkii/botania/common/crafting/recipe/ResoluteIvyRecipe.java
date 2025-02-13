@@ -41,7 +41,7 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 				if (stack.is(BotaniaItems.keepIvy) && !foundIvy) {
 					foundIvy = true;
 				} else if (!foundItem
-						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ResoluteIvyItem.TAG_KEEP, false))
+						&& !(/*todo stack.hasTag() &&*/ ItemNBTHelper.getBoolean(stack, ResoluteIvyItem.TAG_KEEP, false))
 						&& !stack.getItem().hasCraftingRemainingItem()) {
 					foundItem = true;
 				} else {

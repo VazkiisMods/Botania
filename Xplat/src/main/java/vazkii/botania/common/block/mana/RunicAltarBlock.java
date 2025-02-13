@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -54,6 +55,7 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 		return SHAPE;
 	}
 
+	/*OLD
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (!(world.getBlockEntity(pos) instanceof RunicAltarBlockEntity altar)) {
@@ -77,6 +79,31 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 		}
 
 		return InteractionResult.PASS;
+	}
+	 */
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (!(world.getBlockEntity(pos) instanceof RunicAltarBlockEntity altar)) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
+
+		if (altar.canAddLastRecipe() && mainHandEmpty) {
+			return altar.trySetLastRecipe(player);
+		} else if (!altar.isEmpty() && altar.manaToGet == 0 && mainHandEmpty) {
+			InventoryHelper.withdrawFromInventory(altar, player);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		} else if (!stack.isEmpty()) {
+			boolean result = altar.addItem(player, stack, hand);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+			if (result) {
+				return ItemInteractionResult.sidedSuccess(world.isClientSide());
+			}
+		}
+
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	@Override

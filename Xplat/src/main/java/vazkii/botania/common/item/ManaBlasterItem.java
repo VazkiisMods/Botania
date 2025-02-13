@@ -153,7 +153,8 @@ public class ManaBlasterItem extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<Component> lensTip = lens.getTooltipLines(Proxy.INSTANCE.getClientPlayer(), TooltipFlag.Default.NORMAL);
+			//todo idk
+			List<Component> lensTip = lens.getTooltipLines(Item.TooltipContext.of(Proxy.INSTANCE.getClientPlayer().level()), Proxy.INSTANCE.getClientPlayer(), TooltipFlag.Default.NORMAL);
 			if (lensTip.size() > 1) {
 				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}
@@ -233,17 +234,20 @@ public class ManaBlasterItem extends Item {
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if (cmp != null) {
-			return ItemStack.of(cmp);
+			return ItemStack.EMPTY; //todo ItemStack.of(cmp);
 		}
 		return ItemStack.EMPTY;
 	}
 
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
+		/*todo
 		CompoundTag cmp = new CompoundTag();
 		if (lens != null) {
 			cmp = lens.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
+
+		 */
 	}
 
 	public static void setLens(ItemStack stack, ItemStack lens) {
@@ -251,11 +255,14 @@ public class ManaBlasterItem extends Item {
 			setLensAtPos(stack, lens, getClipPos(stack));
 		}
 
+		/*todo
 		CompoundTag cmp = new CompoundTag();
 		if (!lens.isEmpty()) {
 			cmp = lens.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
+
+		 */
 	}
 
 	public static ItemStack getLens(ItemStack stack) {
@@ -265,7 +272,7 @@ public class ManaBlasterItem extends Item {
 
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if (cmp != null) {
-			return ItemStack.of(cmp);
+			return ItemStack.EMPTY; // ItemStack.of(cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -314,11 +321,14 @@ public class ManaBlasterItem extends Item {
 	}
 
 	private int getCooldown(ItemStack stack) {
-		return stack.getOrCreateTag().getInt(TAG_COOLDOWN);
+		return 0; //stack.getOrCreateTag().getInt(TAG_COOLDOWN);
 	}
 
 	private void setCooldown(ItemStack stack, int cooldown) {
+		/*todo
 		CompoundTag tag = stack.getOrCreateTag();
 		tag.putInt(TAG_COOLDOWN, cooldown);
+
+		 */
 	}
 }

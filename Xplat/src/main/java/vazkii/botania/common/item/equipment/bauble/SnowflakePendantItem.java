@@ -46,7 +46,7 @@ public class SnowflakePendantItem extends BaubleItem {
 		if (!entity.level().isClientSide && !entity.isShiftKeyDown()) {
 			boolean lastOnGround = entity.onGround();
 			entity.setOnGround(true);
-			FrostWalkerEnchantment.onEntityMoved(entity, entity.level(), entity.blockPosition(), 8);
+			//todo FrostWalkerEnchantment.onEntityMoved(entity, entity.level(), entity.blockPosition(), 8);
 			entity.setOnGround(lastOnGround);
 
 			int x;
