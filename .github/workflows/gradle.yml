@@ -29,12 +29,12 @@ jobs:
       run: |
         # Check is backwards because "" is falsey, which wouldn't work for boolean punning
         SNAPSHOT_SUFFIX=${{ !startsWith(github.ref, 'refs/tags/release-') && '-SNAPSHOT' || '' }}
-        MC=$(awk -F '=' '/^minecraft_version\\b/ { print $2; }' gradle.properties)
-        BUILD=$(awk -F '=' '/^build_number\\b/ { print $2; }' gradle.properties)
+        MC=$(awk -F '=' '$1~/^minecraft_version$/ { print $2; }' gradle.properties)
+        BUILD=$(awk -F '=' '$1~/^build_number$/ { print $2; }' gradle.properties)
         echo "forge=Forge/build/libs/Botania-${MC}-${BUILD}-FORGE${SNAPSHOT_SUFFIX}.jar" >> "$GITHUB_OUTPUT"
         echo "fabric=Fabric/build/libs/Botania-${MC}-${BUILD}-FABRIC${SNAPSHOT_SUFFIX}.jar" >> "$GITHUB_OUTPUT"
         
-        GOG_VER=$(awk -F '=' '/^VERSION\\b/ { print $2; }' garden_of_glass/Makefile)
+        GOG_VER=$(awk -F '=' '$1~/^VERSION$/ { print $2; }' garden_of_glass/Makefile)
         echo "gog=garden_of_glass/gardenofglass-${GOG_VER}.jar" >> "$GITHUB_OUTPUT"
     - name: Build GoG
       run: |
