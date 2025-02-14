@@ -26,7 +26,7 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -48,6 +48,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -188,7 +189,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		// GUI and Recipe
 		BotaniaItems.registerMenuTypes(bind(BuiltInRegistries.MENU));
 		BotaniaItems.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
-		BotaniaBannerPatterns.submitRegistrations(bind(BuiltInRegistries.BANNER_PATTERN));
+		//todo BotaniaBannerPatterns.submitRegistrations(bind(Registries.BANNER_PATTERN));
 		BotaniaRecipeTypes.submitRecipeTypes(bind(BuiltInRegistries.RECIPE_TYPE));
 		BotaniaRecipeTypes.submitRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
 		StateIngredients.submitRegistrations(bind(STATE_INGREDIENT_TYPE_REGISTRY));
@@ -230,7 +231,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				FabricItemGroup.builder()
 						.title(Component.translatable("itemGroup.botania").withStyle((style -> style.withColor(ChatFormatting.WHITE))))
 						.icon(() -> new ItemStack(BotaniaItems.lexicon))
-						.backgroundSuffix("botania.png")
+						.backgroundTexture(CreativeModeTab.createTextureLocation("botania"))
 						.build()
 		);
 		ItemGroupEvents.modifyEntriesEvent(BotaniaRegistries.BOTANIA_TAB_KEY)
@@ -257,7 +258,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		EntitySleepEvents.ALLOW_SLEEPING.register(SleepingHandler::trySleep);
 		EntityTrackingEvents.START_TRACKING.register(DaffomillBlockEntity::onItemTrack);
-		LootTableEvents.MODIFY.register((resourceManager, manager, id, tableBuilder, lootTableSource) -> LootHandler.lootLoad(id, tableBuilder::withPool));
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> LootHandler.lootLoad(key.location(), tableBuilder::withPool)); //todo confirm location is correct
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		ServerEntityEvents.ENTITY_LOAD.register(TigerseyeBlockEntity::pacifyAfterLoad);
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
