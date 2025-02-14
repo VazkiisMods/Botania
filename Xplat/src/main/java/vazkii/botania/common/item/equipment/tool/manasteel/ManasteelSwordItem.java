@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +41,7 @@ public class ManasteelSwordItem extends SwordItem implements CustomDamageItem {
 	}
 
 	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, EquipmentSlot slot, Runnable breakCallback) {
 		int manaPerDamage = ((ManasteelSwordItem) stack.getItem()).getManaPerDamage();
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}

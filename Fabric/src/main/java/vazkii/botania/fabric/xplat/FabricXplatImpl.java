@@ -25,6 +25,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -414,7 +415,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet) {
-		return ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
+		return (Packet<ClientGamePacketListener>) (Packet) ServerPlayNetworking.createS2CPacket(packet);
 	}
 
 	@Override
@@ -474,7 +475,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return defaultItemBuilder().customDamage((stack, amount, entity, slot, breakCallback) -> {
 			var item = stack.getItem();
 			if (item instanceof CustomDamageItem cd) {
-				return cd.damageItem(stack, amount, entity, breakCallback);
+				return cd.damageItem(stack, amount, entity, slot, breakCallback);
 			}
 			return amount;
 		});
@@ -578,7 +579,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Nullable
 	@Override
 	public FoodProperties getFoodProperties(ItemStack stack) {
-		return stack.getItem().getFoodProperties();
+		return stack.get(DataComponents.FOOD);
 	}
 
 	@Override

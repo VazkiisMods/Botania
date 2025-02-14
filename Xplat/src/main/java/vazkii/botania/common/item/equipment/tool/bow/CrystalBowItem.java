@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -131,9 +132,10 @@ public class CrystalBowItem extends LivingwoodBowItem {
 	}
 
 	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, EquipmentSlot slot, Runnable breakCallback) {
 		HolderLookup<Enchantment> enchLookup = entity.level().holderLookup(Registries.ENCHANTMENT);
 		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(enchLookup.getOrThrow(Enchantments.INFINITY), stack) > 0;
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, ARROW_COST / (infinity ? 2 : 1));
 	}
+
 }
