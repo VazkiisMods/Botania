@@ -41,13 +41,13 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Nullable
 	@Override
 	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeClientCapabilities.WAND_HUD, level, pos, state, be);
+		return level.getCapability(BotaniaForgeClientCapabilities.BLOCK_WAND_HUD, pos, state, be);
 	}
 
 	@Nullable
 	@Override
 	public WandHUD findWandHud(Entity entity) {
-		return entity.getCapability(BotaniaForgeClientCapabilities.WAND_HUD).orElse(null);
+		return entity.getCapability(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD);
 	}
 
 	@Override
