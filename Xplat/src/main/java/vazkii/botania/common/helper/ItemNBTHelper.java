@@ -212,8 +212,9 @@ public final class ItemNBTHelper {
 	}
 
 	/**
-	 * Serializes the given stack such that {@link net.minecraft.world.item.crafting.ShapedRecipe#itemStackFromJson}
+	 * Serializes the given stack such that {@link net.minecraft.world.item.crafting.ShapedRecipe#CODEC}
 	 * would be able to read the result back
+	 * TODO: probably not required anymore
 	 */
 	public static JsonObject serializeStack(ItemStack stack) {
 		CompoundTag nbt = new CompoundTag(); //stack.save(new CompoundTag());

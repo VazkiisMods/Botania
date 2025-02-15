@@ -129,6 +129,9 @@ processResources {
             'mod_id'                       : mod_id,
             'license'                      : license,
             'description'                  : project.description,
+            'website_url'                  : website_url,
+            'sources_url'                  : sources_url,
+            'issues_url'                   : issue_url,
             'neoforge_version'             : neoforge_version,
             'neoforge_loader_version_range': neoforge_loader_version_range,
             'java_version'                 : java_version

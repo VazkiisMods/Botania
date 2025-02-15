@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @see vazkii.botania.common.block.flower.generating.EntropinnyumBlockEntity
  * @see vazkii.botania.common.internal_caps.EthicalComponent
  * @see vazkii.botania.mixin.PistonBaseBlockMixin
- * @see vazkii.botania.common.item.lens.ForceLens#moveBlocks(Level, BlockPos, Direction)
+ * @see vazkii.botania.common.item.lens.ForceLens#moveBlocks(Level, BlockPos, Direction, BlockPos)
  */
 public class EthicalTntHelper {
 	/**

@@ -1,4 +1,4 @@
-accessWidener v1 named
+accessWidener v2 named
 accessible method net/minecraft/client/renderer/block/model/ItemOverrides <init> ()V
 accessible method net/minecraft/world/entity/projectile/Projectile <init> (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V
 accessible class net/minecraft/world/item/crafting/Ingredient$Value
@@ -9,3 +9,4 @@ accessible class net/minecraft/client/renderer/RenderType$CompositeState
 extendable class net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator
 accessible class net/minecraft/client/resources/model/ModelManager$ReloadState
 accessible method net/minecraft/core/dispenser/DefaultDispenseItemBehavior consumeWithRemainder (Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
+extendable method net/minecraft/world/entity/vehicle/VehicleEntity getDropItem ()Lnet/minecraft/world/item/Item;

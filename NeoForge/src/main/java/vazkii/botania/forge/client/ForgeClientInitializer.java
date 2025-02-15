@@ -3,7 +3,6 @@ package vazkii.botania.forge.client;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
@@ -20,16 +19,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.BotaniaItemProperties;
@@ -53,7 +49,6 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntit
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
@@ -68,32 +63,29 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-@Mod.EventBusSubscriber(modid = BotaniaAPI.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = BotaniaAPI.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
 	@SubscribeEvent
-	public static void registerGuiOverlays(RegisterGuiOverlaysEvent e) {
-		e.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "hud",
-				(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
+	public static void registerGuiOverlays(RegisterGuiLayersEvent e) {
+		e.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, botaniaRL("hud"), HUDHandler::onDrawScreenPost);
 	}
 
 	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent evt) {
 		BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on Forge
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
-		// GUIs
-		evt.enqueueWork(() -> {
-			MenuScreens.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
-			MenuScreens.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
-		});
 
 		// Events
 		var bus = NeoForge.EVENT_BUS;
+		// GUIs
+		bus.addListener((RegisterMenuScreensEvent e) -> {
+			e.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+			e.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
+		});
 		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getGraphics()));
-		bus.addListener((TickEvent.ClientTickEvent e) -> {
-			if (e.phase == TickEvent.Phase.END) {
-				ClientTickHandler.clientTickEnd(Minecraft.getInstance());
-				KonamiHandler.clientTick(Minecraft.getInstance());
-			}
+		bus.addListener((ClientTickEvent.Post e) -> {
+			ClientTickHandler.clientTickEnd(Minecraft.getInstance());
+			KonamiHandler.clientTick(Minecraft.getInstance());
 		});
 		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getContext(), e.getFlags(), e.getToolTip()));
 		bus.addListener((ScreenEvent.KeyPressed.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
@@ -118,11 +110,6 @@ public class ForgeClientInitializer {
 			RingOfDexterousMotionItem.ClientLogic.onKeyDown();
 			KonamiHandler.handleInput(e.getKey(), e.getAction(), e.getModifiers());
 		});
-		bus.addListener((TickEvent.RenderTickEvent e) -> {
-			if (e.phase == TickEvent.Phase.START) {
-				ClientTickHandler.renderTick(e.renderTickTime);
-			}
-		});
 		bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {
 			var manaItem = XplatAbstractions.INSTANCE.findManaItem(e.getItemStack());
 			if (manaItem == null) {
@@ -145,8 +132,9 @@ public class ForgeClientInitializer {
 
 		// Etc
 		ClientProxy.initSeasonal();
-		bus.addGenericListener(Entity.class, ForgeClientInitializer::attachEntityCapabilities);
-		bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
+		// TODO register these via RegisterCapabilitiesEvent
+		//bus.addGenericListener(Entity.class, ForgeClientInitializer::attachEntityCapabilities);
+		//bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("ears")) {
 			EarsIntegration.register();
@@ -187,7 +175,7 @@ public class ForgeClientInitializer {
 		});
 		return Collections.unmodifiableMap(ret);
 	});
-
+/*
 	private static void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
 		var be = e.getObject();
 
@@ -207,19 +195,20 @@ public class ForgeClientInitializer {
 					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(entity)));
 		}
 	}
-
+*/
 	@SubscribeEvent
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
-		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.getPath(),
+		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
-		evt.register(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID.getPath(),
+		evt.register(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID,
 				ForgeManaBlasterModel.Loader.INSTANCE);
 	}
 
 	@SubscribeEvent
 	public static void onModelRegister(ModelEvent.RegisterAdditional evt) {
 		var resourceManager = Minecraft.getInstance().getResourceManager();
-		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, evt::register);
+		// TODO: needs to be converted to use ModelResourceLocation
+		//MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, evt::register);
 		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
 
@@ -279,7 +268,8 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void onModelBake(ModelEvent.ModifyBakingResult evt) {
-		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
+		// TODO: needs to be converted to use ModelResourceLocation
+		//MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
 	}
 
 }

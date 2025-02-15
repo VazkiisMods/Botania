@@ -10,6 +10,7 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 
@@ -27,15 +28,23 @@ public final class ClientTickHandler {
 
 	public static int ticksWithLexicaOpen = 0;
 	public static int pageFlipTicks = 0;
+	/**
+	 * @deprecated Use {@link Minecraft#getTimer()} instead.
+	 */
 	public static int ticksInGame = 0;
-	public static float partialTicks = 0;
+	/**
+	 * @deprecated Use {@link Minecraft#getTimer()} instead.
+	 */
+	@Deprecated(forRemoval = true)
+	public static float partialTicks;
 
+	/**
+	 * @deprecated Use {@link Minecraft#getTimer()} instead.
+	 */
+	@Deprecated(forRemoval = true)
 	public static float total() {
-		return ticksInGame + partialTicks;
-	}
-
-	public static void renderTick(float renderTickTime) {
-		partialTicks = renderTickTime;
+		// TODO not sure if that's really the method to call
+		return Minecraft.getInstance().getTimer().getGameTimeDeltaTicks();
 	}
 
 	public static void clientTickEnd(Minecraft mc) {

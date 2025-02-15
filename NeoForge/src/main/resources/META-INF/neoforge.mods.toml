@@ -4,7 +4,7 @@ license = "${license}"
 issueTrackerURL = "${issues_url}"
 
 [[mods]]
-modId = "${mod_id}"
+modId = "botania"
 version = "${version}"
 displayName = "${mod_name}"
 displayURL = "${website_url}"
@@ -22,32 +22,32 @@ config = "${mod_id}.xplat.mixins.json"
 [[mixins]]
 config = "${mod_id}.forge.mixins.json"
 
-[[dependencies.${mod_id}]]
+[[dependencies.botania]]
 modId = "neoforge"
 type = "required"
 versionRange = "[${neoforge_version},)"
 
-[[dependencies.${mod_id}]]
+[[dependencies.botania]]
 modId = "minecraft"
 type = "required"
 versionRange = "${minecraft_version_range}"
 
-[[dependencies.${mod_id}]]
+[[dependencies.botania]]
 modId = "patchouli"
 type = "required"
 versionRange = "*"
 
-[[dependencies.${mod_id}]]
+[[dependencies.botania]]
 modId = "curios"
 type = "required"
 versionRange = "*"
 
-[[dependencies.${mod_id}]]
+[[dependencies.botania]]
 modId = "gardenofglass"
 type = "optional"
 versionRange = "*"
 
-[[dependencies.${mod_id}]]
+[[dependencies.botania]]
 modId = "ears"
 type = "optional"
 versionRange = "*"
