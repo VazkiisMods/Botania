@@ -13,6 +13,7 @@ import net.neoforged.neoforge.common.Tags;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
