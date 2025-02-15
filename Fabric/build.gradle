@@ -115,4 +115,6 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
+
+    compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.2'
 }
