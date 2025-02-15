@@ -18,7 +18,7 @@
     "RRR"
   ],
   "result": {
-    "item": "botania:red_string_container"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "botania:red_string_container"
+  }
 }

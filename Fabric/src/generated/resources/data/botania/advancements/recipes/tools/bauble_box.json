@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "botania:manasteel_ingots"
+            "items": "#botania:manasteel_ingots"
           }
         ]
       },
@@ -20,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_item",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_item"
     ]
   ],
   "rewards": {
     "recipes": [
       "botania:bauble_box"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

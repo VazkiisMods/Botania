@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:wooden_chests"
+            "items": "#c:wooden_chests"
           }
         ]
       },
@@ -15,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:red_string"
-            ]
+            "items": "botania:red_string"
           }
         ]
       },
@@ -32,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_item",
-      "has_base_block",
-      "has_the_recipe"
+      "has_base_block"
     ]
   ],
   "rewards": {
     "recipes": [
       "botania:red_string_container"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
