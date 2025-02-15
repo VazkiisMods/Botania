@@ -80,12 +80,6 @@ sourceSets.main.resources {
     srcDir('src/generated/resources')
 }
 
-sourcesJar {
-    from(rootProject.file('LICENSE')) {
-        rename { "${it}_${mod_name}" }
-    }
-}
-
 jar {
     from(rootProject.file('LICENSE')) {
         rename { "${it}_${mod_name}" }
@@ -110,6 +104,15 @@ jar {
                 'Built-On-Minecraft'    : minecraft_version
         ])
     }
+}
+
+sourcesJar {
+    from(rootProject.file('LICENSE')) {
+        rename { "${it}_${mod_name}" }
+    }
+
+    // Exclude datagenerator .cache directory
+    exclude '.cache'
 }
 
 processResources {
