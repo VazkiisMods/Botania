@@ -59,4 +59,6 @@ dependencies {
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     compileOnly "com.unascribed:ears-api:${ears_version}"
+
+    compileOnly group: 'org.jetbrains', name: 'annotations', version: '26.0.2'
 }
