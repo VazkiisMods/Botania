@@ -556,7 +556,7 @@ public final class RenderHelper extends RenderType {
 	}
 
 	/**
-	 * Like {@link ItemRenderer::renderGuiItem} but with alpha
+	 * Like {@link ItemRenderer#render(ItemStack, ItemDisplayContext, boolean, PoseStack, MultiBufferSource, int, int, BakedModel)} but with alpha
 	 */
 	// [VanillaCopy] with a small change
 	public static void renderGuiItemAlpha(ItemStack stack, int x, int y, int alpha, BakedModel model, ItemRenderer renderer) {

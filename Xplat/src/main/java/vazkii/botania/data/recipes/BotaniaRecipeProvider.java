@@ -62,10 +62,10 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 				}
 			}
 
+			@SuppressWarnings("removal")
 			@Override
 			public Advancement.Builder advancement() {
 				// TODO: 1.20.4 This method needs to take a holder
-				//noinspection removal
 				return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
 			}
 		});

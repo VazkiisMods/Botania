@@ -8,28 +8,22 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.LevelReader;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.piston.MovingPistonBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.Constant;
 
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 
 @Mixin(FarmBlock.class)
 public class FarmBlockMixin {
-	@Inject(
-		method = "canSurvive", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/LevelReader;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"),
-		cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT
-	)
-	private void floatingFlowerOverride(BlockState state, LevelReader world, BlockPos pos, CallbackInfoReturnable<Boolean> cir, BlockState stateAbove) {
-		if (stateAbove.getBlock() instanceof FloatingFlowerBlock) {
-			cir.setReturnValue(true);
-		}
+	@WrapOperation(method = "canSurvive", constant = @Constant(classValue = MovingPistonBlock.class))
+	private boolean floatingFlowerOverride(Object object, Operation<Boolean> original, @Local(ordinal = 1) BlockState stateAbove) {
+		return original.call(object) || stateAbove.getBlock() instanceof FloatingFlowerBlock;
 	}
 }

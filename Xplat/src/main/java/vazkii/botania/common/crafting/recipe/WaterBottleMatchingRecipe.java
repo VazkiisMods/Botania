@@ -44,7 +44,8 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 						? Ingredient.of(PotionContents.createItemStack(Items.POTION, Potions.WATER))
 						: i).toArray(Ingredient[]::new));
 		return new ShapedRecipePattern(pattern.width(), pattern.height(), ingredients,
-				((ShapedRecipePatternAccessor) pattern).getData());
+				// TODO: verify
+				((ShapedRecipePatternAccessor) (Object) pattern).getData());
 	}
 
 	public WaterBottleMatchingRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result) {

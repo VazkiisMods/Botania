@@ -466,8 +466,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
-		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace)
-				.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);
+		return AbstractFurnaceBlockEntityForgeAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);
 	}
 
 	@Override
