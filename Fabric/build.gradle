@@ -96,17 +96,17 @@ dependencies {
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}"
 
-    compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
+    //compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
     modImplementation("dev.emi:trinkets:${trinkets_version}") { transitive = false }
 
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.5.0"
-    include "com.jamieswhiteshirt:reach-entity-attributes:2.5.0"
+    //modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.5.0"
+    //include "com.jamieswhiteshirt:reach-entity-attributes:2.5.0"
 
-    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
-    include "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
+    //modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
+    //include "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
 
-    modCompileOnly('teamreborn:energy:3.0.0') { transitive = false }
+    modCompileOnly('teamreborn:energy:4.1.0') { transitive = false }
 
     // modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
 
