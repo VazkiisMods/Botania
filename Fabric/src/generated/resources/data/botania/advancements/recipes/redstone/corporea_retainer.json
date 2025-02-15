@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:corporea_spark"
-            ]
+            "items": "botania:corporea_spark"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_item",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_item"
     ]
   ],
   "rewards": {
     "recipes": [
       "botania:corporea_retainer"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

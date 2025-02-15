@@ -1,11 +1,11 @@
 {
-  "__comment": "[VanillaCopy] position_color_tex.json with extra uniform + own shaders",
+  "__comment": "[VanillaCopy] position_tex_color.json with extra uniform + own shaders",
   "blend": {
     "func": "add",
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "position_color_tex",
+  "vertex": "position_tex_color",
   "fragment": "botania:halo",
   "attributes": [
     "Position",

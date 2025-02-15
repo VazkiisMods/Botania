@@ -1,17 +1,17 @@
-// 1.20.1	Botania/Tags for minecraft:block
-a2c6dc00969bcdc7fd7ec67b4265f6532e44980c data/c/tags/blocks/glass.json
-a2c6dc00969bcdc7fd7ec67b4265f6532e44980c data/c/tags/blocks/glass_blocks.json
-1ca2386179f754db1c9d959f1987aa31ea5e1681 data/c/tags/blocks/glass_pane.json
-1ca2386179f754db1c9d959f1987aa31ea5e1681 data/c/tags/blocks/glass_panes.json
-a9b55e67ddbec4f60d16ca1cbece69abb4c1b045 data/c/tags/blocks/lapis_blocks.json
-6ebd7445c19b25accfcf2404c590ce17736586f2 data/c/tags/blocks/mushrooms.json
-7dc5ff3b8ca7b551caf7cb2ddc8c465ec67262c2 data/c/tags/blocks/ores.json
-cee1a31be42e84787f516dc9c4015dde91c02fc6 data/c/tags/blocks/quartz_blocks.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/coal_ores.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/copper_ores.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/diamond_ores.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/emerald_ores.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/gold_ores.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/iron_ores.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/lapis_ores.json
-8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/blocks/redstone_ores.json
+// 1.21.1	Botania/Tags for minecraft:block
+804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/block/glass.json
+804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/block/glass_blocks.json
+f040b9a06513de92027387c440251e6542f53830 data/c/tags/block/glass_pane.json
+f040b9a06513de92027387c440251e6542f53830 data/c/tags/block/glass_panes.json
+afc25b30437e0d212759f663ee5fd8af07be1c81 data/c/tags/block/lapis_blocks.json
+c8209dfe9c42e67e904666f4675f74d8d6bd5345 data/c/tags/block/mushrooms.json
+f0ee1000e08a169e13aa0d276312ab17a3d05922 data/c/tags/block/ores.json
+c982bf60c82069637f6511b4be4a20b39894c2e9 data/c/tags/block/quartz_blocks.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/coal_ores.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/copper_ores.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/diamond_ores.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/emerald_ores.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/gold_ores.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/iron_ores.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/lapis_ores.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/redstone_ores.json

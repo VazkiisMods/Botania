@@ -18,7 +18,7 @@
     " G "
   ],
   "result": {
-    "item": "botania:bauble_box"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "botania:bauble_box"
+  }
 }
