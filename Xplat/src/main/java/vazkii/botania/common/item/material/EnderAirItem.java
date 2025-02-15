@@ -9,6 +9,8 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,9 +19,11 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -36,7 +40,7 @@ import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.List;
 
-public class EnderAirItem extends Item {
+public class EnderAirItem extends Item implements ProjectileItem {
 	public EnderAirItem(Properties props) {
 		super(props);
 	}
@@ -106,5 +110,10 @@ public class EnderAirItem extends Item {
 			world.addFreshEntity(b);
 		}
 		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
+	}
+
+	@Override
+	public Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
+		return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), level);
 	}
 }

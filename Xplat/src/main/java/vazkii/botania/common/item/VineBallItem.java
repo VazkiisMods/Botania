@@ -8,12 +8,16 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.entity.VineBallEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 
-public class VineBallItem extends Item {
+public class VineBallItem extends Item implements ProjectileItem {
 
 	public VineBallItem(Properties builder) {
 		super(builder);
@@ -45,4 +49,8 @@ public class VineBallItem extends Item {
 		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}
 
+	@Override
+	public Projectile asProjectile(Level level, Position pos, ItemStack stack, Direction direction) {
+		return new VineBallEntity(pos.x(), pos.y(), pos.z(), level);
+	}
 }

@@ -58,7 +58,6 @@
     "ShapedRecipePatternAccessor",
     "ShapelessRecipeAccessor",
     "SpawnPlacementsMixin",
-    "StatsAccessor",
     "TextureSlotAccessor",
     "ThrowableProjectileMixin",
     "VibrationSystemListenerMixin",
