@@ -140,9 +140,15 @@ processResources {
             'java_version'                 : java_version
     ]
 
-    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json'/*todo prevents xplat from building cuz of custom macros in patchouli file, 'data/botania/patchouli_books/lexicon/book.json'*/]) {
+    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
         expand(expandProps)
     }
+    filesMatching('data/botania/patchouli_books/lexicon/book.json') {
+        filter {
+            it.replace('${build_number}', build_number)
+        }
+    }
+
     inputs.properties(expandProps)
 }
 
