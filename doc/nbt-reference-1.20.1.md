@@ -1,9 +1,9 @@
-### NBT documentation for 1.20.1
+# NBT documentation for 1.20.1
 This document will hopefully aid the development of data fixers for the upgrade from 1.20.1 to 1.21.1 or later.
 The goal is to document all NBT data structures, especially those for items, but also anything that might reference
 item data, such as block/entity inventories, or the lens that last affected a mana burst.
 
-#### Botania Items
+## Botania Items
 Items are listed in the order they are encountered in `BotaniaItems`, skipping those that need no special treatment beyond what Minecraft would do for items anyway. (e.g. vanilla tool, weapon, or armor data)
 - LexicaBotaniaItem (`botania:lexicon`):
   - `botania:elven_unlock` (boolean) - whether to render it with the alternate Elven look
@@ -65,7 +65,7 @@ Items are listed in the order they are encountered in `BotaniaItems`, skipping t
   - is used as the lens item for the mana bursts it fires
 - StarcallerItem (`botania:star_sword`):
   - `lastTriggerTime` (long) - game time when the sword's effect last triggered
-- VitreousPickaxeItem (`botania:glasS_pickaxe`):
+- VitreousPickaxeItem (`botania:glass_pickaxe`):
   - `botania:silk_hack` (boolean) - temporary helper value to ensure supported blocks are mined as if the pick has the silktouch enchantment (Note: This is a temporary value and does not need to be migrated.)
 - ManaTabletItem (`botania:mana_tablet`):
   - `mana` (int) - amount of mana stored in the tablet
@@ -96,7 +96,7 @@ Items are listed in the order they are encountered in `BotaniaItems`, skipping t
   - `active` (boolean) - whether autocrafting is enabled (autocrafting is also enabled when this tag does not exist)
 - FlowerPouchItem (`botania:flower_bag`):
   - `Items` (list of compound) - 32 serialized ItemStacks, first 16 for small mystical flowers, last 16 for tall mystical flowers, each in native DyeColor order
-- BlackHoleTalismanITem (`botania:black_hole_talisman`):
+- BlackHoleTalismanItem (`botania:black_hole_talisman`):
   - `active` (boolean) - whether the talisman sucks in matching items from the player's inventory
   - `blockName` (string) - ID of the block type the talisman contains
   - `blockCount` (int) - number of blocks stored in the talisman
@@ -178,13 +178,13 @@ Items are listed in the order they are encountered in `BotaniaItems`, skipping t
       - `xOffset`, `yOffset`, `zOffset` (int) - block position offset coordinates
     - Note: There has been no upper bound to the number of offsets until somewhat recently in 1.20.1, when the upper limit of 1023 offsets was introduced to prevent accidental NBT-selfbans.
   - `xOrigin`, `yOrigin`, `zOrigin` (int) - binding center position, only set while binding mode is active
-- BaseBrewITem (`botania:brew_vial`, `botania:brew_flask`)
+- BaseBrewItem (`botania:brew_vial`, `botania:brew_flask`)
   - `brewKey` (string) - ID of the brew type
   - `swigsLeft` (int) - number of uses left
 - IncenseStickItem (`botania:incense_stick`) and TaintedBloodPendantItem (`botania:blood_pendant`)
   - `brewKey` (string) - ID of the brew type, optional
 
-### Botania entities
+## Botania entities
 For now only entities that somehow reference item stacks, e.g. mana bursts. (Not a complete list of NBT properties.)
 
 - ManaBurstEntity (`botania:mana_burst`)
@@ -196,8 +196,8 @@ For now only entities that somehow reference item stacks, e.g. mana bursts. (Not
 
 Botania mobs (Guardian of Gaia, pixies, pink wither) do not carry any items.
 
-### Botania block entities
-For now only block entities that somehow reference item stacks. (e.g. mana spreader)
+## Botania block entities
+For now only block entities that somehow reference item stacks (e.g. mana spreader), and that store NBT data in their drop. 
 
 - SimpleInventoryBlockEntity superclass
   - `Items` (list of compound) - list of item slots content (this is a standard vanilla feature)
@@ -244,3 +244,24 @@ For now only block entities that somehow reference item stacks. (e.g. mana sprea
   - `stack` (compound) - serialized ItemStack of the cacophonium used to create the block
 - AvatarBlockEntity (`botania:avatar`)
   - SimpleInventoryBlockEntity with a single slot of stack size 1 (no restriction, this is checked when trying to give the avatar an item)
+- GourmaryllisBlockEntity (`botania:gourmaryllis`; floating and non-floating)
+  - `lastFoods` (list of compound) - list of recent food item types consumed as serialized item stacks of size 1 (most recent first)
+  - `lastFoodCount` (int) - number of repetitions of the previous food item (for repetition penalty)
+  - `streakLength` (int) - number of previous unique food items (can only increment by 1, but can revert to lower values if a food item is repeated early)
+  - also stores `cooldown` and `digestingMana` (both int), but does not copy them to the drop item
+- HydroangeasBlockEntity (`botania:hydroangeas`; floating and non-floating)
+  - `cooldown` (int) - remaining cooldown ticks after mana production phase (probably not relevant, but could be set to delay the initial start-up of the flower once)
+  - `passiveDecayTicks` (int) - accumulated lifetime of the flower (it decays once it reaches 72000 ticks)
+  - also stores `burnTime` (int), but does not copy it to the drop item
+- MunchdewBlockEntity (`botania:munchdew`; floating and non-floating)
+  - `cooldown` (int) - remaining cooldown ticks after mana production phase
+  - also stores `ateOnce` (boolean; but not the ticks since it ate last), but does not copy it to the drop item
+- RafflowsiaBlockEntity (`botania:rafflowsia`; floating and non-floating)
+  - `lastFlowers` (list of string) - IDs of recently consumed flowers (most-recent first)
+  - `lastFlowerTimes` (int) - number of repetitions of the previous flower type (for repetition penalty)
+  - also stores `streakLength` (int), but does not copy it to the drop item (which is inconsistent with the Gourmaryllis)
+- SpectrolusBlockEntity (`botania:spectrolus`; floating and non-floating)
+  - `nextColor` (int) - ID of the next dye color of wool or sheep to consume
+- ThermalilyBlockEntity (`botania:thermalily`; floating and non-floating)
+  - `cooldown` (int) - remaining cooldown ticks after mana production phase
+  - also stores `burnTime` (int), but does not copy it to the drop item
