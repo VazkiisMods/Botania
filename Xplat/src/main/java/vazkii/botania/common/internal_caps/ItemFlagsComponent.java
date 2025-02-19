@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.internal_caps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
@@ -36,7 +37,7 @@ public class ItemFlagsComponent extends SerializableComponent {
 	private static final String TAG_TIME_COUNTER = "timeCounter";
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		elvenPortalSpawned = tag.getBoolean(TAG_PORTAL_SPAWNED);
 		apothecarySpawned = tag.getBoolean(TAG_APOTHECARY_SPAWNED);
 		manaInfusionSpawned = tag.getBoolean(TAG_INFUSION_SPAWNED);
@@ -55,7 +56,7 @@ public class ItemFlagsComponent extends SerializableComponent {
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		tag.putBoolean(TAG_PORTAL_SPAWNED, elvenPortalSpawned);
 		tag.putBoolean(TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 		tag.putBoolean(TAG_INFUSION_SPAWNED, runicAltarSpawned);

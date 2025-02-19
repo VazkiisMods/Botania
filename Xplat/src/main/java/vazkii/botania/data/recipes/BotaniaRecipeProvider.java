@@ -50,6 +50,7 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 		final Set<ResourceLocation> set = Sets.newHashSet();
 		final List<CompletableFuture<?>> list = new ArrayList<>();
 		this.buildRecipes(new RecipeOutput() {
+			// TODO: Neoforge had the great idea to create an IRecipeOutputExtension interface that requires implementation right here
 			@Override
 			public void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement) {
 				if (!set.add(location)) {

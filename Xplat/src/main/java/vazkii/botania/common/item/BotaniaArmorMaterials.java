@@ -69,7 +69,7 @@ public class BotaniaArmorMaterials {
 			Supplier<Holder<SoundEvent>> equipSound, //TODO I don't think this needs to be a supplier
 			Supplier<Ingredient> repairIngredient,
 			float toughness) {
-		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace(name)));
+		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(botaniaRL(name)));
 		return register(name, defense, enchantmentValue, equipSound.get(), toughness, repairIngredient, list);
 	}
 

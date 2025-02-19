@@ -30,6 +30,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -38,6 +39,8 @@ import java.util.regex.Pattern;
 public final class PlayerHelper {
 
 	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
+	// should be initialized by loader-specific code
+	@UnknownNullability
 	private static Class<? extends Player> fakePlayerClass;
 
 	public static void setFakePlayerClass(Class<? extends Player> fakePlayerClass) {

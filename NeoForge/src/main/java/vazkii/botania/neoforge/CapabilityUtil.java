@@ -2,6 +2,7 @@ package vazkii.botania.neoforge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -10,14 +11,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.common.capabilities.Capability;
 import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.common.util.INBTSerializable;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +33,7 @@ import java.util.Map;
 
 public final class CapabilityUtil {
 	public static <T, U extends T> ICapabilityProvider makeProvider(Capability<T> cap, U instance) {
-		LazyOptional<T> lazyInstanceButNotReally = LazyOptional.of(() -> instance);
+		Lazy<T> lazyInstanceButNotReally = Lazy.of(() -> instance);
 		return new CapProvider<>(cap, lazyInstanceButNotReally);
 	}
 
@@ -60,9 +63,9 @@ public final class CapabilityUtil {
 		T find(Level level, BlockPos pos, BlockState state);
 	}
 
-	private static final Map<Capability<?>, Map<Block, Provider<?>>> BLOCK_LOOKASIDE = new IdentityHashMap<>();
+	private static final Map<BlockCapability<?, ?>, Map<Block, Provider<?>>> BLOCK_LOOKASIDE = new IdentityHashMap<>();
 
-	public static <T> void registerBlockLookaside(Capability<T> cap, Provider<T> provider, Block... blocks) {
+	public static <T, C> void registerBlockLookaside(BlockCapability<T, C> cap, Provider<T> provider, Block... blocks) {
 		var inner = BLOCK_LOOKASIDE.computeIfAbsent(cap, k -> new HashMap<>());
 		for (var block : blocks) {
 			inner.put(block, provider);
@@ -71,12 +74,12 @@ public final class CapabilityUtil {
 
 	// todo this might need to be exposed in the API
 	@Nullable
-	public static <T> T findCapability(Capability<T> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public static <T> T findCapability(BlockCapability<T, Direction> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return findCapability(capability, level, pos, state, be, null);
 	}
 
 	@Nullable
-	public static <T> T findCapability(Capability<T> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction) {
+	public static <T> T findCapability(BlockCapability<T, Direction> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction) {
 		if (be != null) {
 			var instance = be.getCapability(capability, direction);
 			if (instance.isPresent()) {
@@ -99,33 +102,33 @@ public final class CapabilityUtil {
 
 	private static class CapProvider<T> implements ICapabilityProvider {
 		protected final Capability<T> cap;
-		protected final LazyOptional<T> lazyInstanceButNotReally;
+		protected final Lazy<T> lazyInstanceButNotReally;
 
-		public CapProvider(Capability<T> cap, LazyOptional<T> instance) {
+		public CapProvider(Capability<T> cap, Lazy<T> instance) {
 			this.cap = cap;
 			this.lazyInstanceButNotReally = instance;
 		}
 
 		@NotNull
 		@Override
-		public <C> LazyOptional<C> getCapability(@NotNull Capability<C> queryCap, @Nullable Direction side) {
+		public <C> Lazy<C> getCapability(@NotNull Capability<C> queryCap, @Nullable Direction side) {
 			return cap.orEmpty(queryCap, lazyInstanceButNotReally);
 		}
 	}
 
 	private static class CapProviderSerializable<T extends SerializableComponent> extends CapProvider<T> implements INBTSerializable<CompoundTag> {
 		public CapProviderSerializable(Capability<T> cap, T instance) {
-			super(cap, LazyOptional.of(() -> instance));
+			super(cap, Lazy.of(() -> instance));
 		}
 
 		@Override
-		public CompoundTag serializeNBT() {
-			return lazyInstanceButNotReally.map(SerializableComponent::serializeNBT).orElse(null);
+		public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+			return lazyInstanceButNotReally.get().serializeNBT(provider);
 		}
 
 		@Override
-		public void deserializeNBT(CompoundTag nbt) {
-			lazyInstanceButNotReally.ifPresent(i -> i.deserializeNBT(nbt));
+		public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+			lazyInstanceButNotReally.get().deserializeNBT(provider, nbt);
 		}
 	}
 }

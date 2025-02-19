@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.internal_caps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -64,7 +65,7 @@ public class LooniumComponent extends SerializableComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		if (tag.contains(TAG_TO_DROP)) {
 			//todo setDrop(ItemStack.of(tag.getCompound(TAG_TO_DROP)));
 		} else {
@@ -79,7 +80,7 @@ public class LooniumComponent extends SerializableComponent {
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		if (isOverrideDrop()) {
 			if (!getDrop().isEmpty()) {
 				//todo tag.put(TAG_TO_DROP, getDrop().save(new CompoundTag()));

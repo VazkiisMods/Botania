@@ -76,7 +76,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	* - When block starting to break, if the tool doesn't have silktouch already, add it and add a "temp silk touch" flag
 	* - Every tick, if the "temp silk touch" flag is present, remove it and remove any silk touch enchants from the stack
 	*/
-
+	// TODO: Neoforge doesn't appear to provide this anymore, might need to apply the same mixin logic as for Fabric
 	@SoftImplement("IItemExtension")
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
 		Level level = player.level();

@@ -61,6 +61,7 @@ public class ShadedMesaRodItem extends Item {
 
 	@SoftImplement("IItemExtension")
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		// TODO: default on Neoforge appears to be actually swapping out the item stack reference
 		return reequipAnimation(oldStack, newStack);
 	}
 
@@ -93,7 +94,7 @@ public class ShadedMesaRodItem extends Item {
 	}
 
 	@SoftImplement("IItemExtension")
-	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+	public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
 		if (entity instanceof Player player) {
 			leftClick(player);
 		}

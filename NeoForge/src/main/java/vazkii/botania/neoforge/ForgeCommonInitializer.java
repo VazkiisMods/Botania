@@ -42,8 +42,9 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.ToolActions;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.event.*;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -58,6 +59,8 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
@@ -73,6 +76,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.client.fx.BotaniaParticles;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
@@ -241,7 +245,7 @@ public class ForgeCommonInitializer {
 					.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 					.icon(() -> new ItemStack(BotaniaItems.lexicon))
 					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
-					.backgroundSuffix("botania.png")
+					.backgroundTexture(botaniaRL("botania.png")) // TODO probably incorrect ID
 					.withSearchBar()
 					.build(),
 					BotaniaRegistries.BOTANIA_TAB_KEY.location());
@@ -311,10 +315,10 @@ public class ForgeCommonInitializer {
 				e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
 		bus.addListener((RegisterCommandsEvent e) -> this.registerCommands(
 				e.getDispatcher(), e.getCommandSelection() == Commands.CommandSelection.DEDICATED));
-		bus.addListener((PlayerSleepInBedEvent e) -> {
+		bus.addListener((CanPlayerSleepEvent e) -> {
 			Player.BedSleepingProblem problem = SleepingHandler.trySleep(e.getEntity(), e.getPos());
 			if (problem != null) {
-				e.setResult(problem);
+				e.setProblem(problem);
 			}
 		});
 		bus.addListener((PlayerEvent.StartTracking e) -> DaffomillBlockEntity.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
@@ -330,8 +334,8 @@ public class ForgeCommonInitializer {
 		bus.addListener((ServerStoppingEvent e) -> this.serverStopping(e.getServer()));
 		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> FlugelTiaraItem.playerLoggedOut((ServerPlayer) e.getEntity()));
 		bus.addListener((PlayerEvent.Clone e) -> ResoluteIvyItem.onPlayerRespawn(e.getOriginal(), e.getEntity(), !e.isWasDeath()));
-		bus.addListener((TickEvent.LevelTickEvent e) -> {
-			if (e.phase == TickEvent.Phase.END && e.level instanceof ServerLevel level) {
+		bus.addListener((LevelTickEvent.Post e) -> {
+			if (e.level instanceof ServerLevel level) {
 				CommonTickHandler.onTick(level);
 				GrassSeedsItem.onTickEnd(level);
 				TerraTruncatorItem.onTickEnd(level);
@@ -379,14 +383,14 @@ public class ForgeCommonInitializer {
 		});
 		// FabricMixinExplosion
 		bus.addListener((ExplosionEvent.Detonate e) -> {
-			if (BenevolentGoddessCharmItem.shouldProtectExplosion(e.getLevel(), e.getExplosion().getPosition())) {
+			if (BenevolentGoddessCharmItem.shouldProtectExplosion(e.getLevel(), e.getExplosion().center())) {
 				e.getExplosion().clearToBlow();
 			}
 		});
 		// FabricMixinItemEntity
-		bus.addListener((EntityItemPickupEvent e) -> {
-			if (FlowerPouchItem.onPickupItem(e.getItem(), e.getEntity())) {
-				e.setCanceled(true);
+		bus.addListener((ItemEntityPickupEvent.Pre e) -> {
+			if (FlowerPouchItem.onPickupItem(e.getItemEntity(), e.getPlayer())) {
+				e.setCanPickup(TriState.FALSE); // TODO: verify
 			}
 		});
 		// FabricMixinLivingEntity
@@ -416,6 +420,7 @@ public class ForgeCommonInitializer {
 		}
 		// FabricMixinPlayer
 		{
+			// TODO: event appears to have been removed (was at head of LivingEntity::hurt)
 			bus.addListener((LivingAttackEvent e) -> {
 				if (e.getEntity() instanceof Player player
 						&& RingOfOdinItem.onPlayerAttacked(player, e.getSource())) {
@@ -423,6 +428,7 @@ public class ForgeCommonInitializer {
 				}
 			});
 			bus.addListener((ItemTossEvent e) -> RingOfMagnetizationItem.onTossItem(e.getPlayer()));
+			// TODO: event hook location appears to have changed (was at top of if not invulnerable block in LivingEntity::actuallyHurt)
 			bus.addListener((LivingHurtEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
 					Container worn = EquipmentHandler.getAllWorn(player);
@@ -439,7 +445,7 @@ public class ForgeCommonInitializer {
 					CharmOfTheDivaItem.onEntityDamaged(player, e.getEntity());
 				}
 			});
-			bus.addListener((LivingEvent.LivingTickEvent e) -> {
+			bus.addListener((PlayerTickEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
 					FlugelTiaraItem.updatePlayerFlyStatus(player);
 					SojournersSashItem.tickBelt(player);
@@ -459,7 +465,7 @@ public class ForgeCommonInitializer {
 						|| !(e.getTarget() instanceof LivingEntity target)) {
 					return;
 				}
-				e.setDamageModifier(e.getDamageModifier() * TerrasteelHelmItem.getCritDamageMult(e.getEntity()));
+				e.setDamageMultiplier(e.getDamageMultiplier() * TerrasteelHelmItem.getCritDamageMult(e.getEntity()));
 				((PlayerAccess) e.getEntity()).botania$setCritTarget(target);
 			});
 

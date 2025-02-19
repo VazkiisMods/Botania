@@ -14,18 +14,17 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -41,6 +40,8 @@ import vazkii.botania.common.proxy.Proxy;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, PhantomInkable {
 
@@ -67,7 +68,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, EquipmentSlot slot, Runnable breakCallback) {
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> breakCallback) {
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
 	}
 
@@ -76,13 +77,12 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	@SoftImplement("IItemExtension")
-	@NotNull
-	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return hasPhantomInk(stack) ? ResourcesLib.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
+	public final ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+		return hasPhantomInk(stack) ? botaniaRL(ResourcesLib.MODEL_INVISIBLE_ARMOR) : getArmorTextureAfterInk(stack, slot);
 	}
 
-	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ResourcesLib.MODEL_MANASTEEL_NEW;
+	public ResourceLocation getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
+		return botaniaRL(ResourcesLib.MODEL_MANASTEEL_NEW);
 	}
 
 	@Override

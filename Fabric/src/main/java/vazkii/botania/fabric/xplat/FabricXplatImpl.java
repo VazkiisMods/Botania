@@ -475,7 +475,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return defaultItemBuilder().customDamage((stack, amount, entity, slot, breakCallback) -> {
 			var item = stack.getItem();
 			if (item instanceof CustomDamageItem cd) {
-				return cd.damageItem(stack, amount, entity, slot, breakCallback);
+				return cd.damageItem(stack, amount, entity, i -> breakCallback.run());
 			}
 			return amount;
 		});

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.internal_caps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.PrimedTnt;
@@ -40,12 +41,12 @@ public class EthicalComponent extends SerializableComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		unethical = tag.getBoolean(TAG_UNETHICAL);
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		tag.putBoolean(TAG_UNETHICAL, unethical);
 	}
 }

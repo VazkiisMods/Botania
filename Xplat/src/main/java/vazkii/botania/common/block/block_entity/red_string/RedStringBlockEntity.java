@@ -85,6 +85,7 @@ public abstract class RedStringBlockEntity extends BotaniaBlockEntity implements
 		return getBlockState().getValue(BlockStateProperties.FACING);
 	}
 
+	@Nullable
 	public BlockEntity getTileAtBinding() {
 		BlockPos binding = getBinding();
 		return binding == null || level == null ? null : level.getBlockEntity(binding);

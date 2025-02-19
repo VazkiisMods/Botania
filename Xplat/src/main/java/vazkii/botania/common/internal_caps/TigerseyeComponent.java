@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.internal_caps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
@@ -27,12 +28,12 @@ public class TigerseyeComponent extends SerializableComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		this.pacified = tag.getBoolean(TAG_PACIFIED);
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		if (pacified) {
 			tag.putBoolean(TAG_PACIFIED, true);
 		}

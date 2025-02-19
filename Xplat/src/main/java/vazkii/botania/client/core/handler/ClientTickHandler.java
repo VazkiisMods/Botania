@@ -31,6 +31,7 @@ public final class ClientTickHandler {
 	/**
 	 * @deprecated Use {@link Minecraft#getTimer()} instead.
 	 */
+	@Deprecated(forRemoval = true)
 	public static int ticksInGame = 0;
 	/**
 	 * @deprecated Use {@link Minecraft#getTimer()} instead.

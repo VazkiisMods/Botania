@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.internal_caps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -33,7 +34,7 @@ public class KeptItemsComponent extends SerializableComponent {
 	}
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		stacks.clear();
 		ListTag list = tag.getList("stacks", Tag.TAG_COMPOUND);
 		for (Tag t : list) {
@@ -42,7 +43,7 @@ public class KeptItemsComponent extends SerializableComponent {
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		ListTag list = new ListTag();
 		for (ItemStack stack : stacks) {
 			//todo list.add(stack.save(new CompoundTag()));

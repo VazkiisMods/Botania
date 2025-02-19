@@ -99,6 +99,7 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 		return super.isFoil(stack) || isEnchantedName(stack.getHoverName(), null);
 	}
 
+	@Nullable
 	@SoftImplement("IItemExtension")
 	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
 		return EquipmentSlot.HEAD;

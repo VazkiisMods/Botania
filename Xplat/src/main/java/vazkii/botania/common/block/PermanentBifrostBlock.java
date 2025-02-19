@@ -9,6 +9,8 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.ColorRGBA;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
@@ -18,8 +20,10 @@ import net.minecraft.world.level.block.BeaconBeamBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.decor.BotaniaGlassBlock;
+import vazkii.botania.common.helper.ColorHelper;
 
 public class PermanentBifrostBlock extends BotaniaGlassBlock implements BeaconBeamBlock {
 	public PermanentBifrostBlock(Properties builder) {
@@ -41,15 +45,6 @@ public class PermanentBifrostBlock extends BotaniaGlassBlock implements BeaconBe
 
 	@SoftImplement("IBlockExtension")
 	public Integer getBeaconColorMultiplier(BlockState state, LevelReader level, BlockPos pos, BlockPos beaconPos) {
-		/*TODO later
-		int rgb = Mth.hsvToRgb(((Level) level).getGameTime() * 5 % 360 / 360F, 0.4F, 0.9F);
-		float[] ret = new float[3];
-		ret[0] = ((rgb >> 16) & 0xFF) / 255.0F;
-		ret[1] = ((rgb >> 8) & 0xFF) / 255.0F;
-		ret[2] = (rgb & 0xFF) / 255.0F;
-		return ret;
-
-		 */
-		return 0xBC329F;
+		return FastColor.ARGB32.opaque(Mth.hsvToRgb(((Level) level).getGameTime() * 5 % 360 / 360F, 0.4F, 0.9F));
 	}
 }

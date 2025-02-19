@@ -185,7 +185,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 		return BotaniaItems.poolMinecart;
 	}
 
-	@SoftImplement("IForgeMinecart")
+	@SoftImplement("IAbstractMinecartExtension")
 	public int getComparatorLevel() {
 		return ManaPoolBlockEntity.calculateComparatorLevel(getMana(), ManaPoolBlockEntity.MAX_MANA);
 	}

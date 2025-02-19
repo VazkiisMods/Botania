@@ -13,6 +13,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -33,6 +34,8 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 public class ManaweaveArmorItem extends ManasteelArmorItem {
 
 	public ManaweaveArmorItem(Type type, Properties props) {
@@ -40,8 +43,8 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ClientProxy.jingleTheBells ? ResourcesLib.MODEL_MANAWEAVE_NEW_HOLIDAY : ResourcesLib.MODEL_MANAWEAVE_NEW;
+	public ResourceLocation getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
+		return botaniaRL(ClientProxy.jingleTheBells ? ResourcesLib.MODEL_MANAWEAVE_NEW_HOLIDAY : ResourcesLib.MODEL_MANAWEAVE_NEW);
 	}
 
 	@NotNull

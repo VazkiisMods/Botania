@@ -382,11 +382,11 @@ public final class ForgeBotaniaConfig {
 	}
 
 	public static void setup() {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
+		ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
 		BotaniaConfig.setCommon(COMMON);
 
 		if (XplatAbstractions.INSTANCE.isPhysicalClient()) {
-			ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
+			ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
 			BotaniaConfig.setClient(CLIENT);
 		}
 	}

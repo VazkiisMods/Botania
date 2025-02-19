@@ -13,6 +13,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +26,8 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static vazkii.botania.api.BotaniaAPI.botaniaRL;
+
 public abstract class ElementiumArmorItem extends ManasteelArmorItem {
 
 	public ElementiumArmorItem(Type type, Properties props) {
@@ -32,8 +35,8 @@ public abstract class ElementiumArmorItem extends ManasteelArmorItem {
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ResourcesLib.MODEL_ELEMENTIUM_NEW;
+	public ResourceLocation getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
+		return botaniaRL(ResourcesLib.MODEL_ELEMENTIUM_NEW);
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {

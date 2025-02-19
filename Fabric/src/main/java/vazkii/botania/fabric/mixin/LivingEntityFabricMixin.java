@@ -79,10 +79,10 @@ public abstract class LivingEntityFabricMixin extends Entity {
 		ItemStack stack = getItemInHand(hand);
 		LivingEntity self = (LivingEntity) (Object) this;
 		if (!level().isClientSide) {
-			if (stack.getItem() instanceof AssemblyHaloItem halo && halo.onEntitySwing(stack, self)) {
+			if (stack.getItem() instanceof AssemblyHaloItem halo && halo.onEntitySwing(stack, self, hand)) {
 				ci.cancel();
 			} else if (stack.getItem() instanceof ShadedMesaRodItem rod) {
-				rod.onEntitySwing(stack, self);
+				rod.onEntitySwing(stack, self, hand);
 			}
 		}
 	}

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.internal_caps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
@@ -19,12 +20,12 @@ public class NarslimmusComponent extends SerializableComponent {
 	private boolean naturalSpawned = false;
 
 	@Override
-	public void readFromNbt(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		naturalSpawned = tag.getBoolean(TAG_WORLD_SPAWNED);
 	}
 
 	@Override
-	public void writeToNbt(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag, HolderLookup.Provider registryLookup) {
 		tag.putBoolean(TAG_WORLD_SPAWNED, naturalSpawned);
 	}
 

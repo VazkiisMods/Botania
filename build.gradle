@@ -1,8 +1,8 @@
 plugins {
     id 'com.diffplug.spotless' version '7.0.2' apply false
-    //id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
     // see https://fabricmc.net/develop/ for new versions
-    id 'fabric-loom' version '1.8.13' apply false
+    id 'fabric-loom' version '1.9.2' apply false
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id 'net.neoforged.moddev' version '2.0.74' apply false
 }

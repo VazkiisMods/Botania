@@ -33,46 +33,57 @@ public final class ItemNBTHelper {
 
 	// SETTERS ///////////////////////////////////////////////////////////////////
 
+	@Deprecated(forRemoval = true)
 	public static void set(ItemStack stack, String tag, Tag nbt) {
 		//stack.getOrCreateTag().put(tag, nbt);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setBoolean(ItemStack stack, String tag, boolean b) {
 		//stack.getOrCreateTag().putBoolean(tag, b);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setByte(ItemStack stack, String tag, byte b) {
 		//stack.getOrCreateTag().putByte(tag, b);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setShort(ItemStack stack, String tag, short s) {
 		//stack.getOrCreateTag().putShort(tag, s);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setInt(ItemStack stack, String tag, int i) {
 		//stack.getOrCreateTag().putInt(tag, i);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setIntArray(ItemStack stack, String tag, int[] val) {
 		//stack.getOrCreateTag().putIntArray(tag, val);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setLong(ItemStack stack, String tag, long l) {
 		//stack.getOrCreateTag().putLong(tag, l);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setLongArray(ItemStack stack, String tag, long[] val) {
 		//stack.getOrCreateTag().putLongArray(tag, val);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setFloat(ItemStack stack, String tag, float f) {
 		//stack.getOrCreateTag().putFloat(tag, f);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setDouble(ItemStack stack, String tag, double d) {
 		//stack.getOrCreateTag().putDouble(tag, d);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setCompound(ItemStack stack, String tag, CompoundTag cmp) {
 		if (!tag.equalsIgnoreCase("ench")) // not override the enchantments
 		{
@@ -80,65 +91,80 @@ public final class ItemNBTHelper {
 		}
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setString(ItemStack stack, String tag, String s) {
 		//stack.getOrCreateTag().putString(tag, s);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void setList(ItemStack stack, String tag, ListTag list) {
 		//stack.getOrCreateTag().put(tag, list);
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void removeEntry(ItemStack stack, String tag) {
 		//stack.removeTagKey(tag);
 	}
 
 	// GETTERS ///////////////////////////////////////////////////////////////////
 
+	@Deprecated(forRemoval = true)
 	public static boolean verifyExistance(ItemStack stack, String tag) {
 		return !stack.isEmpty() /*&& stack.hasTag() && stack.getOrCreateTag().contains(tag)*/;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static boolean verifyType(ItemStack stack, String tag, Class<? extends Tag> tagClass) {
 		return !stack.isEmpty() /*&& stack.hasTag() && tagClass.isInstance(stack.getOrCreateTag().get(tag))*/;
 	}
 
+	@Deprecated(forRemoval = true)
 	@Nullable
 	public static Tag get(ItemStack stack, String tag) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().get(tag) :*/ null;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static boolean getBoolean(ItemStack stack, String tag, boolean defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getBoolean(tag) :*/ defaultExpected;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static byte getByte(ItemStack stack, String tag, byte defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getByte(tag) :*/ defaultExpected;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static short getShort(ItemStack stack, String tag, short defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getShort(tag) :*/ defaultExpected;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static int getInt(ItemStack stack, String tag, int defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getInt(tag) :*/ defaultExpected;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static int[] getIntArray(ItemStack stack, String tag) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getIntArray(tag) :*/ EMPTY_INT_ARRAY;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static long getLong(ItemStack stack, String tag, long defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getLong(tag) :*/ defaultExpected;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static long[] getLongArray(ItemStack stack, String tag) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getLongArray(tag) :*/ EMPTY_LONG_ARRAY;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static float getFloat(ItemStack stack, String tag, float defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getFloat(tag) :*/ defaultExpected;
 	}
 
+	@Deprecated(forRemoval = true)
 	public static double getDouble(ItemStack stack, String tag, double defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getDouble(tag) :*/ defaultExpected;
 	}
@@ -147,18 +173,21 @@ public final class ItemNBTHelper {
 	 * If nullifyOnFail is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one.
 	 **/
+	@Deprecated(forRemoval = true)
 	@Nullable
 	@Contract("_, _, false -> !null")
 	public static CompoundTag getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : */nullifyOnFail ? null : new CompoundTag();
 	}
 
+	@Deprecated(forRemoval = true)
 	@Nullable
 	@Contract("_, _, !null -> !null")
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
 		return /*verifyExistance(stack, tag) ? stack.getOrCreateTag().getString(tag) :*/ defaultExpected;
 	}
 
+	@Deprecated(forRemoval = true)
 	@Nullable
 	@Contract("_, _, _, false -> !null")
 	public static ListTag getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
@@ -216,6 +245,7 @@ public final class ItemNBTHelper {
 	 * would be able to read the result back
 	 * TODO: probably not required anymore
 	 */
+	@Deprecated(forRemoval = true)
 	public static JsonObject serializeStack(ItemStack stack) {
 		CompoundTag nbt = new CompoundTag(); //stack.save(new CompoundTag());
 		byte c = nbt.getByte("Count");
@@ -229,6 +259,7 @@ public final class ItemNBTHelper {
 		return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
 	}
 
+	@Deprecated(forRemoval = true)
 	public static void renameTag(CompoundTag nbt, String oldName, String newName) {
 		Tag tag = nbt.get(oldName);
 		if (tag != null) {

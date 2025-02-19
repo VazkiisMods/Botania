@@ -311,6 +311,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	}
 
 	private boolean reequipAnimation(ItemStack before, ItemStack after) {
+		// TODO: default on Neoforge appears to be actually swapping out the item stack reference
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
 

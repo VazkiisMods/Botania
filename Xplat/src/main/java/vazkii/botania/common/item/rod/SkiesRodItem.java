@@ -260,6 +260,7 @@ public class SkiesRodItem extends Item {
 	}
 
 	private boolean reequipAnimation(ItemStack before, ItemStack after) {
+		// TODO: default on Neoforge appears to be actually swapping out the item stack reference
 		return !before.is(this) || isFlying(before) != isFlying(after);
 	}
 

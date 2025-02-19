@@ -29,6 +29,6 @@ public class ForgeBiomeTagProvider extends TagsProvider<Biome> {
 		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS).addTag(BiomeTags.IS_MOUNTAIN);
 		tag(BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS).addTag(Tags.Biomes.IS_PLAINS).addTag(BiomeTags.IS_BEACH);
 		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS).addTag(Tags.Biomes.IS_SWAMP).addTag(BiomeTags.IS_JUNGLE);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS).addTag(Tags.Biomes.IS_CONIFEROUS).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_SNOWY);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS).addTag(Tags.Biomes.IS_CONIFEROUS_TREE).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_SNOWY);
 	}
 }

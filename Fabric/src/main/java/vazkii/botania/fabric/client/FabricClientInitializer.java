@@ -26,6 +26,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
@@ -60,6 +61,8 @@ import vazkii.patchouli.api.BookDrawScreenCallback;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 public class FabricClientInitializer implements ClientModInitializer {
@@ -135,21 +138,26 @@ public class FabricClientInitializer implements ClientModInitializer {
 	}
 
 	private static void registerArmors() {
-		Item[] armors = BuiltInRegistries.ITEM.stream()
-				.filter(i -> i instanceof ManasteelArmorItem
-						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
-				.toArray(Item[]::new);
+		Map<Item, ArmorMaterial.Layer> armors = new LinkedHashMap<>();
+		for (var entry : BuiltInRegistries.ITEM.entrySet()) {
+			Item item = entry.getValue();
+			ResourceLocation id = entry.getKey().location();
+			if (item instanceof ManasteelArmorItem
+					&& id.getNamespace().equals(LibMisc.MOD_ID)) {
+				armors.put(item, BuiltInRegistries.ARMOR_MATERIAL.get(id).layers().getFirst());
+			}
+		}
 
 		ArmorRenderer renderer = (matrices, vertexConsumers, stack, entity, slot, light, contextModel) -> {
 			ManasteelArmorItem armor = (ManasteelArmorItem) stack.getItem();
 			var model = ArmorModels.get(stack);
-			var texture = armor.getArmorTexture(stack, entity, slot, "");
+			var texture = armor.getArmorTexture(stack, entity, slot, armors.get(stack.getItem()), false);
 			if (model != null) {
 				contextModel.copyPropertiesTo(model);
-				ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, ResourceLocation.parse(texture));
+				ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, texture);
 			}
 		};
-		ArmorRenderer.register(renderer, armors);
+		ArmorRenderer.register(renderer, armors.keySet().toArray(Item[]::new));
 	}
 
 	private void loadComplete(Minecraft mc) {
