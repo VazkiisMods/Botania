@@ -177,6 +177,8 @@ public class BotaniaTags {
 		public static final TagKey<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
 		public static final TagKey<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
 		public static final TagKey<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
+		public static final TagKey<Block> BLOCKS_MANA_DIAMOND = tag("mana_diamond_blocks");
+		public static final TagKey<Block> BLOCKS_DRAGONSTONE = tag("dragonstone_blocks");
 
 		/**
 		 * Blocks in this tag are exempt from the Gaia Guardian's block smash attack

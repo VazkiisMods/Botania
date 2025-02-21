@@ -1,12 +1,12 @@
 // 1.21.1	Botania/Tags for minecraft:item
-68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/c/tags/item/bows.json
 804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/item/glass.json
 804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/item/glass_blocks.json
 f040b9a06513de92027387c440251e6542f53830 data/c/tags/item/glass_pane.json
 f040b9a06513de92027387c440251e6542f53830 data/c/tags/item/glass_panes.json
 55e298bb6ae2d2924ca360e4fe9190ace3574c10 data/c/tags/item/mushrooms.json
 c982bf60c82069637f6511b4be4a20b39894c2e9 data/c/tags/item/quartz_blocks.json
-61ae96e93e2303b4ea5e262006efa92df0fdc516 data/c/tags/item/shears.json
+68aabb17f89f25d64fabc2720017e6f9e5ce1fda data/c/tags/item/tools/bow.json
+61ae96e93e2303b4ea5e262006efa92df0fdc516 data/c/tags/item/tools/shear.json
 c603fae95069714ac3d256dfa31f8d2639efafa7 data/c/tags/item/wooden_chests.json
 c186a6a9ae6176d0b5b157f0a192f7d0c80c9217 data/modern_industrialization/tags/item/replicator_blacklist.json
 3677e53019d32bc9a7b7003218dc2a9690af2cfa data/trinkets/tags/item/all.json

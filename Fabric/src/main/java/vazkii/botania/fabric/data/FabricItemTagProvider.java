@@ -1,6 +1,6 @@
 package vazkii.botania.fabric.data;
 
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -56,8 +56,8 @@ public class FabricItemTagProvider extends ItemTagProvider {
 	}
 
 	private void generateToolTags() {
-		this.tag(ConventionalItemTags.BOWS).add(livingwoodBow, crystalBow);
-		this.tag(ConventionalItemTags.SHEARS).add(manasteelShears, elementiumShears);
+		this.tag(ConventionalItemTags.BOW_TOOLS).add(livingwoodBow, crystalBow);
+		this.tag(ConventionalItemTags.SHEAR_TOOLS).add(manasteelShears, elementiumShears);
 	}
 
 	private void generateAccessoryTags() {

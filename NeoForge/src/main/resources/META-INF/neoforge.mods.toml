@@ -20,7 +20,7 @@ configBackground = "botania:textures/block/livingrock_bricks.png" # background f
 config = "${mod_id}.xplat.mixins.json"
 
 [[mixins]]
-config = "${mod_id}.forge.mixins.json"
+config = "${mod_id}.neoforge.mixins.json"
 
 [[dependencies.botania]]
 modId = "neoforge"

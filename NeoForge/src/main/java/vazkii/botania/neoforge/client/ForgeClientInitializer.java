@@ -21,11 +21,13 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.BotaniaItemProperties;
@@ -60,6 +62,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -78,10 +81,6 @@ public class ForgeClientInitializer {
 		// Events
 		var bus = NeoForge.EVENT_BUS;
 		// GUIs
-		bus.addListener((RegisterMenuScreensEvent e) -> {
-			e.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
-			e.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
-		});
 		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getGraphics()));
 		bus.addListener((ClientTickEvent.Post e) -> {
 			ClientTickHandler.clientTickEnd(Minecraft.getInstance());
@@ -132,13 +131,16 @@ public class ForgeClientInitializer {
 
 		// Etc
 		ClientProxy.initSeasonal();
-		// TODO register these via RegisterCapabilitiesEvent
-		//bus.addGenericListener(Entity.class, ForgeClientInitializer::attachEntityCapabilities);
-		//bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("ears")) {
 			EarsIntegration.register();
 		}
+	}
+
+	@SubscribeEvent
+	private static void registerMenuScreens(RegisterMenuScreensEvent e) {
+		e.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+		e.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
 	}
 
 	@SubscribeEvent
@@ -175,27 +177,20 @@ public class ForgeClientInitializer {
 		});
 		return Collections.unmodifiableMap(ret);
 	});
-/*
-	private static void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
-		var be = e.getObject();
 
-		var makeWandHud = WAND_HUD.get().get(be.getType());
-		if (makeWandHud != null) {
-			e.addCapability(botaniaRL("wand_hud"),
-					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(be)));
-		}
+	@SubscribeEvent
+	private static void attachClientCapabilities(RegisterCapabilitiesEvent e) {
+		BotaniaBlockEntities.registerWandHudCaps((factory, types) ->
+			Stream.of(types).forEach(blockEntityType ->
+					e.registerBlockEntity(BotaniaForgeClientCapabilities.BLOCK_WAND_HUD, blockEntityType,
+							(blockEntity, context) -> factory.apply(blockEntity))));
+
+		BotaniaEntities.registerWandHudCaps((factory, types) ->
+				Stream.of(types).forEach(entityType ->
+						e.registerEntity(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD, entityType,
+								(entity, context) -> factory.apply(entity))));
 	}
 
-	private static void attachEntityCapabilities(AttachCapabilitiesEvent<Entity> e) {
-		var entity = e.getObject();
-
-		var makeWandHud = ENTITY_WAND_HUD.get().get(entity.getType());
-		if (makeWandHud != null) {
-			e.addCapability(botaniaRL("wand_hud"),
-					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(entity)));
-		}
-	}
-*/
 	@SubscribeEvent
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
 		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
@@ -271,5 +266,4 @@ public class ForgeClientInitializer {
 		// TODO: needs to be converted to use ModelResourceLocation
 		//MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
 	}
-
 }

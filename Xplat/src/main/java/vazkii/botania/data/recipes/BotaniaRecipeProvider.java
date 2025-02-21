@@ -49,7 +49,7 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 	private CompletableFuture<?> run(@NotNull CachedOutput output, HolderLookup.Provider registryLookup) {
 		final Set<ResourceLocation> set = Sets.newHashSet();
 		final List<CompletableFuture<?>> list = new ArrayList<>();
-		this.buildRecipes(new RecipeOutput() {
+		/*this.buildRecipes(new RecipeOutput() {
 			// TODO: Neoforge had the great idea to create an IRecipeOutputExtension interface that requires implementation right here
 			@Override
 			public void accept(ResourceLocation location, Recipe<?> recipe, @Nullable AdvancementHolder advancement) {
@@ -69,7 +69,7 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 				// TODO: 1.20.4 This method needs to take a holder
 				return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
 			}
-		});
+		});*/
 		return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
 	}
 

@@ -2,32 +2,19 @@ package vazkii.botania.neoforge.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import net.neoforged.neoforge.common.util.INBTSerializable;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.internal_caps.*;
-import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.neoforge.CapabilityUtil;
 
 import java.util.function.Supplier;
-
-import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public final class ForgeInternalEntityCapabilities {
 	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, BotaniaAPI.MODID);
@@ -52,48 +39,8 @@ public final class ForgeInternalEntityCapabilities {
 		return ATTACHMENT_TYPES.register(componentId.getPath(), AttachmentType.serializable(componentSupplier)::build);
 	}
 
-	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-	public static class ModBusEvents {
-		@SubscribeEvent
-		public static void registerCaps(RegisterCapabilitiesEvent evt) {
-			evt.register(EthicalComponent.class);
-			evt.register(SpectralRailComponent.class);
-			evt.register(ItemFlagsComponent.class);
-			evt.register(KeptItemsComponent.class);
-			evt.register(LooniumComponent.class);
-			evt.register(NarslimmusComponent.class);
-			evt.register(TigerseyeComponent.class);
-		}
-	}
-
-	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-	public static class ForgeBusEvents {
-		@SubscribeEvent
-		public static void attachCapabilities(AttachCapabilitiesEvent<Entity> evt) {
-			var entity = evt.getObject();
-
-			if (entity instanceof PrimedTnt tnt) {
-				evt.addCapability(botaniaRL("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new EthicalComponent(tnt)));
-			}
-			if (entity instanceof AbstractMinecart) {
-				evt.addCapability(botaniaRL("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new SpectralRailComponent()));
-			}
-			if (entity instanceof ItemEntity) {
-				evt.addCapability(botaniaRL("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ItemFlagsComponent()));
-			}
-			if (entity instanceof Player) {
-				evt.addCapability(botaniaRL("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new KeptItemsComponent()));
-			}
-			if (entity instanceof Mob) {
-				evt.addCapability(botaniaRL("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
-			}
-			if (entity instanceof Slime) {
-				evt.addCapability(botaniaRL("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new NarslimmusComponent()));
-			}
-			if (entity instanceof Creeper) {
-				evt.addCapability(botaniaRL("tigerseye_pacified"), CapabilityUtil.makeSavedProvider(TIGERSEYE, new TigerseyeComponent()));
-			}
-		}
+	public static void init(IEventBus eventBus) {
+		ATTACHMENT_TYPES.register(eventBus);
 	}
 
 	private ForgeInternalEntityCapabilities() {}

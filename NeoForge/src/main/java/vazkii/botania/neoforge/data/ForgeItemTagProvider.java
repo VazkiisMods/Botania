@@ -32,34 +32,35 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		this.tag(forge("dusts/mana")).addTag(BotaniaTags.Items.DUSTS_MANA);
-		this.tag(forge("dusts")).addTag(forge("dusts/mana"));
+		this.tag(common("dusts/mana")).addTag(BotaniaTags.Items.DUSTS_MANA);
+		this.tag(common("dusts")).addTag(common("dusts/mana"));
 
-		this.tag(forge("gems/dragonstone")).addTag(BotaniaTags.Items.GEMS_DRAGONSTONE);
-		this.tag(forge("gems/mana_diamond")).addTag(BotaniaTags.Items.GEMS_MANA_DIAMOND);
-		this.tag(forge("gems")).addTag(forge("gems/dragonstone")).addTag(forge("gems/mana_diamond"));
+		this.tag(common("gems/dragonstone")).addTag(BotaniaTags.Items.GEMS_DRAGONSTONE);
+		this.tag(common("gems/mana_diamond")).addTag(BotaniaTags.Items.GEMS_MANA_DIAMOND);
+		this.tag(common("gems")).addTag(common("gems/dragonstone")).addTag(common("gems/mana_diamond"));
 
-		this.tag(forge("ingots/elementium")).addTag(BotaniaTags.Items.INGOTS_ELEMENTIUM);
-		this.tag(forge("ingots/manasteel")).addTag(BotaniaTags.Items.INGOTS_MANASTEEL);
-		this.tag(forge("ingots/terrasteel")).addTag(BotaniaTags.Items.INGOTS_TERRASTEEL);
-		this.tag(forge("ingots")).addTag(forge("ingots/elementium"))
-				.addTag(forge("ingots/manasteel"))
-				.addTag(forge("ingots/terrasteel"));
+		this.tag(common("ingots/elementium")).addTag(BotaniaTags.Items.INGOTS_ELEMENTIUM);
+		this.tag(common("ingots/manasteel")).addTag(BotaniaTags.Items.INGOTS_MANASTEEL);
+		this.tag(common("ingots/terrasteel")).addTag(BotaniaTags.Items.INGOTS_TERRASTEEL);
+		this.tag(Tags.Items.INGOTS).addTag(common("ingots/elementium"))
+				.addTag(common("ingots/manasteel"))
+				.addTag(common("ingots/terrasteel"));
 
-		this.tag(forge("nuggets/elementium")).addTag(BotaniaTags.Items.NUGGETS_ELEMENTIUM);
-		this.tag(forge("nuggets/manasteel")).addTag(BotaniaTags.Items.NUGGETS_MANASTEEL);
-		this.tag(forge("nuggets/terrasteel")).addTag(BotaniaTags.Items.NUGGETS_TERRASTEEL);
-		this.tag(forge("nuggets")).addTag(forge("nuggets/elementium"))
-				.addTag(forge("nuggets/manasteel"))
-				.addTag(forge("nuggets/terrasteel"));
+		this.tag(common("nuggets/elementium")).addTag(BotaniaTags.Items.NUGGETS_ELEMENTIUM);
+		this.tag(common("nuggets/manasteel")).addTag(BotaniaTags.Items.NUGGETS_MANASTEEL);
+		this.tag(common("nuggets/terrasteel")).addTag(BotaniaTags.Items.NUGGETS_TERRASTEEL);
+		this.tag(common("nuggets")).addTag(common("nuggets/elementium"))
+				.addTag(common("nuggets/manasteel"))
+				.addTag(common("nuggets/terrasteel"));
 
 		this.copyToSameName(ForgeBlockTagProvider.ELEMENTIUM);
 		this.copyToSameName(ForgeBlockTagProvider.MANASTEEL);
 		this.copyToSameName(ForgeBlockTagProvider.TERRASTEEL);
+		this.copyToSameName(ForgeBlockTagProvider.MANA_DIAMOND);
+		this.copyToSameName(ForgeBlockTagProvider.DRAGONSTONE);
 		this.copy(ForgeBlockTagProvider.MUSHROOMS, Tags.Items.MUSHROOMS);
-		this.copy(Tags.Blocks.STORAGE_BLOCKS_QUARTZ, Tags.Items.STORAGE_BLOCKS_QUARTZ);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
-		this.copy(Tags.Blocks.GLASS, Tags.Items.GLASS);
+		this.copy(Tags.Blocks.GLASS_BLOCKS, Tags.Items.GLASS_BLOCKS);
 		this.copy(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
 
 		this.generateToolTags();
@@ -67,16 +68,7 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 	}
 
 	private void generateToolTags() {
-		this.tag(Tags.Items.SHEARS).add(manasteelShears, elementiumShears);
-
-		this.tag(Tags.Items.ARMORS_HELMETS).add(manasteelHelm, manaweaveHelm,
-				elementiumHelm, terrasteelHelm);
-		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(manasteelChest, manaweaveChest,
-				elementiumChest, terrasteelChest);
-		this.tag(Tags.Items.ARMORS_LEGGINGS).add(manasteelLegs, manaweaveLegs,
-				elementiumLegs, terrasteelLegs);
-		this.tag(Tags.Items.ARMORS_BOOTS).add(manasteelBoots, manaweaveBoots,
-				elementiumBoots, terrasteelBoots);
+		this.tag(Tags.Items.TOOLS_SHEAR).add(manasteelShears, elementiumShears);
 	}
 
 	private void generateAccessoryTags() {
@@ -124,8 +116,8 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", name));
 	}
 
-	private static TagKey<Item> forge(String name) {
-		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
+	private static TagKey<Item> common(String name) {
+		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
 	}
 
 	private void copyToSameName(TagKey<Block> source) {

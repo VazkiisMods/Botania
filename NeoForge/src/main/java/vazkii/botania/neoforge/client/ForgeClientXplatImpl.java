@@ -24,7 +24,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
-import vazkii.botania.neoforge.CapabilityUtil;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class ForgeClientXplatImpl implements ClientXplatAbstractions {

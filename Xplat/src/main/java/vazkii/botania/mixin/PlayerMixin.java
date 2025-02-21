@@ -13,9 +13,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
+import vazkii.botania.common.item.relic.RingOfOdinItem;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
@@ -60,5 +62,15 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 	)
 	private void captureIvyDrops(CallbackInfo ci) {
 		ResoluteIvyItem.keepDropsOnDeath((Player) (Object) this);
+	}
+
+	/**
+	 * Makes the player invulnerable to certain damage when wearing an Odin Ring
+	 */
+	@Inject(at = @At("HEAD"), method = "isInvulnerableTo", cancellable = true)
+	private void odinRing(DamageSource src, CallbackInfoReturnable<Boolean> cir) {
+		if (RingOfOdinItem.onPlayerAttacked((Player) (Object) this, src)) {
+			cir.setReturnValue(true);
+		}
 	}
 }

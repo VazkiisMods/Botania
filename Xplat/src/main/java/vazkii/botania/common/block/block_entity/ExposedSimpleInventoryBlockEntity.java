@@ -101,9 +101,8 @@ public abstract class ExposedSimpleInventoryBlockEntity extends SimpleInventoryB
 		return getItemHandler().hasAnyOf(set);
 	}
 
-	@NotNull
 	@Override
-	public int[] getSlotsForFace(@NotNull Direction side) {
+	public int[] getSlotsForFace(Direction side) {
 		return slots.get();
 	}
 

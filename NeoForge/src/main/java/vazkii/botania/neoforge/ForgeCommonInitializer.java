@@ -29,19 +29,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.capabilities.ItemCapability;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.ToolActions;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.TriState;
@@ -68,15 +68,12 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.client.fx.BotaniaParticles;
-import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
@@ -86,7 +83,6 @@ import vazkii.botania.common.block.block_entity.BlockEntityConstants;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
-import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
@@ -130,7 +126,9 @@ import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.neoforge.integration.InventorySorterIntegration;
 import vazkii.botania.neoforge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
+import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.internal_caps.RedStringContainerCapProvider;
+import vazkii.botania.neoforge.internal_caps.WaterBowlFluidHandler;
 import vazkii.botania.neoforge.network.ForgePacketHandler;
 import vazkii.botania.neoforge.xplat.ForgeXplatImpl;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -141,20 +139,23 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 @Mod(LibMisc.MOD_ID)
 public class ForgeCommonInitializer {
-	public ForgeCommonInitializer() {
-		coreInit();
-		registryInit();
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+	public ForgeCommonInitializer(IEventBus modBus, ModContainer modContainer) {
+		ForgeBotaniaConfig.setup(modContainer);
+		EquipmentHandler.init();
+		modBus.register(this);
+		modBus.addListener(ForgePacketHandler::registerPayloadHandlers);
+		ForgeInternalEntityCapabilities.init(modBus);
 	}
 
+	@SubscribeEvent
 	public void commonSetup(FMLCommonSetupEvent evt) {
-		IEventBus modbus = ModLoadingContext.get().getActiveContainer().getEventBus();
-		modbus.addListener(ForgePacketHandler::registerPayloadHandlers);
+		IEventBus gameBus = NeoForge.EVENT_BUS;
 		registerEvents();
 
 		evt.enqueueWork(BotaniaBlocks::addDispenserBehaviours);
@@ -165,6 +166,7 @@ public class ForgeCommonInitializer {
 		});
 		BotaniaBlocks.addAxeStripping();
 		PaintableData.init();
+		// TODO: move this to datagen
 		CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance));
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
@@ -179,118 +181,100 @@ public class ForgeCommonInitializer {
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
 		if (ModList.get().isLoaded("inventorysorter")) {
-			InventorySorterIntegration.init();
+			InventorySorterIntegration.init(gameBus);
 		}
 	}
 
-	private void coreInit() {
-		ForgeBotaniaConfig.setup();
-		EquipmentHandler.init();
+	@SubscribeEvent
+	private void createAttributes(EntityAttributeCreationEvent e) {
+		BotaniaEntities.registerAttributes((type, builder) -> e.put(type, builder.build()));
 	}
 
-	private void registryInit() {
-		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+	@SubscribeEvent
+	private void modifyAttributes(EntityAttributeModificationEvent e) {
+		e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
+	}
+
+	@SubscribeEvent
+	private void registryInit(RegisterEvent event) {
 		// Core item/block/BE
-		bind(Registries.SOUND_EVENT, BotaniaSounds::init);
-		bind(Registries.BLOCK, consumer -> {
+		bind(event, Registries.SOUND_EVENT, BotaniaSounds::init);
+		bind(event, Registries.BLOCK, consumer -> {
 			BotaniaBlocks.registerBlocks(consumer);
 			BotaniaBlockFlammability.register();
 		});
-		bindForItems(BotaniaBlocks::registerItemBlocks);
-		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
-		bindForItems(BotaniaItems::registerItems);
-		bind(Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
-		bindForItems(BotaniaFlowerBlocks::registerItemBlocks);
-		bind(Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
-		bind(Registries.DATA_COMPONENT_TYPE, BotaniaDataComponents::registerComponents);
+		bindForItems(event, BotaniaBlocks::registerItemBlocks);
+		bind(event, Registries.BLOCK_ENTITY_TYPE, BotaniaBlockEntities::registerTiles);
+		bindForItems(event, BotaniaItems::registerItems);
+		bind(event, Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
+		bindForItems(event, BotaniaFlowerBlocks::registerItemBlocks);
+		bind(event, Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
+		bind(event, Registries.DATA_COMPONENT_TYPE, BotaniaDataComponents::registerComponents);
 
 		// GUI and Recipe
-		bind(Registries.MENU, BotaniaItems::registerMenuTypes);
-		bind(Registries.RECIPE_SERIALIZER, BotaniaItems::registerRecipeSerializers);
-		bind(Registries.BANNER_PATTERN, BotaniaBannerPatterns::submitRegistrations);
-		bind(Registries.RECIPE_TYPE, BotaniaRecipeTypes::submitRecipeTypes);
-		bind(Registries.RECIPE_SERIALIZER, BotaniaRecipeTypes::submitRecipeSerializers);
+		bind(event, Registries.MENU, BotaniaItems::registerMenuTypes);
+		bind(event, Registries.RECIPE_SERIALIZER, BotaniaItems::registerRecipeSerializers);
+		bind(event, Registries.BANNER_PATTERN, BotaniaBannerPatterns::submitRegistrations);
+		bind(event, Registries.RECIPE_TYPE, BotaniaRecipeTypes::submitRecipeTypes);
+		bind(event, Registries.RECIPE_SERIALIZER, BotaniaRecipeTypes::submitRecipeSerializers);
 
 		// Entities
-		bind(Registries.ENTITY_TYPE, BotaniaEntities::registerEntities);
-		modBus.addListener((EntityAttributeCreationEvent e) -> BotaniaEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
-		modBus.addListener((EntityAttributeModificationEvent e) -> {
-			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
-		});
-		bind(Registries.ATTRIBUTE, PixieHandler::registerAttribute);
+		bind(event, Registries.ENTITY_TYPE, BotaniaEntities::registerEntities);
+		bind(event, Registries.ATTRIBUTE, PixieHandler::registerAttribute);
 
 		// Potions
-		bind(Registries.MOB_EFFECT, BotaniaMobEffects::registerPotions);
-		bind(BotaniaRegistries.BREWS, BotaniaBrews::submitRegistrations);
+		bind(event, Registries.MOB_EFFECT, BotaniaMobEffects::registerPotions);
+		bind(event, BotaniaRegistries.BREWS, BotaniaBrews::submitRegistrations);
 
 		// Worldgen
-		bind(Registries.FEATURE, BotaniaFeatures::registerFeatures);
-		bind(Registries.CHUNK_GENERATOR, SkyblockChunkGenerator::submitRegistration);
+		bind(event, Registries.FEATURE, BotaniaFeatures::registerFeatures);
+		bind(event, Registries.CHUNK_GENERATOR, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest
-		bind(Registries.TRIGGER_TYPE, BotaniaCriteriaTriggers::init);
-		bind(Registries.PARTICLE_TYPE, BotaniaParticles::registerParticles);
+		bind(event, Registries.TRIGGER_TYPE, BotaniaCriteriaTriggers::init);
+		bind(event, Registries.PARTICLE_TYPE, BotaniaParticles::registerParticles);
 
-		bind(Registries.LOOT_CONDITION_TYPE, BotaniaLootModifiers::submitLootConditions);
-		bind(Registries.LOOT_FUNCTION_TYPE, BotaniaLootModifiers::submitLootFunctions);
+		bind(event, Registries.LOOT_CONDITION_TYPE, BotaniaLootModifiers::submitLootConditions);
+		bind(event, Registries.LOOT_FUNCTION_TYPE, BotaniaLootModifiers::submitLootFunctions);
 		// Vanilla's stat constructor does the registration too, so we use this
 		// event only for timing, not for registering
-		modBus.addListener((RegisterEvent evt) -> {
-			if (evt.getRegistryKey().equals(Registries.CUSTOM_STAT)) {
-				BotaniaStats.init();
-			}
-		});
-		bind(Registries.CREATIVE_MODE_TAB, consumer -> {
-			consumer.accept(CreativeModeTab.builder()
-					.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
-					.icon(() -> new ItemStack(BotaniaItems.lexicon))
-					.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
-					.backgroundTexture(botaniaRL("botania.png")) // TODO probably incorrect ID
-					.withSearchBar()
-					.build(),
-					BotaniaRegistries.BOTANIA_TAB_KEY.location());
-		});
-		modBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
-			if (e.getTabKey() == BotaniaRegistries.BOTANIA_TAB_KEY) {
-				for (Item item : this.itemsToAddToCreativeTab) {
-					if (item instanceof CustomCreativeTabContents cc) {
-						cc.addToCreativeTab(item, e);
-					} else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
-						cc.addToCreativeTab(item, e);
-					} else {
-						e.accept(item);
-					}
-				}
-			}
-		});
+		if (event.getRegistryKey().equals(Registries.CUSTOM_STAT)) {
+			// TODO: maybe actually do this the way NeoForge intended
+			BotaniaStats.init();
+		}
+
+		bind(event, Registries.CREATIVE_MODE_TAB, consumer -> consumer.accept(
+				CreativeModeTab.builder()
+				.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
+				.icon(() -> new ItemStack(BotaniaItems.lexicon))
+				.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+				.backgroundTexture(botaniaRL("botania.png")) // TODO probably incorrect ID
+				.withSearchBar()
+				.build(),
+				BotaniaRegistries.BOTANIA_TAB_KEY.location()));
 	}
 
-	private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
-			if (registry.equals(event.getRegistryKey())) {
-				source.accept((t, rl) -> event.register(registry, rl, () -> t));
-			}
-		});
+	private static <T> void bind(RegisterEvent event, ResourceKey<Registry<T>> registryKey, Consumer<BiConsumer<T, ResourceLocation>> source) {
+		Registry<T> registry = event.getRegistry(registryKey);
+		if (registry != null) {
+			source.accept((t, rl) -> Registry.register(registry, rl, t));
+		}
 	}
 
 	private final Set<Item> itemsToAddToCreativeTab = new LinkedHashSet<>();
 
-	private void bindForItems(Consumer<BiConsumer<Item, ResourceLocation>> source) {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
-			if (event.getRegistryKey().equals(Registries.ITEM)) {
-				source.accept((t, rl) -> {
-					itemsToAddToCreativeTab.add(t);
-					event.register(Registries.ITEM, rl, () -> t);
-				});
-			}
-		});
+	private void bindForItems(RegisterEvent event, Consumer<BiConsumer<Item, ResourceLocation>> source) {
+		Registry<Item> registry = event.getRegistry(Registries.ITEM);
+		if (registry != null) {
+			source.accept((t, rl) -> {
+				itemsToAddToCreativeTab.add(t);
+				Registry.register(registry, rl, t);
+			});
+		}
 	}
 
 	private void registerEvents() {
 		IEventBus bus = NeoForge.EVENT_BUS;
-		registerBlockLookasides();
-		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
-		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
 
 		int blazeTime = 2400 * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
 		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
@@ -335,7 +319,7 @@ public class ForgeCommonInitializer {
 		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> FlugelTiaraItem.playerLoggedOut((ServerPlayer) e.getEntity()));
 		bus.addListener((PlayerEvent.Clone e) -> ResoluteIvyItem.onPlayerRespawn(e.getOriginal(), e.getEntity(), !e.isWasDeath()));
 		bus.addListener((LevelTickEvent.Post e) -> {
-			if (e.level instanceof ServerLevel level) {
+			if (e.getLevel() instanceof ServerLevel level) {
 				CommonTickHandler.onTick(level);
 				GrassSeedsItem.onTickEnd(level);
 				TerraTruncatorItem.onTickEnd(level);
@@ -362,7 +346,7 @@ public class ForgeCommonInitializer {
 		});
 		// FabricMixinAxeItem
 		bus.addListener((BlockEvent.BlockToolModificationEvent e) -> {
-			if (e.getToolAction() == ToolActions.AXE_STRIP) {
+			if (e.getItemAbility() == ItemAbilities.AXE_STRIP) {
 				BlockState input = e.getState();
 				Block output = ForgeXplatImpl.CUSTOM_STRIPPABLES.get(input.getBlock());
 				if (output != null) {
@@ -420,16 +404,9 @@ public class ForgeCommonInitializer {
 		}
 		// FabricMixinPlayer
 		{
-			// TODO: event appears to have been removed (was at head of LivingEntity::hurt)
-			bus.addListener((LivingAttackEvent e) -> {
-				if (e.getEntity() instanceof Player player
-						&& RingOfOdinItem.onPlayerAttacked(player, e.getSource())) {
-					e.setCanceled(true);
-				}
-			});
 			bus.addListener((ItemTossEvent e) -> RingOfMagnetizationItem.onTossItem(e.getPlayer()));
-			// TODO: event hook location appears to have changed (was at top of if not invulnerable block in LivingEntity::actuallyHurt)
-			bus.addListener((LivingHurtEvent e) -> {
+			// TODO parity: Fabric mixes into super.hurt() call in Player::hurt instead
+			bus.addListener((LivingIncomingDamageEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
 					Container worn = EquipmentHandler.getAllWorn(player);
 					for (int i = 0; i < worn.getContainerSize(); i++) {
@@ -445,11 +422,9 @@ public class ForgeCommonInitializer {
 					CharmOfTheDivaItem.onEntityDamaged(player, e.getEntity());
 				}
 			});
-			bus.addListener((PlayerTickEvent e) -> {
-				if (e.getEntity() instanceof Player player) {
-					FlugelTiaraItem.updatePlayerFlyStatus(player);
-					SojournersSashItem.tickBelt(player);
-				}
+			bus.addListener((PlayerTickEvent.Pre e) -> {
+				FlugelTiaraItem.updatePlayerFlyStatus(e.getEntity());
+				SojournersSashItem.tickBelt(e.getEntity());
 			});
 			bus.addListener((LivingFallEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
@@ -457,10 +432,8 @@ public class ForgeCommonInitializer {
 				}
 			});
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
-				Event.Result result = e.getResult();
 				if (e.getEntity().level().isClientSide
-						|| result == Event.Result.DENY
-						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
+						|| !e.isCriticalHit()
 						|| !TerrasteelHelmItem.hasTerraArmorSet(e.getEntity())
 						|| !(e.getTarget() instanceof LivingEntity target)) {
 					return;
@@ -521,144 +494,144 @@ public class ForgeCommonInitializer {
 			BotaniaItems.thorRing, RingOfThorItem::makeRelic
 	));
 
-	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
-		var stack = e.getObject();
+	@SubscribeEvent
+	private void attachItemCaps(RegisterCapabilitiesEvent e) {
 
-		if (stack.getItem() instanceof BaubleItem
-				&& EquipmentHandler.instance instanceof CurioIntegration ci) {
-			e.addCapability(botaniaRL("curio"), ci.initCapability(stack));
+		if (EquipmentHandler.instance instanceof CurioIntegration ci) {
+			Item[] baubleItems = BuiltInRegistries.ITEM.stream()
+					.filter(item -> item instanceof BaubleItem)
+					.toArray(Item[]::new);
+			ci.initCapability(e, baubleItems);
 		}
 
-		if (stack.is(BotaniaItems.waterBowl)) {
-			e.addCapability(botaniaRL("water_bowl"), new CapabilityUtil.WaterBowlFluidHandler(stack));
-		}
+		e.registerItem(Capabilities.FluidHandler.ITEM,
+				(stack, context) -> new WaterBowlFluidHandler(stack),
+				BotaniaItems.waterBowl);
 
-		var makeAvatarWieldable = AVATAR_WIELDABLES.get().get(stack.getItem());
-		if (makeAvatarWieldable != null) {
-			e.addCapability(botaniaRL("avatar_wieldable"),
-					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.AVATAR_WIELDABLE, makeAvatarWieldable.apply(stack)));
-		}
-
-		var makeBlockProvider = BLOCK_PROVIDER.get().get(stack.getItem());
-		if (makeBlockProvider != null) {
-			e.addCapability(botaniaRL("block_provider"),
-					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.BLOCK_PROVIDER, makeBlockProvider.apply(stack)));
-		}
-
-		var makeCoordBoundItem = COORD_BOUND_ITEM.get().get(stack.getItem());
-		if (makeCoordBoundItem != null) {
-			e.addCapability(botaniaRL("coord_bound_item"),
-					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.COORD_BOUND_ITEM, makeCoordBoundItem.apply(stack)));
-		}
-
-		var makeManaItem = MANA_ITEM.get().get(stack.getItem());
-		if (makeManaItem != null) {
-			e.addCapability(botaniaRL("mana_item"),
-					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, makeManaItem.apply(stack)));
-		}
-
-		var makeRelic = RELIC.get().get(stack.getItem());
-		if (makeRelic != null) {
-			e.addCapability(botaniaRL("relic"),
-					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.RELIC, makeRelic.apply(stack)));
-		}
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.AVATAR_WIELDABLE, AVATAR_WIELDABLES.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.BLOCK_PROVIDER, BLOCK_PROVIDER.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.COORD_BOUND_ITEM, COORD_BOUND_ITEM.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.MANA_ITEM, MANA_ITEM.get());
+		attachMappedItemCaps(e, BotaniaForgeCapabilities.RELIC, RELIC.get());
 	}
 
-	private void registerBlockLookasides() {
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType, living) -> hornType == HornHarvestable.EnumHornType.CANOPY,
+	private static <T> void attachMappedItemCaps(RegisterCapabilitiesEvent e, ItemCapability<T, Void> capability,
+	                                             Map<Item, Function<ItemStack, T>> itemProviderMap) {
+		itemProviderMap.forEach((item, provider) -> e.registerItem(
+				capability, (stack, context) -> provider.apply(stack), item));
+	}
+
+	@SubscribeEvent
+	private void registerBlockLookasides(RegisterCapabilitiesEvent e) {
+		// TODO: isn't this redundant with BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE?
+		e.registerBlock(BotaniaForgeCapabilities.HORN_HARVEST,
+				(level, pos, state, blockEntity, context) ->
+						(world, blockPos, stack, hornType, living) ->
+								hornType == HornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
+
+		// TODO: make these an exclusion tag for Horn of the Wild
+		e.registerBlock(BotaniaForgeCapabilities.HORN_HARVEST,
+				(level, pos, state, blockEntity, context) -> DefaultHornHarvestable.INSTANCE,
 				ColorHelper.supportedColors().map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
+		e.registerBlock(BotaniaForgeCapabilities.HORN_HARVEST,
+				(level, pos, state, blockEntity, context) -> DefaultHornHarvestable.INSTANCE,
 				ColorHelper.supportedColors().map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_GHOST, (w, p, s) -> ((ManaCollisionGhost) s.getBlock()),
+
+		// TODO: ManaCollisionGhost feels like it could be represented by two tags for fully-ignored and trigger-only blocks, respectively
+		e.registerBlock(BotaniaForgeCapabilities.MANA_GHOST,
+				(level, pos, state, blockEntity, context) -> (ManaCollisionGhost) state.getBlock(),
 				BotaniaBlocks.manaDetector,
 				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
 				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, ManaVoidBlock.ManaReceiverImpl::new, BotaniaBlocks.manaVoid);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, DrumBlock.ManaTriggerImpl::new,
+
+		e.registerBlock(BotaniaForgeCapabilities.MANA_RECEIVER,
+				(level, pos, state, blockEntity, context) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
+				BotaniaBlocks.manaVoid);
+		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
+				(level, pos, state, blockEntity, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.canopyDrum, BotaniaBlocks.wildDrum, BotaniaBlocks.gatheringDrum);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManastormChargeBlock.ManaTriggerImpl::new, BotaniaBlocks.manaBomb);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManaDetectorBlock.ManaTriggerImpl::new, BotaniaBlocks.manaDetector);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.WANDABLE,
-				(world, pos, state) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, world, pos),
+		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
+				(level, pos, state, blockEntity, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
+				BotaniaBlocks.manaBomb);
+		e.registerBlock(BotaniaForgeCapabilities.MANA_TRIGGER,
+				(level, pos, state, blockEntity, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
+				BotaniaBlocks.manaDetector);
+		e.registerBlock(BotaniaForgeCapabilities.WANDABLE,
+				(level, pos, state, blockEntity, context) ->
+						(player, stack, side) ->
+								((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, level, pos),
 				BotaniaBlocks.pistonRelay);
 	}
 
-	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
-		var be = e.getObject();
-		if (be instanceof AbstractFurnaceBlockEntity furnace) {
-			e.addCapability(botaniaRL("exoflame_heatable"),
-					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.EXOFLAME_HEATABLE,
-							new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
-		}
+	@SubscribeEvent
+	private void attachBeCaps(RegisterCapabilitiesEvent e) {
+		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
+		Stream.of(BlockEntityType.FURNACE, BlockEntityType.BLAST_FURNACE, BlockEntityType.SMOKER)
+				.forEach(blockEntityType -> e.registerBlockEntity(
+						BotaniaForgeCapabilities.EXOFLAME_HEATABLE, blockEntityType,
+						(furnace, context) -> new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
 
-		if (be instanceof ExposedSimpleInventoryBlockEntity inv) {
-			e.addCapability(botaniaRL("inv"), CapabilityUtil.makeProvider(Capabilities.ITEM_HANDLER, new SidedInvWrapper(inv, null)));
-		}
+		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType ->
+				e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
 
-		if (be instanceof PowerGeneratorBlockEntity gen) {
-			// we only provide a view of the energy level, no interaction allowed
-			var energyStorage = new IEnergyStorage() {
-				@Override
-				public int getEnergyStored() {
-					return gen.getEnergy();
-				}
+		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.FLUXFIELD,
+				// we only provide a view of the energy level, no interaction allowed
+				(gen, context) -> new IEnergyStorage() {
+					@Override
+					public int getEnergyStored() {
+						return gen.getEnergy();
+					}
 
-				@Override
-				public int getMaxEnergyStored() {
-					return PowerGeneratorBlockEntity.MAX_ENERGY;
-				}
+					@Override
+					public int getMaxEnergyStored() {
+						return PowerGeneratorBlockEntity.MAX_ENERGY;
+					}
 
-				@Override
-				public boolean canExtract() {
-					return false;
-				}
+					@Override
+					public boolean canExtract() {
+						return false;
+					}
 
-				@Override
-				public int extractEnergy(int maxExtract, boolean simulate) {
-					return 0;
-				}
+					@Override
+					public int extractEnergy(int maxExtract, boolean simulate) {
+						return 0;
+					}
 
-				@Override
-				public int receiveEnergy(int maxReceive, boolean simulate) {
-					return 0;
-				}
+					@Override
+					public int receiveEnergy(int maxReceive, boolean simulate) {
+						return 0;
+					}
 
-				@Override
-				public boolean canReceive() {
-					return false;
-				}
-			};
-			e.addCapability(botaniaRL("fe"), CapabilityUtil.makeProvider(Capabilities.ENERGY, energyStorage));
-		}
+					@Override
+					public boolean canReceive() {
+						return false;
+					}
+				});
 
-		if (be.getType() == BotaniaBlockEntities.ANIMATED_TORCH) {
-			e.addCapability(botaniaRL("hourglass_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.HOURGLASS_TRIGGER,
-					hourglass -> ((AnimatedTorchBlockEntity) be).toggle()));
-		}
+		e.registerBlockEntity(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, BotaniaBlockEntities.ANIMATED_TORCH,
+				(torchBlockEntity, context) -> hourglass -> torchBlockEntity.toggle());
 
-		if (BlockEntityConstants.SELF_WANDADBLE_BES.contains(be.getType())) {
-			e.addCapability(botaniaRL("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
-					(Wandable) be));
-		}
+		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType ->
+				e.registerBlockEntity(BotaniaForgeCapabilities.WANDABLE, blockEntityType,
+						(blockEntity, context) -> blockEntity));
 
-		if (be instanceof RedStringContainerBlockEntity container) {
-			e.addCapability(botaniaRL("red_string"), new RedStringContainerCapProvider(container));
-		}
+		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType ->
+				e.registerBlockEntity(BotaniaForgeCapabilities.MANA_TRIGGER, blockEntityType,
+						(blockEntity, context) -> blockEntity));
 
-		if (BlockEntityConstants.SELF_MANA_TRIGGER_BES.contains(be.getType())) {
-			e.addCapability(botaniaRL("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (ManaTrigger) be));
-		}
+		BlockEntityConstants.SELF_MANA_RECEIVER_BES.forEach(blockEntityType ->
+				e.registerBlockEntity(BotaniaForgeCapabilities.MANA_RECEIVER, blockEntityType,
+						(blockEntity, context) -> blockEntity));
 
-		if (BlockEntityConstants.SELF_MANA_RECEIVER_BES.contains(be.getType())) {
-			e.addCapability(botaniaRL("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (ManaReceiver) be));
-		}
+		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType ->
+				e.registerBlockEntity(BotaniaForgeCapabilities.SPARK_ATTACHABLE, blockEntityType,
+						(blockEntity, context) -> blockEntity));
 
-		if (BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.contains(be.getType())) {
-			e.addCapability(botaniaRL("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, (SparkAttachable) be));
-		}
+		Stream.of(BotaniaBlockEntities.RED_STRING_CONTAINER, BotaniaBlockEntities.RED_STRING_DISPENSER)
+				.forEach(blockEntityType -> e.registerBlockEntity(
+						Capabilities.ItemHandler.BLOCK, blockEntityType, new RedStringContainerCapProvider()));
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {
@@ -686,4 +659,18 @@ public class ForgeCommonInitializer {
 		CorporeaIndexBlockEntity.clearIndexCache();
 	}
 
+	@SubscribeEvent
+	private void addItemsToCreativeTab(BuildCreativeModeTabContentsEvent e) {
+		if (e.getTabKey() == BotaniaRegistries.BOTANIA_TAB_KEY) {
+			for (Item item : this.itemsToAddToCreativeTab) {
+				if (item instanceof CustomCreativeTabContents cc) {
+					cc.addToCreativeTab(item, e);
+				} else if (item instanceof BlockItem bi && bi.getBlock() instanceof CustomCreativeTabContents cc) {
+					cc.addToCreativeTab(item, e);
+				} else {
+					e.accept(item);
+				}
+			}
+		}
+	}
 }

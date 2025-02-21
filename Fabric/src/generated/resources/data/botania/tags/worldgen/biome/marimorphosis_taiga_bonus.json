@@ -1,7 +1,7 @@
 {
   "values": [
-    "#c:tree_coniferous",
-    "#c:climate_cold",
-    "#c:snowy"
+    "#c:is_tree/coniferous",
+    "#c:is_cold",
+    "#c:is_snowy"
   ]
 }

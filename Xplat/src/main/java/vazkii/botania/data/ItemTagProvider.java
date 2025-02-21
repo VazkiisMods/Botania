@@ -50,6 +50,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.SHOVELS).add(manasteelShovel, elementiumShovel);
 		this.tag(ItemTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
 
+		this.tag(ItemTags.HEAD_ARMOR).add(manasteelHelm, manaweaveHelm, elementiumHelm, terrasteelHelm);
+		this.tag(ItemTags.CHEST_ARMOR).add(manasteelChest, manaweaveChest, elementiumChest, terrasteelChest);
+		this.tag(ItemTags.LEG_ARMOR).add(manasteelLegs, manaweaveLegs, elementiumLegs, terrasteelLegs);
+		this.tag(ItemTags.FOOT_ARMOR).add(manasteelBoots, manaweaveBoots, elementiumBoots, terrasteelBoots);
+
 		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.PLANKS, ItemTags.PLANKS);

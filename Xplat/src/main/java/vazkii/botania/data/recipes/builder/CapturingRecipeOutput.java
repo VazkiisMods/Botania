@@ -29,7 +29,9 @@ public class CapturingRecipeOutput {
 	private final RecipeOutput partialOutput;
 
 	public CapturingRecipeOutput(RecipeOutput recipeOutput) {
-		partialOutput = new RecipeOutput() {
+		partialOutput = null;
+		// FIXME: cannot implement RecipeOutput in Xplat due to Neoforge modifications
+		/*partialOutput = new RecipeOutput() {
 			@Override
 			public void accept(ResourceLocation recipeId, Recipe<?> recipe, @Nullable AdvancementHolder advancementHolder) {
 				partialRecipeId.setValue(recipeId);
@@ -41,7 +43,7 @@ public class CapturingRecipeOutput {
 			public Advancement.Builder advancement() {
 				return recipeOutput.advancement();
 			}
-		};
+		};*/
 	}
 
 	public Triple<ResourceLocation, Recipe<?>, AdvancementHolder> captureSave(Consumer<RecipeOutput> recipeOutputConsumer) {

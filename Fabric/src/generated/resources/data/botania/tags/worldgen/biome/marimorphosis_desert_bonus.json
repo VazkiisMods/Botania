@@ -1,6 +1,6 @@
 {
   "values": [
-    "#c:desert",
-    "#c:savanna"
+    "#c:is_desert",
+    "#c:is_savanna"
   ]
 }

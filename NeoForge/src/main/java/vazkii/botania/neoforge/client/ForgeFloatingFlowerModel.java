@@ -56,10 +56,9 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		}
 	}
 
-	@Nullable
 	@Override
 	public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter,
-			ModelState transform, ItemOverrides overrides, ResourceLocation name) {
+			ModelState transform, ItemOverrides overrides) {
 		final Transformation moveFlower = new Transformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
 		Transformation mul = moveFlower.compose(transform.getRotation());
 		ModelState newTransform = new ModelState() {
@@ -73,11 +72,11 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 				return transform.isUvLocked();
 			}
 		};
-		BakedModel bakedFlower = unbakedFlower.bake(baker, spriteGetter, newTransform, name);
+		BakedModel bakedFlower = unbakedFlower.bake(baker, spriteGetter, newTransform);
 
 		Map<FloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
 		for (Map.Entry<FloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
-			BakedModel bakedIsland = e.getValue().bake(baker, spriteGetter, transform, name);
+			BakedModel bakedIsland = e.getValue().bake(baker, spriteGetter, transform);
 			bakedIslands.put(e.getKey(), bakedIsland);
 		}
 		return new Baked(bakedFlower, bakedIslands);

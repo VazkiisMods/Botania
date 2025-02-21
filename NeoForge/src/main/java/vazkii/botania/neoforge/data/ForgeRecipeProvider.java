@@ -2,8 +2,8 @@ package vazkii.botania.neoforge.data;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
@@ -16,7 +16,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 import static vazkii.botania.data.recipes.CraftingRecipeProvider.*;
 
@@ -26,10 +25,10 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	public void buildRecipes(RecipeOutput consumer) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.azulejo0)
 				.requires(Items.BLUE_DYE)
-				.requires(Tags.Items.STORAGE_BLOCKS_QUARTZ)
+				.requires(Items.QUARTZ_BLOCK) // TODO verify: was STORAGE_BLOCKS_QUARTZ
 				.unlockedBy("has_item", conditionsFromItem(Items.BLUE_DYE))
 				.save(consumer);
 

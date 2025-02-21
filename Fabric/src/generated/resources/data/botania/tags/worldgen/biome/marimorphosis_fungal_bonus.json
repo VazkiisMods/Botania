@@ -1,6 +1,6 @@
 {
   "values": [
-    "#c:mushroom",
-    "#c:underground"
+    "#c:is_mushroom",
+    "#c:is_underground"
   ]
 }

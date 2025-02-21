@@ -1,6 +1,6 @@
 {
   "values": [
-    "#c:swamp",
-    "#c:jungle"
+    "#c:is_swamp",
+    "#c:is_jungle"
   ]
 }

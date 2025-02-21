@@ -44,11 +44,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -366,7 +364,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaBlocks.pistonRelay
 		);
 		BotaniaFabricCapabilities.WANDABLE.registerSelf(
-				BlockEntityConstants.SELF_WANDADBLE_BES.toArray(BlockEntityType[]::new));
+				BlockEntityConstants.SELF_WANDABLE_BES.toArray(BlockEntityType[]::new));
 		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRING_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRING_DISPENSER);
 

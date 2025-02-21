@@ -371,7 +371,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	@SuppressWarnings("unchecked")
 	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet) {
-		return (Packet<ClientGamePacketListener>) ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
+		return null; // FIXME, was: (Packet<ClientGamePacketListener>) ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
 	}
 
 	@Override
@@ -452,7 +452,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipeHolder, NonNullList<ItemStack> items, int maxStackSize) {
-		return AbstractFurnaceBlockEntityForgeAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize);
+		return AbstractFurnaceBlockEntityForgeAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipeHolder, items, maxStackSize, furnace);
 	}
 
 	@Override

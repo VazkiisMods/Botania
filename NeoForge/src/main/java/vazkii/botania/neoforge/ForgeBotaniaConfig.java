@@ -10,7 +10,7 @@ package vazkii.botania.neoforge;
 
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -381,12 +381,12 @@ public final class ForgeBotaniaConfig {
 		COMMON = specPair.getLeft();
 	}
 
-	public static void setup() {
-		ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
+	public static void setup(ModContainer modContainer) {
+		modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
 		BotaniaConfig.setCommon(COMMON);
 
 		if (XplatAbstractions.INSTANCE.isPhysicalClient()) {
-			ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
+			modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
 			BotaniaConfig.setClient(CLIENT);
 		}
 	}

@@ -1,6 +1,6 @@
 package vazkii.botania.fabric.data;
 
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 
@@ -19,27 +19,27 @@ public class FabricBiomeTagProvider extends BiomeTagProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 		// need to do this so we can use them in addTag. It generates a dummy empty file,
 		// but whatever.
-		tag(ConventionalBiomeTags.DESERT);
-		tag(ConventionalBiomeTags.SAVANNA);
-		tag(ConventionalBiomeTags.FOREST);
-		tag(ConventionalBiomeTags.MUSHROOM);
-		tag(ConventionalBiomeTags.UNDERGROUND);
-		tag(ConventionalBiomeTags.MESA);
-		tag(ConventionalBiomeTags.MOUNTAIN);
-		tag(ConventionalBiomeTags.PLAINS);
-		tag(ConventionalBiomeTags.BEACH);
-		tag(ConventionalBiomeTags.SWAMP);
-		tag(ConventionalBiomeTags.JUNGLE);
-		tag(ConventionalBiomeTags.TREE_CONIFEROUS);
-		tag(ConventionalBiomeTags.CLIMATE_COLD);
-		tag(ConventionalBiomeTags.SNOWY);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_DESERT_BONUS).addTag(ConventionalBiomeTags.DESERT).addTag(ConventionalBiomeTags.SAVANNA);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FOREST_BONUS).addTag(ConventionalBiomeTags.FOREST);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS).addTag(ConventionalBiomeTags.MUSHROOM).addTag(ConventionalBiomeTags.UNDERGROUND);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS).addTag(ConventionalBiomeTags.MESA).addTag(ConventionalBiomeTags.SAVANNA);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS).addTag(ConventionalBiomeTags.MOUNTAIN);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS).addTag(ConventionalBiomeTags.PLAINS).addTag(ConventionalBiomeTags.BEACH);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS).addTag(ConventionalBiomeTags.SWAMP).addTag(ConventionalBiomeTags.JUNGLE);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS).addTag(ConventionalBiomeTags.TREE_CONIFEROUS).addTag(ConventionalBiomeTags.CLIMATE_COLD).addTag(ConventionalBiomeTags.SNOWY);
+		tag(ConventionalBiomeTags.IS_DESERT);
+		tag(ConventionalBiomeTags.IS_SAVANNA);
+		tag(ConventionalBiomeTags.IS_FOREST);
+		tag(ConventionalBiomeTags.IS_MUSHROOM);
+		tag(ConventionalBiomeTags.IS_UNDERGROUND);
+		tag(ConventionalBiomeTags.IS_BADLANDS);
+		tag(ConventionalBiomeTags.IS_MOUNTAIN);
+		tag(ConventionalBiomeTags.IS_PLAINS);
+		tag(ConventionalBiomeTags.IS_BEACH);
+		tag(ConventionalBiomeTags.IS_SWAMP);
+		tag(ConventionalBiomeTags.IS_JUNGLE);
+		tag(ConventionalBiomeTags.IS_CONIFEROUS_TREE);
+		tag(ConventionalBiomeTags.IS_COLD);
+		tag(ConventionalBiomeTags.IS_SNOWY);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_DESERT_BONUS).addTag(ConventionalBiomeTags.IS_DESERT).addTag(ConventionalBiomeTags.IS_SAVANNA);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FOREST_BONUS).addTag(ConventionalBiomeTags.IS_FOREST);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS).addTag(ConventionalBiomeTags.IS_MUSHROOM).addTag(ConventionalBiomeTags.IS_UNDERGROUND);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS).addTag(ConventionalBiomeTags.IS_BADLANDS).addTag(ConventionalBiomeTags.IS_SAVANNA);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS).addTag(ConventionalBiomeTags.IS_MOUNTAIN);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS).addTag(ConventionalBiomeTags.IS_PLAINS).addTag(ConventionalBiomeTags.IS_BEACH);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS).addTag(ConventionalBiomeTags.IS_SWAMP).addTag(ConventionalBiomeTags.IS_JUNGLE);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS).addTag(ConventionalBiomeTags.IS_CONIFEROUS_TREE).addTag(ConventionalBiomeTags.IS_COLD).addTag(ConventionalBiomeTags.IS_SNOWY);
 	}
 }

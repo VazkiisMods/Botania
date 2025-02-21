@@ -1,9 +1,1 @@
 // 1.21.1	Botania/Botania recipes (Fabric-specific)
-4962690d21da59ab224c9abbed692edb91871f07 data/botania/advancements/recipes/building_blocks/azulejo_0.json
-33137495fc0e0a51a6666d3865e684a78cc0144c data/botania/advancements/recipes/redstone/corporea_retainer.json
-268a40ed4e0991a92b8cff627823fb667d389f7d data/botania/advancements/recipes/redstone/red_string_container.json
-19d509f7d41383e2e3e1149ddc3abb1a24706d6b data/botania/advancements/recipes/tools/bauble_box.json
-bb584d47ea7a87c8828cc2bbd867a04cb211f7ac data/botania/recipes/azulejo_0.json
-c6462f51ada88928b26098be09ff406902a4bb36 data/botania/recipes/bauble_box.json
-3543667691b57fe0c711cd08ce910b72ea31e2b2 data/botania/recipes/corporea_retainer.json
-6f6f1b3c7533fd2262af7cbfae5794a577427134 data/botania/recipes/red_string_container.json

@@ -23,9 +23,8 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -46,8 +45,9 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.neoforge.CapabilityUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -59,7 +59,7 @@ public class CurioIntegration extends EquipmentHandler {
 	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky
 		event.addOverride(stack -> {
 			if (ResoluteIvyItem.hasIvy(stack)) {
-				stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
+				// FIXME: use data component - stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
 				return true;
 			}
 			return false;
@@ -70,7 +70,13 @@ public class CurioIntegration extends EquipmentHandler {
 	protected Container getAllWornItems(LivingEntity living) {
 		return CuriosApi.getCuriosInventory(living)
 				.map(ICuriosItemHandler::getEquippedCurios)
-				.<Container>map(RecipeWrapper::new)
+				.map(handler -> {
+					List<ItemStack> list = new ArrayList<>(handler.getSlots());
+					for (int i = 0; i < handler.getSlots(); i++) {
+						list.add(handler.getStackInSlot(i));
+					}
+					return new SimpleContainer(list.toArray(ItemStack[]::new));
+				})
 				.orElseGet(() -> new SimpleContainer(0));
 	}
 
@@ -88,8 +94,8 @@ public class CurioIntegration extends EquipmentHandler {
 				.orElse(ItemStack.EMPTY);
 	}
 
-	public ICapabilityProvider initCapability(ItemStack stack) {
-		return CapabilityUtil.makeProvider(CuriosCapability.ITEM, new Wrapper(stack));
+	public void initCapability(RegisterCapabilitiesEvent event, Item... items) {
+		event.registerItem(CuriosCapability.ITEM, (stack, context) -> new Wrapper(stack), items);
 	}
 
 	@Override
@@ -99,7 +105,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	public boolean isAccessory(ItemStack stack) {
-		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM).isPresent();
+		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM) != null;
 	}
 
 	public static class Wrapper implements ICurio {

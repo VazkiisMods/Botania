@@ -60,16 +60,6 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 	}
 
 	/**
-	 * Makes the player invulnerable to certain damage when wearing an Odin Ring
-	 */
-	@Inject(at = @At("HEAD"), method = "isInvulnerableTo", cancellable = true)
-	private void odinRing(DamageSource src, CallbackInfoReturnable<Boolean> cir) {
-		if (RingOfOdinItem.onPlayerAttacked((Player) (Object) this, src)) {
-			cir.setReturnValue(true);
-		}
-	}
-
-	/**
 	 * Performs many reactions when being hit
 	 */
 	@ModifyArgs(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))

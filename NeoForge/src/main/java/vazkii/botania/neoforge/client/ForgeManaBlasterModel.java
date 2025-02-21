@@ -35,7 +35,7 @@ public class ForgeManaBlasterModel implements IUnbakedGeometry<ForgeManaBlasterM
 
 	@Override
 	public BakedModel bake(IGeometryBakingContext context, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter,
-			ModelState modelState, ItemOverrides overrides, ResourceLocation modelLocation) {
+			ModelState modelState, ItemOverrides overrides) {
 		Transformation transform = context.getRootTransform();
 		ModelState state = new ModelState() {
 			@NotNull
