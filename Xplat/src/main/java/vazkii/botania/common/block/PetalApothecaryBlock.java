@@ -13,7 +13,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -123,7 +122,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 			return InteractionResult.PASS;
 		}
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
-
+	
 		if (apothecary.canAddLastRecipe() && mainHandEmpty) {
 			return apothecary.trySetLastRecipe(player);
 		} else if (!apothecary.isEmpty() && mainHandEmpty) {
@@ -133,7 +132,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		} else if (tryWithdrawFluid(player, hand, apothecary, pos) || tryDepositFluid(player, hand, apothecary, pos)) {
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
-
+	
 		return InteractionResult.PASS;
 	}
 	 */

@@ -3,9 +3,8 @@ package vazkii.botania.common.internal_caps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
-import org.jetbrains.annotations.NotNull;
-
 import org.jetbrains.annotations.UnknownNullability;
+
 import vazkii.botania.common.annotations.SoftImplement;
 
 public abstract class SerializableComponent {

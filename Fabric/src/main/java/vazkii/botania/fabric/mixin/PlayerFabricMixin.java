@@ -38,7 +38,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
-import vazkii.botania.common.item.relic.RingOfOdinItem;
 
 @Mixin(Player.class)
 public abstract class PlayerFabricMixin extends LivingEntity {

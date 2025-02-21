@@ -11,23 +11,18 @@ package vazkii.botania.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.authlib.GameProfile;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
-import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -37,10 +32,13 @@ public abstract class ServerPlayerMixin {
 	/**
 	 * Updates the distance by luminizer stat
 	 */
-	@WrapOperation(method = "checkRidingStatistics", at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/server/level/ServerPlayer;getVehicle()Lnet/minecraft/world/entity/Entity;"))
-	private Entity trackLuminizerTravel(ServerPlayer player, Operation<Entity> original, @Local int cm)
-	{
+	@WrapOperation(
+		method = "checkRidingStatistics", at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/server/level/ServerPlayer;getVehicle()Lnet/minecraft/world/entity/Entity;"
+		)
+	)
+	private Entity trackLuminizerTravel(ServerPlayer player, Operation<Entity> original, @Local int cm) {
 		Entity entity = original.call(player);
 		if (entity instanceof LuminizerBlockEntity.PlayerMoverEntity) {
 			player.awardStat(BotaniaStats.LUMINIZER_ONE_CM, cm);

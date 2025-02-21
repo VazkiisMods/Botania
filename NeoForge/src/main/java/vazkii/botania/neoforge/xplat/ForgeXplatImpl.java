@@ -89,7 +89,6 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.neoforge.integration.curios.CurioIntegration;
 import vazkii.botania.neoforge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
-import vazkii.botania.neoforge.network.ForgePacketHandler;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.HashMap;

@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -67,7 +66,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
 		boolean did = false;
-
+	
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setItem(0, stack.copy());
 			world.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
@@ -84,11 +83,11 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 			}
 			did = true;
 		}
-
+	
 		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 		}
-
+	
 		return did
 				? InteractionResult.sidedSuccess(world.isClientSide())
 				: InteractionResult.PASS;

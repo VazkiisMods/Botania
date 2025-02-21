@@ -17,7 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -26,7 +25,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -39,12 +37,8 @@ import org.joml.Matrix4fStack;
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.recipe.CustomApothecaryColor;
-import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.PetalApothecaryBlock;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
@@ -52,7 +46,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity implements PetalApothecary {
 
@@ -110,25 +103,25 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			if (recipe.value().getReagent().test(item.getItem())) {
 				saveLastRecipe(recipe.value().getReagent());
 				ItemStack output = recipe.value().assemble(getItemHandler(), getLevel().registryAccess());
-
+		
 				for (int i = 0; i < inventorySize(); i++) {
 					getItemHandler().setItem(i, ItemStack.EMPTY);
 				}
-
+		
 				EntityHelper.shrinkItem(item);
-
+		
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
 				level.addFreshEntity(outputItem);
-
+		
 				setFluid(State.EMPTY, false);
-
+		
 				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 				return true;
 			}
 		}
-
+		
 		 */
 
 		if (!XplatAbstractions.INSTANCE.isFluidContainer(item)
@@ -347,10 +340,10 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				maybeRecipe.ifPresent(recipe -> {
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, 0, 8, 22, 15);
-
+				
 					ItemStack stack = recipe.value().assemble(altar.getItemHandler(), altar.getLevel().registryAccess());
 					gui.renderFakeItem(stack, xc + radius + 32, yc - 8);
-
+				
 					var reagents = recipe.value().getReagent().getItems();
 					ItemStack reagent;
 					if (reagents.length == 0) {

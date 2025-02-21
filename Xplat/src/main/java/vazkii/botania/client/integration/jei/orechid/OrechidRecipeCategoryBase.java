@@ -38,8 +38,6 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-//TODO unsurpress
-@SuppressWarnings("removal")
 public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<OrechidRecipe> {
 
 	private final IDrawableStatic background;

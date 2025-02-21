@@ -14,7 +14,6 @@ import net.minecraft.DefaultUncaughtExceptionHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -26,8 +25,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -125,7 +124,7 @@ public class ContributorList {
 		/*todo
 		stack.getTag().putBoolean(TAG_HEADFLOWER, true);
 		stack.getTag().putString("charm_glint", DyeColor.YELLOW.getSerializedName());
-
+		
 		 */
 		return stack;
 	}

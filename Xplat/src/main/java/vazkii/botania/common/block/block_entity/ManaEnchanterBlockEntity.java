@@ -12,6 +12,7 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Suppliers;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+
 import net.minecraft.ResourceLocationException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -19,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
@@ -71,7 +71,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements ManaReceiver, SparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";
@@ -435,13 +434,13 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		if (!itemToEnchant.isEmpty()) {
 			cmp.put(TAG_ITEM, itemToEnchant.save(itemCmp));
 		}
-
-
-
+		
+		
+		
 		String enchStr = enchants.stream()
 				.map(e -> Registries.ENCHANTMENT.getKey(e.enchantment) + "=" + e.level)
 				.collect(Collectors.joining(","));
-
+		
 		 */
 		cmp.putString(TAG_ENCHANTS, "enchStr-todo");
 	}

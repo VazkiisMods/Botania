@@ -246,7 +246,7 @@ public class ManaBlasterItem extends Item {
 			cmp = lens.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
-
+		
 		 */
 	}
 
@@ -261,7 +261,7 @@ public class ManaBlasterItem extends Item {
 			cmp = lens.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
-
+		
 		 */
 	}
 
@@ -328,7 +328,7 @@ public class ManaBlasterItem extends Item {
 		/*todo
 		CompoundTag tag = stack.getOrCreateTag();
 		tag.putInt(TAG_COOLDOWN, cooldown);
-
+		
 		 */
 	}
 }

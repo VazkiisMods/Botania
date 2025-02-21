@@ -28,14 +28,14 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
-
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-//TODO compare vanilla bow with copied parts in here! I'm very sure several things could be updated here
+// TODO compare vanilla bow with copied parts in here! I'm very sure several things could be updated here
 public class CrystalBowItem extends LivingwoodBowItem {
 
 	private static final int ARROW_COST = 200;

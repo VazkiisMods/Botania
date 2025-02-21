@@ -2,6 +2,7 @@ package vazkii.botania.api;
 
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.EntityCapability;
+
 import vazkii.botania.api.block.WandHUD;
 
 public final class BotaniaForgeClientCapabilities {

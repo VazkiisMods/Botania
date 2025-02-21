@@ -9,7 +9,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -20,10 +19,8 @@ import net.minecraft.world.level.block.BeaconBeamBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.decor.BotaniaGlassBlock;
-import vazkii.botania.common.helper.ColorHelper;
 
 public class PermanentBifrostBlock extends BotaniaGlassBlock implements BeaconBeamBlock {
 	public PermanentBifrostBlock(Properties builder) {

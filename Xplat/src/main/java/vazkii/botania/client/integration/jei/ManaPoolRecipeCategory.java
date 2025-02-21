@@ -37,8 +37,6 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-//TODO unsurpress
-@SuppressWarnings("removal")
 public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecipe> {
 
 	public static final RecipeType<ManaInfusionRecipe> TYPE =

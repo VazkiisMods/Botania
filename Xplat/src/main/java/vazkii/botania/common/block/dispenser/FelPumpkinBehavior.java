@@ -21,8 +21,8 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 
-//TODO maybe update copy
-//Taken from vanilla pumpkin dispense behaviour
+// TODO maybe update copy
+// Taken from vanilla pumpkin dispense behaviour
 public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override

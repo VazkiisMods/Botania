@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -68,12 +67,12 @@ public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
 			return InteractionResult.PASS;
 		}
-
+	
 		boolean stackEnchantable = !stack.isEmpty()
 				&& !stack.is(Items.BOOK)
 				&& stack.isEnchantable()
 				&& stack.getCount() == 1;
-
+	
 		if (enchanter.itemToEnchant.isEmpty()) {
 			if (stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
@@ -87,7 +86,7 @@ public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}
-
+	
 		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 	 */

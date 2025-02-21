@@ -41,7 +41,6 @@ import vazkii.botania.common.proxy.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Predicate;
 
 public class TrinketsIntegration extends EquipmentHandler {

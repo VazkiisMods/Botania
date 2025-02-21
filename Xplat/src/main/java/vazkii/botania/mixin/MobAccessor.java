@@ -8,7 +8,6 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
@@ -27,7 +26,7 @@ public interface MobAccessor {
 	/* todo
 	@Accessor
 	void setLootTable(ResourceLocation id);
-
+	
 	 */
 
 	@Accessor

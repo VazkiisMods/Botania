@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.nio.file.Path;

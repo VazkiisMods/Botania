@@ -13,7 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -150,13 +149,13 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		if (!(tile instanceof ManaSpreaderBlockEntity spreader)) {
 			return InteractionResult.PASS;
 		}
-
+	
 		ItemStack heldItem = player.getItemInHand(hand);
 		if (heldItem.getItem() instanceof WandOfTheForestItem) {
 			return InteractionResult.PASS;
 		}
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
-
+	
 		ItemStack lens = spreader.getItemHandler().getItem(0);
 		boolean playerHasLens = heldItem.getItem() instanceof BasicLensItem;
 		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameComponents(heldItem, lens);
@@ -169,42 +168,42 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		boolean shouldInsert = (playerHasLens && !lensIsSame)
 				|| (playerHasWool && !woolIsSame)
 				|| (playerHasScaffolding && !state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING));
-
+	
 		if (shouldInsert) {
 			if (playerHasLens) {
 				ItemStack toInsert = heldItem.split(1);
-
+	
 				if (!lens.isEmpty()) {
 					player.getInventory().placeItemBackInInventory(lens);
 				}
-
+	
 				spreader.getItemHandler().setItem(0, toInsert);
 				world.playSound(player, pos, BotaniaSounds.spreaderAddLens, SoundSource.BLOCKS, 1F, 1F);
 			} else if (playerHasWool) {
 				Block woolBlock = Block.byItem(heldItem.getItem());
-
+	
 				heldItem.shrink(1);
 				if (spreader.paddingColor != null) {
 					ItemStack spreaderWool = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
 					player.getInventory().placeItemBackInInventory(spreaderWool);
 				}
-
+	
 				spreader.paddingColor = ColorHelper.getWoolColor(woolBlock);
 				spreader.setChanged();
 				world.playSound(player, pos, BotaniaSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, true));
 				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
-
+	
 				if (!player.getAbilities().instabuild) {
 					heldItem.shrink(1);
 				}
-
+	
 				world.playSound(player, pos, BotaniaSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
 			}
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
-
+	
 		if (state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
 			if (!player.getAbilities().instabuild) {
 				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
@@ -212,29 +211,29 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			}
 			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));
 			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
-
+	
 			world.playSound(player, pos, BotaniaSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
-
+	
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		if (!lens.isEmpty() && (mainHandEmpty || lensIsSame)) {
 			player.getInventory().placeItemBackInInventory(lens);
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
-
+	
 			world.playSound(player, pos, BotaniaSounds.spreaderRemoveLens, SoundSource.BLOCKS, 1F, 1F);
-
+	
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		if (spreader.paddingColor != null && (mainHandEmpty || woolIsSame)) {
 			player.getInventory().placeItemBackInInventory(wool);
 			spreader.paddingColor = null;
 			spreader.setChanged();
-
+	
 			world.playSound(player, pos, BotaniaSounds.spreaderUncover, SoundSource.BLOCKS, 1F, 1F);
-
+	
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
-
+	
 		return InteractionResult.PASS;
 	}
 	 */

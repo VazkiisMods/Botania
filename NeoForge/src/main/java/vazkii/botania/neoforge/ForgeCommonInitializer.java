@@ -38,11 +38,11 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -245,12 +245,12 @@ public class ForgeCommonInitializer {
 
 		bind(event, Registries.CREATIVE_MODE_TAB, consumer -> consumer.accept(
 				CreativeModeTab.builder()
-				.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
-				.icon(() -> new ItemStack(BotaniaItems.lexicon))
-				.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
-				.backgroundTexture(botaniaRL("botania.png")) // TODO probably incorrect ID
-				.withSearchBar()
-				.build(),
+						.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
+						.icon(() -> new ItemStack(BotaniaItems.lexicon))
+						.withTabsBefore(CreativeModeTabs.NATURAL_BLOCKS)
+						.backgroundTexture(botaniaRL("botania.png")) // TODO probably incorrect ID
+						.withSearchBar()
+						.build(),
 				BotaniaRegistries.BOTANIA_TAB_KEY.location()));
 	}
 
@@ -516,7 +516,7 @@ public class ForgeCommonInitializer {
 	}
 
 	private static <T> void attachMappedItemCaps(RegisterCapabilitiesEvent e, ItemCapability<T, Void> capability,
-	                                             Map<Item, Function<ItemStack, T>> itemProviderMap) {
+			Map<Item, Function<ItemStack, T>> itemProviderMap) {
 		itemProviderMap.forEach((item, provider) -> e.registerItem(
 				capability, (stack, context) -> provider.apply(stack), item));
 	}
@@ -525,9 +525,7 @@ public class ForgeCommonInitializer {
 	private void registerBlockLookasides(RegisterCapabilitiesEvent e) {
 		// TODO: isn't this redundant with BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE?
 		e.registerBlock(BotaniaForgeCapabilities.HORN_HARVEST,
-				(level, pos, state, blockEntity, context) ->
-						(world, blockPos, stack, hornType, living) ->
-								hornType == HornHarvestable.EnumHornType.CANOPY,
+				(level, pos, state, blockEntity, context) -> (world, blockPos, stack, hornType, living) -> hornType == HornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 
@@ -559,9 +557,7 @@ public class ForgeCommonInitializer {
 				(level, pos, state, blockEntity, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
 				BotaniaBlocks.manaDetector);
 		e.registerBlock(BotaniaForgeCapabilities.WANDABLE,
-				(level, pos, state, blockEntity, context) ->
-						(player, stack, side) ->
-								((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, level, pos),
+				(level, pos, state, blockEntity, context) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, level, pos),
 				BotaniaBlocks.pistonRelay);
 	}
 
@@ -573,8 +569,7 @@ public class ForgeCommonInitializer {
 						BotaniaForgeCapabilities.EXOFLAME_HEATABLE, blockEntityType,
 						(furnace, context) -> new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
 
-		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType ->
-				e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
+		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType -> e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
 
 		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.FLUXFIELD,
 				// we only provide a view of the energy level, no interaction allowed
@@ -613,21 +608,17 @@ public class ForgeCommonInitializer {
 		e.registerBlockEntity(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, BotaniaBlockEntities.ANIMATED_TORCH,
 				(torchBlockEntity, context) -> hourglass -> torchBlockEntity.toggle());
 
-		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType ->
-				e.registerBlockEntity(BotaniaForgeCapabilities.WANDABLE, blockEntityType,
-						(blockEntity, context) -> blockEntity));
+		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.WANDABLE, blockEntityType,
+				(blockEntity, context) -> blockEntity));
 
-		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType ->
-				e.registerBlockEntity(BotaniaForgeCapabilities.MANA_TRIGGER, blockEntityType,
-						(blockEntity, context) -> blockEntity));
+		BlockEntityConstants.SELF_MANA_TRIGGER_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.MANA_TRIGGER, blockEntityType,
+				(blockEntity, context) -> blockEntity));
 
-		BlockEntityConstants.SELF_MANA_RECEIVER_BES.forEach(blockEntityType ->
-				e.registerBlockEntity(BotaniaForgeCapabilities.MANA_RECEIVER, blockEntityType,
-						(blockEntity, context) -> blockEntity));
+		BlockEntityConstants.SELF_MANA_RECEIVER_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.MANA_RECEIVER, blockEntityType,
+				(blockEntity, context) -> blockEntity));
 
-		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType ->
-				e.registerBlockEntity(BotaniaForgeCapabilities.SPARK_ATTACHABLE, blockEntityType,
-						(blockEntity, context) -> blockEntity));
+		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeCapabilities.SPARK_ATTACHABLE, blockEntityType,
+				(blockEntity, context) -> blockEntity));
 
 		Stream.of(BotaniaBlockEntities.RED_STRING_CONTAINER, BotaniaBlockEntities.RED_STRING_DISPENSER)
 				.forEach(blockEntityType -> e.registerBlockEntity(

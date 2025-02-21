@@ -12,10 +12,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatFormatter;
-
 import net.minecraft.stats.Stats;
-import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.StatsAccessor;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -34,8 +31,7 @@ public class BotaniaStats {
 	}
 
 	// [VanillaCopy] net.minecraft.stats.Stats#makeCustomStat, except applying Botania namespace instead of hardcoded Minecraft namespace
-	private static ResourceLocation makeCustomStat(String key, StatFormatter formatter)
-	{
+	private static ResourceLocation makeCustomStat(String key, StatFormatter formatter) {
 		ResourceLocation resourcelocation = botaniaRL(key);
 		Registry.register(BuiltInRegistries.CUSTOM_STAT, key, resourcelocation);
 		Stats.CUSTOM.get(resourcelocation, formatter);

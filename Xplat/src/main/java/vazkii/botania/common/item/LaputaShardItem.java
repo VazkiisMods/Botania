@@ -10,11 +10,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -205,7 +201,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 					/*todo
 					copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
 					copyLens.getTag().put(TAG_STATE, NbtUtils.writeBlockState(state));
-
+					
 					 */
 					ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
 					ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
@@ -234,7 +230,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 			return 0;
 		}
 		return shard.getOrCreateTag().getInt(TAG_LEVEL);
-
+		
 		 */
 		return 0;
 	}
@@ -352,7 +348,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		BlockState state = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getOrCreateTag().getCompound(TAG_STATE));
 		entity.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
 				entity.getDeltaMovement().x(), entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
-
+		
 		 */
 
 		return true;

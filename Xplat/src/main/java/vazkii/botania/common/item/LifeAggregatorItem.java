@@ -111,7 +111,7 @@ public class LifeAggregatorItem extends Item {
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());
 					te.load(spawnerTag);
-
+					
 					 */
 				}
 			} else {

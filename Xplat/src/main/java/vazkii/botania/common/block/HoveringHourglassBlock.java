@@ -15,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -72,14 +71,14 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
 			return InteractionResult.PASS;
 		}
-
+	
 		if (hourglass.lock) {
 			if (!player.level().isClientSide && hand == InteractionHand.OFF_HAND) {
 				player.sendSystemMessage(Component.translatable("botaniamisc.hourglassLock"));
 			}
 			return InteractionResult.FAIL;
 		}
-
+	
 		if (hgStack.isEmpty() && HoveringHourglassBlockEntity.getStackItemTime(stack) > 0) {
 			hourglass.getItemHandler().setItem(0, stack.copy());
 			stack.setCount(0);
@@ -89,10 +88,10 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 			hourglass.getItemHandler().setItem(0, ItemStack.EMPTY);
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
-
+	
 		return InteractionResult.PASS;
 	}
-
+	
 	 */
 
 	@Override

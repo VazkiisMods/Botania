@@ -29,8 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaBarTooltip;
@@ -331,6 +329,6 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		}
 		return Rarity.UNCOMMON;
 	}
-
+	
 	 */
 }

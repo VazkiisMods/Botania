@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.block_entity;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
@@ -20,13 +19,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -34,22 +31,17 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.RuneItem;
@@ -58,7 +50,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements ManaReceiver, Wandable {
 	private static final String TAG_MANA = "mana";
@@ -413,12 +404,12 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				altar.level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, altar.getItemHandler(), altar.level).ifPresent(recipe -> {
 					RenderSystem.enableBlend();
 					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
+				
 					float progress = (float) altar.mana / (float) altar.manaToGet;
-
+				
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
-
+				
 					if (progress == 1F) {
 						gui.renderFakeItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
 						ms.pushPose();
@@ -432,10 +423,10 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						gui.renderFakeItem(wandToRender, xc + radius + 24, yc + 8);
 						ms.popPose();
 					}
-
+				
 					RenderHelper.renderProgressPie(gui, xc + radius + 32, yc - 8, progress,
 							recipe.value().assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
-
+				
 					if (progress == 1F) {
 						gui.drawString(mc.font, "+", xc + radius + 14, yc + 12, 0xFFFFFF, false);
 					}

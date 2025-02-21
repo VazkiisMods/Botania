@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +31,6 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.AvatarModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 

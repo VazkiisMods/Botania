@@ -10,7 +10,6 @@
 
 package vazkii.botania.data.recipes.builder;
 
-import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.crafting.Recipe;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -38,7 +36,7 @@ public class CapturingRecipeOutput {
 				partialRecipe.setValue(recipe);
 				partialAdvancementHolder.setValue(advancementHolder);
 			}
-
+		
 			@Override
 			public Advancement.Builder advancement() {
 				return recipeOutput.advancement();

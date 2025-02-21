@@ -30,8 +30,6 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.Map;
-
 public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	private static final String TAG_SILK_HACK = "botania:silk_hack";
 	private static final int MANA_PER_DAMAGE = 160;
@@ -103,7 +101,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 			ench.remove(Enchantments.SILK_TOUCH);
 			EnchantmentHelper.setEnchantments(ench, stack);
 		}
-
+		
 		 */
 	}
 

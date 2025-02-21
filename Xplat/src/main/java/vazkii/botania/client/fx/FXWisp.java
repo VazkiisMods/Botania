@@ -137,7 +137,7 @@ public class FXWisp extends TextureSheetParticle {
 			tessellator.end();
 			endRenderCommon();
 		}
-
+		
 		 */
 
 		@Override
@@ -161,7 +161,7 @@ public class FXWisp extends TextureSheetParticle {
 			RenderSystem.enableDepthTest();
 			endRenderCommon();
 		}
-
+		
 		 */
 
 		@Override

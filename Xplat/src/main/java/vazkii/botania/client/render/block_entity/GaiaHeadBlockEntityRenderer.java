@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.render.block_entity;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;

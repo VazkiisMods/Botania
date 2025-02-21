@@ -13,9 +13,7 @@ import com.google.gson.annotations.SerializedName;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -23,7 +21,6 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IVariable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 /**
@@ -53,7 +50,7 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 			return ImmutableList.of();
 		}
 		return recipe.get().value().getIngredients();
-
+		
 		 */
 		return ImmutableList.of();
 	}

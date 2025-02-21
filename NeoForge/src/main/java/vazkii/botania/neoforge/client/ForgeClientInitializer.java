@@ -26,6 +26,7 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
@@ -180,15 +181,11 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	private static void attachClientCapabilities(RegisterCapabilitiesEvent e) {
-		BotaniaBlockEntities.registerWandHudCaps((factory, types) ->
-			Stream.of(types).forEach(blockEntityType ->
-					e.registerBlockEntity(BotaniaForgeClientCapabilities.BLOCK_WAND_HUD, blockEntityType,
-							(blockEntity, context) -> factory.apply(blockEntity))));
+		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> Stream.of(types).forEach(blockEntityType -> e.registerBlockEntity(BotaniaForgeClientCapabilities.BLOCK_WAND_HUD, blockEntityType,
+				(blockEntity, context) -> factory.apply(blockEntity))));
 
-		BotaniaEntities.registerWandHudCaps((factory, types) ->
-				Stream.of(types).forEach(entityType ->
-						e.registerEntity(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD, entityType,
-								(entity, context) -> factory.apply(entity))));
+		BotaniaEntities.registerWandHudCaps((factory, types) -> Stream.of(types).forEach(entityType -> e.registerEntity(BotaniaForgeClientCapabilities.ENTITY_WAND_HUD, entityType,
+				(entity, context) -> factory.apply(entity))));
 	}
 
 	@SubscribeEvent

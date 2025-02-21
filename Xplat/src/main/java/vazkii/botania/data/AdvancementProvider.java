@@ -32,7 +32,6 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntit
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.lib.BotaniaTags;
 
@@ -56,7 +55,7 @@ public class AdvancementProvider {
 			/*todo
 			var elvenLexiconUnlock = new CompoundTag();
 			elvenLexiconUnlock.putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
-
+			
 			 */
 			Criterion<InventoryChangeTrigger.TriggerInstance> elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
 					ItemPredicate.Builder.item().of(BotaniaItems.lexicon)/*todo .hasNbt(elvenLexiconUnlock)*/.build()

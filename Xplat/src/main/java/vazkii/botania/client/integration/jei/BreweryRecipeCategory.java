@@ -36,8 +36,6 @@ import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-//TODO unsurpress
-@SuppressWarnings("removal")
 public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRecipe> {
 
 	public static final RecipeType<BotanicalBreweryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "brewery", BotanicalBreweryRecipe.class);

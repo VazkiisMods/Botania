@@ -24,9 +24,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-//TODO literally just everything here
+// TODO literally just everything here
 public final class ItemNBTHelper {
-
 
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
 	private static final long[] EMPTY_LONG_ARRAY = new long[0];

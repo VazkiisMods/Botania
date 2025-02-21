@@ -29,8 +29,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.mixin.MobAccessor;
-
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class FelPumpkinBlock extends BotaniaBlock {

@@ -40,8 +40,6 @@ import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-//TODO unsurpress
-@SuppressWarnings("removal")
 public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApothecaryRecipe> {
 
 	public static final RecipeType<PetalApothecaryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", PetalApothecaryRecipe.class);

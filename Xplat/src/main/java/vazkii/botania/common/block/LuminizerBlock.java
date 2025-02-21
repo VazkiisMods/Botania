@@ -13,7 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -85,7 +84,7 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
-
+	
 		return InteractionResult.PASS;
 	}
 	 */

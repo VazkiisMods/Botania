@@ -26,7 +26,6 @@ import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -53,10 +52,8 @@ import vazkii.botania.common.crafting.StateIngredients;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LaputaShardItem;
-import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.item.ManaTabletItem;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
@@ -70,8 +67,6 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-//TODO unsurpress
-@SuppressWarnings("removal")
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = botaniaRL("main");

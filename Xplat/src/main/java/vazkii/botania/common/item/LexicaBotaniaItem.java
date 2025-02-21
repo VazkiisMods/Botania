@@ -10,7 +10,6 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -92,7 +91,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 			CompoundTag nameTextComponent = stack.getTag().getCompound(akashicTomeNBT);
 			title = Component.Serializer.fromJson(nameTextComponent.getString("text"));
 		}
-
+		
 		 */
 
 		return title;

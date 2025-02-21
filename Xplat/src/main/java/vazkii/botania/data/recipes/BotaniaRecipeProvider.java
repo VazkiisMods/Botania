@@ -10,19 +10,14 @@ package vazkii.botania.data.recipes;
 
 import com.google.common.collect.Sets;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Recipe;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +57,7 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 					}
 				}
 			}
-
+		
 			@SuppressWarnings("removal")
 			@Override
 			public Advancement.Builder advancement() {

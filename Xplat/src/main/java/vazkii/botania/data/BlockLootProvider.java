@@ -8,9 +8,6 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.advancements.critereon.EnchantmentPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,7 +17,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -37,9 +33,6 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
-import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import org.jetbrains.annotations.NotNull;
@@ -68,7 +61,7 @@ public class BlockLootProvider implements DataProvider {
 	/* TODO we need the HolderLookup.Provider to get the Enchantments
 	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
 			.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
-
+	
 	 */
 	private static final Function<Block, LootTable.Builder> SKIP = b -> {
 		throw new RuntimeException("shouldn't be executed");
@@ -176,11 +169,11 @@ public class BlockLootProvider implements DataProvider {
 		for (String tag : tags) {
 			func = func.copy(tag, "BlockEntityTag." + tag);
 		}
-
+		
 		 */
 		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion())
-				/*.apply(func)*/;
+		/*.apply(func)*/;
 		return LootTable.lootTable().withPool(pool);
 	}
 
@@ -188,10 +181,10 @@ public class BlockLootProvider implements DataProvider {
 		/* todo we need the HolderLookup.Provider to get enchantments
 		ItemPredicate.Builder silkPred = ItemPredicate.Builder.item()
 				.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)));
-
+		
 		 */
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
-				/* .when(MatchTool.toolMatches(silkPred))*/;
+		/* .when(MatchTool.toolMatches(silkPred))*/;
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(silk));
 	}
 
@@ -248,7 +241,7 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genAltGrass(Block b) {
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
-				/*.when(SILK_TOUCH)*/;
+		/*.when(SILK_TOUCH)*/;
 		LootPoolEntryContainer.Builder<?> dirt = LootItem.lootTableItem(Blocks.DIRT)
 				.when(ExplosionCondition.survivesExplosion());
 		LootPoolEntryContainer.Builder<?> entry = AlternativesEntry.alternatives(silk, dirt);

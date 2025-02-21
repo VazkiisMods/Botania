@@ -9,11 +9,9 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +20,6 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.flower.generating.HydroangeasBlockEntity;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -65,7 +62,7 @@ public class SpecialFlowerBlockItem extends BlockItem {
 		/*todo
 		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		return tag != null && tag.contains(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS);
-
+		
 		 */
 		return false;
 	}
@@ -78,7 +75,7 @@ public class SpecialFlowerBlockItem extends BlockItem {
 			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Math.round(13F * frac);
 		}
-
+		
 		 */
 		return 0;
 	}
@@ -91,7 +88,7 @@ public class SpecialFlowerBlockItem extends BlockItem {
 			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
 		}
-
+		
 		 */
 		return 0;
 	}

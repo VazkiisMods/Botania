@@ -69,7 +69,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		/*todo
 		stackToDisenchant.removeTagKey("Enchantments"); // Remove enchantments
 		stackToDisenchant.removeTagKey("RepairCost");
-
+		
 		 */
 		return stackToDisenchant;
 	}

@@ -18,7 +18,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -168,7 +167,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		if (temperanceActive != stack.getOrCreateTag().getBoolean(TAG_TEMPERANCE_STONE)) {
 			stack.getOrCreateTag().putBoolean(TAG_TEMPERANCE_STONE, temperanceActive);
 		}
-
+		
 		 */
 
 		Item replacement = getItemToPlace(stack);
@@ -424,7 +423,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		return new Vec3(pos.getX() + list.getDouble(0),
 				pos.getY() + list.getDouble(1),
 				pos.getZ() + list.getDouble(2));
-
+		
 		 */
 		return new Vec3(pos.getX(), pos.getY(), pos.getZ());
 	}
@@ -450,7 +449,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		if (stack.getOrCreateTag().getBoolean(TAG_TEMPERANCE_STONE) && rangeAxis == clickAxis) {
 			return 0;
 		}
-
+		
 		 */
 		return RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;
 	}

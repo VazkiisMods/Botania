@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.generating;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -35,7 +36,6 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.mixin.ExperienceOrbAccessor;
 
 import java.util.List;
-import java.util.Map;
 
 public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int MANA_PER_XP = 50;
@@ -56,7 +56,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		AABB effectBounds = new AABB(getEffectivePos()).inflate(RANGE);
 
 		/* TODO: Now that player and orb yields are identical, it might look better/funnier
-           to instead make xp orbs leak out of the player's head instead directly consuming.
+		to instead make xp orbs leak out of the player's head instead directly consuming.
 		*/
 		List<Player> players = getLevel().getEntitiesOfClass(Player.class, effectBounds);
 		for (Player player : players) {
@@ -137,7 +137,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		ItemStack itemstack = stack.copy();
 		itemstack.removeTagKey("Enchantments");
 		itemstack.removeTagKey("StoredEnchantments");
-
+		
 		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
 		map.keySet().removeIf(e -> !e.isCurse());
 		EnchantmentHelper.setEnchantments(map, itemstack);
@@ -148,13 +148,13 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 				itemstack.setHoverName(stack.getHoverName());
 			}
 		}
-
+		
 		for (int i = 0; i < map.size(); ++i) {
 			itemstack.setRepairCost(AnvilMenu.calculateIncreasedRepairCost(itemstack.getBaseRepairCost()));
 		}
-
+		
 		return itemstack;
-
+		
 		 */
 		//TODO check if functionality is the same. I just copied the code from GrindstoneMenu
 		ItemEnchantments itemenchantments = EnchantmentHelper.updateEnchantments(

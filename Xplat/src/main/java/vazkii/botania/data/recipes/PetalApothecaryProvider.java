@@ -143,7 +143,7 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		Arrays.fill(inputs, pink);
 		consumer.accept(idFor(botaniaRL("vazkii_head")), new NbtOutputRecipe<>(
 				new PetalApothecaryRecipe(vazkiiHead, DEFAULT_REAGENT, inputs)/*,
-				vazkiiHead.getTag()*/
+																				vazkiiHead.getTag()*/
 		), null);
 	}
 

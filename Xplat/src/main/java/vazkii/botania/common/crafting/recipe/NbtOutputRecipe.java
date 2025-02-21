@@ -12,7 +12,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +21,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-//TODO nothing will work here cuz nbt lol
+// TODO nothing will work here cuz nbt lol
 public class NbtOutputRecipe<C extends RecipeInput> implements Recipe<C> {
 	public static final RecipeSerializer<NbtOutputRecipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
 
@@ -45,7 +44,7 @@ public class NbtOutputRecipe<C extends RecipeInput> implements Recipe<C> {
 		ItemStack result = recipe.assemble(container, registryAccess);
 		result.setTag(nbt);
 		return result;
-
+		
 		 */
 		return ItemStack.EMPTY;
 	}
@@ -73,7 +72,7 @@ public class NbtOutputRecipe<C extends RecipeInput> implements Recipe<C> {
 	private static class Serializer implements RecipeSerializer<NbtOutputRecipe<?>> {
 		public static final MapCodec<NbtOutputRecipe<?>> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				Recipe.CODEC.fieldOf("recipe").forGetter(r -> r.recipe)
-				//CompoundTag.CODEC.fieldOf("nbt").forGetter(r -> r.nbt)
+		//CompoundTag.CODEC.fieldOf("nbt").forGetter(r -> r.nbt)
 		).apply(instance, NbtOutputRecipe::new));
 		public static final StreamCodec<RegistryFriendlyByteBuf, NbtOutputRecipe<?>> STREAM_CODEC = StreamCodec.composite(
 				Recipe.STREAM_CODEC, r -> r.recipe,

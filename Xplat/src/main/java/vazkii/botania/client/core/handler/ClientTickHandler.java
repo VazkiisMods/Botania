@@ -10,7 +10,6 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 

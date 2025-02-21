@@ -9,6 +9,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.EmptyItemHandler;
 
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
 public class RedStringContainerCapProvider implements ICapabilityProvider<RedStringContainerBlockEntity, Direction, IItemHandler> {

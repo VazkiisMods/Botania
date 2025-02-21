@@ -78,7 +78,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 				/* todo
 				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location(), nbt);
-
+				
 				 */
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
 			}
@@ -189,7 +189,8 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		Minecraft mc = Minecraft.getInstance();
 		//Todo check if it works with this level
 		Level level = mc.level;
-		if (level == null) return;
+		if (level == null)
+			return;
 
 		BlockPos binding = coordBoundItem.getBinding(level);
 		Component worldText = Component.literal(level.dimension().location().toString()).withStyle(ChatFormatting.GREEN);

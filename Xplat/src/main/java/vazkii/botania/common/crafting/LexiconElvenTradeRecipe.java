@@ -21,9 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.LexicaBotaniaItem;
 
 import java.util.Collections;
 import java.util.List;

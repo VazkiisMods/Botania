@@ -35,8 +35,6 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-//TODO unsurpress
-@SuppressWarnings("removal")
 public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe> {
 
 	public static final RecipeType<PureDaisyRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "pure_daisy", PureDaisyRecipe.class);

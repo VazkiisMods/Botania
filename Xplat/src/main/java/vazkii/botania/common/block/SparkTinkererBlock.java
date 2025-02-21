@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -80,10 +79,10 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 		} else if (!pstack.isEmpty() && pstack.getItem() instanceof SparkAugmentItem) {
 			changer.getItemHandler().setItem(0, pstack.split(1));
 			changer.setChanged();
-
+	
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
-
+	
 		return InteractionResult.PASS;
 	}
 	 */

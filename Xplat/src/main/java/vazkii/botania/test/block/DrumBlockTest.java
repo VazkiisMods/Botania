@@ -4,8 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -13,7 +11,6 @@ import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -96,7 +93,7 @@ public class DrumBlockTest {
 					helper.assertTrue(parsedEffects.isPresent() && parsedEffects.get().size() == 1, "Exactly one effect expected");
 					final var effectEntry = parsedEffects.orElseThrow().get(0);
 					helper.assertTrue(effectEntry.effect() == MobEffects.BLINDNESS && effectEntry.duration() == 15, "Unexpected effect type or duration");
-
+					
 					 */
 				})
 				.thenSucceed();

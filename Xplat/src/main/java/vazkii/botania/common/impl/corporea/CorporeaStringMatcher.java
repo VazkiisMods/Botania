@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import org.apache.commons.lang3.text.WordUtils;
-
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 
 import java.util.Locale;

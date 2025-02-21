@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
 
-
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 

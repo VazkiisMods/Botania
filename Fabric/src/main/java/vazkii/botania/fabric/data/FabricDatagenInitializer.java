@@ -19,8 +19,6 @@ import net.minecraft.world.damagesource.DamageType;
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
-import java.io.DataOutput;
-
 import static vazkii.botania.common.BotaniaDamageTypes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {

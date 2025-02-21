@@ -15,8 +15,6 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -57,7 +55,7 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 	public Rarity getRarity(@NotNull ItemStack stack) {
 		return isStackCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
 	}
-
+	
 	 */
 
 	@Override

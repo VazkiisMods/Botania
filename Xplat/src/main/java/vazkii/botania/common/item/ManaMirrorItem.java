@@ -143,7 +143,7 @@ public class ManaMirrorItem extends Item {
 		if (!stack.getOrCreateTag().contains(TAG_POS)) {
 			return null;
 		}
-
+		
 		 */
 
 		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS))
