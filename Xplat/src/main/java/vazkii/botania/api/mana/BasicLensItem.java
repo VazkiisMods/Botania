@@ -11,12 +11,14 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.UnknownNullability;
+
 /**
  * Have an Item implement this to be counted as a lens for the mana spreader.
  */
 public interface BasicLensItem extends LensEffectItem {
 
-	int getLensColor(ItemStack stack, Level level);
+	int getLensColor(ItemStack stack, @UnknownNullability Level level);
 
 	/**
 	 * Can the source lens be combined with the composite lens? This is called

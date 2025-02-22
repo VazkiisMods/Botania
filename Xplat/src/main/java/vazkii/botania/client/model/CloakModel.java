@@ -20,6 +20,8 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
 /**
+ * Model for the Cloaks of Judgement.
+ * 
  * @author wiiv
  */
 public class CloakModel extends Model {

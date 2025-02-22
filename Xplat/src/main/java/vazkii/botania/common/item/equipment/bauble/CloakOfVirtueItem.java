@@ -33,6 +33,7 @@ import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.CloakModel;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -42,8 +43,6 @@ public class CloakOfVirtueItem extends BaubleItem {
 
 	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_HOLY_CLOAK);
 	private static final ResourceLocation textureGlow = ResourceLocation.parse(ResourcesLib.MODEL_HOLY_CLOAK_GLOW);
-
-	private static final String TAG_IN_EFFECT = "inEffect";
 
 	public CloakOfVirtueItem(Properties props) {
 		super(props);
@@ -119,11 +118,11 @@ public class CloakOfVirtueItem extends BaubleItem {
 	}
 
 	public static boolean isInEffect(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_IN_EFFECT, false);
+		return stack.has(BotaniaDataComponents.ACTIVE_TRANSIENT);
 	}
 
 	public static void setInEffect(ItemStack stack, boolean effect) {
-		ItemNBTHelper.setBoolean(stack, TAG_IN_EFFECT, effect);
+		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, effect);
 	}
 
 	ResourceLocation getCloakTexture() {

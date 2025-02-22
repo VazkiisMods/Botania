@@ -24,6 +24,7 @@ import net.minecraft.world.item.TooltipFlag;
 
 import vazkii.botania.api.item.CosmeticAttachable;
 import vazkii.botania.api.item.PhantomInkable;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -103,12 +104,12 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 
 	@Override
 	public boolean hasPhantomInk(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false);
+		return stack.has(BotaniaDataComponents.PHANTOM_INKED);
 	}
 
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
-		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
+		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.PHANTOM_INKED, ink);
 	}
 
 	public void onWornTick(ItemStack stack, LivingEntity entity) {}

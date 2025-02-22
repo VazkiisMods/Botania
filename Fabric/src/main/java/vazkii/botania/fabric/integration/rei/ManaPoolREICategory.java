@@ -20,6 +20,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +30,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> 
 	public @NotNull List<Widget> setupDisplay(ManaPoolREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		ItemStack pool = manaPool.getValue().copy();
-		ItemNBTHelper.setBoolean(pool, "RenderFull", true);
+		pool.set(BotaniaDataComponents.RENDER_FULL, Unit.INSTANCE);
 		EntryStack<ItemStack> renderPool = EntryStacks.of(pool);
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 14);
 

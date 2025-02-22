@@ -58,7 +58,7 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class WorldshaperssSextantItem extends Item {
+public class SextantItem extends Item {
 	public static final ResourceLocation MULTIBLOCK_ID = botaniaRL("sextant");
 	private static final int MAX_RADIUS = 256;
 	private static final String TAG_SOURCE_X = "sourceX";
@@ -66,7 +66,7 @@ public class WorldshaperssSextantItem extends Item {
 	private static final String TAG_SOURCE_Z = "sourceZ";
 	private static final String TAG_MODE = "mode";
 
-	public WorldshaperssSextantItem(Properties builder) {
+	public SextantItem(Properties builder) {
 		super(builder);
 	}
 
@@ -345,8 +345,8 @@ public class WorldshaperssSextantItem extends Item {
 	}
 
 	public enum Modes {
-		CIRCLE("circle", WorldshaperssSextantItem::makeCircle, WorldshaperssSextantItem::visualizeCircle),
-		SPHERE("sphere", WorldshaperssSextantItem::makeSphere, WorldshaperssSextantItem::visualizeSphere);
+		CIRCLE("circle", SextantItem::makeCircle, SextantItem::visualizeCircle),
+		SPHERE("sphere", SextantItem::makeSphere, SextantItem::visualizeSphere);
 
 		private final String key;
 		private final ShapeCreator creator;

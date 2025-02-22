@@ -68,5 +68,4 @@ public interface ManaItem {
 	 * mana bar above the XP bar.
 	 */
 	boolean isNoExport();
-
 }

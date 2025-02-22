@@ -11,6 +11,8 @@ package vazkii.botania.common.crafting.recipe;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -20,8 +22,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
-
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.common.item.BotaniaItems;
@@ -50,14 +50,13 @@ public class LensDyeingRecipe extends CustomRecipe {
 		super(craftingBookCategory);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundLens = false;
 		boolean foundDye = false;
 
@@ -67,8 +66,8 @@ public class LensDyeingRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof BasicLensItem && !foundLens) {
 					foundLens = true;
 				} else if (!foundDye) {
-					int color = getStackColor(stack);
-					if (color > -1) {
+					// TODO: rainbow tinting items should be a tag
+					if (stack.getItem() instanceof DyeItem || stack.is(BotaniaItems.manaPearl)) {
 						foundDye = true;
 					} else {
 						return false;
@@ -82,26 +81,30 @@ public class LensDyeingRecipe extends CustomRecipe {
 		return foundLens && foundDye;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack lens = ItemStack.EMPTY;
-		int color = -1;
+		DyeColor color = null;
 
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof BasicLensItem && lens.isEmpty()) {
 					lens = stack;
-				} else {
-					color = getStackColor(stack);//We can assume if its not a lens its a dye because we checked it in matches()
+				} else if (stack.getItem() instanceof DyeItem dyeItem) {
+					// we can assume that otherwise it's rainbow color, as we matched the ingredients already
+					color = dyeItem.getDyeColor();
 				}
 			}
 		}
 
 		if (lens.getItem() instanceof BasicLensItem) {
 			ItemStack lensCopy = lens.copyWithCount(1);
-			LensItem.setLensColor(lensCopy, color);
+			if (color != null) {
+				LensItem.setLensColor(lensCopy, color);
+			} else {
+				LensItem.setLensRainbow(lensCopy);
+			}
 
 			return lensCopy;
 		}
@@ -112,16 +115,5 @@ public class LensDyeingRecipe extends CustomRecipe {
 	@Override
 	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
-	}
-
-	private int getStackColor(ItemStack stack) {
-		List<Ingredient> dyes = this.dyes.get();
-		for (int i = 0; i < dyes.size(); i++) {
-			if (dyes.get(i).test(stack)) {
-				return i;
-			}
-		}
-
-		return -1;
 	}
 }

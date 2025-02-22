@@ -19,14 +19,15 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.SpectatorItem;
 import vazkii.botania.mixin.AbstractHorseAccessor;
 import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 import vazkii.botania.test.TestingUtil;
 
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class SpectatorScanTest {
@@ -114,19 +115,19 @@ public class SpectatorScanTest {
 				() -> "Chest loot was rolled");
 
 		// check that exactly the relevant positions have been found
-		long[] blocks = ItemNBTHelper.getLongArray(spectatorStack, SpectatorItem.TAG_BLOCK_POSITIONS);
-		TestingUtil.assertEquals(blocks.length, 1, () -> "Expected 1 block hit, was " + blocks.length);
-		BlockPos chestPos = BlockPos.of(blocks[0]);
+		List<BlockPos> blocks = spectatorStack.getOrDefault(BotaniaDataComponents.SPECTATOR_HIGHLIGHT_BLOCKS, Collections.emptyList());
+		TestingUtil.assertEquals(blocks.size(), 1, () -> "Expected 1 block hit, was " + blocks.size());
+		BlockPos chestPos = blocks.getFirst();
 		TestingUtil.assertEquals(helper.absolutePos(POSITION_CHEST_NORMAL), chestPos,
 				() -> "Chest position " + helper.absolutePos(POSITION_CHEST_NORMAL) + " not in result, but found " + chestPos);
 
-		int[] entities = ItemNBTHelper.getIntArray(spectatorStack, SpectatorItem.TAG_ENTITY_POSITIONS);
-		TestingUtil.assertEquals(entities.length, 5, () -> "Expected 5 entity hits, but got " + entities.length);
-		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> villager.getId() == id), () -> "Villager not in result");
-		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> itemEntity.getId() == id), () -> "Item entity not in result");
-		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> regularChestCart.getId() == id), () -> "Minecart not in result");
-		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> donkey.getId() == id), () -> "Donkey not in result");
-		TestingUtil.assertThat(Arrays.stream(entities).anyMatch(id -> allay.getId() == id), () -> "Allay not in result");
+		List<Integer> entities = spectatorStack.getOrDefault(BotaniaDataComponents.SPECTATOR_HIGHLIGHT_ENTITIES, Collections.emptyList());
+		TestingUtil.assertEquals(entities.size(), 5, () -> "Expected 5 entity hits, but got " + entities.size());
+		TestingUtil.assertThat(entities.contains(villager.getId()), () -> "Villager not in result");
+		TestingUtil.assertThat(entities.contains(itemEntity.getId()), () -> "Item entity not in result");
+		TestingUtil.assertThat(entities.contains(regularChestCart.getId()), () -> "Minecart not in result");
+		TestingUtil.assertThat(entities.contains(donkey.getId()), () -> "Donkey not in result");
+		TestingUtil.assertThat(entities.contains(allay.getId()), () -> "Allay not in result");
 
 		helper.killAllEntities();
 		helper.succeed();

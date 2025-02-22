@@ -22,15 +22,14 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.FallingStarEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
 
 public class StarcallerItem extends ManasteelSwordItem {
 
 	private static final int MANA_PER_DAMAGE = 120;
-	private static final String TAG_LAST_TRIGGER = "lastTriggerTime";
 	/* Number of ticks between two stars */
 	private static final int INTERVAL = 12;
 
@@ -46,16 +45,16 @@ public class StarcallerItem extends ManasteelSwordItem {
 		}
 
 		// Initialize timer for new items
-		if (!ItemNBTHelper.verifyExistance(stack, TAG_LAST_TRIGGER)) {
-			ItemNBTHelper.setLong(stack, TAG_LAST_TRIGGER, world.getGameTime());
+		if (!stack.has(BotaniaDataComponents.LAST_TRIGGER_TIME)) {
+			stack.set(BotaniaDataComponents.LAST_TRIGGER_TIME, world.getGameTime());
 		}
 
 		MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
-		long timeSinceLast = world.getGameTime() - ItemNBTHelper.getLong(stack, TAG_LAST_TRIGGER, world.getGameTime());
+		long timeSinceLast = world.getGameTime() - stack.getOrDefault(BotaniaDataComponents.LAST_TRIGGER_TIME, world.getGameTime());
 		if (timeSinceLast > INTERVAL && player.getMainHandItem() == stack && player.attackAnim == check && !world.isClientSide) {
-			ItemNBTHelper.setLong(stack, TAG_LAST_TRIGGER, world.getGameTime());
+			stack.set(BotaniaDataComponents.LAST_TRIGGER_TIME, world.getGameTime());
 			summonFallingStar(stack, world, player);
 		}
 	}

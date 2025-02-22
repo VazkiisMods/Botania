@@ -30,6 +30,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
@@ -170,11 +171,11 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 
 	@Override
 	public boolean hasPhantomInk(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_PHANTOM_INK, false);
+		return stack.has(BotaniaDataComponents.PHANTOM_INKED);
 	}
 
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
-		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
+		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.PHANTOM_INKED, ink);
 	}
 }

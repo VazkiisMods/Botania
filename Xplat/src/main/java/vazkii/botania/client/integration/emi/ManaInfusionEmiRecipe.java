@@ -6,14 +6,15 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 
 	static {
 		ItemStack stack = new ItemStack(BotaniaBlocks.manaPool);
-		ItemNBTHelper.setBoolean(stack, "RenderFull", true);
+		stack.set(BotaniaDataComponents.RENDER_FULL, Unit.INSTANCE);
 		POOL = EmiStack.of(stack);
 	}
 

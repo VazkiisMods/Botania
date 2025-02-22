@@ -14,20 +14,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.block.flower.generating.NarslimmusBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 public class SlimeInABottleItem extends Item {
-	public static final String TAG_ACTIVE = "active";
 
 	public SlimeInABottleItem(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity entity, int something, boolean somethingelse) {
-		if (!world.isClientSide) {
-			boolean slime = NarslimmusBlockEntity.isSlimeChunk(world, entity.blockPosition());
-			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, slime);
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		if (!level.isClientSide) {
+			boolean slime = NarslimmusBlockEntity.isSlimeChunk(level, entity.blockPosition());
+			ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, slime);
 		}
 	}
 }

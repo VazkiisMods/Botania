@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Unit;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -27,16 +28,15 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.stream.IntStream;
 
 public class BaubleBoxItem extends Item {
 	public static final int SIZE = 24;
-	public static final String TAG_OPEN = "open";
 
 	public BaubleBoxItem(Properties props) {
 		super(props);
@@ -56,7 +56,7 @@ public class BaubleBoxItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
-			ItemNBTHelper.setBoolean(stack, TAG_OPEN, true);
+			stack.set(BotaniaDataComponents.ACTIVE_TRANSIENT, Unit.INSTANCE);
 			XplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {

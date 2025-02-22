@@ -10,8 +10,6 @@ package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundSource;
@@ -25,7 +23,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,21 +30,14 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 
 public class ManaMirrorItem extends Item {
-
-	private static final String TAG_MANA = "mana";
-	private static final String TAG_MAX_MANA = "maxMana";
-	private static final String TAG_MANA_BACKLOG = "manaBacklog";
-	private static final String TAG_POS = "pos";
 
 	private static final DummyPool fallbackPool = new DummyPool();
 
@@ -57,7 +47,7 @@ public class ManaMirrorItem extends Item {
 
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
-		return true;
+		return stack.has(BotaniaDataComponents.MANA_POOL_POS);
 	}
 
 	@Override
@@ -84,7 +74,7 @@ public class ManaMirrorItem extends Item {
 				setMana(stack, 0);
 			} else {
 				pool.receiveMana(getManaBacklog(stack));
-				setManaBacklog(stack, 0);
+				clearManaBacklog(stack);
 				setMana(stack, pool.getCurrentMana());
 				setMaxMana(stack, pool.getMaxMana());
 			}
@@ -112,44 +102,29 @@ public class ManaMirrorItem extends Item {
 	}
 
 	protected static void setMana(ItemStack stack, int mana) {
-		if (mana > 0) {
-			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
-		} else {
-			ItemNBTHelper.removeEntry(stack, TAG_MANA);
-		}
+		stack.set(BotaniaDataComponents.MANA, mana);
 	}
 
 	protected static void setMaxMana(ItemStack stack, int maxMana) {
-		ItemNBTHelper.setInt(stack, TAG_MAX_MANA, maxMana);
+		stack.set(BotaniaDataComponents.MAX_MANA, maxMana);
 	}
 
 	protected static int getManaBacklog(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_MANA_BACKLOG, 0);
+		return stack.getOrDefault(BotaniaDataComponents.MANA_BACKLOG, 0);
 	}
 
-	protected static void setManaBacklog(ItemStack stack, int backlog) {
-		ItemNBTHelper.setInt(stack, TAG_MANA_BACKLOG, backlog);
+	protected static void clearManaBacklog(ItemStack stack) {
+		stack.set(BotaniaDataComponents.MANA_BACKLOG, 0);
 	}
 
 	public void bindPool(ItemStack stack, ManaPool pool) {
 		GlobalPos pos = GlobalPos.of(pool.getManaReceiverLevel().dimension(), pool.getManaReceiverPos());
-		Tag ser = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).result().get();
-		ItemNBTHelper.set(stack, TAG_POS, ser);
+		stack.set(BotaniaDataComponents.MANA_POOL_POS, pos);
 	}
 
 	@Nullable
 	private static GlobalPos getBoundPos(ItemStack stack) {
-		/*todo
-		if (!stack.getOrCreateTag().contains(TAG_POS)) {
-			return null;
-		}
-		
-		 */
-
-		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS))
-				.result()
-				.filter(pos -> pos.pos().getY() != Integer.MIN_VALUE)
-				.orElse(null);
+		return stack.get(BotaniaDataComponents.MANA_POOL_POS);
 	}
 
 	@Nullable
@@ -173,55 +148,6 @@ public class ManaMirrorItem extends Item {
 		}
 
 		return null;
-	}
-
-	public static class ManaItemImpl implements ManaItem {
-		private final ItemStack stack;
-
-		public ManaItemImpl(ItemStack stack) {
-			this.stack = stack;
-		}
-
-		@Override
-		public int getMana() {
-			return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
-		}
-
-		@Override
-		public int getMaxMana() {
-			return ItemNBTHelper.getInt(stack, TAG_MAX_MANA, ManaPoolBlockEntity.MAX_MANA);
-		}
-
-		@Override
-		public void addMana(int mana) {
-			setMana(stack, getMana() + mana);
-			setManaBacklog(stack, getManaBacklog(stack) + mana);
-		}
-
-		@Override
-		public boolean canReceiveManaFromPool(BlockEntity pool) {
-			return false;
-		}
-
-		@Override
-		public boolean canReceiveManaFromItem(ItemStack otherStack) {
-			return false;
-		}
-
-		@Override
-		public boolean canExportManaToPool(BlockEntity pool) {
-			return false;
-		}
-
-		@Override
-		public boolean canExportManaToItem(ItemStack otherStack) {
-			return true;
-		}
-
-		@Override
-		public boolean isNoExport() {
-			return false;
-		}
 	}
 
 	private static class DummyPool implements ManaPool {

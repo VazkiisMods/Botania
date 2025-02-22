@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.ItemLike;
@@ -122,9 +121,11 @@ public final class ColorHandler {
 		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
 				BotaniaItems.lifeEssence, BotaniaItems.gaiaIngot);
 
-		items.register((s, t) -> t == 1 ? MysticalPetalItem.getPetalLikeColor(DyeColor.byId(WandOfTheForestItem.getColor1(s)))
-				: t == 2 ? MysticalPetalItem.getPetalLikeColor(DyeColor.byId(WandOfTheForestItem.getColor2(s)))
-				: -1,
+		items.register((stack, tintIndex) -> switch (tintIndex) {
+			case 1 -> MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor1(stack));
+			case 2 -> MysticalPetalItem.getPetalLikeColor(WandOfTheForestItem.getColor2(stack));
+			default -> -1;
+		},
 				BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
 
 		items.register((s, t) -> t == 0 ? Minecraft.getInstance().getBlockColors().getColor(((BlockItem) s.getItem()).getBlock().defaultBlockState(), null, null, t) : -1,

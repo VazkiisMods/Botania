@@ -11,6 +11,8 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.xplat.XplatAbstractions;
 
 /**
@@ -34,8 +36,8 @@ public class ManaBarTooltip implements TooltipComponent {
 	}
 
 	/** Convenience method to calculate how full is the mana storing item. */
-	public static float getFractionForDisplay(ManaItem item) {
-		return item.getMana() / (float) item.getMaxMana();
+	public static float getFractionForDisplay(@Nullable ManaItem item) {
+		return item != null ? item.getMana() / (float) item.getMaxMana() : 0;
 	}
 
 	public ManaBarTooltip(float percentageFull) {

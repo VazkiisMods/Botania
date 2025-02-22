@@ -18,6 +18,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -29,15 +30,11 @@ import java.util.List;
 
 public class RingOfMagnetizationItem extends BaubleItem {
 
-	private final int range;
+	public static final int DEFAULT_RANGE = 6;
+	public static final int DEFAULT_GREATER_RANGE = 16;
 
 	public RingOfMagnetizationItem(Properties props) {
-		this(props, 6);
-	}
-
-	public RingOfMagnetizationItem(Properties props, int range) {
 		super(props);
-		this.range = range;
 	}
 
 	public static void onTossItem(Player player) {
@@ -67,14 +64,15 @@ public class RingOfMagnetizationItem extends BaubleItem {
 			if (!isOnCooldown) {
 				if (living.isShiftKeyDown() == BotaniaConfig.common().invertMagnetRing()) {
 					double x = living.getX();
-					double y = living.getY() + 0.75;
+					double y = living.getY() + 0.5 * living.getEyeHeight();
 					double z = living.getZ();
 
-					int range = ((RingOfMagnetizationItem) stack.getItem()).range;
-					List<ItemEntity> items = living.level().getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+					int range = stack.getOrDefault(BotaniaDataComponents.RANGE, DEFAULT_RANGE);
+					List<ItemEntity> items = living.level().getEntitiesOfClass(ItemEntity.class,
+							new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
 					int pulled = 0;
 					for (ItemEntity item : items) {
-						if (((RingOfMagnetizationItem) stack.getItem()).canPullItem(item)) {
+						if (canPullItem(item)) {
 							if (pulled > 200) {
 								break;
 							}
@@ -95,7 +93,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 		}
 	}
 
-	private boolean canPullItem(ItemEntity item) {
+	private static boolean canPullItem(ItemEntity item) {
 		int pickupDelay = ((ItemEntityAccessor) item).getPickupDelay();
 		if (!item.isAlive() || pickupDelay >= 40
 				|| BotaniaAPI.instance().hasSolegnoliaAround(item)

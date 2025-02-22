@@ -45,14 +45,18 @@ public class FlareLens extends Lens {
 		float mz = (float) (-(Mth.cos(rotationYaw / 180.0F * (float) Math.PI) * Mth.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D);
 		float my = (float) (Mth.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
 
-		int storedColor = LensItem.getStoredColor(stack);
-		int hex = -1;
+		int hex;
 
 		var level = spreader.getManaReceiverLevel();
-		if (storedColor == 16) {
+		if (LensItem.isLensRainbow(stack)) {
 			hex = Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
-		} else if (storedColor >= 0) {
-			hex = ColorHelper.getColorValue(DyeColor.byId(storedColor));
+		} else {
+			DyeColor storedColor = LensItem.getLensColor(stack);
+			if (storedColor != null) {
+				hex = ColorHelper.getColorValue(storedColor);
+			} else {
+				hex = 0xFFFFFF;
+			}
 		}
 
 		float r = ((hex & 0xFF0000) >> 16) / 255F;

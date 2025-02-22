@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlockContainer;
@@ -30,8 +32,8 @@ import net.minecraft.world.level.material.Fluids;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.entity.PixieEntity;
-import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
 import java.util.Random;
@@ -39,8 +41,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BottledManaItem extends Item {
 	public static final int SWIGS = 6;
-	private static final String TAG_SWIGS_LEFT = "swigsLeft";
-	private static final String TAG_SEED = "randomSeed";
 
 	private static final EffectAction[] EFFECT_ACTIONS = {
 			BottledManaItem::effectRandomMotion,
@@ -200,14 +200,14 @@ public class BottledManaItem extends Item {
 		if (!level.isClientSide && living instanceof Player player) {
 			living.hurt(living.damageSources().magic(), living.getHealth() - 1);
 			ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
-			ItemNBTHelper.setString(skull, "SkullOwner", player.getGameProfile().getName());
+			skull.set(DataComponents.PROFILE, new ResolvableProfile(player.getGameProfile()));
 			living.spawnAtLocation(skull, 0);
 		}
 	}
 
 	private long getSeed(ItemStack stack) {
-		long seed = ItemNBTHelper.getLong(stack, TAG_SEED, -1);
-		if (seed == -1) {
+		long seed = stack.getOrDefault(BotaniaDataComponents.RANDOM_SEED, -1L);
+		if (seed == -1L) {
 			return randomSeed(stack);
 		}
 		return seed;
@@ -215,7 +215,7 @@ public class BottledManaItem extends Item {
 
 	private long randomSeed(ItemStack stack) {
 		long seed = Math.abs(ThreadLocalRandom.current().nextLong());
-		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
+		stack.set(BotaniaDataComponents.RANDOM_SEED, seed);
 		return seed;
 	}
 
@@ -252,11 +252,11 @@ public class BottledManaItem extends Item {
 	}
 
 	public static int getSwigsLeft(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_SWIGS_LEFT, SWIGS);
+		return stack.getOrDefault(BotaniaDataComponents.REMAINING_USES, SWIGS);
 	}
 
 	private void setSwigsLeft(ItemStack stack, int swigs) {
-		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
+		stack.set(BotaniaDataComponents.REMAINING_USES, swigs);
 	}
 
 	@FunctionalInterface

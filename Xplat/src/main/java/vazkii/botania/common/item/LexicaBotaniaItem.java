@@ -13,6 +13,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -35,8 +37,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.List;
 
 public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, CustomCreativeTabContents {
-	//Todo convert to data component
-	//public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
 	public LexicaBotaniaItem(Properties settings) {
 		super(settings);
@@ -48,9 +48,10 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 
 	@Override
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-		output.accept(this);
-		ItemStack creative = new ItemStack(this);
-		//creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
+		output.accept(me);
+
+		ItemStack creative = new ItemStack(me);
+		creative.set(BotaniaDataComponents.ELVEN_UNLOCK, Unit.INSTANCE);
 		output.accept(creative);
 	}
 
@@ -85,7 +86,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 		Component title = stack.getHoverName();
 
 		// Akashic tome tag contains a `text` field, which is a stringified text component
-		/*
+		/* todo fix Akashic tome naming
 		String akashicTomeNBT = "akashictome:displayName";
 		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
 			CompoundTag nameTextComponent = stack.getTag().getCompound(akashicTomeNBT);
@@ -98,7 +99,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 	}
 
 	public static boolean isElven(ItemStack stack) {
-		return /*stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK)*/ false;
+		return stack.has(BotaniaDataComponents.ELVEN_UNLOCK);
 	}
 
 	// Random item to expose this as public

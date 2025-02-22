@@ -16,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -26,6 +27,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.SparkEntity;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -38,8 +40,10 @@ public class PaintslingerLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		int storedColor = LensItem.getStoredColor(stack);
-		if (!entity.level().isClientSide && !burst.isFake() && storedColor > -1 && storedColor < 17) {
+		boolean isRainbowLens = LensItem.isLensRainbow(stack);
+		DyeColor lensColor = LensItem.getLensColor(stack);
+		if (!entity.level().isClientSide && !burst.isFake() && (isRainbowLens || lensColor != null)) {
+			List<DyeColor> possibleColors = isRainbowLens ? ColorHelper.supportedColors().toList() : List.of(lensColor);
 			if (pos.getType() == HitResult.Type.ENTITY) {
 				Entity collidedWith = ((EntityHitResult) pos).getEntity();
 				if (collidedWith instanceof Sheep sheep) {
@@ -47,15 +51,14 @@ public class PaintslingerLens extends Lens {
 					DyeColor sheepColor = sheep.getColor();
 					List<Sheep> sheepList = entity.level().getEntitiesOfClass(Sheep.class,
 							new AABB(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,
-									sheep.getX() + r, sheep.getY() + r, sheep.getZ() + r));
+									sheep.getX() + r, sheep.getY() + r, sheep.getZ() + r),
+							s -> s.getColor() == sheepColor);
 					for (Sheep other : sheepList) {
-						if (other.getColor() == sheepColor) {
-							other.setColor(DyeColor.byId(storedColor == 16 ? other.level().random.nextInt(16) : storedColor));
-						}
+						other.setColor(getColorToApply(possibleColors, sheep.level()));
 					}
 					shouldKill = true;
 				} else if (collidedWith instanceof SparkEntity spark) {
-					spark.setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level().random.nextInt(16) : storedColor));
+					spark.setNetwork(getColorToApply(possibleColors, collidedWith.level()));
 				}
 			} else if (pos.getType() == HitResult.Type.BLOCK) {
 				BlockPos hitPos = ((BlockHitResult) pos).getBlockPos();
@@ -81,14 +84,16 @@ public class PaintslingerLens extends Lens {
 						}
 					}
 					for (BlockPos coords : coordsToPaint) {
-						DyeColor placeColor = DyeColor.byId(storedColor == 16 ? entity.level().random.nextInt(16) : storedColor);
+						DyeColor placeColor = getColorToApply(possibleColors, entity.level());
 						BlockState stateThere = entity.level().getBlockState(coords);
 
 						Function<DyeColor, Block> f = BotaniaAPI.instance().getPaintableBlocks().get(blockId);
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
 							entity.level().setBlockAndUpdate(coords, newBlock.withPropertiesOf(stateThere));
-							XplatAbstractions.INSTANCE.sendToNear(entity.level(), coords, new BotaniaEffectPacket(EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
+							XplatAbstractions.INSTANCE.sendToNear(entity.level(), coords,
+									new BotaniaEffectPacket(EffectType.PAINT_LENS,
+											coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
 						}
 					}
 				}
@@ -96,6 +101,10 @@ public class PaintslingerLens extends Lens {
 		}
 
 		return shouldKill;
+	}
+
+	private static DyeColor getColorToApply(List<DyeColor> possibleColors, Level level) {
+		return possibleColors.get(level.random.nextInt(possibleColors.size()));
 	}
 
 }

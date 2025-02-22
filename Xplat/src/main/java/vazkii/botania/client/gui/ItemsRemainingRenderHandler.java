@@ -96,7 +96,7 @@ public final class ItemsRemainingRenderHandler {
 		}
 	}
 
-	public static void send(Player player, ItemStack stack, int count) {
+	public static void send(@Nullable Player player, ItemStack stack, int count) {
 		send(player, stack, count, null);
 	}
 
@@ -107,7 +107,7 @@ public final class ItemsRemainingRenderHandler {
 		ticks = stack.isEmpty() ? 0 : maxTicks;
 	}
 
-	public static void send(Player entity, ItemStack stack, int count, @Nullable Component str) {
+	public static void send(@Nullable Player entity, ItemStack stack, int count, @Nullable Component str) {
 		XplatAbstractions.INSTANCE.sendToPlayer(entity, new UpdateItemsRemainingPacket(stack, count, str));
 	}
 

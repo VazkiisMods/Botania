@@ -8,24 +8,25 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.crafting.RunicAltarRecipe;
-import vazkii.botania.common.helper.ItemNBTHelper;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public class HeadRecipe extends RunicAltarRecipe {
@@ -40,7 +41,7 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	@Override
-	public boolean matches(RecipeInput inv, @NotNull Level world) {
+	public boolean matches(RecipeInput inv, Level world) {
 		boolean matches = super.matches(inv, world);
 
 		if (matches) {
@@ -62,14 +63,14 @@ public class HeadRecipe extends RunicAltarRecipe {
 		return matches;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull RecipeInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(RecipeInput inv, HolderLookup.Provider registries) {
 		ItemStack stack = getResultItem(registries).copy();
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack ingr = inv.getItem(i);
 			if (ingr.is(Items.NAME_TAG)) {
-				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getHoverName().getString());
+				stack.set(DataComponents.PROFILE, new ResolvableProfile(Optional.of(ingr.getHoverName().getString()),
+						Optional.empty(), new PropertyMap()));
 				break;
 			}
 		}

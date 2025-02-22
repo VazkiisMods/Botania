@@ -11,12 +11,12 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -25,11 +25,7 @@ import java.util.Optional;
 
 public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 
-	public static final int MAX_MANA = 500000;
-
-	private static final String TAG_MANA = "mana";
-	private static final String TAG_CREATIVE = "creative";
-	private static final String TAG_ONE_USE = "oneUse";
+	public static final int DEFAULT_MAX_MANA = 500000;
 
 	public ManaTabletItem(Properties props) {
 		super(props);
@@ -37,14 +33,15 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 
 	@Override
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-		output.accept(this);
+		output.accept(me);
 
-		ItemStack fullPower = new ItemStack(this);
-		setMana(fullPower, MAX_MANA);
+		// TODO: maybe use DataComponentPatch
+		ItemStack fullPower = new ItemStack(me);
+		setMana(fullPower, DEFAULT_MAX_MANA);
 		output.accept(fullPower);
 
-		ItemStack creative = new ItemStack(this);
-		setMana(creative, MAX_MANA);
+		ItemStack creative = new ItemStack(me);
+		setMana(creative, DEFAULT_MAX_MANA);
 		setStackCreative(creative);
 		output.accept(creative);
 	}
@@ -71,72 +68,16 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 	}
 
 	protected static void setMana(ItemStack stack, int mana) {
-		if (mana > 0) {
-			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
-		} else {
-			ItemNBTHelper.removeEntry(stack, TAG_MANA);
-		}
+		ItemNBTHelper.setIntNonZero(stack, BotaniaDataComponents.MANA, mana);
 	}
 
 	public static void setStackCreative(ItemStack stack) {
-		ItemNBTHelper.setBoolean(stack, TAG_CREATIVE, true);
+		stack.set(BotaniaDataComponents.CREATIVE_MANA, Unit.INSTANCE);
+		stack.remove(BotaniaDataComponents.CAN_RECEIVE_MANA_FROM_ITEM);
 	}
 
 	public static boolean isStackCreative(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_CREATIVE, false);
-	}
-
-	public static class ManaItemImpl implements ManaItem {
-		private final ItemStack stack;
-
-		public ManaItemImpl(ItemStack stack) {
-			this.stack = stack;
-		}
-
-		@Override
-		public int getMana() {
-			if (isStackCreative(stack)) {
-				return getMaxMana();
-			}
-			return ItemNBTHelper.getInt(stack, TAG_MANA, 0) * stack.getCount();
-		}
-
-		@Override
-		public int getMaxMana() {
-			return (isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA) * stack.getCount();
-		}
-
-		@Override
-		public void addMana(int mana) {
-			if (!isStackCreative(stack)) {
-				setMana(stack, Math.min(getMana() + mana, getMaxMana()) / stack.getCount());
-			}
-		}
-
-		@Override
-		public boolean canReceiveManaFromPool(BlockEntity pool) {
-			return !ItemNBTHelper.getBoolean(stack, TAG_ONE_USE, false);
-		}
-
-		@Override
-		public boolean canReceiveManaFromItem(ItemStack otherStack) {
-			return !isStackCreative(stack);
-		}
-
-		@Override
-		public boolean canExportManaToPool(BlockEntity pool) {
-			return true;
-		}
-
-		@Override
-		public boolean canExportManaToItem(ItemStack otherStack) {
-			return true;
-		}
-
-		@Override
-		public boolean isNoExport() {
-			return false;
-		}
+		return stack.has(BotaniaDataComponents.CREATIVE_MANA);
 	}
 
 	@Override

@@ -95,13 +95,11 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
+import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.bauble.BandOfManaItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.item.equipment.bauble.GreaterBandOfManaItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
@@ -162,6 +160,7 @@ public class FabricCommonInitializer implements ModInitializer {
 	private void registryInit() {
 		// Core item/block/BE
 		BotaniaSounds.init(bind(BuiltInRegistries.SOUND_EVENT));
+		BotaniaDataComponents.registerComponents(bind(BuiltInRegistries.DATA_COMPONENT_TYPE));
 		BotaniaBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
 		BotaniaBlocks.registerItemBlocks(boundForItem);
 		BotaniaBlockFlammability.register();
@@ -179,7 +178,6 @@ public class FabricCommonInitializer implements ModInitializer {
 					Blocks.FARMLAND.defaultBlockState());
 			FlattenableBlockRegistry.register(b, Blocks.DIRT_PATH.defaultBlockState());
 		}
-		BotaniaDataComponents.registerComponents(bind(BuiltInRegistries.DATA_COMPONENT_TYPE));
 
 		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(BotaniaBlocks.blazeBlock.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
@@ -302,11 +300,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.manaMirror);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.twigWand);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.dreamwoodWand);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ManaMirrorItem.ManaItemImpl(st), BotaniaItems.manaMirror);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new BandOfManaItem.ManaItemImpl(st), BotaniaItems.manaRing);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new GreaterBandOfManaItem.GreaterManaItemImpl(st), BotaniaItems.manaRingGreater);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ManaTabletItem.ManaItemImpl(st), BotaniaItems.manaTablet);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new TerraShattererItem.ManaItemImpl(st), BotaniaItems.terraPick);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new DefaultManaItemImpl(st),
+				BotaniaItems.manaMirror, BotaniaItems.manaRing, BotaniaItems.manaRingGreater, BotaniaItems.manaTablet, BotaniaItems.terraPick);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), BotaniaItems.dice);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.flugelEye);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), BotaniaItems.infiniteFruit);

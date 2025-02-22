@@ -20,8 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.SlotLocked;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BaubleBoxItem;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -46,7 +46,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 				int k = j + i * 6;
 				addSlot(new Slot(baubleBoxInv, k, 62 + j * 18, 8 + i * 18) {
 					@Override
-					public boolean mayPlace(@NotNull ItemStack stack) {
+					public boolean mayPlace(ItemStack stack) {
 						return EquipmentHandler.instance.isAccessory(stack);
 					}
 				});
@@ -70,7 +70,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 	}
 
 	@Override
-	public boolean stillValid(@NotNull Player player) {
+	public boolean stillValid(Player player) {
 		ItemStack main = player.getMainHandItem();
 		ItemStack off = player.getOffhandItem();
 		return !main.isEmpty() && main == box || !off.isEmpty() && off == box;
@@ -82,7 +82,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = slots.get(slotIndex);
 
-		if (slot != null && slot.hasItem()) {
+		if (slot.hasItem()) {
 			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
 
@@ -117,9 +117,9 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 	}
 
 	@Override
-	public void removed(@NotNull Player player) {
+	public void removed(Player player) {
 		if (!player.level().isClientSide) {
-			ItemNBTHelper.setBoolean(box, BaubleBoxItem.TAG_OPEN, false);
+			box.remove(BotaniaDataComponents.ACTIVE_TRANSIENT);
 		}
 		super.removed(player);
 	}

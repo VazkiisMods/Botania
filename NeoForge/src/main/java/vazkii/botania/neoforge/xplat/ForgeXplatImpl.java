@@ -374,8 +374,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public void sendToPlayer(Player player, CustomPacketPayload packet) {
-		if (!player.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
+	public void sendToPlayer(@Nullable Player player, CustomPacketPayload packet) {
+		if (player instanceof ServerPlayer serverPlayer && !player.level().isClientSide) {
 			PacketDistributor.sendToPlayer(serverPlayer, packet);
 		}
 	}

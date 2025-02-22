@@ -40,6 +40,8 @@ import java.util.Objects;
  * Superclass of flowers that can be bound to some kind of target with the Wand of the Forest,
  * such as generating flowers to mana collectors, or functional flowers to pools.
  * Implements the bindability logic common to both types of flower.
+ *
+ * @param <T> Type of block entity this special flower cna bind to.
  */
 public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerBlockEntity implements WandBindable {
 	/**

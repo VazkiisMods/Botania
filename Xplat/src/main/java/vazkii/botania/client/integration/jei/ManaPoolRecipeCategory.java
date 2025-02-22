@@ -23,6 +23,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,8 +32,8 @@ import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.crafting.StateIngredients;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -52,7 +53,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 		localizedName = Component.translatable("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(botaniaRL("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
-		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
+		renderStack.set(BotaniaDataComponents.RENDER_FULL, Unit.INSTANCE);
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, renderStack.copy());
 	}
 

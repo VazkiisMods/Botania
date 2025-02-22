@@ -8,7 +8,10 @@
  */
 package vazkii.botania.data.recipes;
 
+import com.mojang.authlib.properties.PropertyMap;
+
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -17,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
@@ -24,12 +28,11 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.PetalApothecaryRecipe;
 import vazkii.botania.common.crafting.recipe.GogAlternationRecipe;
-import vazkii.botania.common.crafting.recipe.NbtOutputRecipe;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -138,13 +141,12 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		make(consumer, BotaniaBlocks.motifNightshade, black, black, purple, gray);
 
 		ItemStack vazkiiHead = new ItemStack(Items.PLAYER_HEAD);
-		ItemNBTHelper.setString(vazkiiHead, "SkullOwner", "Vazkii");
+		vazkiiHead.set(DataComponents.PROFILE,
+				new ResolvableProfile(Optional.of("Vazkii"), Optional.empty(), new PropertyMap()));
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		consumer.accept(idFor(botaniaRL("vazkii_head")), new NbtOutputRecipe<>(
-				new PetalApothecaryRecipe(vazkiiHead, DEFAULT_REAGENT, inputs)/*,
-																				vazkiiHead.getTag()*/
-		), null);
+		consumer.accept(idFor(botaniaRL("vazkii_head")),
+				new PetalApothecaryRecipe(vazkiiHead, DEFAULT_REAGENT, inputs), null);
 	}
 
 	protected static Ingredient tagIngr(String tag) {

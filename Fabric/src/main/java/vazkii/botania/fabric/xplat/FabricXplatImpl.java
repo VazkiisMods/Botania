@@ -419,7 +419,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public void sendToPlayer(Player player, CustomPacketPayload packet) {
+	public void sendToPlayer(@Nullable Player player, CustomPacketPayload packet) {
 		if (player instanceof ServerPlayer serverPlayer) {
 			ServerPlayNetworking.send(serverPlayer, packet);
 		}

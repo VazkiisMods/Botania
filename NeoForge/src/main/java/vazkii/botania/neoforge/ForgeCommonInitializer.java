@@ -106,13 +106,13 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
+import vazkii.botania.common.impl.mana.DefaultManaItemImpl;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
-import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
@@ -199,6 +199,7 @@ public class ForgeCommonInitializer {
 	private void registryInit(RegisterEvent event) {
 		// Core item/block/BE
 		bind(event, Registries.SOUND_EVENT, BotaniaSounds::init);
+		bind(event, Registries.DATA_COMPONENT_TYPE, BotaniaDataComponents::registerComponents);
 		bind(event, Registries.BLOCK, consumer -> {
 			BotaniaBlocks.registerBlocks(consumer);
 			BotaniaBlockFlammability.register();
@@ -209,7 +210,6 @@ public class ForgeCommonInitializer {
 		bind(event, Registries.BLOCK, BotaniaFlowerBlocks::registerBlocks);
 		bindForItems(event, BotaniaFlowerBlocks::registerItemBlocks);
 		bind(event, Registries.BLOCK_ENTITY_TYPE, BotaniaFlowerBlocks::registerTEs);
-		bind(event, Registries.DATA_COMPONENT_TYPE, BotaniaDataComponents::registerComponents);
 
 		// GUI and Recipe
 		bind(event, Registries.MENU, BotaniaItems::registerMenuTypes);
@@ -477,11 +477,11 @@ public class ForgeCommonInitializer {
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.manaMirror, ManaMirrorItem.ManaItemImpl::new,
-			BotaniaItems.manaRing, BandOfManaItem.ManaItemImpl::new,
-			BotaniaItems.manaRingGreater, GreaterBandOfManaItem.GreaterManaItemImpl::new,
-			BotaniaItems.manaTablet, ManaTabletItem.ManaItemImpl::new,
-			BotaniaItems.terraPick, TerraShattererItem.ManaItemImpl::new
+			BotaniaItems.manaMirror, DefaultManaItemImpl::new,
+			BotaniaItems.manaRing, DefaultManaItemImpl::new,
+			BotaniaItems.manaRingGreater, DefaultManaItemImpl::new,
+			BotaniaItems.manaTablet, DefaultManaItemImpl::new,
+			BotaniaItems.terraPick, DefaultManaItemImpl::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(

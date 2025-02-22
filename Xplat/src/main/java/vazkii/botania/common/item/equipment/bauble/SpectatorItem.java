@@ -12,7 +12,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.longs.LongArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.ints.IntLists;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -21,7 +22,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.LongArrayTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -44,18 +44,16 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.AbstractHorseAccessor;
 import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SpectatorItem extends BaubleItem {
-	private static final int[] EMPTY_ENTITIES_ARRAY = new int[0];
-	private static final long[] EMPTY_BLOCKPOS_ARRAY = new long[0];
-	public static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
-	public static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
 	public static final int RANGE_ENTITIES = 24;
 	public static final int RANGE_BLOCKS = 12;
 	public static final int SCAN_INTERVAL_TICKS = 4;
@@ -80,8 +78,8 @@ public class SpectatorItem extends BaubleItem {
 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity entity) {
-		ItemNBTHelper.removeEntry(stack, TAG_BLOCK_POSITIONS);
-		ItemNBTHelper.removeEntry(stack, TAG_ENTITY_POSITIONS);
+		stack.remove(BotaniaDataComponents.SPECTATOR_HIGHLIGHT_ENTITIES);
+		stack.remove(BotaniaDataComponents.SPECTATOR_HIGHLIGHT_BLOCKS);
 	}
 
 	public static class Renderer implements AccessoryRenderer {
@@ -105,18 +103,15 @@ public class SpectatorItem extends BaubleItem {
 		}
 
 		// backward compatibility: this was a list tag before
-		var blockPosLongs = ItemNBTHelper.verifyType(stack, TAG_BLOCK_POSITIONS, LongArrayTag.class)
-				? ItemNBTHelper.getLongArray(stack, TAG_BLOCK_POSITIONS)
-				: EMPTY_BLOCKPOS_ARRAY;
+		List<BlockPos> blocks = stack.getOrDefault(BotaniaDataComponents.SPECTATOR_HIGHLIGHT_BLOCKS, Collections.emptyList());
 
-		for (var blockPosLong : blockPosLongs) {
-			BlockPos pos = BlockPos.of(blockPosLong);
+		for (BlockPos pos : blocks) {
 			float m = 0.02F;
 			WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), false);
 			player.level().addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
 		}
 
-		int[] entities = ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS);
+		List<Integer> entities = stack.getOrDefault(BotaniaDataComponents.SPECTATOR_HIGHLIGHT_ENTITIES, Collections.emptyList());
 		for (int i : entities) {
 			Entity e = player.level().getEntity(i);
 			if (e != null && e.isAlive() && Math.random() < 0.6) {
@@ -130,17 +125,17 @@ public class SpectatorItem extends BaubleItem {
 		ItemStack mainHandStack = player.getMainHandItem();
 		ItemStack offHandStack = player.getOffhandItem();
 
-		int[] entityIds = scanEntities(player, mainHandStack, offHandStack);
-		ItemNBTHelper.setIntArray(stack, TAG_ENTITY_POSITIONS, entityIds);
+		IntList entityIds = scanEntities(player, mainHandStack, offHandStack);
+		ItemNBTHelper.setNonEmpty(stack, BotaniaDataComponents.SPECTATOR_HIGHLIGHT_ENTITIES, entityIds);
 
-		long[] blockPositionLongs = scanBlockContainers(player, mainHandStack, offHandStack);
-		ItemNBTHelper.setLongArray(stack, TAG_BLOCK_POSITIONS, blockPositionLongs);
+		List<BlockPos> blockPositions = scanBlockContainers(player, mainHandStack, offHandStack);
+		ItemNBTHelper.setNonEmpty(stack, BotaniaDataComponents.SPECTATOR_HIGHLIGHT_BLOCKS, blockPositions);
 	}
 
-	private int[] scanEntities(Player player, ItemStack mainHandStack, ItemStack offHandStack) {
+	private IntList scanEntities(Player player, ItemStack mainHandStack, ItemStack offHandStack) {
 		boolean emptyHands = mainHandStack.isEmpty() && offHandStack.isEmpty();
 		if (emptyHands && !player.isShiftKeyDown()) {
-			return EMPTY_ENTITIES_ARRAY;
+			return IntList.of();
 		}
 		var entityIds = new IntArrayList();
 		List<Entity> entities = player.level().getEntitiesOfClass(Entity.class, new AABB(player.blockPosition()).inflate(RANGE_ENTITIES));
@@ -189,19 +184,16 @@ public class SpectatorItem extends BaubleItem {
 			}
 		}
 		entityIds.trim();
-		return entityIds.elements();
+		return IntLists.unmodifiable(entityIds);
 	}
 
-	private long[] scanBlockContainers(Player player, ItemStack mainHandStack, ItemStack offHandStack) {
+	private List<BlockPos> scanBlockContainers(Player player, ItemStack mainHandStack, ItemStack offHandStack) {
 		if (mainHandStack.isEmpty() && offHandStack.isEmpty()) {
-			return EMPTY_BLOCKPOS_ARRAY;
+			return List.of();
 		}
-		var blockPositions = new LongArrayList();
-		BlockPos.betweenClosedStream(new AABB(player.blockPosition()).inflate(RANGE_BLOCKS))
+		return BlockPos.betweenClosedStream(new AABB(player.blockPosition()).inflate(RANGE_BLOCKS))
 				.filter(pos -> scanBlock(player, pos, mainHandStack, offHandStack))
-				.forEach(pos -> blockPositions.add(pos.asLong()));
-		blockPositions.trim();
-		return blockPositions.elements();
+				.toList();
 	}
 
 	private boolean scanBlock(Player player, BlockPos pos, ItemStack mainHandStack, ItemStack offHandStack) {

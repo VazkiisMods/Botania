@@ -14,14 +14,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.item.WandOfTheForestItem;
@@ -38,32 +37,30 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 				((ShapedRecipeAccessor) recipe).botania_getResult(), recipe.showNotification());
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(CraftingInput inv, @NotNull HolderLookup.Provider registries) {
-		int first = -1;
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
+		DyeColor first = null;
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			Item item = stack.getItem();
 
-			int colorId;
+			DyeColor colorId;
 			if (item instanceof MysticalPetalItem petal) {
-				colorId = petal.color.getId();
+				colorId = petal.color;
 			} else if (item instanceof BlockItem block && block.getBlock() instanceof BotaniaMushroomBlock mushroom) {
-				colorId = mushroom.color.getId();
+				colorId = mushroom.color;
 			} else {
 				continue;
 			}
-			if (first == -1) {
+			if (first == null) {
 				first = colorId;
 			} else {
 				return WandOfTheForestItem.setColors(getResultItem(registries).copy(), first, colorId);
 			}
 		}
-		return WandOfTheForestItem.setColors(getResultItem(registries).copy(), first != -1 ? first : 0, 0);
+		return WandOfTheForestItem.setColors(getResultItem(registries).copy(), first != null ? first : DyeColor.WHITE, DyeColor.WHITE);
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

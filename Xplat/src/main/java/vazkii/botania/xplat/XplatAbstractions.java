@@ -153,7 +153,7 @@ public interface XplatAbstractions {
 
 	// Networking
 	Packet<ClientGamePacketListener> toVanillaClientboundPacket(CustomPacketPayload packet);
-	void sendToPlayer(Player player, CustomPacketPayload packet);
+	void sendToPlayer(@Nullable Player player, CustomPacketPayload packet);
 	void sendToNear(Level level, BlockPos pos, CustomPacketPayload packet);
 	void sendToTracking(Entity e, CustomPacketPayload packet);
 

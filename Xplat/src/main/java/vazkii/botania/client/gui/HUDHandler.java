@@ -50,8 +50,8 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.AssemblyHaloItem;
 import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.SextantItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.item.WorldshaperssSextantItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
@@ -166,9 +166,9 @@ public final class HUDHandler {
 			profiler.pop();
 		}
 
-		if (!main.isEmpty() && main.getItem() instanceof WorldshaperssSextantItem) {
+		if (!main.isEmpty() && main.getItem() instanceof SextantItem) {
 			profiler.push("sextant");
-			WorldshaperssSextantItem.Hud.render(gui, mc.player, main);
+			SextantItem.Hud.render(gui, mc.player, main);
 			profiler.pop();
 		}
 

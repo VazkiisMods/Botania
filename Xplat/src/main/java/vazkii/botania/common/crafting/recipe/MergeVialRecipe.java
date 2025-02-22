@@ -76,8 +76,8 @@ public class MergeVialRecipe extends CustomRecipe {
 				brew = ((BaseBrewItem) stack.getItem());
 			}
 			swigs += brew.getSwigsLeft(stack);
-			if (swigs >= brew.getSwigs()) {
-				swigs = brew.getSwigs();
+			if (swigs >= brew.getSwigs(stack)) {
+				swigs = brew.getSwigs(stack);
 				break;
 			}
 		}
@@ -104,7 +104,7 @@ public class MergeVialRecipe extends CustomRecipe {
 			if (!foundFirst) {
 				foundFirst = true;
 				swigs = brew.getSwigsLeft(stack);
-				maxSwigs = brew.getSwigs();
+				maxSwigs = brew.getSwigs(stack);
 				continue;
 			}
 

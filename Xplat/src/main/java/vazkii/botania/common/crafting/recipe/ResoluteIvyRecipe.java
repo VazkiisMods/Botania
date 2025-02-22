@@ -9,6 +9,7 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -17,11 +18,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import org.jetbrains.annotations.NotNull;
-
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.item.ResoluteIvyItem;
 
 public class ResoluteIvyRecipe extends CustomRecipe {
 	public static final RecipeSerializer<ResoluteIvyRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(ResoluteIvyRecipe::new);
@@ -31,7 +29,7 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundIvy = false;
 		boolean foundItem = false;
 
@@ -41,7 +39,7 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 				if (stack.is(BotaniaItems.keepIvy) && !foundIvy) {
 					foundIvy = true;
 				} else if (!foundItem
-						&& !(/*todo stack.hasTag() &&*/ ItemNBTHelper.getBoolean(stack, ResoluteIvyItem.TAG_KEEP, false))
+						&& !stack.has(BotaniaDataComponents.RESOLUTE_IVY)
 						&& !stack.getItem().hasCraftingRemainingItem()) {
 					foundItem = true;
 				} else {
@@ -53,9 +51,8 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 		return foundIvy && foundItem;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack item = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -66,7 +63,7 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 		}
 
 		ItemStack copy = item.copyWithCount(1);
-		ItemNBTHelper.setBoolean(copy, ResoluteIvyItem.TAG_KEEP, true);
+		copy.set(BotaniaDataComponents.RESOLUTE_IVY, Unit.INSTANCE);
 		return copy;
 	}
 
@@ -75,7 +72,6 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

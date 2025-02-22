@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,7 +77,7 @@ public interface BotaniaAPI {
 	 * is loaded.
 	 * Note that this registry is neither saved nor synced, and thus its integer ID's should not be relied upon.
 	 */
-	@Nullable
+	@UnknownNullability
 	default Registry<Brew> getBrewRegistry() {
 		return null;
 	}
@@ -188,6 +188,7 @@ public interface BotaniaAPI {
 
 	}
 
+	@UnknownNullability
 	default ConfigDataManager getConfigData() {
 		return null;
 	}

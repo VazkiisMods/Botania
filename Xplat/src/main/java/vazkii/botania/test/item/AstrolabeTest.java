@@ -55,7 +55,7 @@ public class AstrolabeTest {
 	@GameTest(template = TEMPLATE_CANDLES)
 	public void testCandlesHorizontal3x3(final GameTestHelper helper) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_HORIZONTAL,
-				ManaTabletItem.MAX_MANA);
+				ManaTabletItem.DEFAULT_MAX_MANA);
 		player.addItem(new ItemStack(BLOCK_CANDLES.asItem(), 64));
 		final ItemStack stack = getAstrolabeForBlockType(player, BLOCK_CANDLES);
 
@@ -76,7 +76,7 @@ public class AstrolabeTest {
 		}
 
 		checkRemainingCandles(player, EXPECTED_REMAINING_CANDLES_HORIZONTAL_3X3, SLOT_FIRST_PROVIDER);
-		checkRemainingMana(player, ManaTabletItem.MAX_MANA - 3 * AstrolabeItem.BASE_COST);
+		checkRemainingMana(player, ManaTabletItem.DEFAULT_MAX_MANA - 3 * AstrolabeItem.BASE_COST);
 
 		helper.succeed();
 	}
@@ -84,7 +84,7 @@ public class AstrolabeTest {
 	@GameTest(template = TEMPLATE_CANDLES)
 	public void testCandlesHorizontal3x3Offhand(final GameTestHelper helper) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_HORIZONTAL,
-				ManaTabletItem.MAX_MANA);
+				ManaTabletItem.DEFAULT_MAX_MANA);
 		player.addItem(new ItemStack(BLOCK_CANDLES.asItem(), 64));
 		final ItemStack stack = getAstrolabeForBlockType(player, BLOCK_CANDLES);
 		player.setItemInHand(InteractionHand.OFF_HAND, stack);
@@ -93,7 +93,7 @@ public class AstrolabeTest {
 		useAstrolabe(player, stack, InteractionHand.OFF_HAND);
 
 		checkRemainingCandles(player, EXPECTED_REMAINING_CANDLES_HORIZONTAL_3X3, SLOT_FIRST_PROVIDER);
-		checkRemainingMana(player, ManaTabletItem.MAX_MANA - 3 * AstrolabeItem.BASE_COST);
+		checkRemainingMana(player, ManaTabletItem.DEFAULT_MAX_MANA - 3 * AstrolabeItem.BASE_COST);
 
 		helper.succeed();
 	}
@@ -101,7 +101,7 @@ public class AstrolabeTest {
 	@GameTest(template = TEMPLATE_CANDLES)
 	public void testCandlesHorizontal3x3MultipleSourcesTalismanLast(final GameTestHelper helper) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_HORIZONTAL,
-				ManaTabletItem.MAX_MANA);
+				ManaTabletItem.DEFAULT_MAX_MANA);
 		player.addItem(new ItemStack(BLOCK_CANDLES.asItem(), 5));
 		final ItemStack blackHoleTalisman = new ItemStack(BotaniaItems.blackHoleTalisman);
 		BlackHoleTalismanItem.setBlock(blackHoleTalisman, BLOCK_CANDLES);
@@ -114,7 +114,7 @@ public class AstrolabeTest {
 
 		checkRemainingCandles(player, 0, SLOT_FIRST_PROVIDER);
 		checkRemainingTalismanCandles(player, 2, SLOT_SECOND_PROVIDER);
-		checkRemainingMana(player, ManaTabletItem.MAX_MANA - 3 * AstrolabeItem.BASE_COST);
+		checkRemainingMana(player, ManaTabletItem.DEFAULT_MAX_MANA - 3 * AstrolabeItem.BASE_COST);
 
 		helper.succeed();
 	}
@@ -122,7 +122,7 @@ public class AstrolabeTest {
 	@GameTest(template = TEMPLATE_CANDLES)
 	public void testCandlesHorizontal3x3MultipleSourcesTalismanFirst(final GameTestHelper helper) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_HORIZONTAL,
-				ManaTabletItem.MAX_MANA);
+				ManaTabletItem.DEFAULT_MAX_MANA);
 		final ItemStack blackHoleTalisman = new ItemStack(BotaniaItems.blackHoleTalisman);
 		BlackHoleTalismanItem.setBlock(blackHoleTalisman, BLOCK_CANDLES);
 		BlackHoleTalismanItem.setCount(blackHoleTalisman, 5);
@@ -135,7 +135,7 @@ public class AstrolabeTest {
 
 		checkRemainingCandles(player, 2, SLOT_SECOND_PROVIDER);
 		checkRemainingTalismanCandles(player, 0, SLOT_FIRST_PROVIDER);
-		checkRemainingMana(player, ManaTabletItem.MAX_MANA - 3 * AstrolabeItem.BASE_COST);
+		checkRemainingMana(player, ManaTabletItem.DEFAULT_MAX_MANA - 3 * AstrolabeItem.BASE_COST);
 
 		helper.succeed();
 	}
@@ -143,7 +143,7 @@ public class AstrolabeTest {
 	@GameTest(template = TEMPLATE_CANDLES)
 	public void testCandlesVertical3x3(final GameTestHelper helper) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_VERTICAL,
-				ManaTabletItem.MAX_MANA);
+				ManaTabletItem.DEFAULT_MAX_MANA);
 		player.addItem(new ItemStack(BLOCK_CANDLES.asItem(), 64));
 		final ItemStack stack = getAstrolabeForBlockType(player, BLOCK_CANDLES);
 
@@ -151,7 +151,7 @@ public class AstrolabeTest {
 		checkThreeByThreeVerticalCandleArea(helper);
 
 		checkRemainingCandles(player, EXPECTED_REMAINING_CANDLES_VERTICAL_3X3, SLOT_FIRST_PROVIDER);
-		checkRemainingMana(player, ManaTabletItem.MAX_MANA - 3 * AstrolabeItem.BASE_COST);
+		checkRemainingMana(player, ManaTabletItem.DEFAULT_MAX_MANA - 3 * AstrolabeItem.BASE_COST);
 
 		helper.succeed();
 	}
@@ -159,7 +159,7 @@ public class AstrolabeTest {
 	@GameTest(template = TEMPLATE_CANDLES)
 	public void testCandlesVertical5x5(final GameTestHelper helper) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_CANDLES, LOOK_TARGET_CANDLES_VERTICAL,
-				ManaTabletItem.MAX_MANA);
+				ManaTabletItem.DEFAULT_MAX_MANA);
 		player.addItem(new ItemStack(BLOCK_CANDLES.asItem(), 64));
 		final ItemStack stack = getAstrolabeForBlockType(player, BLOCK_CANDLES);
 		AstrolabeItem.setSize(stack, 5);
@@ -175,7 +175,7 @@ public class AstrolabeTest {
 						+ helper.getBlockState(POS_WATER_SLAB.above().north()));
 
 		checkRemainingCandles(player, EXPECTED_REMAINING_CANDLES_VERTICAL_5X5, SLOT_FIRST_PROVIDER);
-		checkRemainingMana(player, ManaTabletItem.MAX_MANA - 5 * AstrolabeItem.BASE_COST);
+		checkRemainingMana(player, ManaTabletItem.DEFAULT_MAX_MANA - 5 * AstrolabeItem.BASE_COST);
 
 		helper.succeed();
 	}
@@ -289,7 +289,7 @@ public class AstrolabeTest {
 	private <P extends Property<V>, V extends Comparable<V>> void testDirectionalBlockWithProperty(
 			GameTestHelper helper, Vec3 lookTarget, Block block, P property, V value) {
 		final Player player = mockPlayerWithAstrolabe(helper, POS_PLAYER_DIRECTIONAL, lookTarget,
-				ManaTabletItem.MAX_MANA);
+				ManaTabletItem.DEFAULT_MAX_MANA);
 		player.addItem(new ItemStack(block.asItem(), 64));
 		final ItemStack stack = getAstrolabeForBlockType(player, block);
 

@@ -24,6 +24,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -49,6 +50,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -67,13 +69,6 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class WandOfTheForestItem extends Item implements CustomCreativeTabContents {
 
-	private static final String TAG_COLOR1 = "color1";
-	private static final String TAG_COLOR2 = "color2";
-	private static final String TAG_BOUND_TILE_X = "boundTileX";
-	private static final String TAG_BOUND_TILE_Y = "boundTileY";
-	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
-	private static final String TAG_BIND_MODE = "bindMode";
-
 	public final ChatFormatting modeChatFormatting;
 
 	public WandOfTheForestItem(ChatFormatting formatting, Item.Properties builder) {
@@ -81,16 +76,17 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		this.modeChatFormatting = formatting;
 	}
 
-	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
+	private static boolean tryCompleteBinding(GlobalPos src, ItemStack stack, UseOnContext ctx) {
 		BlockPos dest = ctx.getClickedPos();
-		if (!dest.equals(src)) {
-			setBindingAttempt(stack, Bound.UNBOUND_POS);
+		if (!dest.equals(src.pos()) && src.dimension().equals(ctx.getLevel().dimension())) {
+			setBindingAttempt(stack, null);
 
-			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src);
+			// TODO: WandBindable should be a capability (Fabric and NeoForge support both blocks and block entities)
+			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src.pos());
 			if (srcTile instanceof WandBindable bindable) {
 				if (bindable.bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
-					doParticleBeamWithOffset(ctx.getLevel(), src, dest);
-					setBindingAttempt(stack, Bound.UNBOUND_POS);
+					doParticleBeamWithOffset(ctx.getLevel(), src.pos(), dest);
+					setBindingAttempt(stack, null);
 				}
 				return true;
 			}
@@ -98,6 +94,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return false;
 	}
 
+	// TODO: maybe attach Wandable capability to lapis block?
 	private static boolean tryFormEnchanter(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
@@ -133,6 +130,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		return false;
 	}
 
+	// TODO: force relays should use WandBindable as a block capability for this
 	private static boolean tryCompletePistonRelayBinding(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
@@ -162,10 +160,11 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		Level world = ctx.getLevel();
 		Player player = ctx.getPlayer();
 		BlockPos pos = ctx.getClickedPos();
+		GlobalPos globalPos = GlobalPos.of(world.dimension(), pos);
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		Direction side = ctx.getClickedFace();
-		Optional<BlockPos> boundPos = getBindingAttempt(stack);
+		Optional<GlobalPos> boundPos = getBindingAttempt(stack);
 
 		if (player == null) {
 			return InteractionResult.PASS;
@@ -197,10 +196,10 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		BlockEntity tile = world.getBlockEntity(pos);
 
 		if (getBindMode(stack) && tile instanceof WandBindable bindable && player.isShiftKeyDown() && bindable.canSelect(player, stack, pos, side)) {
-			if (boundPos.filter(pos::equals).isPresent()) {
-				setBindingAttempt(stack, Bound.UNBOUND_POS);
+			if (boundPos.filter(globalPos::equals).isPresent()) {
+				setBindingAttempt(stack, null);
 			} else {
-				setBindingAttempt(stack, pos);
+				setBindingAttempt(stack, globalPos);
 			}
 
 			if (world.isClientSide) {
@@ -431,17 +430,16 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-		getBindingAttempt(stack).ifPresent(coords -> {
-			BlockEntity tile = world.getBlockEntity(coords);
-			if (!(tile instanceof WandBindable)) {
-				setBindingAttempt(stack, Bound.UNBOUND_POS);
+		getBindingAttempt(stack).ifPresent(pos -> {
+			if (!pos.dimension().equals(world.dimension())
+					|| !(world.getBlockEntity(pos.pos()) instanceof WandBindable)) {
+				setBindingAttempt(stack, null);
 			}
 		});
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (player.isSecondaryUseActive()) {
 			if (!world.isClientSide) {
@@ -456,73 +454,68 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 
 	@Override
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-		output.accept(setColors(new ItemStack(this), 0, 0));
-		List<Pair<Integer, Integer>> colorPairs = Arrays.asList(
-				new Pair<>(0, 3), // White + Light Blue
-				new Pair<>(0, 6), // White + Pink
-				new Pair<>(3, 6), // Light Blue + Pink
-				new Pair<>(10, 11), // Purple + Blue
-				new Pair<>(14, 14), // Red
-				new Pair<>(11, 11), // Blue
-				new Pair<>(1, 1), // Orange
-				new Pair<>(15, 15), // Black
-				new Pair<>(7, 8), // Gray + Light Gray
-				new Pair<>(6, 7), // Pink + Gray
-				new Pair<>(4, 5), // Yellow + Lime
-				new Pair<>(0, 15) // White + Black
+		output.accept(me);
+		List<Pair<DyeColor, DyeColor>> colorPairs = Arrays.asList(
+				new Pair<>(DyeColor.WHITE, DyeColor.LIGHT_BLUE),
+				new Pair<>(DyeColor.WHITE, DyeColor.PINK),
+				new Pair<>(DyeColor.LIGHT_BLUE, DyeColor.PINK),
+				new Pair<>(DyeColor.PURPLE, DyeColor.BLUE),
+				new Pair<>(DyeColor.RED, DyeColor.RED),
+				new Pair<>(DyeColor.BLUE, DyeColor.BLUE),
+				new Pair<>(DyeColor.ORANGE, DyeColor.ORANGE),
+				new Pair<>(DyeColor.BLACK, DyeColor.BLACK),
+				new Pair<>(DyeColor.GRAY, DyeColor.LIGHT_GRAY),
+				new Pair<>(DyeColor.PINK, DyeColor.PINK),
+				new Pair<>(DyeColor.YELLOW, DyeColor.LIME),
+				new Pair<>(DyeColor.WHITE, DyeColor.BLACK)
 		);
 		Collections.shuffle(colorPairs);
 		for (int i = 0; i < 7; i++) {
-			Pair<Integer, Integer> pair = colorPairs.get(i);
+			Pair<DyeColor, DyeColor> pair = colorPairs.get(i);
 			if (Math.random() < 0.5) {
 				pair = new Pair<>(pair.getSecond(), pair.getFirst());
 			}
-			output.accept(setColors(new ItemStack(this), pair.getFirst(), pair.getSecond()));
+			output.accept(setColors(new ItemStack(me), pair.getFirst(), pair.getSecond()));
 		}
 	}
 
 	@Override
-	public Component getName(@NotNull ItemStack stack) {
+	public Component getName(ItemStack stack) {
 		Component mode = Component.literal(" (")
 				.append(Component.translatable(getModeString(stack)).withStyle(modeChatFormatting))
 				.append(")");
 		return super.getName(stack).plainCopy().append(mode);
 	}
 
-	public static ItemStack setColors(ItemStack wand, int color1, int color2) {
-		ItemNBTHelper.setInt(wand, TAG_COLOR1, color1);
-		ItemNBTHelper.setInt(wand, TAG_COLOR2, color2);
+	public static ItemStack setColors(ItemStack wand, DyeColor color1, DyeColor color2) {
+		wand.set(BotaniaDataComponents.WAND_COLOR1, color1);
+		wand.set(BotaniaDataComponents.WAND_COLOR2, color2);
 
 		return wand;
 	}
 
-	public static int getColor1(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_COLOR1, 0);
+	public static DyeColor getColor1(ItemStack stack) {
+		return stack.getOrDefault(BotaniaDataComponents.WAND_COLOR1, DyeColor.WHITE);
 	}
 
-	public static int getColor2(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_COLOR2, 0);
+	public static DyeColor getColor2(ItemStack stack) {
+		return stack.getOrDefault(BotaniaDataComponents.WAND_COLOR2, DyeColor.WHITE);
 	}
 
-	public static void setBindingAttempt(ItemStack stack, BlockPos pos) {
-		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_X, pos.getX());
-		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Y, pos.getY());
-		ItemNBTHelper.setInt(stack, TAG_BOUND_TILE_Z, pos.getZ());
+	public static void setBindingAttempt(ItemStack stack, @Nullable GlobalPos pos) {
+		ItemNBTHelper.setOptional(stack, BotaniaDataComponents.BINDING_POS, pos);
 	}
 
-	public static Optional<BlockPos> getBindingAttempt(ItemStack stack) {
-		int x = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Y, Integer.MIN_VALUE);
-		int z = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Z, 0);
-		return y == Integer.MIN_VALUE ? Optional.empty() : Optional.of(new BlockPos(x, y, z));
+	public static Optional<GlobalPos> getBindingAttempt(ItemStack stack) {
+		return Optional.ofNullable(stack.get(BotaniaDataComponents.BINDING_POS));
 	}
 
 	public static boolean getBindMode(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_BIND_MODE, true);
+		return stack.has(BotaniaDataComponents.WAND_BIND_MODE);
 	}
 
 	public static void setBindMode(ItemStack stack, boolean bindMode) {
-		ItemNBTHelper.setBoolean(stack, TAG_BIND_MODE, bindMode);
+		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.WAND_BIND_MODE, bindMode);
 	}
 
 	public static String getModeString(ItemStack stack) {
@@ -539,9 +532,9 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 		@Nullable
 		@Override
 		public BlockPos getBinding(Level world) {
-			Optional<BlockPos> bound = getBindingAttempt(stack);
-			if (bound.isPresent()) {
-				return bound.get();
+			Optional<GlobalPos> bound = getBindingAttempt(stack);
+			if (bound.isPresent() && bound.get().dimension().equals(world.dimension())) {
+				return bound.get().pos();
 			}
 
 			var pos = ClientProxy.INSTANCE.getClientHit();

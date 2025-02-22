@@ -9,9 +9,10 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,9 +21,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -52,14 +56,14 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> stacks, TooltipFlag flags) {
-		int storedColor = getStoredColor(stack);
-		if (storedColor != -1) {
-			var colorName = Component.translatable(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
-			/*todo
-			TextColor realColor = TextColor.fromRgb(getLensColor(stack, world));
+		boolean isRainbow = isLensRainbow(stack);
+		DyeColor lensColor = getLensColor(stack);
+		if (isRainbow || lensColor != null) {
+
+			var colorName = Component.translatable(isRainbow ? "botania.color.rainbow" : "color.minecraft." + lensColor.getName());
+			// TODO: can't do rainbow without level reference anymore
+			TextColor realColor = TextColor.fromRgb(getLensColor(stack, null));
 			stacks.add(Component.translatable("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
-			
-			 */
 		}
 
 		if (lens instanceof StormLens) {
@@ -81,16 +85,15 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public void apply(ItemStack stack, BurstProperties props, Level level) {
-		int storedColor = getStoredColor(stack);
-		if (storedColor != -1) {
+		if (isLensTinted(stack)) {
 			props.color = getLensColor(stack, level);
 		}
 
 		getLens(stack).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem lens) {
-			lens.apply(compositeLens, props, level);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem basicLensItem) {
+			basicLensItem.apply(compositeLens, props, level);
 		}
 	}
 
@@ -99,8 +102,8 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		shouldKill = getLens(stack).collideBurst(burst, pos, isManaBlock, shouldKill, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem lens) {
-			shouldKill = lens.collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem basicLensItem) {
+			shouldKill = basicLensItem.collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
 		}
 
 		return shouldKill;
@@ -108,44 +111,53 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
-		int storedColor = getStoredColor(stack);
-
-		if (storedColor == 16 && burst.entity().level().isClientSide) {
+		if (isLensRainbow(stack) && burst.entity().level().isClientSide) {
 			burst.setColor(getLensColor(stack, burst.entity().level()));
 		}
 
 		getLens(stack).updateBurst(burst, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem lens) {
-			lens.updateBurst(burst, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem basicLensItem) {
+			basicLensItem.updateBurst(burst, compositeLens);
 		}
 	}
 
 	@Override
-	public int getLensColor(ItemStack stack, Level level) {
-		int storedColor = getStoredColor(stack);
-
-		if (storedColor == -1) {
-			return 0xFFFFFF;
-		}
-
-		if (storedColor == 16) {
+	public int getLensColor(ItemStack stack, @UnknownNullability Level level) {
+		if (isLensRainbow(stack)) {
 			if (level == null) {
 				return 0xFFFFFF;
 			}
 			return Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		}
 
-		return ColorHelper.getColorValue(DyeColor.byId(storedColor));
+		DyeColor lensColor = getLensColor(stack);
+
+		return lensColor != null ? ColorHelper.getColorValue(lensColor) : 0xFFFFFF;
 	}
 
-	public static int getStoredColor(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_COLOR, -1);
+	public static boolean isLensTinted(ItemStack stack) {
+		return stack.has(BotaniaDataComponents.LENS_TINT) || isLensRainbow(stack);
 	}
 
-	public static void setLensColor(ItemStack stack, int color) {
-		ItemNBTHelper.setInt(stack, TAG_COLOR, color);
+	@Nullable
+	public static DyeColor getLensColor(ItemStack stack) {
+		return stack.get(BotaniaDataComponents.LENS_TINT);
+	}
+
+	public static boolean isLensRainbow(ItemStack stack) {
+		return stack.has(BotaniaDataComponents.LENS_RAINBOW_TINT);
+	}
+
+	public static void setLensColor(ItemStack stack, DyeColor color) {
+		stack.remove(BotaniaDataComponents.LENS_RAINBOW_TINT);
+		stack.set(BotaniaDataComponents.LENS_TINT, color);
+	}
+
+	public static void setLensRainbow(ItemStack stack) {
+		stack.remove(BotaniaDataComponents.LENS_TINT);
+		stack.set(BotaniaDataComponents.LENS_RAINBOW_TINT, Unit.INSTANCE);
 	}
 
 	@Override
@@ -188,22 +200,12 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
-		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, true);
-		if (cmp == null) {
-			return ItemStack.EMPTY;
-		} else {
-			return /*ItemStack.of(cmp)*/ItemStack.EMPTY;
-		}
+		return stack.getOrDefault(BotaniaDataComponents.ATTACHED_LENS, ItemStack.EMPTY);
 	}
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
-		if (compositeLens.isEmpty()) {
-			ItemNBTHelper.removeEntry(sourceLens, TAG_COMPOSITE_LENS);
-		} else {
-			CompoundTag cmp = /*compositeLens.save(new CompoundTag())*/ new CompoundTag();
-			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
-		}
+		ItemNBTHelper.setOptional(sourceLens, BotaniaDataComponents.ATTACHED_LENS, compositeLens);
 		return sourceLens;
 	}
 

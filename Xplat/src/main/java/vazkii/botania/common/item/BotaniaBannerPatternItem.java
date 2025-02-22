@@ -12,6 +12,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
+/**
+ * @deprecated Have dedicated banner pattern items instead
+ */
+@Deprecated
 public class BotaniaBannerPatternItem extends Item implements ItemWithBannerPattern {
 	private final TagKey<BannerPattern> pattern;
 

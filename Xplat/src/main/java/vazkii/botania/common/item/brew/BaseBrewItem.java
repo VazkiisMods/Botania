@@ -29,26 +29,26 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabContents {
 
-	private static final String TAG_BREW_KEY = "brewKey";
-	private static final String TAG_SWIGS_LEFT = "swigsLeft";
+	public static final int DEFAULT_USES_VIAL = 4;
+	public static final int DEFAULT_USES_FLASK = 6;
 
-	private final int swigs;
 	private final int drinkSpeed;
 	private final Supplier<Item> baseItem;
 
-	public BaseBrewItem(Properties builder, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
+	public BaseBrewItem(Properties builder, int drinkSpeed, Supplier<Item> baseItem) {
 		super(builder);
-		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
 		this.baseItem = baseItem;
 	}
@@ -89,7 +89,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 
 			int swigs = getSwigsLeft(stack);
 			if (living instanceof Player player && !player.getAbilities().instabuild) {
-				if (swigs == 1) {
+				if (swigs <= 1) {
 					ItemStack result = getBaseStack();
 					if (!player.getInventory().add(result)) {
 						return result;
@@ -132,8 +132,8 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
-		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
+		ResourceLocation id = stack.get(BotaniaDataComponents.BREW);
+		return BotaniaAPI.instance().getBrewRegistry().get(id);
 	}
 
 	public static void setBrew(ItemStack stack, @Nullable Brew brew) {
@@ -146,25 +146,25 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		setBrew(stack, id);
 	}
 
-	public static void setBrew(ItemStack stack, ResourceLocation brew) {
-		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
+	public static void setBrew(ItemStack stack, @Nullable ResourceLocation brew) {
+		ItemNBTHelper.setOptional(stack, BotaniaDataComponents.BREW, brew);
 	}
 
 	@NotNull
 	public static String getSubtype(ItemStack stack) {
-		return /*todo stack.hasTag() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") :*/ "none";
+		return Optional.ofNullable(stack.get(BotaniaDataComponents.BREW)).map(ResourceLocation::toString).orElse("none");
 	}
 
-	public int getSwigs() {
-		return swigs;
+	public int getSwigs(ItemStack stack) {
+		return stack.getOrDefault(BotaniaDataComponents.MAX_USES, 1);
 	}
 
 	public int getSwigsLeft(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_SWIGS_LEFT, swigs);
+		return stack.getOrDefault(BotaniaDataComponents.REMAINING_USES, getSwigs(stack));
 	}
 
 	public void setSwigsLeft(ItemStack stack, int swigs) {
-		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
+		stack.set(BotaniaDataComponents.REMAINING_USES, swigs);
 	}
 
 	public ItemStack getBaseStack() {

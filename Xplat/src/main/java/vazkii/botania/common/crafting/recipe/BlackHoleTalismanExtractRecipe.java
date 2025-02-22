@@ -19,9 +19,7 @@ import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BlackHoleTalismanItem;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -33,7 +31,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
+	public boolean matches(CraftingInput inv, Level world) {
 		boolean foundTalisman = false;
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -57,9 +55,8 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 		return foundTalisman;
 	}
 
-	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registries) {
 		ItemStack talisman = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.size(); i++) {
@@ -85,15 +82,13 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 		return width * height > 0;
 	}
 
-	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingInput inv) {
+	public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.is(BotaniaItems.blackHoleTalisman)) {
 				int count = BlackHoleTalismanItem.getBlockCount(s);
@@ -104,7 +99,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 				int extract = Math.min(64, count);
 				ItemStack copy = s.copyWithCount(1);
 				BlackHoleTalismanItem.remove(copy, extract);
-				ItemNBTHelper.setBoolean(copy, BlackHoleTalismanItem.TAG_ACTIVE, false);
+				copy.remove(BotaniaDataComponents.ACTIVE);
 
 				return copy;
 			}

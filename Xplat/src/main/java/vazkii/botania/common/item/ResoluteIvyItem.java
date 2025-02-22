@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.internal_caps.KeptItemsComponent;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -21,18 +21,12 @@ import java.util.List;
 
 public class ResoluteIvyItem extends Item {
 
-	public static final String TAG_KEEP = "Botania_keepIvy";
-
-	public static final String TAG_PLAYER_KEPT_DROPS = "Botania_playerKeptDrops";
-	private static final String TAG_DROP_COUNT = "dropCount";
-	private static final String TAG_DROP_PREFIX = "dropPrefix";
-
 	public ResoluteIvyItem(Properties props) {
 		super(props);
 	}
 
 	public static boolean hasIvy(ItemStack stack) {
-		return !stack.isEmpty() /*todo && stack.hasTag()*/ && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false);
+		return !stack.isEmpty() && stack.has(BotaniaDataComponents.RESOLUTE_IVY);
 	}
 
 	// Accessories are handled in the integration code
@@ -40,7 +34,7 @@ public class ResoluteIvyItem extends Item {
 		List<ItemStack> keeps = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stack = player.getInventory().getItem(i);
-			if (!stack.isEmpty() /*todo && stack.hasTag()*/ && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false)) {
+			if (!stack.isEmpty() && stack.has(BotaniaDataComponents.RESOLUTE_IVY)) {
 				keeps.add(stack);
 				player.getInventory().setItem(i, ItemStack.EMPTY);
 			}
@@ -59,7 +53,7 @@ public class ResoluteIvyItem extends Item {
 
 			for (ItemStack stack : keeps.getStacks()) {
 				ItemStack copy = stack.copy();
-				//todo copy.removeTagKey(TAG_KEEP);
+				copy.remove(BotaniaDataComponents.RESOLUTE_IVY);
 				if (!newPlayer.getInventory().add(copy)) {
 					newPlayer.spawnAtLocation(copy);
 				}

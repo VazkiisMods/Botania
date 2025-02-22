@@ -68,7 +68,7 @@ public class RecipeUtils {
 	 * Like the vanilla method on recipe interface, but specialHandler is called first, and if it returns
 	 * nonnull, that result is used instead of vanilla's
 	 */
-	public static NonNullList<ItemStack> getRemainingItemsSub(RecipeInput inv, Function<ItemStack, ItemStack> specialHandler) {
+	public static NonNullList<ItemStack> getRemainingItemsSub(RecipeInput inv, Function<ItemStack, @Nullable ItemStack> specialHandler) {
 		NonNullList<ItemStack> ret = NonNullList.withSize(inv.size(), ItemStack.EMPTY);
 
 		for (int i = 0; i < ret.size(); ++i) {

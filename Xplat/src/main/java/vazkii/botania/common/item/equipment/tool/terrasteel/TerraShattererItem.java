@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -24,7 +25,6 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -32,8 +32,8 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -42,7 +42,6 @@ import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.common.item.relic.RingOfThorItem;
-import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -53,11 +52,7 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
 public class TerraShattererItem extends ManasteelPickaxeItem implements SequentialBreaker, CustomCreativeTabContents {
 
-	private static final String TAG_ENABLED = "enabled";
-	private static final String TAG_MANA = "mana";
-	private static final String TAG_TIPPED = "tipped";
-
-	private static final int MAX_MANA = Integer.MAX_VALUE;
+	public static final int MAX_MANA = Integer.MAX_VALUE;
 	private static final int MANA_PER_DAMAGE = 100;
 
 	public static final int[] LEVELS = new int[] {
@@ -74,13 +69,13 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 	@Override
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
-		output.accept(this);
+		output.accept(me);
 		for (int mana : CREATIVE_MANA) {
-			ItemStack stack = new ItemStack(this);
+			ItemStack stack = new ItemStack(me);
 			setMana(stack, mana);
 			output.accept(stack);
 		}
-		ItemStack stack = new ItemStack(this);
+		ItemStack stack = new ItemStack(me);
 		setMana(stack, CREATIVE_MANA[1]);
 		setTipped(stack);
 		output.accept(stack);
@@ -91,8 +86,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		Component rank = Component.translatable("botania.rank" + getLevel(stack));
 		Component rankFormat = Component.translatable("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
-		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
-		if (manaItem != null && manaItem.getMana() == Integer.MAX_VALUE) {
+		if (getMana_(stack) == Integer.MAX_VALUE) {
 			stacks.add(Component.translatable("botaniamisc.getALife").withStyle(ChatFormatting.RED));
 		}
 	}
@@ -212,31 +206,27 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	}
 
 	public static boolean isTipped(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_TIPPED, false);
+		return stack.has(BotaniaDataComponents.ELEMENTIUM_TIPPED);
 	}
 
 	public static void setTipped(ItemStack stack) {
-		ItemNBTHelper.setBoolean(stack, TAG_TIPPED, true);
+		stack.set(BotaniaDataComponents.ELEMENTIUM_TIPPED, Unit.INSTANCE);
 	}
 
 	public static boolean isEnabled(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_ENABLED, false);
+		return stack.has(BotaniaDataComponents.ACTIVE);
 	}
 
 	void setEnabled(ItemStack stack, boolean enabled) {
-		ItemNBTHelper.setBoolean(stack, TAG_ENABLED, enabled);
+		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, enabled);
 	}
 
 	protected static void setMana(ItemStack stack, int mana) {
-		if (mana > 0) {
-			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
-		} else {
-			ItemNBTHelper.removeEntry(stack, TAG_MANA);
-		}
+		stack.set(BotaniaDataComponents.MANA, mana);
 	}
 
 	public static int getMana_(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
+		return stack.getOrDefault(BotaniaDataComponents.MANA, 0);
 	}
 
 	public static int getLevel(ItemStack stack) {
@@ -248,54 +238,6 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		}
 
 		return 0;
-	}
-
-	public static class ManaItemImpl implements ManaItem {
-		private final ItemStack stack;
-
-		public ManaItemImpl(ItemStack stack) {
-			this.stack = stack;
-		}
-
-		@Override
-		public int getMana() {
-			return getMana_(stack) * stack.getCount();
-		}
-
-		@Override
-		public int getMaxMana() {
-			return MAX_MANA * stack.getCount();
-		}
-
-		@Override
-		public void addMana(int mana) {
-			setMana(stack, Math.min(getMana() + mana, getMaxMana()) / stack.getCount());
-		}
-
-		@Override
-		public boolean canReceiveManaFromPool(BlockEntity pool) {
-			return true;
-		}
-
-		@Override
-		public boolean canReceiveManaFromItem(ItemStack otherStack) {
-			return !otherStack.is(BotaniaTags.Items.TERRA_PICK_BLACKLIST);
-		}
-
-		@Override
-		public boolean canExportManaToPool(BlockEntity pool) {
-			return false;
-		}
-
-		@Override
-		public boolean canExportManaToItem(ItemStack otherStack) {
-			return false;
-		}
-
-		@Override
-		public boolean isNoExport() {
-			return true;
-		}
 	}
 
 	@SoftImplement("IItemExtension")

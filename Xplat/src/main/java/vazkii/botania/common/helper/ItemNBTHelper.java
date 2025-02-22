@@ -12,10 +12,12 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Contract;
@@ -24,8 +26,42 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-// TODO literally just everything here
+import java.util.Collection;
+
+// TODO clean out all NBT methods, none of them should be used
 public final class ItemNBTHelper {
+
+	public static void setIntNonZero(ItemStack stack, DataComponentType<Integer> component, int value) {
+		if (value == 0) {
+			stack.remove(component);
+		} else {
+			stack.set(component, value);
+		}
+	}
+
+	public static void setFlag(ItemStack stack, DataComponentType<Unit> component, boolean value) {
+		if (value) {
+			stack.set(component, Unit.INSTANCE);
+		} else {
+			stack.remove(component);
+		}
+	}
+
+	public static <T> void setOptional(ItemStack stack, DataComponentType<? super T> component, @Nullable T value) {
+		if (value == null) {
+			stack.remove(component);
+		} else {
+			stack.set(component, value);
+		}
+	}
+
+	public static <C extends Collection<?>> void setNonEmpty(ItemStack stack, DataComponentType<C> component, @Nullable C collection) {
+		if (collection == null || collection.isEmpty()) {
+			stack.remove(component);
+		} else {
+			stack.set(component, collection);
+		}
+	}
 
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
 	private static final long[] EMPTY_LONG_ARRAY = new long[0];
