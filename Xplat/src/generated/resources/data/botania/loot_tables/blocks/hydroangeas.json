@@ -14,24 +14,6 @@
           "name": "botania:hydroangeas"
         }
       ],
-      "functions": [
-        {
-          "function": "minecraft:copy_nbt",
-          "ops": [
-            {
-              "op": "replace",
-              "source": "cooldown",
-              "target": "BlockEntityTag.cooldown"
-            },
-            {
-              "op": "replace",
-              "source": "passiveDecayTicks",
-              "target": "BlockEntityTag.passiveDecayTicks"
-            }
-          ],
-          "source": "block_entity"
-        }
-      ],
       "rolls": 1.0
     }
   ]

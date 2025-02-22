@@ -62,9 +62,14 @@
       "weight": 50
     },
     {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/armor_mansion",
+      "weight": 20
+    },
+    {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/armor_mansion",
-      "weight": 200
+      "weight": 180
     },
     {
       "type": "minecraft:cave_spider",

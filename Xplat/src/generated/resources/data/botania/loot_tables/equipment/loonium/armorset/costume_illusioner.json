@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -8,8 +8,21 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:lapis\",pattern:\"minecraft:vex\"},display:{color:3898306}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:lapis",
+                  "pattern": "minecraft:vex"
+                }
+              },
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 3898306
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_helmet"
@@ -24,8 +37,21 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:lapis\",pattern:\"minecraft:vex\"},display:{color:3898306}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:lapis",
+                  "pattern": "minecraft:vex"
+                }
+              },
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 3898306
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_chestplate"
@@ -40,8 +66,21 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:lapis\",pattern:\"minecraft:vex\"},display:{color:3898306}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:lapis",
+                  "pattern": "minecraft:vex"
+                }
+              },
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 3898306
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_leggings"
@@ -68,7 +107,8 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "function": "minecraft:enchant_randomly"
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:bow"
@@ -96,8 +136,18 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:2039587,CustomPotionEffects:[{Ambient:0b,Amplifier:0b,Duration:100,Id:15,ShowIcon:1b,ShowParticles:1b}]}"
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_effects": [
+                    {
+                      "duration": 100,
+                      "id": "minecraft:blindness",
+                      "show_icon": true
+                    }
+                  ]
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:tipped_arrow"

@@ -14,29 +14,6 @@
           "name": "botania:gourmaryllis"
         }
       ],
-      "functions": [
-        {
-          "function": "minecraft:copy_nbt",
-          "ops": [
-            {
-              "op": "replace",
-              "source": "lastFoods",
-              "target": "BlockEntityTag.lastFoods"
-            },
-            {
-              "op": "replace",
-              "source": "lastFoodCount",
-              "target": "BlockEntityTag.lastFoodCount"
-            },
-            {
-              "op": "replace",
-              "source": "streakLength",
-              "target": "BlockEntityTag.streakLength"
-            }
-          ],
-          "source": "block_entity"
-        }
-      ],
       "rolls": 1.0
     }
   ]

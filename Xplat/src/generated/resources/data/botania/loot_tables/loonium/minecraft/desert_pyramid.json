@@ -5,17 +5,17 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/desert_pyramid",
+          "value": "minecraft:chests/desert_pyramid",
           "weight": 37
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:archaeology/desert_pyramid",
+          "value": "minecraft:archaeology/desert_pyramid",
           "weight": 2
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:archaeology/desert_well"
+          "value": "minecraft:archaeology/desert_well"
         }
       ],
       "rolls": 1.0

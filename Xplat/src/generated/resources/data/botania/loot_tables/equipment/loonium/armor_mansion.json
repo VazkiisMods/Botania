@@ -1,22 +1,22 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/costume_evoker",
+          "value": "botania:equipment/loonium/armorset/costume_evoker",
           "weight": 2
         },
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/costume_vindicator",
+          "value": "botania:equipment/loonium/armorset/costume_vindicator",
           "weight": 2
         },
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/costume_illusioner"
+          "value": "botania:equipment/loonium/armorset/costume_illusioner"
         },
         {
           "type": "minecraft:loot_table",
@@ -40,7 +40,7 @@
               ]
             }
           ],
-          "name": "botania:equipment/loonium/armorset/costume_vex",
+          "value": "botania:equipment/loonium/armorset/costume_vex",
           "weight": 45
         }
       ],

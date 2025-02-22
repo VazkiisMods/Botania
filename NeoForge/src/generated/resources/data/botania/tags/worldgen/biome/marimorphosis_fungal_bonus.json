@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:is_mushroom",
-    "#forge:is_underground"
+    "#c:is_mushroom",
+    "#c:is_underground"
   ]
 }

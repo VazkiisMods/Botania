@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/buried_treasure"
+          "value": "minecraft:chests/buried_treasure"
         }
       ],
       "rolls": 1.0

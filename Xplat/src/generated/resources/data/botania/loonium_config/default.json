@@ -3,14 +3,14 @@
     {
       "amount": 2.0,
       "attribute": "minecraft:generic.max_health",
-      "name": "Loonium Modifier Health",
-      "operation": "multiply_base"
+      "id": "botania:loonium_modifier_health",
+      "operation": "add_multiplied_base"
     },
     {
       "amount": 1.5,
       "attribute": "minecraft:generic.attack_damage",
-      "name": "Loonium Modifier Damage",
-      "operation": "multiply_base"
+      "id": "botania:loonium_modifier_damage",
+      "operation": "add_multiplied_base"
     }
   ],
   "boundingBoxType": "piece",

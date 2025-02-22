@@ -5,24 +5,24 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_plains_house",
+          "value": "minecraft:chests/village/village_plains_house",
           "weight": 3
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_weaponsmith"
+          "value": "minecraft:chests/village/village_weaponsmith"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_cartographer"
+          "value": "minecraft:chests/village/village_cartographer"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_fisher"
+          "value": "minecraft:chests/village/village_fisher"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_tannery"
+          "value": "minecraft:chests/village/village_tannery"
         }
       ],
       "rolls": 1.0

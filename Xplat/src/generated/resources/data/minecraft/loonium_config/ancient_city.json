@@ -57,9 +57,14 @@
       "weight": 60
     },
     {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/skeleton_ancient_city",
+      "weight": 40
+    },
+    {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/skeleton_ancient_city",
-      "weight": 440
+      "weight": 400
     },
     {
       "type": "minecraft:cave_spider",

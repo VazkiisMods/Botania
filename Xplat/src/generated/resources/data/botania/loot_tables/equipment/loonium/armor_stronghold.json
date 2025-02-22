@@ -1,27 +1,27 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/eye_iron",
+          "value": "botania:equipment/loonium/armorset/eye_iron",
           "weight": 5
         },
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/eye_gold",
+          "value": "botania:equipment/loonium/armorset/eye_gold",
           "weight": 3
         },
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/eye_diamond",
+          "value": "botania:equipment/loonium/armorset/eye_diamond",
           "weight": 2
         },
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/costume_enderman"
+          "value": "botania:equipment/loonium/armorset/costume_enderman"
         }
       ],
       "rolls": 1.0

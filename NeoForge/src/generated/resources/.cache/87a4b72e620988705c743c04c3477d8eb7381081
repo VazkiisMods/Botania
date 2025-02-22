@@ -1,10 +1,11 @@
-// 1.20.1	2023-07-16T22:34:15.988496164	Botania block tags (Forge-specific)
-a55025dce9fecceb39e5bae7e55e4dcc7132981d data/buzzier_bees/tags/blocks/flower_blacklist.json
-804281f2b135bd1cedaebd052fbba79f9aebb4ee data/forge/tags/blocks/glass.json
-f040b9a06513de92027387c440251e6542f53830 data/forge/tags/blocks/glass_panes.json
-47d65e1266b63aab1f588452f6e602073eea4ecd data/forge/tags/blocks/mushrooms.json
-87e10357fbad126149552bb5476458228fa14019 data/forge/tags/blocks/storage_blocks.json
-932c9cd2bd579c4ad87f80f3a5787487fdc5be79 data/forge/tags/blocks/storage_blocks/elementium.json
-88f0390acdd56ff296f67149accdd14b52bb60fe data/forge/tags/blocks/storage_blocks/manasteel.json
-c982bf60c82069637f6511b4be4a20b39894c2e9 data/forge/tags/blocks/storage_blocks/quartz.json
-d401d8e48f2c31db30278bca7d4fd177b002f4c8 data/forge/tags/blocks/storage_blocks/terrasteel.json
+// 1.21.1	2025-02-22T01:19:58.235465074	Botania block tags (Forge-specific)
+a55025dce9fecceb39e5bae7e55e4dcc7132981d data/buzzier_bees/tags/block/flower_blacklist.json
+804281f2b135bd1cedaebd052fbba79f9aebb4ee data/c/tags/block/glass_blocks.json
+f040b9a06513de92027387c440251e6542f53830 data/c/tags/block/glass_panes.json
+5f0adafb74108fc6fd3472fbd1343d14a2174347 data/c/tags/block/storage_blocks.json
+c8209dfe9c42e67e904666f4675f74d8d6bd5345 data/forge/tags/block/mushrooms.json
+2998039792abc5a59492b43eb5285a1ce9b8f12b data/forge/tags/block/storage_blocks/dragonstone.json
+932c9cd2bd579c4ad87f80f3a5787487fdc5be79 data/forge/tags/block/storage_blocks/elementium.json
+bf62a8fa3da6b623fd72392e58402c1d4a567e7a data/forge/tags/block/storage_blocks/mana_diamond.json
+88f0390acdd56ff296f67149accdd14b52bb60fe data/forge/tags/block/storage_blocks/manasteel.json
+d401d8e48f2c31db30278bca7d4fd177b002f4c8 data/forge/tags/block/storage_blocks/terrasteel.json

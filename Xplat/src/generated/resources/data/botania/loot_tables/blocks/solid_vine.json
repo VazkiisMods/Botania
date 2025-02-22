@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:blocks/vine"
+          "value": "minecraft:blocks/vine"
         }
       ],
       "rolls": 1.0

@@ -5,16 +5,16 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/underwater_ruin_big"
+          "value": "minecraft:chests/underwater_ruin_big"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/underwater_ruin_small",
+          "value": "minecraft:chests/underwater_ruin_small",
           "weight": 8
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:archaeology/ocean_ruin_warm"
+          "value": "minecraft:archaeology/ocean_ruin_warm"
         }
       ],
       "rolls": 1.0

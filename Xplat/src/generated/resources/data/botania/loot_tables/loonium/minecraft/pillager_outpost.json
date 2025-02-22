@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/pillager_outpost"
+          "value": "minecraft:chests/pillager_outpost"
         }
       ],
       "rolls": 1.0

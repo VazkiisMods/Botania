@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#forge:storage_blocks/elementium",
+    "#forge:storage_blocks/manasteel",
+    "#forge:storage_blocks/terrasteel",
+    "#forge:storage_blocks/mana_diamond",
+    "#forge:storage_blocks/dragonstone"
+  ]
+}

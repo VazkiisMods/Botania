@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/woodland_mansion",
+          "value": "minecraft:chests/woodland_mansion",
           "weight": 99
         },
         {

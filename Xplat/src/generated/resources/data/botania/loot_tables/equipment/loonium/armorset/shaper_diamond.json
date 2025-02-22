@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -8,8 +8,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:lapis\",pattern:\"minecraft:shaper\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:lapis",
+                  "pattern": "minecraft:shaper"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:diamond_helmet"
@@ -28,8 +33,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:lapis\",pattern:\"minecraft:shaper\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:lapis",
+                  "pattern": "minecraft:shaper"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:diamond_chestplate"
@@ -48,8 +58,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:lapis\",pattern:\"minecraft:shaper\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:lapis",
+                  "pattern": "minecraft:shaper"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:diamond_leggings"
@@ -68,8 +83,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:lapis\",pattern:\"minecraft:shaper\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:lapis",
+                  "pattern": "minecraft:shaper"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:diamond_boots"

@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/weapon_trident"
+          "value": "botania:equipment/loonium/weapon_trident"
         }
       ],
       "rolls": 1.0
@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armor_monument"
+          "value": "botania:equipment/loonium/armor_monument"
         }
       ],
       "rolls": 1.0

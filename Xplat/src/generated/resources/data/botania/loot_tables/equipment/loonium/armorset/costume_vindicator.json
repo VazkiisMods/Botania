@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -8,8 +8,21 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:netherite\",pattern:\"minecraft:vex\"},display:{color:4673362}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:netherite",
+                  "pattern": "minecraft:vex"
+                }
+              },
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 4673362
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_chestplate"
@@ -24,8 +37,12 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{color:1477772}}"
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 1477772
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_leggings"
@@ -40,8 +57,12 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{color:3290681}}"
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 3290681
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_boots"
@@ -68,7 +89,8 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "function": "minecraft:enchant_randomly"
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:iron_axe"

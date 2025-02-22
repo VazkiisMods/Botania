@@ -1,7 +1,7 @@
 {
   "values": [
-    "#forge:is_coniferous",
-    "#forge:is_cold",
-    "#forge:is_snowy"
+    "#c:is_tree/coniferous",
+    "#c:is_cold",
+    "#c:is_snowy"
   ]
 }

@@ -1,22 +1,22 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/spire_iron",
+          "value": "botania:equipment/loonium/armorset/spire_iron",
           "weight": 3
         },
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/spire_gold",
+          "value": "botania:equipment/loonium/armorset/spire_gold",
           "weight": 2
         },
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armorset/spire_diamond",
+          "value": "botania:equipment/loonium/armorset/spire_diamond",
           "weight": 2
         }
       ],
@@ -28,7 +28,8 @@
               "condition": "minecraft:random_chance"
             }
           ],
-          "function": "minecraft:enchant_randomly"
+          "function": "minecraft:enchant_randomly",
+          "options": "#minecraft:on_random_loot"
         }
       ],
       "rolls": 1.0
@@ -53,8 +54,18 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomPotionColor:13565951,CustomPotionEffects:[{Ambient:0b,Amplifier:0b,Duration:200,Id:25,ShowIcon:1b,ShowParticles:1b}]}"
+              "components": {
+                "minecraft:potion_contents": {
+                  "custom_effects": [
+                    {
+                      "duration": 200,
+                      "id": "minecraft:levitation",
+                      "show_icon": true
+                    }
+                  ]
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:tipped_arrow"

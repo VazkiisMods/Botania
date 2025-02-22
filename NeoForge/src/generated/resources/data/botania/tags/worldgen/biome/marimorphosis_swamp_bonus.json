@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:is_swamp",
+    "#c:is_swamp",
     "#minecraft:is_jungle"
   ]
 }

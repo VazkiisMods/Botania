@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -8,8 +8,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:iron\",pattern:\"minecraft:rib\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:iron",
+                  "pattern": "minecraft:rib"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:golden_helmet"
@@ -28,8 +33,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:iron\",pattern:\"minecraft:rib\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:iron",
+                  "pattern": "minecraft:rib"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:golden_chestplate"
@@ -48,8 +58,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:iron\",pattern:\"minecraft:rib\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:iron",
+                  "pattern": "minecraft:rib"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:golden_leggings"
@@ -68,8 +83,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:iron\",pattern:\"minecraft:rib\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:iron",
+                  "pattern": "minecraft:rib"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:golden_boots"

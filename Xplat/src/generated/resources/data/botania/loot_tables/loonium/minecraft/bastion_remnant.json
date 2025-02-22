@@ -5,19 +5,19 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/bastion_bridge"
+          "value": "minecraft:chests/bastion_bridge"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/bastion_hoglin_stable"
+          "value": "minecraft:chests/bastion_hoglin_stable"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/bastion_treasure"
+          "value": "minecraft:chests/bastion_treasure"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/bastion_other",
+          "value": "minecraft:chests/bastion_other",
           "weight": 7
         }
       ],

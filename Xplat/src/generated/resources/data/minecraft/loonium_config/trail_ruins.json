@@ -54,12 +54,17 @@
     {
       "type": "minecraft:stray",
       "equipmentTable": "botania:equipment/loonium/skeleton_trail_ruins",
-      "weight": 59
+      "weight": 49
+    },
+    {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/skeleton_trail_ruins",
+      "weight": 49
     },
     {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/skeleton_trail_ruins",
-      "weight": 529
+      "weight": 509
     },
     {
       "type": "minecraft:cave_spider",

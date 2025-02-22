@@ -14,24 +14,6 @@
           "name": "botania:floating_rafflowsia"
         }
       ],
-      "functions": [
-        {
-          "function": "minecraft:copy_nbt",
-          "ops": [
-            {
-              "op": "replace",
-              "source": "lastFlowers",
-              "target": "BlockEntityTag.lastFlowers"
-            },
-            {
-              "op": "replace",
-              "source": "lastFlowerTimes",
-              "target": "BlockEntityTag.lastFlowerTimes"
-            }
-          ],
-          "source": "block_entity"
-        }
-      ],
       "rolls": 1.0
     }
   ]

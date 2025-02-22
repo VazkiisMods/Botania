@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -8,8 +8,13 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:amethyst\",pattern:\"minecraft:vex\"}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:amethyst",
+                  "pattern": "minecraft:vex"
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:diamond_helmet"
@@ -56,7 +61,8 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "function": "minecraft:enchant_randomly"
+              "function": "minecraft:enchant_randomly",
+              "options": "#minecraft:on_random_loot"
             }
           ],
           "name": "minecraft:iron_sword"

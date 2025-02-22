@@ -58,9 +58,14 @@
       "weight": 40
     },
     {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/skeleton_monument",
+      "weight": 40
+    },
+    {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/skeleton_monument",
-      "weight": 360
+      "weight": 320
     },
     {
       "type": "minecraft:cave_spider",

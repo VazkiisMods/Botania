@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/nether_bridge"
+          "value": "minecraft:chests/nether_bridge"
         }
       ],
       "rolls": 1.0

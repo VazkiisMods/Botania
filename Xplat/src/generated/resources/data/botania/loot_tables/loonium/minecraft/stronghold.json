@@ -5,17 +5,17 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/stronghold_corridor",
+          "value": "minecraft:chests/stronghold_corridor",
           "weight": 4
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/stronghold_crossing",
+          "value": "minecraft:chests/stronghold_crossing",
           "weight": 6
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/stronghold_library",
+          "value": "minecraft:chests/stronghold_library",
           "weight": 3
         }
       ],

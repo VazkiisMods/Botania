@@ -5,12 +5,12 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/jungle_temple",
+          "value": "minecraft:chests/jungle_temple",
           "weight": 9
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/jungle_temple_dispenser"
+          "value": "minecraft:chests/jungle_temple_dispenser"
         }
       ],
       "rolls": 1.0

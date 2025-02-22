@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/weapon_for_wither_skeleton"
+          "value": "botania:equipment/loonium/weapon_for_wither_skeleton"
         }
       ],
       "rolls": 1.0
@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armor_fortress"
+          "value": "botania:equipment/loonium/armor_fortress"
         }
       ],
       "rolls": 1.0

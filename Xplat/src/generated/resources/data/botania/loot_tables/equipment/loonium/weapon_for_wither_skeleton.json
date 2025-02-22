@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -15,7 +15,8 @@
       ],
       "functions": [
         {
-          "function": "minecraft:enchant_randomly"
+          "function": "minecraft:enchant_randomly",
+          "options": "#minecraft:on_random_loot"
         }
       ],
       "rolls": {

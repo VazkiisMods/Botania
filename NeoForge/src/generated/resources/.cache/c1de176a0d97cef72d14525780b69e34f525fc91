@@ -1,9 +1,9 @@
-// 1.20.1	2023-07-16T22:34:15.989524472	Tags for minecraft:worldgen/biome mod id botania
-4b51c91654dddabcdc67be78be34c02d345405b5 data/botania/tags/worldgen/biome/marimorphosis_desert_bonus.json
+// 1.21.1	2025-02-22T01:19:58.2361342	Tags for minecraft:worldgen/biome mod id botania
+165f5f91de133f66456c65ca28eb91a9ed5d9d4a data/botania/tags/worldgen/biome/marimorphosis_desert_bonus.json
 6b35771c8d400b0921c04386d79e88b834c282ad data/botania/tags/worldgen/biome/marimorphosis_forest_bonus.json
-69403c65d88da1b155ba3bfda1e248bcb8759a83 data/botania/tags/worldgen/biome/marimorphosis_fungal_bonus.json
+58abde8dcca448293a86ae6b1b357eb2ed37daa1 data/botania/tags/worldgen/biome/marimorphosis_fungal_bonus.json
 4eb1f1d3d14751b2c9c5f9b85ed7de18db8af5cb data/botania/tags/worldgen/biome/marimorphosis_mesa_bonus.json
 dba74becb77ca28a612e57b564076517380f9820 data/botania/tags/worldgen/biome/marimorphosis_mountain_bonus.json
-f0bc6dd71fb18eb2250a5e7a3ab92523b93f656b data/botania/tags/worldgen/biome/marimorphosis_plains_bonus.json
-63e4f2b5141f8d5b775b0d48ea3001c4612b2665 data/botania/tags/worldgen/biome/marimorphosis_swamp_bonus.json
-641624e487487fc446a7a8ee9dafe0c4e9b5706c data/botania/tags/worldgen/biome/marimorphosis_taiga_bonus.json
+ae3816bb19a2a47709afa4bdc579ae3f41401143 data/botania/tags/worldgen/biome/marimorphosis_plains_bonus.json
+6effb2749b28ccc74bae315e0689362190ffe7e4 data/botania/tags/worldgen/biome/marimorphosis_swamp_bonus.json
+9dbc5cb9e7c21a75df95b12df0106945611b6b8d data/botania/tags/worldgen/biome/marimorphosis_taiga_bonus.json

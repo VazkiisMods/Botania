@@ -57,9 +57,14 @@
       "weight": 106
     },
     {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/weapon_bow",
+      "weight": 60
+    },
+    {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/weapon_bow",
-      "weight": 600
+      "weight": 540
     },
     {
       "type": "minecraft:cave_spider",

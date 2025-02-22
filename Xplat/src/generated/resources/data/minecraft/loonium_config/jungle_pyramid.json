@@ -47,9 +47,14 @@
       "weight": 360
     },
     {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/skeleton_jungle_temple",
+      "weight": 50
+    },
+    {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/skeleton_jungle_temple",
-      "weight": 500
+      "weight": 450
     },
     {
       "type": "minecraft:cave_spider",

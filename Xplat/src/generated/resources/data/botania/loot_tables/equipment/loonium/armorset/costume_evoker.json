@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -8,8 +8,21 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:gold\",pattern:\"minecraft:vex\"},display:{color:3290681}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:gold",
+                  "pattern": "minecraft:vex"
+                }
+              },
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 3290681
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_chestplate"
@@ -24,8 +37,21 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_nbt",
-              "tag": "{Trim:{material:\"minecraft:gold\",pattern:\"minecraft:vex\"},display:{color:3290681}}"
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:gold",
+                  "pattern": "minecraft:vex"
+                }
+              },
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:dyed_color": {
+                  "rgb": 3290681
+                }
+              },
+              "function": "minecraft:set_components"
             }
           ],
           "name": "minecraft:leather_leggings"

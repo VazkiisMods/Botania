@@ -39,27 +39,32 @@
     {
       "type": "minecraft:husk",
       "equipmentTable": "botania:equipment/loonium/zombie_stronghold",
-      "weight": 40
+      "weight": 50
     },
     {
       "type": "minecraft:drowned",
       "equipmentTable": "botania:equipment/loonium/drowned_stronghold",
-      "weight": 40
+      "weight": 50
     },
     {
       "type": "minecraft:zombie",
       "equipmentTable": "botania:equipment/loonium/zombie_stronghold",
-      "weight": 410
+      "weight": 400
     },
     {
       "type": "minecraft:stray",
       "equipmentTable": "botania:equipment/loonium/skeleton_stronghold",
-      "weight": 60
+      "weight": 50
+    },
+    {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/skeleton_stronghold",
+      "weight": 50
     },
     {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/skeleton_stronghold",
-      "weight": 440
+      "weight": 400
     },
     {
       "type": "minecraft:cave_spider",

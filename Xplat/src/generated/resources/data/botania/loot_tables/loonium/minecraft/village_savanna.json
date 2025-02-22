@@ -5,28 +5,28 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_savanna_house",
+          "value": "minecraft:chests/village/village_savanna_house",
           "weight": 3
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_weaponsmith"
+          "value": "minecraft:chests/village/village_weaponsmith"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_cartographer"
+          "value": "minecraft:chests/village/village_cartographer"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_mason"
+          "value": "minecraft:chests/village/village_mason"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_butcher"
+          "value": "minecraft:chests/village/village_butcher"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/village/village_tannery"
+          "value": "minecraft:chests/village/village_tannery"
         }
       ],
       "rolls": 1.0

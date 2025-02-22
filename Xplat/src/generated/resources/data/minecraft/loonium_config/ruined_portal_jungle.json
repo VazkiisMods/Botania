@@ -88,9 +88,14 @@
       "weight": 360
     },
     {
+      "type": "minecraft:bogged",
+      "equipmentTable": "botania:equipment/loonium/skeleton_portal",
+      "weight": 50
+    },
+    {
       "type": "minecraft:skeleton",
       "equipmentTable": "botania:equipment/loonium/skeleton_portal",
-      "weight": 500
+      "weight": 450
     },
     {
       "type": "minecraft:cave_spider",

@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/weapon_bow"
+          "value": "botania:equipment/loonium/weapon_bow"
         }
       ],
       "rolls": 1.0
@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armor_end_city"
+          "value": "botania:equipment/loonium/armor_end_city"
         }
       ],
       "rolls": 1.0

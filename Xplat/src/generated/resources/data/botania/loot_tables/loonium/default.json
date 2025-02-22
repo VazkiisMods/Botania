@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:chests/simple_dungeon"
+          "value": "minecraft:chests/simple_dungeon"
         }
       ],
       "rolls": 1.0

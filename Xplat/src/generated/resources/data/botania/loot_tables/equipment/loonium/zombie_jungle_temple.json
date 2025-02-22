@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:selector",
+  "type": "minecraft:equipment",
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/weapon_sword"
+          "value": "botania:equipment/loonium/weapon_sword"
         }
       ],
       "rolls": 1.0
@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "botania:equipment/loonium/armor_jungle_temple"
+          "value": "botania:equipment/loonium/armor_jungle_temple"
         }
       ],
       "rolls": 1.0
