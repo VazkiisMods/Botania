@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'idea'
 }
 
 base {
@@ -163,5 +164,12 @@ publishing {
         maven {
             url = System.getenv('local_maven_url')
         }
+    }
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
 }

@@ -17,15 +17,18 @@ import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 import java.util.EnumMap;
 
 public class FabricRedStringContainerBlockEntity extends RedStringContainerBlockEntity {
+	@Nullable
 	private RedStringContainerStorage storage;
 	private final EnumMap<Direction, RedStringContainerStorage> directionalStorages = new EnumMap<>(Direction.class);
+	@Nullable
 	private BlockPos clientPos;
 
 	public FabricRedStringContainerBlockEntity(BlockPos pos, BlockState state) {
 		super(pos, state);
 	}
 
-	public static Storage<ItemVariant> getStorage(RedStringContainerBlockEntity container, Direction direction) {
+	@Nullable
+	public static Storage<ItemVariant> getStorage(RedStringContainerBlockEntity container, @Nullable Direction direction) {
 		if (container instanceof FabricRedStringContainerBlockEntity c) {
 			return c.storage(direction);
 		}
@@ -43,7 +46,7 @@ public class FabricRedStringContainerBlockEntity extends RedStringContainerBlock
 	}
 
 	@Override
-	public void onBound(BlockPos pos) {
+	public void onBound(@Nullable BlockPos pos) {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 

@@ -18,7 +18,6 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlo
 
 import java.util.Iterator;
 
-@SuppressWarnings("UnstableApiUsage")
 public class RedStringContainerStorage implements Storage<ItemVariant> {
 	private final RedStringContainerBlockEntity container;
 	@Nullable
