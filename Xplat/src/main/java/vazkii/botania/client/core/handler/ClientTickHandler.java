@@ -23,29 +23,17 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 
 public final class ClientTickHandler {
 
+	public static final int TICKS_TO_OPEN = 10;
+
 	private ClientTickHandler() {}
 
 	public static int ticksWithLexicaOpen = 0;
 	public static int pageFlipTicks = 0;
-	/**
-	 * @deprecated Use {@link Minecraft#getTimer()} instead.
-	 */
-	@Deprecated(forRemoval = true)
-	public static int ticksInGame = 0;
-	/**
-	 * @deprecated Use {@link Minecraft#getTimer()} instead.
-	 */
-	@Deprecated(forRemoval = true)
-	public static float partialTicks;
 
-	/**
-	 * @deprecated Use {@link Minecraft#getTimer()} instead.
-	 */
-	@Deprecated(forRemoval = true)
-	public static float total() {
-		// TODO not sure if that's really the method to call
-		return Minecraft.getInstance().getTimer().getGameTimeDeltaTicks();
-	}
+	// TODO: Reconsider if this is really a good idea to have in the first place.
+	// Often this is combined with the current partial tick time, which may lead to precision loss if the world has
+	// been open on the client for a long time.
+	public static int ticksInGame = 0;
 
 	public static void clientTickEnd(Minecraft mc) {
 		RedStringBlockEntityRenderer.tick();
@@ -58,7 +46,6 @@ public final class ClientTickHandler {
 
 		if (!mc.isPaused()) {
 			ticksInGame++;
-			partialTicks = 0;
 
 			Player player = mc.player;
 			if (player != null) {
@@ -70,12 +57,11 @@ public final class ClientTickHandler {
 			}
 		}
 
-		int ticksToOpen = 10;
 		if (LexicaBotaniaItem.isOpen()) {
 			if (ticksWithLexicaOpen < 0) {
 				ticksWithLexicaOpen = 0;
 			}
-			if (ticksWithLexicaOpen < ticksToOpen) {
+			if (ticksWithLexicaOpen < TICKS_TO_OPEN) {
 				ticksWithLexicaOpen++;
 			}
 			if (pageFlipTicks > 0) {
@@ -84,8 +70,8 @@ public final class ClientTickHandler {
 		} else {
 			pageFlipTicks = 0;
 			if (ticksWithLexicaOpen > 0) {
-				if (ticksWithLexicaOpen > ticksToOpen) {
-					ticksWithLexicaOpen = ticksToOpen;
+				if (ticksWithLexicaOpen > TICKS_TO_OPEN) {
+					ticksWithLexicaOpen = TICKS_TO_OPEN;
 				}
 				ticksWithLexicaOpen--;
 			}

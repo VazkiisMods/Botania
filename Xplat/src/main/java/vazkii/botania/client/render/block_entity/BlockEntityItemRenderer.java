@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.client.core.handler.ClientTickHandler;
 
 import java.util.function.Supplier;
 
@@ -38,9 +37,10 @@ public class BlockEntityItemRenderer {
 
 	public void render(ItemStack stack, ItemDisplayContext mode, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		if (stack.is(block.asItem())) {
-			BlockEntityRenderer<?> r = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(dummy.get());
+			Minecraft minecraft = Minecraft.getInstance();
+			BlockEntityRenderer<?> r = minecraft.getBlockEntityRenderDispatcher().getRenderer(dummy.get());
 			if (r != null) {
-				r.render(null, ClientTickHandler.partialTicks, ms, buffers, light, overlay);
+				r.render(null, minecraft.getTimer().getGameTimeDeltaPartialTick(true), ms, buffers, light, overlay);
 			}
 		}
 	}

@@ -78,7 +78,7 @@ public class ThirdEyeItem extends BaubleItem {
 					case 0:
 						break;
 					case 1:
-						double time = ClientTickHandler.total() * 0.12;
+						double time = (ClientTickHandler.ticksInGame + partialTicks) * 0.12;
 						double dist = 0.05;
 						ms.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
 

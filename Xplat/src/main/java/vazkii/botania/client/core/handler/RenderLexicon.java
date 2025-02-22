@@ -82,7 +82,7 @@ public class RenderLexicon {
 			return false;
 		}
 		try {
-			doRender(stack, leftHanded, ms, buffers, light, ClientTickHandler.partialTicks);
+			doRender(stack, leftHanded, ms, buffers, light);
 			return true;
 		} catch (Throwable throwable) {
 			BotaniaAPI.LOGGER.warn("Failed to render lexicon", throwable);
@@ -90,11 +90,12 @@ public class RenderLexicon {
 		}
 	}
 
-	private static void doRender(ItemStack stack, boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light, float partialTicks) {
+	private static void doRender(ItemStack stack, boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light) {
 		Minecraft mc = Minecraft.getInstance();
 
 		ms.pushPose();
 
+		float partialTicks = mc.getTimer().getGameTimeDeltaPartialTick(true);
 		float ticks = ClientTickHandler.ticksWithLexicaOpen;
 		if (ticks > 0 && ticks < 10) {
 			if (LexicaBotaniaItem.isOpen()) {
@@ -116,7 +117,7 @@ public class RenderLexicon {
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
 		if (pageFlipTicks > 0) {
-			pageFlipTicks -= ClientTickHandler.partialTicks;
+			pageFlipTicks -= partialTicks;
 		}
 
 		float pageFlip = pageFlipTicks / 5F;
@@ -124,7 +125,7 @@ public class RenderLexicon {
 		float leftPageAngle = Mth.frac(pageFlip + 0.25F) * 1.6F - 0.3F;
 		float rightPageAngle = Mth.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
 		var model = getModel();
-		model.setupAnim(ClientTickHandler.total(), Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
+		model.setupAnim(ClientTickHandler.ticksInGame + partialTicks, Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
 		Material mat = LexicaBotaniaItem.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.buffer(buffers, RenderType::entitySolid);

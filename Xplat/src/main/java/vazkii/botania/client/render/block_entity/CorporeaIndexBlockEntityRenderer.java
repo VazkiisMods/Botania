@@ -104,18 +104,18 @@ public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<Cor
 			int seed = index.getBlockPos().getX() ^ index.getBlockPos().getY() ^ index.getBlockPos().getZ();
 
 			ms.translate(starX, 0.3, starZ);
-			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed);
+			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed, partialTicks);
 			ms.translate(-starX * 2, 0, -starZ * 2);
-			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed);
+			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed, partialTicks);
 			ms.translate(starX, 0, starZ);
 
 			rads = -rads;
 			starX = Math.cos(rads) * starRadius;
 			starZ = Math.sin(rads) * starRadius;
 			ms.translate(starX, 0, starZ);
-			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed);
+			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed, partialTicks);
 			ms.translate(-starX * 2, 0, -starZ * 2);
-			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed);
+			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed, partialTicks);
 			ms.translate(starX, 0, starZ);
 		}
 		ms.popPose();

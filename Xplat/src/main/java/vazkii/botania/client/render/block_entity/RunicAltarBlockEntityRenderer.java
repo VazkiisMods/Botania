@@ -48,7 +48,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 	}
 
 	@Override
-	public void render(@NotNull RunicAltarBlockEntity altar, float partticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull RunicAltarBlockEntity altar, float partialTick, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		int items = 0;
@@ -67,7 +67,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 			angles[i] = totalAngle += anglePer;
 		}
 
-		double time = ClientTickHandler.ticksInGame + partticks;
+		double time = ClientTickHandler.ticksInGame + partialTick;
 
 		for (int i = 0; i < altar.inventorySize(); i++) {
 			ms.pushPose();
@@ -96,7 +96,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 		if (scale != 0) {
 			int seed = altar.getBlockPos().getX() ^ altar.getBlockPos().getY() ^ altar.getBlockPos().getZ();
 			ms.translate(0.5F, 0.7F, 0.5F);
-			RenderHelper.renderStar(ms, buffers, 0x00E4D7, scale, scale, scale, seed);
+			RenderHelper.renderStar(ms, buffers, 0x00E4D7, scale, scale, scale, seed, partialTick);
 		}
 
 		ms.popPose();
@@ -109,7 +109,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 			final float radiusBase = 0.35F;
 			final float radiusMod = 0.05F;
 
-			double ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks - 1.3 * (iters - curIter);
+			double ticks = ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false) - 1.3 * (iters - curIter);
 			float offsetPerCube = 360 / cubes;
 
 			ms.pushPose();

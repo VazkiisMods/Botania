@@ -10,6 +10,7 @@ package vazkii.botania.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -89,12 +90,13 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 
 		ps.pushPose();
 
+		float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 		if (pickLevel >= 0) {
 			boolean ss = pickLevel >= TerraShattererItem.LEVELS.length - 1;
 
 			int rainbowWidth = Math.min(totalWidth - (ss ? 0 : 1), (int) (totalWidth * percentageFull));
 			float huePer = totalWidth == 0 ? 0F : 1F / totalWidth;
-			float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
+			float hueOff = (ClientTickHandler.ticksInGame + partialTicks) * 0.01F;
 
 			gui.fill(mouseX - 1, mouseY - height - offsetFromBox - 1, mouseX + totalWidth + 1, mouseY - offsetFromBox, 0xFF000000);
 			for (int i = 0; i < rainbowWidth; i++) {
@@ -105,7 +107,8 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 			int manaBarWidth = (int) Math.ceil(totalWidth * percentageFull);
 
 			gui.fill(mouseX - 1, mouseY - height - offsetFromBox - 1, mouseX + totalWidth + 1, mouseY - offsetFromBox, 0xFF000000);
-			gui.fill(mouseX, mouseY - height - offsetFromBox, mouseX + manaBarWidth, mouseY - offsetFromBox, 0xFF000000 | Mth.hsvToRgb(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+			gui.fill(mouseX, mouseY - height - offsetFromBox, mouseX + manaBarWidth, mouseY - offsetFromBox, 0xFF000000 | Mth.hsvToRgb(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame +
+					partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
 			gui.fill(mouseX + manaBarWidth, mouseY - height - offsetFromBox, mouseX + totalWidth, mouseY - offsetFromBox, 0xFF555555);
 		}
 		ps.popPose();

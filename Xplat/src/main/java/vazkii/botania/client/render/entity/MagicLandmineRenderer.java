@@ -38,7 +38,7 @@ public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
 		ms.pushPose();
 		AABB aabb = e.getBoundingBox().move(e.position().scale(-1));
 
-		float gs = (float) (Math.sin(ClientTickHandler.total() / 20) + 1) * 0.2F + 0.6F;
+		float gs = (float) (Math.sin((ClientTickHandler.ticksInGame + partialTicks) / 20) + 1) * 0.2F + 0.6F;
 		int r = (int) (105 * gs);
 		int g = (int) (25 * gs);
 		int b = (int) (145 * gs);

@@ -68,7 +68,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		float poolTop = (diluted ? 5 : creative ? 9 : 7) / 16F;
 
 		if (fab) {
-			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+			float time = ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
 			time += new Random(pool.getBlockPos().getX() ^ pool.getBlockPos().getY() ^ pool.getBlockPos().getZ()).nextInt(100000);
 			time *= 0.005F;
 			int poolColor = pool.getColor().map(ColorHelper::getColorValue).orElse(-1);

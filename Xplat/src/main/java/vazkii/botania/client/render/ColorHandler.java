@@ -74,7 +74,7 @@ public final class ColorHandler {
 						}
 					}
 					if (((ManaPoolBlock) state.getBlock()).variant == ManaPoolBlock.Variant.FABULOUS) {
-						float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.005F;
+						float time = (ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaTicks()) * 0.005F;
 						int fabulousColor = Mth.hsvToRgb(time - (int) time, 0.6F, 1F);
 						return color.isEmpty() ? fabulousColor : vazkii.botania.common.helper.MathHelper.multiplyColor(fabulousColor, color.get());
 					}
@@ -86,7 +86,7 @@ public final class ColorHandler {
 		// Spreader
 		blocks.register(
 				(state, world, pos, tintIndex) -> {
-					float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+					float time = ClientTickHandler.ticksInGame + Minecraft.getInstance().getTimer().getGameTimeDeltaTicks();
 					return Mth.hsvToRgb(time * 5 % 360 / 360F, 0.4F, 0.9F);
 				},
 				BotaniaBlocks.gaiaSpreader

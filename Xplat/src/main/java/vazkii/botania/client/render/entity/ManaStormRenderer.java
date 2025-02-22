@@ -28,11 +28,11 @@ public class ManaStormRenderer extends EntityRenderer<ManaStormEntity> {
 	}
 
 	@Override
-	public void render(ManaStormEntity storm, float yaw, float pticks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(ManaStormEntity storm, float yaw, float partialTick, PoseStack ms, MultiBufferSource buffers, int light) {
 		ms.pushPose();
 		float maxScale = 1.95F;
-		float scale = 0.05F + ((float) storm.burstsFired / ManaStormEntity.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / ManaStormEntity.DEATH_TIME) * maxScale;
-		RenderHelper.renderStar(ms, buffers, 0x00FF00, scale, scale, scale, storm.getUUID().getMostSignificantBits());
+		float scale = 0.05F + ((float) storm.burstsFired / ManaStormEntity.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + partialTick) / ManaStormEntity.DEATH_TIME) * maxScale;
+		RenderHelper.renderStar(ms, buffers, 0x00FF00, scale, scale, scale, storm.getUUID().getMostSignificantBits(), partialTick);
 		ms.popPose();
 	}
 

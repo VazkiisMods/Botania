@@ -287,10 +287,10 @@ public final class RenderHelper extends RenderType {
 		gui.blit(textureId, x, y, u, v, width, height, 256, 256);
 	}
 
-	public static void renderStar(PoseStack ms, MultiBufferSource buffers, int color, float xScale, float yScale, float zScale, long seed) {
+	public static void renderStar(PoseStack ms, MultiBufferSource buffers, int color, float xScale, float yScale, float zScale, long seed, float partialTicks) {
 		VertexConsumer buffer = buffers.getBuffer(STAR);
 
-		float ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+		float ticks = ClientTickHandler.ticksInGame + partialTicks;
 		float semiPeriodTicks = 200;
 		float f1 = Mth.abs(Mth.sin((float) Math.PI / semiPeriodTicks * ticks))
 				* 0.9F + 0.1F; // shift to [0.1, 1.0]
@@ -370,7 +370,7 @@ public final class RenderHelper extends RenderType {
 		int centerX = x + 8;
 		int centerY = y + 8;
 		int degs = (int) (360 * progress);
-		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
+		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + mc.getTimer().getGameTimeDeltaPartialTick(false)) / 10) * 0.5F + 0.5F);
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

@@ -121,8 +121,8 @@ public class SkyblockSkyRenderer {
 		float rotSpeedMod = 0.4F;
 
 		for (int p = 0; p < 3; p++) {
-			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
-			ms.mulPose(VecHelper.rotateY((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
+			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + partialTicks);
+			ms.mulPose(VecHelper.rotateY((ClientTickHandler.ticksInGame + partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
 
 			Matrix4f mat = ms.last().pose();
 			tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
