@@ -31,10 +31,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.helper.DelayHelper;
-import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.*;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -191,12 +188,18 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, aabb);
 			for (ItemFrame frame : frames) {
 				if (frame.getDirection() == dir) {
-					filter.add(frame.getItem());
+					filter.addAll(isFrameRotatedUpsideDown(frame)
+							? List.of(frame.getItem())
+							: FilterHelper.getFilterItems(frame.getItem()));
 				}
 			}
 		}
 
 		return filter;
+	}
+
+	private static boolean isFrameRotatedUpsideDown(ItemFrame frame) {
+		return (frame.getRotation() + 1) % ItemFrame.NUM_ROTATIONS >= ItemFrame.NUM_ROTATIONS / 2;
 	}
 
 	@Override

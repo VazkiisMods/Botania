@@ -26,6 +26,8 @@
     "botaniamisc.filter0": "Nur Gegenstände in Rahmen aufsammeln",
     "botaniamisc.filter1": "Nur Gegenstände außerhalb von Rahmen aufsammeln",
     "botaniamisc.filter2": "Alle Gegenstände aufsammeln",
+    "botaniamisc.filter.expand_list": "Filtere nach Inhalt des Gegenstands im Rahmen",
+    "botaniamisc.filter.single_item": "Filtere nur nach Gegenstand im Rahmen",
     "botaniamisc.retainer.retain_all": "Halte ursprünglich angeforderte Anzahl von Gegenständen",
     "botaniamisc.retainer.retain_missing": "Halte Anzahl fehlender Gegenstände",
     "botaniamisc.optifine_warning": "§4[WARNUNG]§r <Botania>: Optifine erkannt. Bitte sei dir bewusst, dass Optifine eine Menge Probleme mit Botania verursacht, z.B. könnte Mana sich nicht zwischen Blumen und Verbreitern bewegen, oder es werden keine Informationen angezeigt, wenn du den Stab des Waldes hältst. Wir empfehlen Sodium als eine Alternative für die Leistungsverbesserungen von Optifine.",

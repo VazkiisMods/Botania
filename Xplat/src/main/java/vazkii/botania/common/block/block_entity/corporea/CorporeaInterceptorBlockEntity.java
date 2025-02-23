@@ -8,26 +8,41 @@
  */
 package vazkii.botania.common.block.block_entity.corporea;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.CorporeaInterceptor;
 import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.helper.FilterHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity implements CorporeaInterceptor {
+public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity implements CorporeaInterceptor, Wandable {
+	private boolean expandFilters = true;
+
 	public CorporeaInterceptorBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.CORPOREA_INTERCEPTOR, pos, state);
 	}
@@ -84,7 +99,11 @@ public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity impl
 				if (orientation == dir) {
 					ItemStack stack = frame.getItem();
 					if (!stack.isEmpty()) {
-						filter.add(stack);
+						if (expandFilters) {
+							filter.addAll(FilterHelper.getFilterItems(stack));
+						} else {
+							filter.add(stack);
+						}
 					}
 				}
 			}
@@ -93,4 +112,50 @@ public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity impl
 		return filter;
 	}
 
+	@Override
+	public void readPacketNBT(CompoundTag cmp) {
+		super.readPacketNBT(cmp);
+		if (cmp.contains(FilterHelper.TAG_EXPAND_FILTERS)) {
+			expandFilters = cmp.getBoolean(FilterHelper.TAG_EXPAND_FILTERS);
+		} else {
+			// existing interceptors don't expand, newly placed ones do
+			expandFilters = false;
+		}
+	}
+
+	@Override
+	public void writePacketNBT(CompoundTag cmp) {
+		super.writePacketNBT(cmp);
+		cmp.putBoolean(FilterHelper.TAG_EXPAND_FILTERS, expandFilters);
+	}
+
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
+		if (player == null || player.isShiftKeyDown()) {
+			expandFilters = !expandFilters;
+			setChanged();
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			return true;
+		}
+		return false;
+	}
+
+	public static class WandHud implements WandHUD {
+		private final CorporeaInterceptorBlockEntity interceptor;
+
+		public WandHud(CorporeaInterceptorBlockEntity interceptor) {
+			this.interceptor = interceptor;
+		}
+
+		@Override
+		public void renderHUD(GuiGraphics gui, Minecraft mc) {
+			String mode = I18n.get("botaniamisc.filter." + (interceptor.expandFilters ? "expand_list" : "single_item"));
+			int strWidth = mc.font.width(mode);
+			int x = (mc.getWindow().getGuiScaledWidth() - strWidth) / 2;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 + 8;
+
+			RenderHelper.renderHUDBox(gui, x - 2, y, x + strWidth + 2, y + 12);
+			gui.drawString(mc.font, mode, x, y + 2, ChatFormatting.WHITE.getColor());
+		}
+	}
 }
