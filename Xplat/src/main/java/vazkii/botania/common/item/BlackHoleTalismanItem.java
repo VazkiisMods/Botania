@@ -42,7 +42,7 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public class BlackHoleTalismanItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getBlock(stack) != null && player.isSecondaryUseActive()) {
-			ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !stack.has(BotaniaDataComponents.ACTIVE));
+			DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !stack.has(BotaniaDataComponents.ACTIVE));
 			player.playSound(BotaniaSounds.blackHoleTalismanConfigure, 1F, 1F);
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
@@ -173,7 +173,7 @@ public class BlackHoleTalismanItem extends Item {
 
 	public static boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
-			ItemNBTHelper.setOptional(stack, BotaniaDataComponents.BLOCK_TYPE, BuiltInRegistries.BLOCK.getKey(block));
+			DataComponentHelper.setOptional(stack, BotaniaDataComponents.BLOCK_TYPE, BuiltInRegistries.BLOCK.getKey(block));
 			return true;
 		}
 		return false;
@@ -198,7 +198,7 @@ public class BlackHoleTalismanItem extends Item {
 	}
 
 	public static void setCount(ItemStack stack, int count) {
-		ItemNBTHelper.setIntNonZero(stack, BotaniaDataComponents.BLOCK_COUNT, count);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.BLOCK_COUNT, count);
 	}
 
 	public static int remove(ItemStack stack, int count) {

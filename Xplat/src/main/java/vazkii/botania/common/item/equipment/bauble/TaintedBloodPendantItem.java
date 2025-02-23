@@ -41,16 +41,15 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.client.MinecraftAccessor;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer, BrewItem, CustomCreativeTabContents {
-
-	private static final String TAG_BREW_KEY = "brewKey";
 
 	public TaintedBloodPendantItem(Properties props) {
 		super(props);
@@ -94,7 +93,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 	public void onWornTick(ItemStack stack, LivingEntity living) {
 		Brew brew = ((BrewItem) stack.getItem()).getBrew(stack);
 		if (brew != BotaniaBrews.fallbackBrew && living instanceof Player player && !living.level().isClientSide) {
-			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
+			MobEffectInstance effect = brew.getPotionEffects(stack).getFirst();
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
 			if (ManaItemHandler.instance().requestManaExact(stack, player, (int) Math.ceil(cost), false)) {
@@ -137,21 +136,20 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
-		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
+		return Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().get(stack.get(BotaniaDataComponents.BREW)));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
+		setBrew(stack, Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().getKey(brew)));
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {
-		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
+		stack.set(BotaniaDataComponents.BREW, brew);
 	}
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if (!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffect().value().isInstantenous()) {
+		if (!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).getFirst().getEffect().value().isInstantenous()) {
 			return ItemStack.EMPTY;
 		}
 

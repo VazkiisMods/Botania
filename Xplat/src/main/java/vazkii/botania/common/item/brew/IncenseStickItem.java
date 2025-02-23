@@ -22,14 +22,15 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
+import java.util.Objects;
 
 public class IncenseStickItem extends Item implements BrewItem, BrewContainer, CustomCreativeTabContents {
 
-	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
 
 	public IncenseStickItem(Properties builder) {
@@ -55,27 +56,29 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer, C
 			return;
 		}
 
-		list.add(Component.translatable("botaniamisc.brewOf", Component.translatable(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
+		list.add(Component.translatable("botaniamisc.brewOf",
+				Component.translatable(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
 		PotionContents.addPotionTooltip(brew.getPotionEffects(stack), list::add, TIME_MULTIPLIER, context.tickRate());
 	}
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
-		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
+		ResourceLocation id = stack.get(BotaniaDataComponents.BREW);
+		return Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().get(id));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
+		setBrew(stack, Objects.requireNonNull(BotaniaAPI.instance().getBrewRegistry().getKey(brew)));
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {
-		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
+		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BREW, brew);
 	}
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if (!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffect().value().isInstantenous()) {
+		if (!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1
+				|| brew.getPotionEffects(stack).getFirst().getEffect().value().isInstantenous()) {
 			return ItemStack.EMPTY;
 		}
 

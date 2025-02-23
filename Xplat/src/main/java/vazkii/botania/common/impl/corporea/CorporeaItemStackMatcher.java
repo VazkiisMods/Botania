@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 
 public class CorporeaItemStackMatcher implements CorporeaRequestMatcher {
 	private static final String TAG_REQUEST_STACK = "requestStack";
@@ -29,7 +29,7 @@ public class CorporeaItemStackMatcher implements CorporeaRequestMatcher {
 
 	@Override
 	public boolean test(ItemStack stack) {
-		return !stack.isEmpty() && !match.isEmpty() && ItemStack.isSameItem(stack, match) && (!checkNBT || ItemNBTHelper.matchTagAndManaFullness(stack, match));
+		return !stack.isEmpty() && !match.isEmpty() && ItemStack.isSameItem(stack, match) && (!checkNBT || DataComponentHelper.matchTagAndManaFullness(stack, match));
 	}
 
 	public static CorporeaItemStackMatcher createFromNBT(CompoundTag tag) {

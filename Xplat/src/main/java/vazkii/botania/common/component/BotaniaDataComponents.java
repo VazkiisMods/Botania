@@ -106,18 +106,15 @@ public class BotaniaDataComponents {
 	public static final DataComponentType<GlobalPos> MANA_POOL_POS = make(LibComponentNames.MANA_POOL_POS,
 			builder -> builder.persistent(GlobalPos.CODEC).networkSynchronized(GlobalPos.STREAM_CODEC));
 
-	public static final DataComponentType<Integer> RANGE = make(LibComponentNames.RANGE,
-			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
-
 	// crafting halo data
 	public static final DataComponentType<Float> HALO_ROTATION_BASE = make(LibComponentNames.HALO_ROTATION_BASE,
 			builder -> builder.networkSynchronized(ByteBufCodecs.FLOAT));
 	public static final DataComponentType<ResourceLocation> LAST_RECIPE_ID = make(LibComponentNames.LAST_RECIPE_ID,
 			builder -> builder.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC)
 	);
-	public static final DataComponentType<HaloRecipeStorageComponent> STORED_RECIPES = make(LibComponentNames.STORED_RECIPES,
-			builder -> builder.persistent(HaloRecipeStorageComponent.CODEC)
-					.networkSynchronized(HaloRecipeStorageComponent.STREAM_CODEC).cacheEncoding());
+	public static final DataComponentType<StoredIds> STORED_RECIPES = make(LibComponentNames.STORED_RECIPES,
+			builder -> builder.persistent(StoredIds.CODEC).cacheEncoding()
+					.networkSynchronized(StoredIds.STREAM_CODEC));
 
 	public static final DataComponentType<Long> LAST_TRIGGER_TIME = make(LibComponentNames.LAST_TRIGGER_TIME,
 			builder -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG));
@@ -132,7 +129,7 @@ public class BotaniaDataComponents {
 	 */
 	public static final DataComponentType<Unit> LENS_RAINBOW_TINT = makeUnit(LibComponentNames.LENS_RAINBOW_TINT);
 	public static final DataComponentType<ItemStack> ATTACHED_LENS = make(LibComponentNames.ATTACHED_LENS,
-			builder -> builder.persistent(ItemStack.CODEC).networkSynchronized(ItemStack.STREAM_CODEC).cacheEncoding());
+			builder -> builder.persistent(ItemStack.CODEC).cacheEncoding().networkSynchronized(ItemStack.STREAM_CODEC));
 
 	// brews and similar consumables
 	public static final DataComponentType<ResourceLocation> BREW = make(LibComponentNames.BREW,
@@ -165,6 +162,13 @@ public class BotaniaDataComponents {
 			builder -> builder.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC));
 	public static final DataComponentType<Integer> BLOCK_COUNT = make(LibComponentNames.BLOCK_COUNT,
 			builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+
+	public static final DataComponentType<Integer> RANGE = make(LibComponentNames.RANGE,
+			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<ResourceLocation> MOB_TYPE = make(LibComponentNames.MOB_TYPE,
+			builder -> builder.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC));
+	public static final DataComponentType<Integer> NOT_MY_NAME_STEP = make(LibComponentNames.NOT_MY_NAME_STEP,
+			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
 	public static void registerComponents(BiConsumer<DataComponentType<?>, ResourceLocation> biConsumer) {
 		for (Map.Entry<String, DataComponentType<?>> entry : ALL.entrySet()) {

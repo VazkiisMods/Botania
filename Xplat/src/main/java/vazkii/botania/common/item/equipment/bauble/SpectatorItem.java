@@ -45,7 +45,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.AbstractHorseAccessor;
 import vazkii.botania.mixin.RandomizableContainerBlockEntityAccessor;
@@ -126,10 +126,10 @@ public class SpectatorItem extends BaubleItem {
 		ItemStack offHandStack = player.getOffhandItem();
 
 		IntList entityIds = scanEntities(player, mainHandStack, offHandStack);
-		ItemNBTHelper.setNonEmpty(stack, BotaniaDataComponents.SPECTATOR_HIGHLIGHT_ENTITIES, entityIds);
+		DataComponentHelper.setNonEmpty(stack, BotaniaDataComponents.SPECTATOR_HIGHLIGHT_ENTITIES, entityIds);
 
 		List<BlockPos> blockPositions = scanBlockContainers(player, mainHandStack, offHandStack);
-		ItemNBTHelper.setNonEmpty(stack, BotaniaDataComponents.SPECTATOR_HIGHLIGHT_BLOCKS, blockPositions);
+		DataComponentHelper.setNonEmpty(stack, BotaniaDataComponents.SPECTATOR_HIGHLIGHT_BLOCKS, blockPositions);
 	}
 
 	private IntList scanEntities(Player player, ItemStack mainHandStack, ItemStack offHandStack) {

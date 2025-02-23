@@ -57,8 +57,8 @@ import vazkii.botania.client.gui.crafting.AssemblyHaloContainer;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.component.HaloRecipeStorageComponent;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.StoredIds;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.network.EffectType;
@@ -76,11 +76,7 @@ public class AssemblyHaloItem extends Item {
 	public static final int SEGMENTS = 12;
 
 	public AssemblyHaloItem(Properties props) {
-		super(props.component(BotaniaDataComponents.STORED_RECIPES, createRecipeStorage()));
-	}
-
-	private static HaloRecipeStorageComponent createRecipeStorage() {
-		return new HaloRecipeStorageComponent(SEGMENTS - 1);
+		super(props.component(BotaniaDataComponents.STORED_RECIPES, StoredIds.EMPTY));
 	}
 
 	@Override
@@ -255,40 +251,32 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	@Nullable
-	private static RecipeHolder<CraftingRecipe> getSavedRecipe(Level world, ItemStack halo, int position) {
-		if (position <= 0 || position >= SEGMENTS) {
-			return null;
-		}
-		var storedRecipes = halo.get(BotaniaDataComponents.STORED_RECIPES);
-		if (storedRecipes == null) {
+	private static RecipeHolder<CraftingRecipe> getSavedRecipe(Level world, ItemStack halo, int segment) {
+		if (segment <= 0 || segment >= SEGMENTS) {
 			return null;
 		}
 
-		ResourceLocation id = storedRecipes.getSlot(position - 1);
+		var storedRecipes = halo.getOrDefault(BotaniaDataComponents.STORED_RECIPES, StoredIds.EMPTY);
+		ResourceLocation id = storedRecipes.getSlot(segment - 1);
 		return id != null ? getRecipeHolder(world, id) : null;
 	}
 
-	private static void saveRecipe(ItemStack halo, @Nullable ResourceLocation id, int position) {
-		if (position <= 0 || position >= SEGMENTS) {
+	private static void saveRecipe(ItemStack halo, @Nullable ResourceLocation id, int segment) {
+		if (segment <= 0 || segment >= SEGMENTS) {
 			return;
 		}
 
-		var storedRecipes = halo.get(BotaniaDataComponents.STORED_RECIPES);
-		if (storedRecipes == null) {
-			storedRecipes = createRecipeStorage();
-			halo.set(BotaniaDataComponents.STORED_RECIPES, storedRecipes);
-		}
-
-		storedRecipes.setSlot(position - 1, id);
+		var storedRecipes = halo.getOrDefault(BotaniaDataComponents.STORED_RECIPES, StoredIds.EMPTY);
+		halo.set(BotaniaDataComponents.STORED_RECIPES, storedRecipes.store(segment - 1, id));
 	}
 
-	private static ItemStack getDisplayItem(Level world, ItemStack stack, int position) {
-		if (position == 0) {
+	private static ItemStack getDisplayItem(Level world, ItemStack stack, int segment) {
+		if (segment == 0) {
 			return craftingTable;
-		} else if (position >= SEGMENTS) {
+		} else if (segment >= SEGMENTS) {
 			return ItemStack.EMPTY;
 		} else {
-			RecipeHolder<? extends Recipe<CraftingInput>> recipeHolder = getSavedRecipe(world, stack, position);
+			RecipeHolder<? extends Recipe<CraftingInput>> recipeHolder = getSavedRecipe(world, stack, segment);
 			if (recipeHolder != null) {
 				return recipeHolder.value().getResultItem(world.registryAccess());
 			} else {
@@ -317,7 +305,7 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	private static void rememberLastRecipe(ResourceLocation recipeId, ItemStack halo) {
-		ItemNBTHelper.setOptional(halo, BotaniaDataComponents.LAST_RECIPE_ID, recipeId);
+		DataComponentHelper.setOptional(halo, BotaniaDataComponents.LAST_RECIPE_ID, recipeId);
 	}
 
 	@Nullable
@@ -339,7 +327,7 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	private static void setEquipped(ItemStack stack, boolean equipped) {
-		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, equipped);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, equipped);
 	}
 
 	private static float getRotationBase(ItemStack stack) {

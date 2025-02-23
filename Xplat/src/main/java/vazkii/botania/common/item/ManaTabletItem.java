@@ -17,7 +17,7 @@ import net.minecraft.world.item.*;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
@@ -68,7 +68,7 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 	}
 
 	protected static void setMana(ItemStack stack, int mana) {
-		ItemNBTHelper.setIntNonZero(stack, BotaniaDataComponents.MANA, mana);
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.MANA, mana);
 	}
 
 	public static void setStackCreative(ItemStack stack) {

@@ -35,7 +35,7 @@ import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
@@ -218,7 +218,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	}
 
 	void setEnabled(ItemStack stack, boolean enabled) {
-		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, enabled);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, enabled);
 	}
 
 	protected static void setMana(ItemStack stack, int mana) {

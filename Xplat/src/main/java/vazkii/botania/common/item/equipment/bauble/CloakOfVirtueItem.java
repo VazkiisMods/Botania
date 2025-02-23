@@ -36,7 +36,7 @@ import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.proxy.Proxy;
 
 public class CloakOfVirtueItem extends BaubleItem {
@@ -122,7 +122,7 @@ public class CloakOfVirtueItem extends BaubleItem {
 	}
 
 	public static void setInEffect(ItemStack stack, boolean effect) {
-		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, effect);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE_TRANSIENT, effect);
 	}
 
 	ResourceLocation getCloakTexture() {

@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 
 /**
  * Default implementation for the {@link ManaItem} interface. This implementation covers all of Botania's own mana
@@ -44,7 +44,7 @@ public record DefaultManaItemImpl(ItemStack stack) implements ManaItem {
 			return;
 		}
 
-		ItemNBTHelper.setIntNonZero(stack, BotaniaDataComponents.MANA, Math.min(getMana() + mana, getMaxMana()));
+		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.MANA, Math.min(getMana() + mana, getMaxMana()));
 		Integer manaBacklog = stack.get(BotaniaDataComponents.MANA_BACKLOG);
 		if (manaBacklog != null) {
 			stack.set(BotaniaDataComponents.MANA_BACKLOG, manaBacklog + mana);

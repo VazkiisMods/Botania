@@ -24,7 +24,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 
 import java.util.List;
 
@@ -71,7 +71,7 @@ public class StoneOfTemperanceItem extends Item {
 	}
 
 	private void toggleActive(ItemStack stack, Player player, Level world) {
-		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !stack.has(BotaniaDataComponents.ACTIVE));
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !stack.has(BotaniaDataComponents.ACTIVE));
 		world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
 	}
 

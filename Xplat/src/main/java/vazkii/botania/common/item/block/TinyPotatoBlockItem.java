@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.ContributorList;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemWithBannerPattern;
 import vazkii.botania.common.lib.BotaniaTags;
 
@@ -36,15 +36,13 @@ import java.util.regex.Pattern;
 public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPattern {
 
 	private static final Pattern TYPOS = Pattern.compile(
-			"(?!^vazkii$)" // Do not match the properly spelled version 
-					+ "^v[ao]{1,2}[sz]{0,2}[ak]{1,2}(i){1,2}l{0,2}$",
+			"^(?!vazkii$)" // Do not match the properly spelled version
+					+ "v[ao]{1,2}[sz]{0,2}[ak]{1,2}(i){1,2}l{0,2}$",
 			Pattern.CASE_INSENSITIVE
 	);
 	private static final List<String> ENCHANTMENT_NAMES = List.of("enchanted", "glowy", "shiny", "gay");
 
 	private static final int NOT_MY_NAME = 17;
-
-	private static final String TAG_TICKS = "notMyNameTicks";
 
 	public TinyPotatoBlockItem(Block block, Properties props) {
 		super(block, props);
@@ -56,15 +54,15 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity e, int t, boolean idunno) {
-		if (!world.isClientSide && e instanceof Player player && e.tickCount % 30 == 0
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+		if (!level.isClientSide && entity instanceof Player player && entity.tickCount % 30 == 0
 				&& TYPOS.matcher(stack.getHoverName().getString()).matches()) {
-			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
+			int ticks = stack.getOrDefault(BotaniaDataComponents.NOT_MY_NAME_STEP, 0);
 			if (ticks < NOT_MY_NAME) {
 				player.sendSystemMessage(Component
 						.translatable("botania.tater.you_came_to_the_wrong_neighborhood." + ticks)
 						.withStyle(ChatFormatting.RED));
-				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
+				stack.set(BotaniaDataComponents.NOT_MY_NAME_STEP, ticks + 1);
 			}
 		}
 	}

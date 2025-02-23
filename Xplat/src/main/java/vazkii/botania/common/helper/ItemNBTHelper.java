@@ -12,56 +12,17 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
-import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.xplat.XplatAbstractions;
-
-import java.util.Collection;
-
-// TODO clean out all NBT methods, none of them should be used
+@Deprecated(forRemoval = true)
 public final class ItemNBTHelper {
-
-	public static void setIntNonZero(ItemStack stack, DataComponentType<Integer> component, int value) {
-		if (value == 0) {
-			stack.remove(component);
-		} else {
-			stack.set(component, value);
-		}
-	}
-
-	public static void setFlag(ItemStack stack, DataComponentType<Unit> component, boolean value) {
-		if (value) {
-			stack.set(component, Unit.INSTANCE);
-		} else {
-			stack.remove(component);
-		}
-	}
-
-	public static <T> void setOptional(ItemStack stack, DataComponentType<? super T> component, @Nullable T value) {
-		if (value == null) {
-			stack.remove(component);
-		} else {
-			stack.set(component, value);
-		}
-	}
-
-	public static <C extends Collection<?>> void setNonEmpty(ItemStack stack, DataComponentType<C> component, @Nullable C collection) {
-		if (collection == null || collection.isEmpty()) {
-			stack.remove(component);
-		} else {
-			stack.set(component, collection);
-		}
-	}
 
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
 	private static final long[] EMPTY_LONG_ARRAY = new long[0];
@@ -230,50 +191,6 @@ public final class ItemNBTHelper {
 	}
 
 	// OTHER ///////////////////////////////////////////////////////////////////
-
-	/**
-	 * Returns the fullness of the mana item:
-	 * 0 if empty, 1 if partially full, 2 if full.
-	 */
-	public static int getFullness(ManaItem item) {
-		int mana = item.getMana();
-		if (mana == 0) {
-			return 0;
-		} else if (mana == item.getMaxMana()) {
-			return 2;
-		} else {
-			return 1;
-		}
-	}
-
-	public static ItemStack duplicateAndClearMana(ItemStack stack) {
-		ItemStack copy = stack.copy();
-		ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(copy);
-		if (manaItem != null) {
-			manaItem.addMana(-manaItem.getMana());
-		}
-		return copy;
-	}
-
-	/**
-	 * Checks if two items are the same and have the same NBT. If they are `IManaItems`, their mana property is matched
-	 * on whether they are empty, partially full, or full.
-	 */
-	public static boolean matchTagAndManaFullness(ItemStack stack1, ItemStack stack2) {
-		if (!ItemStack.isSameItem(stack1, stack2)) {
-			return false;
-		}
-		ManaItem manaItem1 = XplatAbstractions.INSTANCE.findManaItem(stack1);
-		ManaItem manaItem2 = XplatAbstractions.INSTANCE.findManaItem(stack2);
-		if (manaItem1 != null && manaItem2 != null) {
-			if (getFullness(manaItem1) != getFullness(manaItem2)) {
-				return false;
-			} else {
-				return ItemStack.matches(duplicateAndClearMana(stack1), duplicateAndClearMana(stack2));
-			}
-		}
-		return ItemStack.isSameItemSameComponents(stack1, stack2);
-	}
 
 	/**
 	 * Serializes the given stack such that {@link net.minecraft.world.item.crafting.ShapedRecipe#CODEC}

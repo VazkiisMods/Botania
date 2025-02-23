@@ -8,16 +8,20 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import it.unimi.dsi.fastutil.ints.IntList;
+
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.component.Fireworks;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.common.helper.ItemNBTHelper;
+
+import java.util.List;
 
 public class CelebratoryLens extends Lens {
 
@@ -39,39 +43,20 @@ public class CelebratoryLens extends Lens {
 
 	private ItemStack generateFirework(int color) {
 		ItemStack stack = new ItemStack(Items.FIREWORK_ROCKET);
-		CompoundTag explosion = new CompoundTag();
-		explosion.putIntArray("Colors", new int[] { color });
 
-		int type = 1;
+		FireworkExplosion.Shape shape;
 		double rand = Math.random();
-		if (rand > 0.25) {
-			if (rand > 0.9) {
-				type = 2;
-			} else {
-				type = 0;
-			}
+		if (rand > 0.9) {
+			shape = FireworkExplosion.Shape.STAR;
+		} else if (rand > 0.25) {
+			shape = FireworkExplosion.Shape.SMALL_BALL;
+		} else {
+			shape = FireworkExplosion.Shape.LARGE_BALL;
 		}
 
-		explosion.putInt("Type", type);
-
-		if (Math.random() < 0.05) {
-			if (Math.random() < 0.5) {
-				explosion.putBoolean("Flicker", true);
-			} else {
-				explosion.putBoolean("Trail", true);
-			}
-		}
-
-		ItemNBTHelper.setCompound(stack, "Explosion", explosion);
-
-		CompoundTag fireworks = new CompoundTag();
-		fireworks.putInt("Flight", (int) (Math.random() * 3 + 2));
-
-		ListTag explosions = new ListTag();
-		explosions.add(explosion);
-		fireworks.put("Explosions", explosions);
-
-		ItemNBTHelper.setCompound(stack, "Fireworks", fireworks);
+		FireworkExplosion explosion = new FireworkExplosion(shape, IntList.of(color), IntList.of(),
+				Math.random() < 0.05, Math.random() < 0.05);
+		stack.set(DataComponents.FIREWORKS, new Fireworks((int) (Math.random() * 3 + 2), List.of(explosion)));
 
 		return stack;
 	}

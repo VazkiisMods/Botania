@@ -11,8 +11,8 @@ package vazkii.botania.common.item;
 import com.google.common.annotations.VisibleForTesting;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.ResourceLocationException;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -39,16 +39,13 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.mixin.MobAccessor;
 
 import java.util.List;
 
 public class CacophoniumItem extends Item {
-
-	private static final String TAG_SOUND = "sound";
-	private static final String TAG_SOUND_NAME = "soundName";
 
 	public CacophoniumItem(Properties props) {
 		super(props);
@@ -57,7 +54,7 @@ public class CacophoniumItem extends Item {
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
 		if (entity instanceof Mob living) {
-			SoundEvent sound = null;
+			SoundEvent sound;
 
 			if (living instanceof Creeper) {
 				sound = SoundEvents.CREEPER_PRIMED;
@@ -69,8 +66,8 @@ public class CacophoniumItem extends Item {
 
 			if (sound != null) {
 				if (!player.level().isClientSide) {
-					ItemNBTHelper.setString(stack, TAG_SOUND, BuiltInRegistries.SOUND_EVENT.getKey(sound).toString());
-					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getDescriptionId());
+					stack.set(DataComponents.NOTE_BLOCK_SOUND, BuiltInRegistries.SOUND_EVENT.getKey(sound));
+					stack.set(BotaniaDataComponents.MOB_TYPE, BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()));
 					player.setItemInHand(hand, stack);
 				}
 
@@ -104,11 +101,15 @@ public class CacophoniumItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> infoList, TooltipFlag flags) {
 		if (isDOIT(stack)) {
-			list.add(Component.translatable("botaniamisc.justDoIt").withStyle(ChatFormatting.GRAY));
+			infoList.add(Component.translatable("botaniamisc.justDoIt").withStyle(ChatFormatting.GRAY));
 		} else if (getSound(stack) != null) {
-			list.add(Component.translatable(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).withStyle(ChatFormatting.GRAY));
+			ResourceLocation id = stack.get(BotaniaDataComponents.MOB_TYPE);
+			if (id != null) {
+				BuiltInRegistries.ENTITY_TYPE.getOptional(id).ifPresent(
+						type -> infoList.add(type.getDescription().copy().withStyle(ChatFormatting.GRAY)));
+			}
 		}
 	}
 
@@ -153,11 +154,7 @@ public class CacophoniumItem extends Item {
 		if (isDOIT(stack)) {
 			return BotaniaSounds.doit;
 		} else {
-			try {
-				return BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
-			} catch (ResourceLocationException ex) {
-				return null;
-			}
+			return BuiltInRegistries.SOUND_EVENT.get(stack.get(DataComponents.NOTE_BLOCK_SOUND));
 		}
 	}
 

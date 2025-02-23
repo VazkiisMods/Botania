@@ -35,8 +35,6 @@ public final class LibComponentNames {
 	public static final String MANA_BACKLOG = "mana_backlog";
 	public static final String MANA_POOL_POS = "mana_pool_pos";
 
-	public static final String RANGE = "range";
-
 	public static final String HALO_ROTATION_BASE = "halo_rotation_base";
 	public static final String LAST_RECIPE_ID = "last_recipe_id";
 	public static final String STORED_RECIPES = "stored_recipes";
@@ -57,4 +55,8 @@ public final class LibComponentNames {
 
 	public static final String BLOCK_TYPE = "block_type";
 	public static final String BLOCK_COUNT = "block_count";
+
+	public static final String RANGE = "range";
+	public static final String MOB_TYPE = "mob_type";
+	public static final String NOT_MY_NAME_STEP = "not_my_name_step";
 }

@@ -30,7 +30,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.component.BotaniaDataComponents;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
@@ -147,7 +147,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 	}
 
 	public static void setBrew(ItemStack stack, @Nullable ResourceLocation brew) {
-		ItemNBTHelper.setOptional(stack, BotaniaDataComponents.BREW, brew);
+		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BREW, brew);
 	}
 
 	@NotNull

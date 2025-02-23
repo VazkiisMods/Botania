@@ -26,7 +26,7 @@ import vazkii.botania.api.item.CosmeticAttachable;
 import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -109,7 +109,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
-		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.PHANTOM_INKED, ink);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.PHANTOM_INKED, ink);
 	}
 
 	public void onWornTick(ItemStack stack, LivingEntity entity) {}

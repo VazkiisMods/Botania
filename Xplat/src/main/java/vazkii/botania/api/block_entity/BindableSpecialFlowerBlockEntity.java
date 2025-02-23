@@ -41,7 +41,7 @@ import java.util.Objects;
  * such as generating flowers to mana collectors, or functional flowers to pools.
  * Implements the bindability logic common to both types of flower.
  *
- * @param <T> Type of block entity this special flower cna bind to.
+ * @param <T> Type of block entity this special flower can bind to.
  */
 public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerBlockEntity implements WandBindable {
 	/**
@@ -107,7 +107,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		}
 	}
 
-	public @Nullable T findBindCandidateAt(BlockPos pos) {
+	public @Nullable T findBindCandidateAt(@Nullable BlockPos pos) {
 		if (level == null || pos == null) {
 			return null;
 		}
@@ -132,6 +132,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 		return wouldBeValidBinding(bindingPos);
 	}
 
+	@Nullable
 	@Override
 	public BlockPos getBinding() {
 		//Used for Wand of the Forest overlays; only return the binding if it's valid.
@@ -166,22 +167,7 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 	public void readFromPacketNBT(CompoundTag cmp, HolderLookup.Provider registries) {
 		super.readFromPacketNBT(cmp, registries);
 
-		if (cmp.contains(TAG_BINDING)) {
-			//todo bindingPos = NbtUtils.readBlockPos(cmp.getCompound(TAG_BINDING));
-		} else {
-			//In older versions of the mod (1.16, early 1.17), GeneratingFlowerBlockEntity and SpecialFlowerBlockEntity
-			//implemented their own copies of the binding logic. Read data from the old locations.
-			if (cmp.contains("collectorX")) {
-				bindingPos = new BlockPos(cmp.getInt("collectorX"), cmp.getInt("collectorY"), cmp.getInt("collectorZ"));
-			} else if (cmp.contains("poolX")) {
-				bindingPos = new BlockPos(cmp.getInt("poolX"), cmp.getInt("poolY"), cmp.getInt("poolZ"));
-			}
-			//These versions of the mod also sometimes used a binding with a Y of -1 to signify an unbound flower.
-			//Currently, `null` is always used for unbound flowers. Coerce these positions to `null`.
-			if (bindingPos != null && bindingPos.getY() == -1) {
-				bindingPos = null;
-			}
-		}
+		NbtUtils.readBlockPos(cmp, TAG_BINDING).ifPresent(this::setBindingPos);
 	}
 
 	public abstract int getMana();

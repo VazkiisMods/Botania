@@ -27,7 +27,7 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 
 import java.util.List;
 
@@ -89,7 +89,7 @@ public class ManufactoryHaloItem extends AssemblyHaloItem {
 	}
 
 	private void togglePassive(ItemStack stack, LivingEntity living, Level world) {
-		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !isActive(stack));
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.ACTIVE, !isActive(stack));
 		if (living instanceof Player player) {
 			world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manufactoryHaloConfigure, SoundSource.NEUTRAL, 1F, 1F);
 		}

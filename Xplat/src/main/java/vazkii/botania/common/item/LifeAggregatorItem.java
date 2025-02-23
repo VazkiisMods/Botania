@@ -10,81 +10,65 @@ package vazkii.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.PlayerHelper;
 
 import java.util.List;
 
 public class LifeAggregatorItem extends Item {
 
-	private static final String TAG_SPAWNER = "spawner";
-	private static final String TAG_SPAWN_DATA = "SpawnData";
-	private static final String TAG_ID = "id";
-
 	public LifeAggregatorItem(Properties props) {
 		super(props);
 	}
 
-	@Nullable
-	private static ResourceLocation getEntityId(ItemStack stack) {
-		CompoundTag tag = /*todo stack.getTagElement(TAG_SPAWNER)*/ null;
-		if (tag != null && tag.contains(TAG_SPAWN_DATA)) {
-			tag = tag.getCompound(TAG_SPAWN_DATA);
-			var spawnData = SpawnData.CODEC.parse(NbtOps.INSTANCE, tag);
-			return spawnData.result()
-					.filter(sd -> sd.getEntityToSpawn().contains(TAG_ID))
-					.map(sd -> ResourceLocation.tryParse(sd.getEntityToSpawn().getString(TAG_ID)))
-					.orElse(null);
-		}
-
-		return null;
-	}
-
 	public static boolean hasData(ItemStack stack) {
-		return getEntityId(stack) != null;
+		return stack.has(DataComponents.BLOCK_ENTITY_DATA);
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> infoList, TooltipFlag flags) {
-		ResourceLocation id = getEntityId(stack);
+		ResourceLocation id = stack.get(BotaniaDataComponents.MOB_TYPE);
 		if (id != null) {
-			BuiltInRegistries.ENTITY_TYPE.getOptional(id).ifPresent(type -> infoList.add(type.getDescription()));
+			BuiltInRegistries.ENTITY_TYPE.getOptional(id).ifPresent(
+					type -> infoList.add(type.getDescription().copy().withStyle(ChatFormatting.GRAY)));
 		}
 	}
 
 	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
-		if (getEntityId(ctx.getItemInHand()) == null) {
+		if (hasData(ctx.getItemInHand())) {
+			return placeSpawner(ctx);
+		} else {
 			return captureSpawner(ctx)
 					? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide())
 					: InteractionResult.PASS;
-		} else {
-			return placeSpawner(ctx);
 		}
 	}
 
@@ -98,22 +82,18 @@ public class LifeAggregatorItem extends Item {
 			ItemStack mover = ctx.getItemInHand();
 
 			if (!world.isClientSide) {
-				if (ctx.getPlayer() != null) {
-					//todo ctx.getPlayer().broadcastBreakEvent(ctx.getHand());
+				Player player = ctx.getPlayer();
+				if (player != null) {
+					player.onEquippedItemBroken(this, LivingEntity.getSlotForHand(ctx.getHand()));
 				}
-				mover.shrink(1);
 
-				BlockEntity te = world.getBlockEntity(pos);
-				if (te instanceof SpawnerBlockEntity) {
-					/*todo
-					CompoundTag spawnerTag = ctx.getItemInHand().getTagElement(TAG_SPAWNER).copy();
-					spawnerTag.putInt("x", pos.getX());
-					spawnerTag.putInt("y", pos.getY());
-					spawnerTag.putInt("z", pos.getZ());
-					te.load(spawnerTag);
-					
-					 */
+				BlockEntity blockEntity = world.getBlockEntity(pos);
+				if (blockEntity instanceof SpawnerBlockEntity) {
+					blockEntity.loadWithComponents(mover.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag(),
+							world.registryAccess());
 				}
+				// must empty stack last, as otherwise components become inaccessible
+				mover.shrink(1);
 			} else {
 				for (int i = 0; i < 100; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
@@ -131,10 +111,18 @@ public class LifeAggregatorItem extends Item {
 		ItemStack stack = ctx.getItemInHand();
 		Player player = ctx.getPlayer();
 
+		// TODO: support trial spawners
 		if (world.getBlockState(pos).is(Blocks.SPAWNER)) {
 			if (!world.isClientSide) {
-				BlockEntity te = world.getBlockEntity(pos);
-				//todo stack.getOrCreateTag().put(TAG_SPAWNER, te.saveWithFullMetadata());
+				SpawnerBlockEntity spawnerBlockEntity = (SpawnerBlockEntity) world.getBlockEntity(pos);
+				Entity displayEntity = spawnerBlockEntity.getSpawner().getOrCreateDisplayEntity(world, pos);
+				if (displayEntity != null) {
+					// TODO: does this make sense or is it better to navigate the NBT data for the entity ID?
+					stack.set(BotaniaDataComponents.MOB_TYPE, BuiltInRegistries.ENTITY_TYPE.getKey(displayEntity.getType()));
+				}
+				stack.set(DataComponents.BLOCK_ENTITY_DATA,
+						// black-box serialized data; no need for metadata, or component transfer to this item
+						CustomData.of(spawnerBlockEntity.saveWithoutMetadata(world.registryAccess())));
 				world.destroyBlock(pos, false);
 				if (player != null) {
 					player.getCooldowns().addCooldown(this, 20);
@@ -142,7 +130,7 @@ public class LifeAggregatorItem extends Item {
 						UseItemSuccessTrigger.INSTANCE.trigger(serverPlayer, stack, serverPlayer.serverLevel(),
 								pos.getX(), pos.getY(), pos.getZ());
 					}
-					//todo player.broadcastBreakEvent(ctx.getHand());
+					player.onEquippedItemBroken(this, LivingEntity.getSlotForHand(ctx.getHand()));
 				}
 			} else {
 				for (int i = 0; i < 50; i++) {

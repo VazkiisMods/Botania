@@ -28,7 +28,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.List;
@@ -205,7 +205,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
-		ItemNBTHelper.setOptional(sourceLens, BotaniaDataComponents.ATTACHED_LENS, compositeLens);
+		DataComponentHelper.setOptional(sourceLens, BotaniaDataComponents.ATTACHED_LENS, compositeLens);
 		return sourceLens;
 	}
 

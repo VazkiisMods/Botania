@@ -8,30 +8,27 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 
 /**
- * An inventory that writes into the provided stack's NBT on save
+ * An inventory that writes into the provided stack's {@link net.minecraft.core.component.DataComponents#CONTAINER} on
+ * save
  */
 public class ItemBackedInventory extends SimpleContainer {
-	private static final String TAG_ITEMS = "Items";
 	private final ItemStack stack;
 
 	public ItemBackedInventory(ItemStack stack, int expectedSize) {
 		super(expectedSize);
 		this.stack = stack;
 
-		ListTag lst = ItemNBTHelper.getList(stack, TAG_ITEMS, Tag.TAG_COMPOUND, false);
-		int i = 0;
-		for (; i < expectedSize && i < lst.size(); i++) {
-			setItem(i, /*ItemStack.of(lst.getCompound(i))*/ ItemStack.EMPTY);
-		}
+		var contents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
+		contents.copyInto(getItems());
 	}
 
 	@Override
@@ -42,10 +39,8 @@ public class ItemBackedInventory extends SimpleContainer {
 	@Override
 	public void setChanged() {
 		super.setChanged();
-		ListTag list = new ListTag();
-		for (int i = 0; i < getContainerSize(); i++) {
-			//todo list.add(getItem(i).save(new CompoundTag()));
-		}
-		ItemNBTHelper.setList(stack, TAG_ITEMS, list);
+
+		ItemContainerContents contents = ItemContainerContents.fromItems(getItems());
+		DataComponentHelper.setUnlessDefault(stack, DataComponents.CONTAINER, contents, ItemContainerContents.EMPTY);
 	}
 }

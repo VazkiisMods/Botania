@@ -52,7 +52,7 @@ import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
@@ -503,7 +503,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 	}
 
 	public static void setBindingAttempt(ItemStack stack, @Nullable GlobalPos pos) {
-		ItemNBTHelper.setOptional(stack, BotaniaDataComponents.BINDING_POS, pos);
+		DataComponentHelper.setOptional(stack, BotaniaDataComponents.BINDING_POS, pos);
 	}
 
 	public static Optional<GlobalPos> getBindingAttempt(ItemStack stack) {
@@ -515,7 +515,7 @@ public class WandOfTheForestItem extends Item implements CustomCreativeTabConten
 	}
 
 	public static void setBindMode(ItemStack stack, boolean bindMode) {
-		ItemNBTHelper.setFlag(stack, BotaniaDataComponents.WAND_BIND_MODE, bindMode);
+		DataComponentHelper.setFlag(stack, BotaniaDataComponents.WAND_BIND_MODE, bindMode);
 	}
 
 	public static String getModeString(ItemStack stack) {
