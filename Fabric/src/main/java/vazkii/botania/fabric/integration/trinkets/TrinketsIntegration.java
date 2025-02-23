@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketEnums;
+import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
@@ -23,13 +24,18 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ResoluteIvyItem;
@@ -45,6 +51,7 @@ import java.util.function.Predicate;
 public class TrinketsIntegration extends EquipmentHandler {
 	public static void init() {
 		TrinketDropCallback.EVENT.register(TrinketsIntegration::keepAccessoryDrops);
+		UseItemCallback.EVENT.register(TrinketsIntegration::useBaubleItem);
 	}
 
 	private static TrinketEnums.DropRule keepAccessoryDrops(TrinketEnums.DropRule oldRule,
@@ -55,6 +62,14 @@ public class TrinketsIntegration extends EquipmentHandler {
 			return TrinketEnums.DropRule.KEEP;
 		}
 		return oldRule;
+	}
+	
+	private static InteractionResultHolder<ItemStack> useBaubleItem(Player player, Level level, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.getItem() instanceof BaubleItem bi && bi.canEquip(stack, player) && TrinketItem.equipItem(player, stack)) {
+			return InteractionResultHolder.success(stack);
+		}
+		return InteractionResultHolder.pass(stack);
 	}
 
 	@Override
