@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,14 +39,23 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 	public static final int DECAY_TIME = 72000;
 	protected int burnTime, cooldown;
 	private final TagKey<Fluid> consumedFluid;
-	private final int startBurnTime, manaPerTick;
+	protected final int startBurnTime;
+	private final Block allowedCaldron;
 
-	protected FluidGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime, int manaPerTick) {
+	protected FluidGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime) {
 		super(type, pos, state);
 		this.consumedFluid = consumedFluid;
 		this.startBurnTime = startBurnTime;
-		this.manaPerTick = manaPerTick;
+		if (consumedFluid.equals(FluidTags.WATER)) {
+			allowedCaldron = Blocks.WATER_CAULDRON;
+		} else if (consumedFluid.equals(FluidTags.LAVA)) {
+			allowedCaldron = Blocks.LAVA_CAULDRON;
+		} else {
+			allowedCaldron = null;
+		}
 	}
+
+	public abstract int manaPerTick();
 
 	@Override
 	public void tickFlower() {
@@ -61,7 +71,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 		if (!getLevel().isClientSide) {
 			if (burnTime > 0 && ticksExisted % getGenerationDelay() == 0) {
-				addMana(manaPerTick);
+				addMana(manaPerTick());
 				sync();
 			}
 		}
@@ -76,8 +86,10 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 
 					BlockState bstate = getLevel().getBlockState(pos);
 					FluidState fstate = getLevel().getFluidState(pos);
-					if (fstate.is(consumedFluid) && fstate.isSource()) {
-						if (consumedFluid != FluidTags.WATER) {
+					if ((fstate.is(consumedFluid) && fstate.isSource()) || bstate.is(allowedCaldron)) {
+						if (bstate.is(allowedCaldron)) {
+							getLevel().setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
+						} else if (consumedFluid != FluidTags.WATER) {
 							getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 						} else {
 							int waterAround = 0;
