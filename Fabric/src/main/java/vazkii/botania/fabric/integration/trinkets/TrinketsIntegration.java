@@ -20,6 +20,7 @@ import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import dev.emi.trinkets.api.event.TrinketDropCallback;
 
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -35,7 +36,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ResoluteIvyItem;
@@ -63,7 +63,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 		}
 		return oldRule;
 	}
-	
+
 	private static InteractionResultHolder<ItemStack> useBaubleItem(Player player, Level level, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.getItem() instanceof BaubleItem bi && bi.canEquip(stack, player) && TrinketItem.equipItem(player, stack)) {
