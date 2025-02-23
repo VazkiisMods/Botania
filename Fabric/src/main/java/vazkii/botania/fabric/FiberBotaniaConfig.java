@@ -87,12 +87,17 @@ public final class FiberBotaniaConfig {
 		public final PropertyMirror<Boolean> referencesEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> splashesEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> useShaders = PropertyMirror.create(BOOLEAN);
+		public final PropertyMirror<Boolean> opaqueParticles = PropertyMirror.create(BOOLEAN);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("rendering")
 					.beginValue("shaders", BOOLEAN, true)
 					.withComment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
 					.finishValue(useShaders::mirror)
+
+					.beginValue("opaqueParticles", BOOLEAN, false)
+					.withComment("Set this to true to disable translucent particles, for shader compatibility with some shaders which implement a deferred lighting pass. (Enabling without shaders may impact aesthetics)")
+					.finishValue(opaqueParticles::mirror)
 
 					.beginValue("boundBlockWireframe", BOOLEAN, true)
 					.withComment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")
@@ -252,6 +257,12 @@ public final class FiberBotaniaConfig {
 		public boolean useShaders() {
 			return this.useShaders.getValue();
 		}
+
+		@Override
+		public boolean opaqueParticles() {
+			return this.opaqueParticles.getValue();
+		}
+
 	}
 
 	private static final Client CLIENT = new Client();
