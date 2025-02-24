@@ -3279,8 +3279,9 @@
 
   "botania.entry.temperanceStone": "Pierre de modération",
   "botania.tagline.temperanceStone": "TAGLINE",
-  "botania.page.temperanceStone0": "Un $(l:tools/terra_pick)destructeur Terra$(/l) est capable de ravager de larges zones, parfois un peu trop.$(p)Si vous possédez une $(item)pierre de modération$(0) activée, alors le rayon d'action restera 3x3. Cet effet fonctionne également sur le $(l:tools/terra_axe)découpeur Terra$(/l), et sur le $(l:tools/exchange_rod)bâton équivalent$(/l).$(br)Clic-droit permet d'activer ($(o)ou désactiver$()) votre $(item)pierre$(0).",
+  "botania.page.temperanceStone0": "Un $(l:tools/terra_pick)destructeur Terra$(/l) est capable de ravager de larges zones, parfois un peu trop.$(p)Si vous possédez une $(item)pierre de modération$(0) activée, alors le rayon d'action restera 3x3.",
   "botania.page.temperanceStone1": "$(o)à consommer avec modération$()",
+  "botania.page.temperanceStone2": "Cet effet fonctionne également sur le $(l:tools/terra_axe)découpeur Terra$(/l), et sur le $(l:tools/exchange_rod)bâton équivalent$(/l).$(br)Clic-droit permet d'activer ($(o)ou désactiver$()) votre $(item)pierre$(0).",
 
   "botania.entry.terraAxe": "Découpeur Terra",
   "botania.tagline.terraAxe": "TAGLINE",

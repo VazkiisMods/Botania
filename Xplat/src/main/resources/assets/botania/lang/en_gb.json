@@ -264,7 +264,7 @@
   "botania.page.cosmeticBaubles12": "The Neighbours' Club",
   "botania.page.cosmeticBaubles27": "Woah, colours",
 
-  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, manoeuvrability, and mining speed, as well as the ability to breathe indefinitely.",
+  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, manoeuvrability, and mining speed, as well as the ability to breathe indefinitely.$(p)If the speed boost becomes an issue, an active $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l) can disable it.",
 
   "botania.entry.magnetRing": "Ring of Magnetisation",
   "botania.page.magnetRing0": "A $(l:mana/lens)$(item)Magnetising Lens$(0)$(/l) on a ring of $(item)Manasteel$(0) yields a $(item)Ring of Magnetisation$(0), which attracts nearby items, making them float towards the wearer. The ring is disabled when its user is sneaking, or when in range of a $(l:functional_flowers/solegnolia)$(item)Solegnolia$(0)$(/l). Note that a tossed item won't be drawn by its wearer's ring for several seconds (so as to not to interfere with the purpose of said toss).",

@@ -2146,8 +2146,9 @@
 
   "botania.entry.temperanceStone": "Steen der Beheersing",
   "botania.tagline.temperanceStone": "Een demper voor de kracht van de Terrabreker",
-  "botania.page.temperanceStone0": "Een $(item)Terrabreker$(0) op volledige sterkte kan hele landmassa's afbreken, maar misschien is dat niet altijd de bedoeling. Een kleine 3x3 tunnel is meer passend in sommige situaties. Met een actieve $(item)Steen der Beheersing$(0) in je inventory wordt voorkomen dat de breker meer weghaalt dan een gebied van 3x3. Dit beïnvloed ook de $(item)Terrakapper$(0). De steen kan aan en uit worden gezet door te shift-rechts-klikken.",
+  "botania.page.temperanceStone0": "Een $(item)Terrabreker$(0) op volledige sterkte kan hele landmassa's afbreken, maar misschien is dat niet altijd de bedoeling. Een kleine 3x3 tunnel is meer passend in sommige situaties. Met een actieve $(item)Steen der Beheersing$(0) in je inventory wordt voorkomen dat de breker meer weghaalt dan een gebied van 3x3.",
   "botania.page.temperanceStone1": "Niet kwijtraken",
+  "botania.page.temperanceStone0": "Dit beïnvloed ook de $(item)Terrakapper$(0). De steen kan aan en uit worden gezet door te shift-rechts-klikken.",
 
   "botania.entry.terraAxe": "Terrakapper",
   "botania.tagline.terraAxe": "Een bijl die hele bomen kapt",

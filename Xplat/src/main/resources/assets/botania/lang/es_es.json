@@ -1897,8 +1897,9 @@
   "botania.page.crystalBow1": "Los elfos son itinerantes",
 
   "botania.entry.temperanceStone": "Piedra de la Templanza",
-  "botania.page.temperanceStone0": "El $(item)destructor de Terra$(0) es capaz de destruir enormes extensiones de tierra cuando está a máxima potencia, sin embargo puede que no sea siempre la intención del usuario. A veces puede que un túnel 3x3 sea suficiente . Teniendo una $(item)piedra de la Templanza$(0) activa en el inventario evitará que el destructor rompa más de una área de 3x3. Esto también afecta al $(item)truncador de Terra$(0). La piedra se puede (des)activar con shift-clic derecho.",
+  "botania.page.temperanceStone0": "El $(item)destructor de Terra$(0) es capaz de destruir enormes extensiones de tierra cuando está a máxima potencia, sin embargo puede que no sea siempre la intención del usuario. A veces puede que un túnel 3x3 sea suficiente . Teniendo una $(item)piedra de la Templanza$(0) activa en el inventario evitará que el destructor rompa más de una área de 3x3.",
   "botania.page.temperanceStone1": "No la pierdas",
+  "botania.page.temperanceStone2": "Esto también afecta al $(item)truncador de Terra$(0). La piedra se puede (des)activar con shift-clic derecho.",
 
   "botania.entry.terraAxe": "Truncador de Terra",
   "botania.page.terraAxe0": "El $(item)truncador de Terra$(0) es un hacha de calidad excepcional que se puede conseguir con $(item)terracero$(0). Al golpear un árbol, lo talará por completo rápidamente, cortando tanto tronco como hojas. Por supuesto, esto viene con un considerable gasto de $(thing)maná$(0).$(p)Este efecto no tiene lugar si se está en sigilo o si el usuario tiene una $(item)piedra de la Templanza$(0).",

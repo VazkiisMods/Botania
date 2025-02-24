@@ -50,6 +50,7 @@ import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.CustomCreativeTabContents;
+import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
@@ -240,7 +241,7 @@ public class FlugelTiaraItem extends BaubleItem implements CustomCreativeTabCont
 				}
 				final int maxCd = 80;
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-				if (!wasSprting && isSprinting && cooldown == 0) {
+				if (!wasSprting && isSprinting && cooldown == 0 && !StoneOfTemperanceItem.hasTemperanceActive(player)) {
 					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
 					player.level().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);

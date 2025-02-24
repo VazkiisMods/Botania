@@ -3048,8 +3048,9 @@
 
   "botania.entry.temperanceStone": "Stone of Temperance",
   "botania.tagline.temperanceStone": "A limiter for the power of the Terrasteel Tools",
-  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, an active $(item)Stone of Temperance$(0) in the inventory will prevent a $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) from breaking any wider areas. This also affects the $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l) and the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l). The stone can be toggled on/off by right clicking it, either in your inventory or your hand.",
+  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, an active $(item)Stone of Temperance$(0) in the inventory will prevent a $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) from breaking any wider areas.",
   "botania.page.temperanceStone1": "Don't lose it",
+  "botania.page.temperanceStone2": "Other items may have effects that are slightly too powerful in certain situations as well. An active $(item)Stone of Temperance$(0) also turns off the $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l), reduces the area affected by the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l), and prevents certain speed boosts, such as the one by the $(l:baubles/water_ring)$(item)Ring of Chordata$(0)$(/l).$(p)The stone can be toggled on/off by right clicking it, either in your inventory or your hand.",
 
   "botania.entry.terraAxe": "Terra Truncator",
   "botania.tagline.terraAxe": "An axe that chops down whole trees. How inspired",
@@ -3160,7 +3161,7 @@
   "botania.tagline.flightTiara": "Three-dimensional flight... up to a point",
   "botania.page.flightTiara0": "The $(thing)Flügel$(0) were a race of god-slaying beings that once dominated these lands and possessed powers of three-dimensional flight.$(p)Among other things.$(p)While the $(thing)Flügel$(0) are now $(o)quite$() extinct, the $(item)Flügel Tiara$(0), fashioned from $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l), can use $(thing)Mana$(0) to replicate their power of flight.",
   "botania.page.flightTiara4": "This marvelous reproduction of ancient artifice isn't perfect, though: the tiara can't provide the power of flight indefinitely. If used for around thirty seconds consecutively, it'll \"overload\" and lose its ability to sustain flight.$(p)A \"flight bar\" is displayed on the HUD to monitor this usage.",
-  "botania.page.flightTiara5": "In addition to simple flight, the tiara grants its wearer the ability to $(thing)dash$(0) and $(thing)glide$(0). Dashing, by pressing [$(k:sprint)] without already sprinting, will boost its wearer forwards. Very quickly.$(p)Dashes can only be done every 2 seconds.",
+  "botania.page.flightTiara5": "In addition to simple flight, the tiara grants its wearer the ability to $(thing)dash$(0) and $(thing)glide$(0). Dashing, by pressing [$(k:sprint)] without already sprinting, will boost its wearer forwards. Very quickly.$(p)Dashes can only be done every 2 seconds, and are disabled by an active $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l).",
   "botania.page.flightTiara6": "Gliding allows for a gentle descent to the ground that covers a decent horizontal distance as well, preventing fall damage in the process. To glide, simply sneak while falling.$(p)Gliding can be done even on an empty flight bar, but will slow its regeneration.",
   "botania.page.flightTiara1": "Forty thousand books from another world",
   "botania.page.flightTiara2": "Combining the $(item)Flügel Tiara$(0) with different types of $(item)Quartz$(0) will change the appearance of its wings: one style for each type of quartz.$(p)The recipes for the various types of quartz can be found under $(l:misc/decorative_blocks)$(thing)Decorative Blocks$(0)$(/l), and the $(thing)Elves$(0) will trade $(l:alfhomancy/elf_resources)$(item)Elven Quartz$(0)$(/l) for $(item)Nether Quartz$(0).",
@@ -3353,7 +3354,7 @@
 
   "botania.entry.waterRing": "Ring of Chordata",
   "botania.tagline.waterRing": "Move super fast underwater",
-  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, maneuverability, and mining speed, as well as the ability to breathe indefinitely.",
+  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, maneuverability, and mining speed, as well as the ability to breathe indefinitely.$(p)If the speed boost becomes an issue, an active $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l) can disable it.",
   "botania.page.waterRing1": "Check out that fish AI",
 
   "botania.entry.miningRing": "Ring of the Mantle",

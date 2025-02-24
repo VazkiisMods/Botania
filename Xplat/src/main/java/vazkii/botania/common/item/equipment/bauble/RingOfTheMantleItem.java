@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.helper.EntityHelper;
 
 public class RingOfTheMantleItem extends BaubleItem {
 
@@ -27,17 +27,18 @@ public class RingOfTheMantleItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (entity instanceof Player player && !player.level().isClientSide) {
-			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, false);
-			if (!hasMana) {
-				onUnequipped(stack, player);
-			} else {
-				onEquipped(stack, player);
-			}
+		if (!(entity instanceof Player player) || player.level().isClientSide) {
+			return;
+		}
+		boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, false);
+		if (!hasMana) {
+			onUnequipped(stack, player);
+		} else {
+			onEquipped(stack, player);
+		}
 
-			if (player.attackAnim == 0.25F) {
-				ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, true);
-			}
+		if (player.attackAnim == 0.25F) {
+			ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, true);
 		}
 	}
 
@@ -45,19 +46,14 @@ public class RingOfTheMantleItem extends BaubleItem {
 	public void onEquipped(ItemStack stack, LivingEntity living) {
 		boolean hasMana = living instanceof Player player
 				&& ManaItemHandler.instance().requestManaExact(stack, player, MANA_COST, false);
-		MobEffectInstance effect = living.getEffect(MobEffects.DIG_SPEED);
-		if (hasMana && (effect == null || effect.getAmplifier() < HASTE_AMPLIFIER
-				|| effect.getAmplifier() == HASTE_AMPLIFIER && !effect.isInfiniteDuration())) {
-			living.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, MobEffectInstance.INFINITE_DURATION, HASTE_AMPLIFIER, true, true));
+		if (hasMana) {
+			EntityHelper.addStaticEffect(living, MobEffects.DIG_SPEED, HASTE_AMPLIFIER);
 		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity living) {
-		MobEffectInstance effect = living.getEffect(MobEffects.DIG_SPEED);
-		if (effect != null && effect.getAmplifier() == HASTE_AMPLIFIER && effect.isInfiniteDuration()) {
-			living.removeEffect(MobEffects.DIG_SPEED);
-		}
+		EntityHelper.removeStaticEffect(living, MobEffects.DIG_SPEED, HASTE_AMPLIFIER);
 	}
 
 }
