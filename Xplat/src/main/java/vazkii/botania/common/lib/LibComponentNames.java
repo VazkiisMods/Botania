@@ -57,6 +57,12 @@ public final class LibComponentNames {
 	public static final String BLOCK_COUNT = "block_count";
 
 	public static final String RANGE = "range";
+	public static final String SIZE = "size";
 	public static final String MOB_TYPE = "mob_type";
 	public static final String NOT_MY_NAME_STEP = "not_my_name_step";
+	public static final String SEXTANT_MODE = "sextant_mode";
+	public static final String LOKI_RING_OFFSET_LIST = "loki_ring_offset_list";
+	public static final String ANCIENT_WILLS = "ancient_wills";
+	public static final String SOULBOUND = "soulbound";
+	public static final String BOUND_POSITIONS = "bound_positions";
 }

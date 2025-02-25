@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -14,11 +15,13 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.common.item.relic.RingOfLokiItem;
 import vazkii.botania.common.lib.LibComponentNames;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.UnaryOperator;
 
@@ -164,11 +167,26 @@ public class BotaniaDataComponents {
 			builder -> builder.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
 	public static final DataComponentType<Integer> RANGE = make(LibComponentNames.RANGE,
-			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<Integer> SIZE = make(LibComponentNames.SIZE,
+			builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 	public static final DataComponentType<ResourceLocation> MOB_TYPE = make(LibComponentNames.MOB_TYPE,
 			builder -> builder.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC));
 	public static final DataComponentType<Integer> NOT_MY_NAME_STEP = make(LibComponentNames.NOT_MY_NAME_STEP,
 			builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+	public static final DataComponentType<String> SEXTANT_MODE = make(LibComponentNames.SEXTANT_MODE,
+			builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
+	public static final DataComponentType<List<BlockPos>> LOKI_RING_OFFSET_LIST = make(LibComponentNames.LOKI_RING_OFFSET_LIST,
+			builder -> builder.persistent(BlockPos.CODEC.sizeLimitedListOf(RingOfLokiItem.MAX_NUM_CURSORS)).cacheEncoding()
+					.networkSynchronized(BlockPos.STREAM_CODEC.apply(ByteBufCodecs.list(RingOfLokiItem.MAX_NUM_CURSORS))));
+	public static final DataComponentType<List<String>> ANCIENT_WILLS = make(LibComponentNames.ANCIENT_WILLS,
+			builder -> builder.persistent(Codec.STRING.sizeLimitedListOf(16)).cacheEncoding()
+					.networkSynchronized(ByteBufCodecs.STRING_UTF8.apply(ByteBufCodecs.list(16))));
+	public static final DataComponentType<UUID> SOULBOUND = make(LibComponentNames.SOULBOUND,
+			builder -> builder.persistent(UUIDUtil.CODEC).networkSynchronized(UUIDUtil.STREAM_CODEC));
+	public static final DataComponentType<Map<ResourceLocation, BlockPos>> BOUND_POSITIONS = make(LibComponentNames.BOUND_POSITIONS,
+			builder -> builder.persistent(Codec.unboundedMap(ResourceLocation.CODEC, BlockPos.CODEC)).cacheEncoding()
+					.networkSynchronized(ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC, BlockPos.STREAM_CODEC)));
 
 	public static void registerComponents(BiConsumer<DataComponentType<?>, ResourceLocation> biConsumer) {
 		for (Map.Entry<String, DataComponentType<?>> entry : ALL.entrySet()) {

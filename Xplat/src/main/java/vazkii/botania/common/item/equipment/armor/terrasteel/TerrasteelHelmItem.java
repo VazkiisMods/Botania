@@ -21,20 +21,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.BotaniaDamageTypes;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.item.BotaniaItems;
 
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDiscountArmor, AncientWillContainer {
-
-	public static final String TAG_ANCIENT_WILL = "AncientWill";
 
 	public TerrasteelHelmItem(Properties props) {
 		super(Type.HELMET, props);
@@ -63,7 +61,13 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 
 	@Override
 	public void addAncientWill(ItemStack stack, AncientWillType will) {
-		ItemNBTHelper.setBoolean(stack, TAG_ANCIENT_WILL + "_" + will.name().toLowerCase(Locale.ROOT), true);
+		Set<String> setOfWills = new TreeSet<>(getAncientWillsList(stack));
+		setOfWills.add(getWillId(will));
+		stack.set(BotaniaDataComponents.ANCIENT_WILLS, new ArrayList<>(setOfWills));
+	}
+
+	private static String getWillId(AncientWillType will) {
+		return will.name().toLowerCase(Locale.ROOT);
 	}
 
 	@Override
@@ -72,7 +76,12 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 	}
 
 	private static boolean hasAncientWill_(ItemStack stack, AncientWillType will) {
-		return ItemNBTHelper.getBoolean(stack, TAG_ANCIENT_WILL + "_" + will.name().toLowerCase(Locale.ROOT), false);
+		return getAncientWillsList(stack).contains(getWillId(will));
+	}
+
+	@Unmodifiable
+	private static List<String> getAncientWillsList(ItemStack stack) {
+		return stack.getOrDefault(BotaniaDataComponents.ANCIENT_WILLS, Collections.emptyList());
 	}
 
 	@Override
@@ -80,19 +89,13 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 		super.addArmorSetDescription(stack, list);
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill(stack, type)) {
-				list.add(Component.translatable("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable("botania.armorset.will_" + getWillId(type) + ".desc").withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}
 
 	public static boolean hasAnyWill(ItemStack stack) {
-		for (AncientWillType type : AncientWillType.values()) {
-			if (hasAncientWill_(stack, type)) {
-				return true;
-			}
-		}
-
-		return false;
+		return !getAncientWillsList(stack).isEmpty();
 	}
 
 	public static boolean hasTerraArmorSet(Player player) {
@@ -114,6 +117,7 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 		if (hasTerraArmorSet(player)) {
 			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
 			if (!stack.isEmpty() && stack.getItem() instanceof TerrasteelHelmItem) {
+				// TODO: might be worth refactoring this to only get the set of wills once
 				if (hasAncientWill_(stack, AncientWillType.AHRIM)) {
 					entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1));
 				}

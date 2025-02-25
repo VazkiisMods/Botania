@@ -19,6 +19,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -36,11 +39,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -61,16 +62,11 @@ import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 public class SextantItem extends Item {
 	public static final ResourceLocation MULTIBLOCK_ID = botaniaRL("sextant");
 	private static final int MAX_RADIUS = 256;
-	private static final String TAG_SOURCE_X = "sourceX";
-	private static final String TAG_SOURCE_Y = "sourceY";
-	private static final String TAG_SOURCE_Z = "sourceZ";
-	private static final String TAG_MODE = "mode";
 
 	public SextantItem(Properties builder) {
 		super(builder);
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -89,19 +85,19 @@ public class SextantItem extends Item {
 			return;
 		}
 
-		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
-		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-		if (y != Integer.MIN_VALUE) {
+		GlobalPos centerPos = stack.get(BotaniaDataComponents.BINDING_POS);
+		if (centerPos != null && centerPos.dimension() == world.dimension()) {
 			double radius = calculateRadius(stack, living);
 			WispParticleData data = WispParticleData.wisp(0.3F, 0F, 1F, 1F, 1);
-			world.addParticle(data, x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
+			world.addParticle(data,
+					centerPos.pos().getX() + 0.5, centerPos.pos().getY() + 1, centerPos.pos().getZ() + 0.5,
+					0, 0.1, 0);
 			var visualizer = getMode(stack).getVisualizer();
 			for (int i = count % 20; i < 360; i += 20) {
 				float radian = (float) (i * Math.PI / 180);
 				double cosR = Math.cos(radian) * radius;
 				double sinR = Math.sin(radian) * radius;
-				visualizer.visualize(world, x, y, z, data, cosR, sinR);
+				visualizer.visualize(world, centerPos.pos().getX(), centerPos.pos().getY(), centerPos.pos().getZ(), data, cosR, sinR);
 			}
 		}
 	}
@@ -143,7 +139,9 @@ public class SextantItem extends Item {
 				// By rotating the components and mirroring the resulting positions to the other seven octants,
 				// each set of values generates up to 24 blocks of the sphere.
 				generateMirroredPositions(x, y, z, map, matcher);
+				//noinspection SuspiciousNameCombination
 				generateMirroredPositions(y, z, x, map, matcher);
+				//noinspection SuspiciousNameCombination
 				generateMirroredPositions(z, x, y, map, matcher);
 			}
 		}
@@ -167,81 +165,82 @@ public class SextantItem extends Item {
 		double radius = calculateRadius(stack, living);
 		if (1 < radius && radius <= MAX_RADIUS) {
 			IStateMatcher matcher = PatchouliAPI.get().predicateMatcher(Blocks.COBBLESTONE, s -> !s.isAir());
-			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
-			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
-			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-			if (y != Integer.MIN_VALUE) {
+			GlobalPos centerPos = stack.get(BotaniaDataComponents.BINDING_POS);
+			if (centerPos != null && centerPos.dimension() == world.dimension()) {
 				Map<BlockPos, IStateMatcher> map = new HashMap<>();
 				getMode(stack).getCreator().create(matcher, radius + 0.5, map);
 				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
 				Proxy.INSTANCE.showMultiblock(sparse, Component.literal("r = " + getRadiusString(radius)),
-						new BlockPos(x, y, z), Rotation.NONE);
+						centerPos.pos(), Rotation.NONE);
 			}
 		}
 	}
 
-	private static void makeCircle(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map) {
-		// 2D version of makeSphere, assuming y=0 at all times
-		final int maxR2 = (int) Math.floor(radius * radius);
-		int z = (int) Math.floor(radius);
-		for (int x = 0;; x++) {
-			while (x * x + z * z > maxR2 && z >= x) {
-				z--;
+	private static ShapeCreator defineCircleShapeCreator(Direction axis1, Direction axis2) {
+		return (IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map) -> {
+			// 2D version of makeSphere, assuming y=0 at all times
+			final int maxR2 = (int) Math.floor(radius * radius);
+			int z = (int) Math.floor(radius);
+			for (int x = 0;; x++) {
+				while (x * x + z * z > maxR2 && z >= x) {
+					z--;
+				}
+				if (z < x) {
+					break;
+				}
+				generateMirroredPositions(axis1.getNormal(), axis2.getNormal(), x, z, map, matcher);
+				generateMirroredPositions(axis1.getNormal(), axis2.getNormal(), z, x, map, matcher);
 			}
-			if (z < x) {
-				break;
-			}
-			generateMirroredPositions(x, z, map, matcher);
-			generateMirroredPositions(z, x, map, matcher);
-		}
+		};
 	}
 
-	private static void generateMirroredPositions(int x, int z, Map<BlockPos, IStateMatcher> map, IStateMatcher matcher) {
+	private static void generateMirroredPositions(Vec3i normal1, Vec3i normal2, int offset1, int offset2,
+			Map<BlockPos, IStateMatcher> map, IStateMatcher matcher) {
 		Stream.of(
-				new BlockPos(x, 0, z), new BlockPos(-x, 0, z),
-				new BlockPos(x, 0, -z), new BlockPos(-x, 0, -z)
+				new BlockPos(normal1.multiply(offset1).offset(normal2.multiply(offset2))),
+				new BlockPos(normal1.multiply(-offset1).offset(normal2.multiply(offset2))),
+				new BlockPos(normal1.multiply(offset1).offset(normal2.multiply(-offset2))),
+				new BlockPos(normal1.multiply(-offset1).offset(normal2.multiply(-offset2)))
 		).forEach(pos -> map.put(pos, matcher));
 	}
 
-	private static Modes getMode(ItemStack stack) {
-		String modeString = ItemNBTHelper.getString(stack, TAG_MODE, "circle");
-		return Arrays.stream(Modes.values()).filter(m -> m.getKey().equals(modeString)).findFirst().orElse(Modes.CIRCLE);
+	private static SextantMode getMode(ItemStack stack) {
+		String modeString = stack.getOrDefault(BotaniaDataComponents.SEXTANT_MODE, SextantMode.CIRCLE_FLAT.getKey());
+		return Arrays.stream(SextantMode.values()).filter(m -> m.getKey().equals(modeString)).findFirst()
+				.orElse(SextantMode.CIRCLE_FLAT);
 	}
 
 	private void reset(Level world, Player player, ItemStack stack) {
-		if (ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE) == Integer.MIN_VALUE) {
+		if (!stack.has(BotaniaDataComponents.BINDING_POS)) {
 			if (!world.isClientSide) {
-				Modes currentMode = getMode(stack);
-				int numModes = Modes.values().length;
+				SextantMode currentMode = getMode(stack);
+				int numModes = SextantMode.values().length;
 				int nextMode = currentMode.ordinal() + 1;
-				setMode(stack, Modes.values()[nextMode >= numModes ? 0 : nextMode]);
+				setMode(stack, SextantMode.values()[nextMode >= numModes ? 0 : nextMode]);
 			} else {
 				player.playSound(BotaniaSounds.ding, 0.1F, 1F);
 			}
 		} else {
-			ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
+			stack.remove(BotaniaDataComponents.BINDING_POS);
 		}
 		if (world.isClientSide) {
 			Proxy.INSTANCE.clearSextantMultiblock();
 		}
 	}
 
-	private static void setMode(ItemStack stack, Modes mode) {
-		ItemNBTHelper.setString(stack, TAG_MODE, mode.getKey());
+	private static void setMode(ItemStack stack, SextantMode mode) {
+		stack.set(BotaniaDataComponents.SEXTANT_MODE, mode.getKey());
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!player.isSecondaryUseActive()) {
 			BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 128, false);
 			if (rtr.getType() == HitResult.Type.BLOCK) {
 				if (!world.isClientSide) {
 					BlockPos pos = rtr.getBlockPos();
-					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getX());
-					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getY());
-					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getZ());
+					stack.set(BotaniaDataComponents.BINDING_POS, GlobalPos.of(world.dimension(), pos));
 				}
 				return ItemUtils.startUsingInstantly(world, player, hand);
 			}
@@ -253,10 +252,9 @@ public class SextantItem extends Item {
 	}
 
 	private static double calculateRadius(ItemStack stack, LivingEntity living) {
-		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
-		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-		Vec3 source = new Vec3(x, y, z);
+		GlobalPos pos = stack.getOrDefault(BotaniaDataComponents.BINDING_POS,
+				GlobalPos.of(living.level().dimension(), BlockPos.ZERO));
+		Vec3 source = pos.pos().getBottomCenter();
 
 		Vec3 centerVec = VecHelper.fromEntityCenter(living);
 		Vec3 diffVec = source.subtract(centerVec);
@@ -272,7 +270,7 @@ public class SextantItem extends Item {
 	}
 
 	@Override
-	public Component getName(@NotNull ItemStack stack) {
+	public Component getName(ItemStack stack) {
 		Component mode = Component.literal(" (")
 				.append(Component.translatable(getModeString(stack)))
 				.append(")");
@@ -335,24 +333,32 @@ public class SextantItem extends Item {
 	}
 
 	@FunctionalInterface
-	private interface ShapeCreator {
+	public interface ShapeCreator {
 		void create(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map);
 	}
 
 	@FunctionalInterface
-	private interface ShapeVisualizer {
+	public interface ShapeVisualizer {
 		void visualize(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR);
 	}
 
-	public enum Modes {
-		CIRCLE("circle", SextantItem::makeCircle, SextantItem::visualizeCircle),
+	public enum SextantMode {
+		CIRCLE_FLAT("circle", SextantItem.defineCircleShapeCreator(
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.X),
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Z)), SextantItem::visualizeCircle),
+		CIRCLE_X("circle_x", SextantItem.defineCircleShapeCreator(
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Y),
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Z)), SextantItem::visualizeCircle),
+		CIRCLE_Z("circle_z", SextantItem.defineCircleShapeCreator(
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.X),
+				Direction.get(Direction.AxisDirection.POSITIVE, Direction.Axis.Y)), SextantItem::visualizeCircle),
 		SPHERE("sphere", SextantItem::makeSphere, SextantItem::visualizeSphere);
 
 		private final String key;
 		private final ShapeCreator creator;
 		private final ShapeVisualizer visualizer;
 
-		Modes(String key, ShapeCreator creator, ShapeVisualizer visualizer) {
+		SextantMode(String key, ShapeCreator creator, ShapeVisualizer visualizer) {
 			this.key = key;
 			this.creator = creator;
 			this.visualizer = visualizer;

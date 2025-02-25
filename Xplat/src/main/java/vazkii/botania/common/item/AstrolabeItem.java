@@ -13,8 +13,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,9 +38,9 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.BlockProviderHelper;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
@@ -49,11 +49,10 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AstrolabeItem extends Item {
 
-	public static final String TAG_BLOCKSTATE = "blockstate";
-	public static final String TAG_SIZE = "size";
 	public static final int BASE_COST = 320;
 
 	public AstrolabeItem(Properties props) {
@@ -215,7 +214,7 @@ public class AstrolabeItem extends Item {
 				: null;
 	}
 
-	public static List<BlockPos> getPlacePositions(BlockPlaceContext ctx, int size) {
+	public static List<BlockPos> getPlacePositions(@Nullable BlockPlaceContext ctx, int size) {
 		if (ctx == null || ctx.getPlayer() == null) {
 			return List.of();
 		}
@@ -270,27 +269,22 @@ public class AstrolabeItem extends Item {
 
 	public static boolean setBlock(ItemStack stack, BlockState state) {
 		if (!state.isAir()) {
-			// This stores a block state (instead of just the block ID) for legacy reasons.
-			ItemNBTHelper.setCompound(stack, TAG_BLOCKSTATE, NbtUtils.writeBlockState(state.getBlock().defaultBlockState()));
+			stack.set(BotaniaDataComponents.BLOCK_TYPE, BuiltInRegistries.BLOCK.getKey(state.getBlock()));
 			return true;
 		}
 		return false;
 	}
 
 	public static void setSize(ItemStack stack, int size) {
-		ItemNBTHelper.setInt(stack, TAG_SIZE, size | 1);
+		stack.set(BotaniaDataComponents.SIZE, size | 1);
 	}
 
 	public static int getSize(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_SIZE, 3) | 1;
+		return stack.getOrDefault(BotaniaDataComponents.SIZE, 3) | 1;
 	}
 
 	public static Block getBlock(ItemStack stack, HolderGetter<Block> holderGetter) {
-		return getBlockState(stack, holderGetter).getBlock();
-	}
-
-	public static BlockState getBlockState(ItemStack stack, HolderGetter<Block> holderGetter) {
-		return NbtUtils.readBlockState(holderGetter, ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, false));
+		return BuiltInRegistries.BLOCK.get(stack.get(BotaniaDataComponents.BLOCK_TYPE));
 	}
 
 	@Override
@@ -299,7 +293,7 @@ public class AstrolabeItem extends Item {
 			return;
 		}
 
-		Block block = getBlock(stack, context.registries().lookupOrThrow(Registries.BLOCK));
+		Block block = getBlock(stack, Objects.requireNonNull(context.registries()).lookupOrThrow(Registries.BLOCK));
 		int size = getSize(stack);
 
 		tip.add(Component.literal(size + " x " + size));

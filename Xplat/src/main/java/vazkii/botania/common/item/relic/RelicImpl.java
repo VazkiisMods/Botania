@@ -14,14 +14,13 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.advancements.RelicBindTrigger;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.UUID;
 
 public class RelicImpl implements Relic {
-	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
 	private final ItemStack stack;
 	@Nullable
@@ -34,21 +33,13 @@ public class RelicImpl implements Relic {
 
 	@Override
 	public void bindToUUID(UUID uuid) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND_UUID, uuid.toString());
+		stack.set(BotaniaDataComponents.SOULBOUND, uuid);
 	}
 
 	@Nullable
 	@Override
 	public UUID getSoulbindUUID() {
-		if (ItemNBTHelper.verifyExistance(stack, TAG_SOULBIND_UUID)) {
-			try {
-				return UUID.fromString(ItemNBTHelper.getString(stack, TAG_SOULBIND_UUID, ""));
-			} catch (IllegalArgumentException ex) { // Bad UUID in tag
-				ItemNBTHelper.removeEntry(stack, TAG_SOULBIND_UUID);
-			}
-		}
-
-		return null;
+		return stack.get(BotaniaDataComponents.SOULBOUND);
 	}
 
 	@Nullable

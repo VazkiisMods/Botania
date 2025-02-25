@@ -13,7 +13,8 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -33,20 +34,22 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
-import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.advancements.LokiPlaceTrigger;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.DataComponentHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
@@ -57,16 +60,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 	 * This limit exists to prevent players from accidentally NBT-banning themselves from a world or server.
 	 * TODO 1.21: It might be possible to increase this if the storage tag structure is optimized.
 	 */
-	private static final int MAX_NUM_CURSORS = 1023;
-	private static final String TAG_CURSOR_LIST = "cursorList";
-	private static final String TAG_CURSOR_PREFIX = "cursor";
-	private static final String TAG_CURSOR_COUNT = "cursorCount";
-	private static final String TAG_X_OFFSET = "xOffset";
-	private static final String TAG_Y_OFFSET = "yOffset";
-	private static final String TAG_Z_OFFSET = "zOffset";
-	private static final String TAG_X_ORIGIN = "xOrigin";
-	private static final String TAG_Y_ORIGIN = "yOrigin";
-	private static final String TAG_Z_ORIGIN = "zOrigin";
+	public static final int MAX_NUM_CURSORS = 1023;
 
 	private static boolean recCall = false;
 
@@ -81,7 +75,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 		}
 
 		ItemStack stack = player.getItemInHand(hand);
-		List<BlockPos> cursors = getCursorList(lokiRing);
+		List<BlockPos> cursors = new ArrayList<>(getCursorList(lokiRing));
 
 		if (lookPos.getType() != HitResult.Type.BLOCK) {
 			return InteractionResult.PASS;
@@ -89,19 +83,19 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 
 		BlockPos hit = lookPos.getBlockPos();
 		if (stack.isEmpty() && hand == InteractionHand.MAIN_HAND) {
-			BlockPos originCoords = getBindingCenter(lokiRing);
+			GlobalPos originCoords = getBindingCenter(lokiRing);
 			if (!world.isClientSide) {
-				if (originCoords.getY() == Integer.MIN_VALUE) {
+				if (originCoords == null || originCoords.dimension() != world.dimension()) {
 					// Initiate a new pending list of positions
-					setBindingCenter(lokiRing, hit);
+					setBindingCenter(lokiRing, GlobalPos.of(world.dimension(), hit));
 					setCursorList(lokiRing, null);
 				} else {
-					if (originCoords.equals(hit)) {
+					if (originCoords.pos().equals(hit)) {
 						// Finalize the pending list of positions
 						exitBindingMode(lokiRing);
 					} else {
 						// Toggle offsets on or off from the pending list of positions
-						BlockPos relPos = hit.subtract(originCoords);
+						BlockPos relPos = hit.subtract(originCoords.pos());
 
 						boolean removed = cursors.remove(relPos);
 						if (!removed) {
@@ -212,30 +206,33 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 		if (lookPos != null
 				&& lookPos.getType() == HitResult.Type.BLOCK
 				&& !player.level().isEmptyBlock(((BlockHitResult) lookPos).getBlockPos())) {
-			List<BlockPos> list = getCursorList(stack);
-			BlockPos origin = getBindingCenter(stack);
-
-			for (int i = 0; i < list.size(); i++) {
-				if (origin.getY() != Integer.MIN_VALUE) {
-					list.set(i, list.get(i).offset(origin));
-				} else {
-					list.set(i, list.get(i).offset(((BlockHitResult) lookPos).getBlockPos()));
-				}
+			GlobalPos origin = getBindingCenter(stack);
+			if (origin != null && origin.dimension() != player.level().dimension()) {
+				// binding mode for different dimension
+				return Collections.emptyList();
 			}
 
-			return list;
+			List<BlockPos> list = getCursorList(stack);
+			List<BlockPos> result = new ArrayList<>(list.size());
+			Vec3i offset = origin != null ? origin.pos() : ((BlockHitResult) lookPos).getBlockPos();
+			for (BlockPos cursor : list) {
+				result.add(cursor.offset(offset));
+			}
+
+			return result;
 		}
 
 		return ImmutableList.of();
 	}
 
+	@Nullable
 	@Override
 	public BlockPos getSourceWireframe(Player player, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		if (getLokiRing(player) == stack) {
-			BlockPos currentBuildCenter = getBindingCenter(stack);
-			if (currentBuildCenter.getY() != Integer.MIN_VALUE) {
-				return currentBuildCenter;
+			GlobalPos currentBuildCenter = getBindingCenter(stack);
+			if (currentBuildCenter != null && currentBuildCenter.dimension() == player.level().dimension()) {
+				return currentBuildCenter.pos();
 			} else if (mc.hitResult instanceof BlockHitResult hitRes
 					&& mc.hitResult.getType() == HitResult.Type.BLOCK
 					&& !getCursorList(stack).isEmpty()) {
@@ -250,60 +247,26 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 		return EquipmentHandler.findOrEmpty(BotaniaItems.lokiRing, player);
 	}
 
-	private static BlockPos getBindingCenter(ItemStack stack) {
-		int x = ItemNBTHelper.getInt(stack, TAG_X_ORIGIN, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_Y_ORIGIN, Integer.MIN_VALUE);
-		int z = ItemNBTHelper.getInt(stack, TAG_Z_ORIGIN, 0);
-		return new BlockPos(x, y, z);
+	@Nullable
+	private static GlobalPos getBindingCenter(ItemStack stack) {
+		return stack.get(BotaniaDataComponents.BINDING_POS);
 	}
 
 	private static void exitBindingMode(ItemStack stack) {
-		setBindingCenter(stack, Bound.UNBOUND_POS);
+		stack.remove(BotaniaDataComponents.BINDING_POS);
 	}
 
-	private static void setBindingCenter(ItemStack stack, BlockPos pos) {
-		ItemNBTHelper.setInt(stack, TAG_X_ORIGIN, pos.getX());
-		ItemNBTHelper.setInt(stack, TAG_Y_ORIGIN, pos.getY());
-		ItemNBTHelper.setInt(stack, TAG_Z_ORIGIN, pos.getZ());
+	private static void setBindingCenter(ItemStack stack, GlobalPos pos) {
+		stack.set(BotaniaDataComponents.BINDING_POS, pos);
 	}
 
+	@Unmodifiable
 	private static List<BlockPos> getCursorList(ItemStack stack) {
-		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
-		List<BlockPos> cursors = new ArrayList<>();
-
-		int count = cmp.getInt(TAG_CURSOR_COUNT);
-		for (int i = 0; i < count; i++) {
-			CompoundTag cursorCmp = cmp.getCompound(TAG_CURSOR_PREFIX + i);
-			int x = cursorCmp.getInt(TAG_X_OFFSET);
-			int y = cursorCmp.getInt(TAG_Y_OFFSET);
-			int z = cursorCmp.getInt(TAG_Z_OFFSET);
-			cursors.add(new BlockPos(x, y, z));
-		}
-
-		return cursors;
+		return stack.getOrDefault(BotaniaDataComponents.LOKI_RING_OFFSET_LIST, Collections.emptyList());
 	}
 
 	private static void setCursorList(ItemStack stack, @Nullable List<BlockPos> cursors) {
-		CompoundTag cmp = new CompoundTag();
-		if (cursors != null) {
-			int i = 0;
-			for (BlockPos cursor : cursors) {
-				CompoundTag cursorCmp = cursorToCmp(cursor);
-				cmp.put(TAG_CURSOR_PREFIX + i, cursorCmp);
-				i++;
-			}
-			cmp.putInt(TAG_CURSOR_COUNT, i);
-		}
-
-		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
-	}
-
-	private static CompoundTag cursorToCmp(BlockPos pos) {
-		CompoundTag cmp = new CompoundTag();
-		cmp.putInt(TAG_X_OFFSET, pos.getX());
-		cmp.putInt(TAG_Y_OFFSET, pos.getY());
-		cmp.putInt(TAG_Z_OFFSET, pos.getZ());
-		return cmp;
+		DataComponentHelper.setNonEmpty(stack, BotaniaDataComponents.LOKI_RING_OFFSET_LIST, cursors);
 	}
 
 	public static Relic makeRelic(ItemStack stack) {

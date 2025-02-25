@@ -11,9 +11,8 @@ package vazkii.botania.common.item.relic;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,22 +29,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
@@ -55,9 +52,6 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		super(props);
 	}
 
-	private static final String TAG_TARGET_PREFIX = "target_";
-
-	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -75,11 +69,10 @@ public class EyeOfTheFlugelItem extends RelicItem {
 				}
 			} else {
 				ItemStack stack = ctx.getItemInHand();
-				/* todo
-				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
-				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location(), nbt);
-				
-				 */
+				Map<ResourceLocation, BlockPos> boundPositions = new HashMap<>(stack.getOrDefault(
+						BotaniaDataComponents.BOUND_POSITIONS, Collections.emptyMap()));
+				boundPositions.put(world.dimension().location(), pos);
+				stack.set(BotaniaDataComponents.BOUND_POSITIONS, boundPositions);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
 			}
 
@@ -100,26 +93,19 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		}
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
-	@NotNull
 	@Override
-	public ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
-		String tag = TAG_TARGET_PREFIX + world.dimension().location();
-		Tag nbt = ItemNBTHelper.get(stack, tag);
-		if (nbt == null) {
+	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity living) {
+		BlockPos loc = stack.getOrDefault(BotaniaDataComponents.BOUND_POSITIONS, Map.<ResourceLocation, BlockPos>of())
+				.get(world.dimension().location());
+		if (loc == null) {
 			return stack;
 		}
-		Optional<BlockPos> maybeLoc = BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result();
-		if (!maybeLoc.isPresent()) {
-			ItemNBTHelper.removeEntry(stack, tag);
-			return stack;
-		}
-		BlockPos loc = maybeLoc.get();
+
 		int x = loc.getX();
 		int y = loc.getY();
 		int z = loc.getZ();
@@ -147,7 +133,6 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		return 40;
 	}
 
-	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -163,13 +148,8 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		@Nullable
 		@Override
 		public BlockPos getBinding(Level world) {
-			String tag = TAG_TARGET_PREFIX + world.dimension().location();
-			Tag nbt = ItemNBTHelper.get(stack, tag);
-			if (nbt != null) {
-				return BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result()
-						.orElse(null);
-			}
-			return null;
+			return stack.getOrDefault(BotaniaDataComponents.BOUND_POSITIONS, Map.<ResourceLocation, BlockPos>of())
+					.get(world.dimension().location());
 		}
 	}
 
