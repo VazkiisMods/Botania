@@ -26,6 +26,8 @@
   "botaniamisc.filter0": "Pickup only items in Frames",
   "botaniamisc.filter1": "Pickup only items not in Frames",
   "botaniamisc.filter2": "Pickup any items",
+  "botaniamisc.filter.expand_list": "Filter by contents of item in frame",
+  "botaniamisc.filter.single_item": "Filter only by item in frame",
   "botaniamisc.retainer.retain_all": "Retain original number of items requested",
   "botaniamisc.retainer.retain_missing": "Retain number of missing items",
   "botaniamisc.optifine_warning": "§4[WARNING]§r <Botania>: Optifine detected. Please be aware that Optifine causes a lot of issues with botania, and you might experience issues such as mana not moving between flowers and spreaders, and no information being displayed when you hold a wand and look at a mana pool or spreader. We recommend Sodium as an alternative to Optifine's performance improvements.",
