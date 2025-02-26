@@ -30,7 +30,12 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	private int passiveDecayTicks;
 
 	public HydroangeasBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.HYDROANGEAS, pos, state, FluidTags.WATER, 40, 1);
+		super(BotaniaFlowerBlocks.HYDROANGEAS, pos, state, FluidTags.WATER, 40);
+	}
+
+	@Override
+	public int manaPerTick() {
+		return 1;
 	}
 
 	@Override

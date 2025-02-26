@@ -2485,11 +2485,11 @@
 
   "botania.entry.thermalily": "Thermalily",
   "botania.tagline.thermalily": "Mana from lava",
-  "botania.page.thermalily0": "The $(item)Thermalily$(0) is a $(item)Lava$(0)-flavoured counterpart to the $(l:generating_flowers/hydroangeas)$(item)Hydroangeas$(0)$(/l). The flower absorbs $(item)Lava$(0) around it (at the same altitude) to generate $(thing)Mana$(0).$(p)After absorbing one block of $(item)Lava$(0), the flower will produce $(thing)Mana$(0) continually for around 30 seconds. Afterwards, though, it needs a bit of time to cool down before it can produce any more.",
+  "botania.page.thermalily0": "The $(item)Thermalily$(0) is a $(item)Lava$(0)-flavoured counterpart to the $(l:generating_flowers/hydroangeas)$(item)Hydroangeas$(0)$(/l). The flower absorbs $(item)Lava$(0) at the same altitude around it (as well as lava from cauldrons) to generate $(thing)Mana$(0).$(p)After absorbing one block of $(item)Lava$(0), the flower will produce $(thing)Mana$(0) continually for around 30 seconds. Afterwards, though, it needs a bit of time to cool down before it can produce any more.",
   "botania.page.thermalily1": "As temperamental as its drink of choice, though, it tends to randomly vary how long a cooldown period lasts-- anywhere from 20 seconds to a full 5 minutes!$(p)You can tell how long its most recent cooldown period lasts with a $(item)Redstone Comparator$(0): twenty seconds for each level of strength.",
   "botania.page.thermalily2": "The $(thing)Mana$(0) throughput the $(item)Thermalily$(0) produces during its active phase is extremely high; it's an ideal flower for a quick boost in stores.$(p)However, during its \"cooldown\" period, any adjacent $(thing)Lava$(0) will be absorbed and reset the cooldown without yielding any $(thing)Mana$(0).",
-  "botania.page.thermalily3": "While placing $(item)Lava$(0) in the world is definitely possible via $(item)Dispensers$(0), automatically gathering it and carrying it from the $(thing)Nether$(0) or deep underground is not.$(p)As such, the $(item)Thermalily$(0) is classified as a \"semi-automatable\" flower.",
-  "botania.page.thermalily4": "$(o)The hardest flower in the game$().",
+  "botania.page.thermalily3": "If you supply the Thermalily with lava in a timely manner, the flower will begin to burn hotter and hotter. The average cooldown is proportional to the heat of the flower, with higher heat resulting in lower cooldowns",
+  "botania.page.thermalily4": "$(o)Burn baby burn$().",
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana from experience",
